@@ -26,11 +26,17 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Documentation\" />
+  </ItemGroup>
   <ItemGroup>
     <Compile Include="cMDTBuildLab.psd1" />
     <Compile Include="cMDTBuildLab.psm1" />
     <Compile Include="cMDTBuildLab.tests.ps1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Documentation\LICENSE" />
+    <Content Include="Documentation\README.md" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Target Name="Build" />
