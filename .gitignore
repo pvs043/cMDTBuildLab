@@ -67,7 +67,11 @@ artifacts/
 .builds
 *.pidb
 *.svclog
-*.scc
+*.scc*
+
+# VS 2015
+*.pssproj
+*.sln
 
 # Chutzpah Test files
 _Chutzpah*
