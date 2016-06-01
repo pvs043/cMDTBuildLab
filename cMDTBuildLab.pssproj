@@ -30,6 +30,11 @@
     <Compile Include="cMDTBuildLab.psd1" />
     <Compile Include="cMDTBuildLab.psm1" />
     <Compile Include="cMDTBuildLab.tests.ps1" />
+    <Compile Include="Examples\Deploy_MDT_Server.ps1" />
+    <Compile Include="Examples\Deploy_MDT_Server_ConfigurationData.psd1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Examples\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Target Name="Build" />
