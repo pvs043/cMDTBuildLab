@@ -32,6 +32,7 @@
     <Compile Include="cMDTBuildLab.tests.ps1" />
     <Compile Include="Examples\Deploy_MDT_Server.ps1" />
     <Compile Include="Examples\Deploy_MDT_Server_ConfigurationData.psd1" />
+    <Compile Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Examples\" />
