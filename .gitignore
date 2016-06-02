@@ -72,6 +72,8 @@ artifacts/
 # VS 2015
 *.pssproj
 *.sln
+.gitattributes
+.gitignore
 
 # Chutzpah Test files
 _Chutzpah*
