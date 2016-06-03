@@ -569,8 +569,12 @@ License
 
 ### Respects
 
-Johan Arwidmark: http://deploymentresearch.com/Research
-Mikael Nystrom: https://anothermike2.wordpress.com/
+[Johan Arwidmark] (http://deploymentresearch.com/Research): Deployment Research
+
+[Mikael Nystrom] (https://anothermike2.wordpress.com): The Deployment Bunny
+
 [Jason Helmick] (https://twitter.com/theJasonHelmick), [Jeffrey Snover] (https://twitter.com/@jsnover):
+
+[2. Advanced PowerShell Desired State Configuration (DSC) and Custom Resources] (https://mva.microsoft.com/en-US/training-courses/advanced-powershell-desired-state-configuration-dsc-and-custom-resources-8702?l=3DnsS2H1_1504984382)
 
  
