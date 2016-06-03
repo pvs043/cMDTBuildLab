@@ -36,8 +36,11 @@ Configuration DeployMDTServerContract
         [bool]$weblink = $false
         If ($Node.SourcePath -like "*/*") { $weblink = $true }
 
-        LocalConfigurationManager          {
-            RebootNodeIfNeeded = $AllNodes.RebootNodeIfNeeded            ConfigurationMode  = $AllNodes.ConfigurationMode           }
+        LocalConfigurationManager  
+        {
+            RebootNodeIfNeeded = $AllNodes.RebootNodeIfNeeded
+            ConfigurationMode  = $AllNodes.ConfigurationMode   
+        }
 
         cMDTPreReqs MDTPreReqs {
             Ensure       = "Present"            
@@ -63,7 +66,8 @@ Configuration DeployMDTServerContract
         WindowsFeature WDS {
             Ensure               = "Present"
             Name                 = "WDS"
-            IncludeAllSubFeature = $true            LogPath              = "C:\Windows\debug\DSC_WindowsFeature_WindowsDeploymentServices.log"
+            IncludeAllSubFeature = $true
+            LogPath              = "C:\Windows\debug\DSC_WindowsFeature_WindowsDeploymentServices.log"
         }
 
         cWDSConfiguration wdsConfig {
@@ -71,7 +75,14 @@ Configuration DeployMDTServerContract
             RemoteInstallPath = "C:\RemoteInstall"
         }
 
-        Package ADK {            Ensure     = "Present"            Name       = "Windows Assessment and Deployment Kit - Windows 10"            Path       = "$($Node.TempLocation)\Windows Assessment and Deployment Kit\adksetup.exe"            ProductId  = "82daddb6-d4e0-42cb-988d-1e7f5739e155"            Arguments  = "/quiet /features OptionId.DeploymentTools OptionId.WindowsPreinstallationEnvironment"            ReturnCode = 0        }
+        Package ADK {
+            Ensure     = "Present"
+            Name       = "Windows Assessment and Deployment Kit - Windows 10"
+            Path       = "$($Node.TempLocation)\Windows Assessment and Deployment Kit\adksetup.exe"
+            ProductId  = "82daddb6-d4e0-42cb-988d-1e7f5739e155"
+            Arguments  = "/quiet /features OptionId.DeploymentTools OptionId.WindowsPreinstallationEnvironment"
+            ReturnCode = 0
+        }
 
         Package MDT {
             Ensure     = "Present"
@@ -93,7 +104,9 @@ Configuration DeployMDTServerContract
             Ensure    = "Present"
             Name      = $Node.TempLocation.Replace("$($Node.TempLocation.Substring(0,2))\","")
             Path      = $Node.TempLocation.Substring(0,2)
-        }        cMDTDirectory DeploymentFolder
+        }
+
+        cMDTDirectory DeploymentFolder
         {
             Ensure    = "Present"
             Name      = $Node.PSDrivePath.Replace("$($Node.PSDrivePath.Substring(0,2))\","")
@@ -734,7 +747,9 @@ $($KeyboardLocalePE)
                 BackgroundFile          = $BackgroundFile
                 LiteTouchWIMDescription = $LiteTouchWIMDescription
                 DependsOn               = "[cMDTDirectory]DeploymentFolder"
-            }                    cWDSBootImage wdsBootImage {
+            }
+        
+            cWDSBootImage wdsBootImage {
                 Ensure    = $Ensure
                 Path      = $Path
                 ImageName = $ImageName
