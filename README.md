@@ -567,4 +567,10 @@ License
 **MIT**
 
 
+### Respects
 
+Johan Arwidmark: http://deploymentresearch.com/Research
+Mikael Nystrom: https://anothermike2.wordpress.com/
+[Jason Helmick] (https://twitter.com/theJasonHelmick), [Jeffrey Snover] (https://twitter.com/@jsnover):
+
+ 
