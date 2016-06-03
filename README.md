@@ -575,7 +575,7 @@ License
 
 [Jason Helmick] (https://twitter.com/theJasonHelmick), [Jeffrey Snover] (https://twitter.com/@jsnover):
 
-[1. Getting Started with PowerShell Desired State Configuration (DSC)] (https://mva.microsoft.com/en-US/training-courses/getting-started-with-powershell-desired-state-configuration-dsc--8672?l=bNL1FoG1_9004984382) [RU subtitres] (https://mva.microsoft.com/ru/training-courses/-powershell-dsc--8672?l=dlwgB3wFB_1704984382)
+[1. Getting Started with PowerShell Desired State Configuration (DSC)] (https://mva.microsoft.com/en-US/training-courses/getting-started-with-powershell-desired-state-configuration-dsc--8672?l=bNL1FoG1_9004984382). [RU] (https://mva.microsoft.com/ru/training-courses/-powershell-dsc--8672?l=dlwgB3wFB_1704984382)
 
 [2. Advanced PowerShell Desired State Configuration (DSC) and Custom Resources] (https://mva.microsoft.com/en-US/training-courses/advanced-powershell-desired-state-configuration-dsc-and-custom-resources-8702?l=3DnsS2H1_1504984382)
  
