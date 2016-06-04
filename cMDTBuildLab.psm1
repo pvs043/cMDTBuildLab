@@ -1029,42 +1029,7 @@ class cMDTBuildPreReqs
                         #Run setup to prepp files...
                     }
                 }
-
-                <#
-                if($file.SQL){                     
-                    if(Test-Path -Path "$($this.DownloadPath)\Microsoft SQL Server 2014 Express"){
-                        Write-Verbose "   SQL folder already present!"
-                    }
-                    Else{
-                        Write-Verbose "   Creating SQL folder..."
-                        New-Item -Path "$($this.DownloadPath)\Microsoft SQL Server 2014 Express" -ItemType Directory -Force
-                        $this.WebClientDownload($file.SQL,"$($this.DownloadPath)\Microsoft SQL Server 2014 Express\SQLEXPR_x64_ENU.exe")
-                    }
-                }
-                #>
-
-                if(Test-Path -Path "$($this.DownloadPath)\Community"){
-                    Write-Verbose "   Community folder already present!"
-                }
-                Else{
-                    Write-Verbose "   Creating Community folder..."
-                    New-Item -Path "$($this.DownloadPath)\Community" -ItemType Directory -Force
-                    New-Item -Path "$($this.DownloadPath)\Community\Scripts" -ItemType Directory -Force
-                    New-Item -Path "$($this.DownloadPath)\Community\Control" -ItemType Directory -Force
-                    New-Item -Path "$($this.DownloadPath)\Community\PEextraFiles" -ItemType Directory -Force
-                }
-
-                if($file.C01){
-                    #ToDo: Need test for all files...                  
-                    $this.WebClientDownload($file.C01,"$($this.DownloadPath)\Community\modelalias.zip")
-                    $this.ExtractFile("$($this.DownloadPath)\Community\modelalias.zip","$($this.DownloadPath)\Community")
-                    Move-Item "$($this.DownloadPath)\Community\ModelAlias\ModelAliasExit.vbs" "$($this.DownloadPath)\Community\Scripts"
-                    Remove-Item -Path "$($this.DownloadPath)\Community\ModelAlias" -Force
-                    Remove-Item -Path "$($this.DownloadPath)\Community\modelalias.zip" -Force
-                }
-            }
-            
-            
+            }            
         }
         else
         {
@@ -1100,22 +1065,6 @@ class cMDTBuildPreReqs
                if($file.ADK){
                  Write-Verbose "   Testing for ADK..."                 
                  $present = (Test-Path -Path "$($this.DownloadPath)\Windows Assessment and Deployment Kit\adksetup.exe")
-                 Write-Verbose "   $present"
-                 if($Present){}Else{return $false}   
-               }
-
-               <#
-               if($file.SQL){
-                 Write-Verbose "   Testing for SQL..."                 
-                 $present = (Test-Path -Path "$($this.DownloadPath)\Microsoft SQL Server 2014 Express\SQLEXPR_x64_ENU.exe")
-                 Write-Verbose "   $present"
-                 if($Present){}Else{return $false}   
-               }
-               #>
-
-               if($file.C01){
-                 Write-Verbose "   Testing for Community Script: ModelAlias.vbs"                 
-                 $present = (Test-Path -Path "$($this.DownloadPath)\Community\Scripts\ModelAliasExit.vbs")
                  Write-Verbose "   $present"
                  if($Present){}Else{return $false}   
                }
