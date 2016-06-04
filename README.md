@@ -21,7 +21,7 @@ cMDTBuildLab uses a number of components and open resource kit modules. The foll
 * [.Net3.5] - .Net Framweworks 3.5
 * [WMF5] (http://aka.ms/wmf5latest) - Windows Management Framework 5.0.
 * [xSmbShare] (http://www.powershellgallery.com/packages/xSmbShare/) - DSC Module available from Powershell Gallery.<br>
-  Install:
+  
   ```Powershell
   Install-Module -Name xSmbShare
   ```
