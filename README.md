@@ -45,9 +45,12 @@ Find-Module cMDTBuildLab | Install-Module
 You can use this module with a pull server, an SMB share or a local file repository. The following quick start example use a local file repository. We recommend that you create a Checkpoint/Snapshot of the test deployment server after the initial prerequisites and sourcefiles have been installed/copied.
 
 1. Make sure you have installed all prerequisites.
-2. Install the xMDTBuildLab module on the test deployment server: Find-Module xMDTBuildLab | Install-Module
-3. Create a source directory (E:\Source). If you use another driveletter and patch you need to edit the configuration file:
-(C:\Program Files\WindowsPowerShell\Modules\xMDTBuildLab\1.0.0.0\Examples\Deploy_MDT_Server_ConfigurationData.psd1)
+2. Install the cMDTBuildLab module on the test deployment server:
+
+``` powershell
+ Install-Module cMDTBuildLab
+ ```
+3. Create a source directory (E:\Source). If you use another driveletter and patch you need to edit the configuration file: (Deploy_MDT_Server_ConfigurationData.psd1)
 4. Copy install.wim file from a Windows 10 media to C:\Sources and rename the file to install_1.0.0.0.wim
 5. Copy the Zip-files PEExtraFiles_1.0.0.0.zip and Scripts_1.0.0.0.zip from the Powershell cMDT Module install directory (C:\Program Files\WindowsPowerShell\Modules\adl_MDT\1.0.0.0\Sources) to the C:\Sources directory. 
 5. Run Powershell ISE as Administrator and open the file: C:\Program Files\WindowsPowerShell\Modules\cMDT\1.0.0.0\Examples\Deploy_MDT_Server.ps1
