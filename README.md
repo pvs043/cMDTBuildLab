@@ -32,6 +32,7 @@ The following prerequisites can automatically be downloaded with the cMDTBuildLa
 * [adksetup] - Windows Assessment and Deployment Kit (10.1.10586.0)
 * Visual C++ runtimes (2005,2008,2010,2012,2013,2015)
 * Microsoft Silverlight
+* devcon.exe: tool from [Windows Driver Kit] (https://msdn.microsoft.com/en-us/windows/hardware/hh852365)
 
 ### Installation
 
@@ -71,8 +72,6 @@ The cMDT Module contain the following DscResources:
 * cMDTPreReqs
 * cMDTTaskSequence
 * cMDTUpdateBootImage
-* cWDSBootImage
-* cWDSConfiguration
  
 #### cMDTApplication
 cMDTApplication is a DscResource that enables download, import of and lifecycle management of applications in MDT. Applications can be updated and retrieved from a pull server according to Desired State Configuration principles.
