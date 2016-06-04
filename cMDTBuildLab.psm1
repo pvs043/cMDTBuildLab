@@ -5,7 +5,7 @@ enum Ensure
 }
 
 [DscResource()]
-class cMDTApplication
+class cMDTBuildApplication
 {
 
     [DscProperty(Mandatory)]
@@ -154,7 +154,7 @@ class cMDTApplication
         }
     }
 
-    [cMDTApplication] Get()
+    [cMDTBuildApplication] Get()
     {
         return $this
     }
@@ -174,7 +174,7 @@ class cMDTApplication
 }
 
 [DscResource()]
-class cMDTBootstrapIni
+class cMDTBuildBuildBootstrapIni
 {
 
     [DscProperty(Mandatory)]
@@ -213,7 +213,7 @@ class cMDTBootstrapIni
         }
     }
 
-    [cMDTBootstrapIni] Get()
+    [cMDTBuildBuildBootstrapIni] Get()
     {
         return $this
     }
@@ -250,7 +250,7 @@ Priority=Default
 }
 
 [DscResource()]
-class cMDTCustomize
+class cMDTBuildCustomize
 {
 
     [DscProperty(Mandatory)]
@@ -393,14 +393,14 @@ class cMDTCustomize
         }
     }
 
-    [cMDTCustomize] Get()
+    [cMDTBuildCustomize] Get()
     {
         return $this
     }
 }
 
 [DscResource()]
-class cMDTCustomSettingsIni
+class cMDTBuildCustomSettingsIni
 {
 
     [DscProperty(Mandatory)]
@@ -439,7 +439,7 @@ class cMDTCustomSettingsIni
         }
     }
 
-    [cMDTCustomSettingsIni] Get()
+    [cMDTBuildCustomSettingsIni] Get()
     {
         return $this
     }
@@ -481,7 +481,7 @@ SkipProductKey=YES
 }
 
 [DscResource()]
-class cMDTDirectory
+class cMDTBuildDirectory
 {
 
     [DscProperty(Mandatory)]
@@ -541,7 +541,7 @@ class cMDTDirectory
         }
     }
 
-    [cMDTDirectory] Get()
+    [cMDTBuildDirectory] Get()
     {
         return $this
     }
@@ -565,7 +565,7 @@ class cMDTDirectory
 }
 
 [DscResource()]
-class cMDTOperatingSystem
+class cMDTBuildOperatingSystem
 {
 
     [DscProperty(Mandatory)]
@@ -835,7 +835,7 @@ class cMDTOperatingSystem
         }
     }
 
-    [cMDTOperatingSystem] Get()
+    [cMDTBuildOperatingSystem] Get()
     {
         return $this
     }
@@ -869,7 +869,7 @@ class cMDTOperatingSystem
 }
 
 [DscResource()]
-class cMDTPersistentDrive
+class cMDTBuildPersistentDrive
 {
 
     [DscProperty(Mandatory)]
@@ -915,7 +915,7 @@ class cMDTPersistentDrive
         }
     }
 
-    [cMDTPersistentDrive] Get()
+    [cMDTBuildPersistentDrive] Get()
     {
         return $this
     }
@@ -967,7 +967,7 @@ class cMDTPersistentDrive
 }
 
 [DscResource()]
-class cMDTPreReqs
+class cMDTBuildPreReqs
 {
 
     [DscProperty(Mandatory)]
@@ -979,11 +979,9 @@ class cMDTPreReqs
     [DscProperty(NotConfigurable)]
     [hashtable]
     $downloadFiles = @{
-        MDT = "https://download.microsoft.com/download/3/0/1/3012B93D-C445-44A9-8BFB-F28EB937B060/MicrosoftDeploymentToolkit2013_x64.msi"  #Version: MDT 2013 Update 1 (Build: 6.3.8330.1000)
+        MDT = "https://download.microsoft.com/download/3/0/1/3012B93D-C445-44A9-8BFB-F28EB937B060/MicrosoftDeploymentToolkit2013_x64.msi"  #Version: MDT 2013 Update 2 (Build: 6.3.8330.1000)
         ADK = "http://download.microsoft.com/download/3/8/B/38BBCA6A-ADC9-4245-BCD8-DAA136F63C8B/adk/adksetup.exe"                         #Version: Windows 10 (Build: 10.1.10586.0)
-        C01 = "http://deploymentresearch.com/mnfiles/modelalias.zip" #Community file for model alias handling
     }
-        #SQL = "https://download.microsoft.com/download/E/A/E/EAE6F7FC-767A-4038-A954-49B8B05D04EB/Express%2064BIT/SQLEXPR_x64_ENU.exe"     #Version: SQL 2014 x64 (Build:12.0.2000.8)
     
     [void] Set()
     {
@@ -1136,7 +1134,7 @@ class cMDTPreReqs
         return $present
     }
 
-    [cMDTPreReqs] Get()
+    [cMDTBuildPreReqs] Get()
     {
         return $this
     }
@@ -1199,7 +1197,7 @@ class cMDTPreReqs
 }
 
 [DscResource()]
-class cMDTTaskSequence
+class cMDTBuildTaskSequence
 {
 
     [DscProperty(Mandatory)]
@@ -1254,7 +1252,7 @@ class cMDTTaskSequence
         }
     }
 
-    [cMDTTaskSequence] Get()
+    [cMDTBuildTaskSequence] Get()
     {
         return $this
     }
@@ -1292,7 +1290,7 @@ class cMDTTaskSequence
 }
 
 [DscResource()]
-class cMDTUpdateBootImage
+class cMDTBuildUpdateBootImage
 {
     [DscProperty(Key)]
     [string]$Version
@@ -1328,7 +1326,7 @@ class cMDTUpdateBootImage
         Return ($this.VerifyVersion())
     }
 
-    [cMDTUpdateBootImage] Get()
+    [cMDTBuildUpdateBootImage] Get()
     {
         return $this
     }
