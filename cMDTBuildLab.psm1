@@ -172,6 +172,7 @@ class cMDTApplication
 
     }
 }
+
 [DscResource()]
 class cMDTBootstrapIni
 {
@@ -247,6 +248,7 @@ Priority=Default
         Set-Content -Path $this.Path -Value $defaultContent -NoNewline -Force #-Encoding UTF8 
     }
 }
+
 [DscResource()]
 class cMDTCustomize
 {
@@ -396,6 +398,7 @@ class cMDTCustomize
         return $this
     }
 }
+
 [DscResource()]
 class cMDTCustomSettingsIni
 {
@@ -476,6 +479,7 @@ SkipProductKey=YES
         Set-Content -Path $this.Path -Value $defaultContent -NoNewline -Force #-Encoding UTF8
     }
 }
+
 [DscResource()]
 class cMDTDirectory
 {
@@ -559,171 +563,7 @@ class cMDTDirectory
 
     }
 }
-[DscResource()]
-class cMDTDriver
-{
 
-    [DscProperty(Mandatory)]
-    [Ensure] $Ensure
-    
-    [DscProperty(Mandatory)]
-    [string]$Version
-
-    [DscProperty(Key)]
-    [string]$Name
-
-    [DscProperty(Key)]
-    [string]$Path
-
-    [DscProperty(Mandatory)]
-    [string]$Enabled
-    
-    [DscProperty(Mandatory)]
-    [string]$Comment
-    
-    [DscProperty(Mandatory)]
-    [string]$SourcePath
-
-    [DscProperty(Mandatory)]
-    [string]$TempLocation
-
-    [DscProperty(Mandatory)]
-    [string]$PSDriveName
-
-    [DscProperty(Mandatory)]
-    [string]$PSDrivePath
-
-    [void] Set()
-    {
-
-        [string]$separator = ""
-        If ($this.SourcePath -like "*/*")
-        { $separator = "/" }
-        Else
-        { $separator = "\" }
-
-        $filename = "$($this.SourcePath.Split($separator)[-1])_$($this.Version).zip"
-        $foldername = $filename.Replace(".$($filename.Split(".")[-1])","")
-
-        [bool]$download = $True
-        If (($separator -eq "/") -Or ($this.SourcePath.Substring(0,2) -eq "\\"))
-        { $targetdownload = "$($this.TempLocation)\$($filename)" }
-        Else
-        { $targetdownload = "$($this.SourcePath)_$($this.Version).zip" ; $download = $False }
-
-        $extractfolder = "$($this.TempLocation)\$($foldername)"
-        $referencefile = "$($this.PSDrivePath)\Out-of-Box Drivers\$($($this.Path.Split("\")[-2]).Replace(' ',''))$($($this.Path.Split("\")[-1]).Replace(' ',''))$($($this.Name).Replace(' ',''))$($this.SourcePath.Split($separator)[-1]).version"
-
-        if ($this.ensure -eq [Ensure]::Present)
-        {
-            
-            $present = Invoke-TestPath -Path "$($this.path)\$($this.name)" -PSDriveName $this.PSDriveName -PSDrivePath $this.PSDrivePath 
-
-            if ($present)
-            {
-
-                If ($download)
-                {
-                    Invoke-WebDownload -Source "$($this.SourcePath)_$($this.Version).zip" -Target $targetdownload -Verbose
-                    $present = Invoke-TestPath -Path $targetdownload
-                    If (-not($present)) { Write-Error "Cannot find path '$targetdownload' because it does not exist." ; Return }
-                }
-                
-                Invoke-ExpandArchive -Source $targetdownload -Target $extractfolder
-                $present = Invoke-TestPath -Path $extractfolder
-                If (-not($present)) { Write-Error "Cannot find path '$extractfolder' because it does not exist." ; Return }
-
-                Invoke-RemovePath -Path "$($this.path)\$($this.name)" -PSDriveName $this.PSDriveName -PSDrivePath $this.PSDrivePath -Verbose
-                If ($download) { Invoke-RemovePath -Path $targetdownload }
-
-                $this.ImportDriver($extractfolder)
-
-                Invoke-RemovePath -Path $extractfolder
-            }
-            else
-            {
-
-                If ($download)
-                {
-                    Invoke-WebDownload -Source "$($this.SourcePath)_$($this.Version).zip" -Target $targetdownload -Verbose
-                    $present = Invoke-TestPath -Path $targetdownload
-                    If (-not($present)) { Write-Error "Cannot find path '$targetdownload' because it does not exist." ; Return }
-                }
-                
-                Invoke-ExpandArchive -Source $targetdownload -Target $extractfolder
-                $present = Invoke-TestPath -Path $extractfolder
-                If (-not($present)) { Write-Error "Cannot find path '$extractfolder' because it does not exist." ; Return }
-
-                If ($download) { Invoke-RemovePath -Path $targetdownload }
-
-                $this.ImportDriver($extractfolder)
-
-                Invoke-RemovePath -Path $extractfolder
-                New-ReferenceFile -Path $referencefile
-            }
-
-            Set-Content -Path $referencefile -Value "$($this.Version)"
-        }
-        else
-        {
-            
-            Invoke-RemovePath -Path "$($this.path)\$($this.name)" -PSDriveName $this.PSDriveName -PSDrivePath $this.PSDrivePath -Verbose
-            Invoke-RemovePath -Path $referencefile
-        }
-    }
-
-    [bool] Test()
-    {
-        
-        [string]$separator = ""
-        If ($this.SourcePath -like "*/*")
-        { $separator = "/" }
-        Else
-        { $separator = "\" }
-
-        $present = Invoke-TestPath -Path "$($this.path)\$($this.name)" -PSDriveName $this.PSDriveName -PSDrivePath $this.PSDrivePath 
-        
-        if (($present) -and ($this.ensure -eq [Ensure]::Present))
-        {
-
-            $match = Compare-Version -Source "$($this.PSDrivePath)\Out-of-Box Drivers\$($($this.Path.Split("\")[-2]).Replace(' ',''))$($($this.Path.Split("\")[-1]).Replace(' ',''))$($($this.Name).Replace(' ',''))$($this.SourcePath.Split($separator)[-1]).version" -Target $this.Version
-
-            if (-not ($match))
-            {
-
-                Write-Verbose "$($this.Name) version has been updated on the pull server"
-                $present = $false
-            }
-        }
-        
-        if ($this.Ensure -eq [Ensure]::Present)
-        {
-            return $present
-        }
-        else
-        {
-            return -not $present
-        }
-    }
-
-    [cMDTDriver] Get()
-    {
-        return $this
-    }
-
-    [void] ImportDriver($Driver)
-    {
-
-        Import-MicrosoftDeploymentToolkitModule
-
-        New-PSDrive -Name $this.PSDriveName -PSProvider "MDTProvider" -Root $this.PSDrivePath -Verbose:$false
-
-        New-Item -Path $this.Path -enable $this.Enabled -Name $this.Name -Comments $this.Comment -ItemType "folder" –Verbose
-
-        Import-MDTDriver -Path "$($this.path)\$($this.name)" -SourcePath $Driver -ImportDuplicates -Verbose
-
-    }
-}
 [DscResource()]
 class cMDTOperatingSystem
 {
@@ -1026,7 +866,9 @@ class cMDTOperatingSystem
                 
             }
         }
-}[DscResource()]
+}
+
+[DscResource()]
 class cMDTPersistentDrive
 {
 
@@ -1123,6 +965,7 @@ class cMDTPersistentDrive
         Remove-MDTPersistentDrive -Verbose
     }
 }
+
 [DscResource()]
 class cMDTPreReqs
 {
@@ -1354,6 +1197,7 @@ class cMDTPreReqs
         Remove-Item -Path $File -Force -Verbose:$False
     }
 }
+
 [DscResource()]
 class cMDTTaskSequence
 {
@@ -1446,6 +1290,7 @@ class cMDTTaskSequence
         Import-MDTTaskSequence -path $this.Path -Name $this.Name -Template "Client.xml" -Comments "" -ID $this.ID -Version "1.0" -OperatingSystemPath $OperatingSystemFile -FullName "Windows User" -OrgName "Addlevel" -HomePage "about:blank" -Verbose
     }
 }
+
 [DscResource()]
 class cMDTUpdateBootImage
 {
@@ -1566,128 +1411,7 @@ class cMDTUpdateBootImage
     
     
 }
-[DscResource()]
-class cWDSBootImage
-{
 
-    [DscProperty(Mandatory)]
-    [Ensure]$Ensure
-
-    [DscProperty()]
-    [string]$Path
-
-    [DscProperty(Key)]
-    [string]$ImageName
-
-    [void] Set()
-    {
-
-        if ($this.Ensure -eq [Ensure]::Present)
-        {
-            $this.AddBootImage()
-        }
-        else
-        {
-            $this.RemoveBootImage()
-        }
-    }
-
-    [bool] Test()
-    {
-        $present = $this.DoesBootImageExist()
-        
-        if ($this.Ensure -eq [Ensure]::Present)
-        {
-            return $present
-        }
-        else
-        {
-            return -not $present
-        }
-    }
-
-    [cWDSBootImage] Get()
-    {
-        return $this
-    }
-
-    [bool] DoesBootImageExist()
-    {
-       return ((Get-WdsBootImage -ImageName $this.ImageName) -ne $null)
-    }
-
-    [void] AddBootImage()
-    {
-       Import-WdsBootImage -Path $this.Path -NewImageName $this.ImageName –SkipVerify | Out-Null
-    }
-    
-    [void] RemoveBootImage()
-    {
-       Get-WdsBootImage -ImageName $this.ImageName | Remove-WdsBootImage
-    }
-    
-}
-[DscResource()]
-class cWDSConfiguration
-{
-
-    [DscProperty(Mandatory)]
-    [Ensure]$Ensure
-
-    [DscProperty(Key)]
-    [string]$RemoteInstallPath
-
-
-    [void] Set()
-    {
-
-        if ($this.Ensure -eq [Ensure]::Present)
-        {
-            $this.InitializeServer()
-        }
-        else
-        {
-            $this.UninitializeServer()
-        }
-    }
-
-    [bool] Test()
-    {
-        $present = $this.DoesRemoteInstallFolderExist()
-        
-        if ($this.Ensure -eq [Ensure]::Present)
-        {
-            return $present
-        }
-        else
-        {
-            return -not $present
-        }
-    }
-
-    [cWDSConfiguration] Get()
-    {
-        return $this
-    }
-
-    [bool] DoesRemoteInstallFolderExist()
-    {
-        return (Test-Path $this.RemoteInstallPath -ErrorAction Ignore)
-    }
-
-    [void] InitializeServer()
-    {
-        & WDSUTIL /Initialize-Server /RemInst:"$($this.RemoteInstallPath)" /Authorize
-        & WDSUTIL /Set-Server /AnswerClients:All
-
-    }
-    
-    [void] UninitializeServer()
-    {
-       & WDSUTIL /Uninitialize-Server
-    }
-    
-}
 Function Compare-Version
 {
     [CmdletBinding()]
@@ -1710,6 +1434,7 @@ Function Compare-Version
 
     return $match
 }
+
 Function Import-MicrosoftDeploymentToolkitModule
 {
     If (-Not(Get-Module MicrosoftDeploymentToolkit))
@@ -1717,6 +1442,7 @@ Function Import-MicrosoftDeploymentToolkitModule
         Import-Module "$env:ProgramFiles\Microsoft Deployment Toolkit\Bin\MicrosoftDeploymentToolkit.psd1" -ErrorAction Stop -Global -Verbose:$False
     }
 }
+
 Function Invoke-ExpandArchive
 {
     [CmdletBinding()]
@@ -1739,6 +1465,7 @@ Function Invoke-ExpandArchive
     Write-Verbose "Expanding archive $($Source) to $($Target)"
     Expand-Archive $Source -DestinationPath $Target -Force -Verbose:$Verbosity
 }
+
 Function Invoke-RemovePath
 {
     [CmdletBinding()]
@@ -1772,6 +1499,7 @@ Function Invoke-RemovePath
         Remove-Item -Path $Path -Force -Verbose:$Verbosity
     }
 }
+
 Function Invoke-TestPath
 {
     [CmdletBinding()]
@@ -1809,6 +1537,7 @@ Function Invoke-TestPath
 
     return $present
 }
+
 Function Invoke-WebDownload
 {
     [CmdletBinding()]
@@ -1860,6 +1589,7 @@ Function Invoke-WebDownload
         }
     }
 }
+
 Function New-ReferenceFile
 {
     [CmdletBinding()]
@@ -1885,4 +1615,3 @@ Function New-ReferenceFile
         New-Item -Type File -Path $Path -Force -Verbose:$False  
     }
 }
-

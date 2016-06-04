@@ -4,7 +4,7 @@ cMDTBuildLab is a Powershell Module to help automize deployment Windows Referenc
 cMDTBuildLab is a fork from cMDT module (https://github.com/addlevel/cMDT) by info@addlevel.se (c)
 
 ### Version
-1.0.2
+0.0.2
 
 ### Tech
 
@@ -325,48 +325,6 @@ cMDTDirectory Windows10 {
 }
 ```
 
-#### cMDTDriver
-cMDTDriver is a DscResource that enables download, import of and lifecycle management of drivers in MDT. Drivers can be updated and retrieved from a pull server according to Desired State Configuration principles.
-
-Available parameters with example:
-* [Ensure] - Present/Absent
-* [Version] - Version number
-* [Name] - Name
-* [Path] - MDT path
-* [Enabled] - True/False
-* [Comment] - Comments
-* [SourcePath] - Web link, SMB or local path
-* [TempLocation] - Tenmporary download location
-* [PSDriveName] - The PSDrive name for the MDT deployment share
-* [PSDrivePath] - The physical path to the MDT deployment share
-
-The DscResource will import drivers according to the following principle:
-* Verify status present or absent
-* If present:
-    * Append version number to the SourcePath together with a .zip extension,
-    * Verify if the driver already exist in MDT, and if determine version
-    * If the driver does not exist or version number not matched the driver will be downloaded
-    * The driver will be extracted from the Zip archive and imported in to the MDT
-        * Note that drives will be imported to allow duplicates to prevent accidental deletions
-* If absent:
-    * The driver will be removed
-
-Desired State Configuration job example:
-```sh
-cMDTDriver Win10x64DellAudio {
-    Ensure = "Present"
-    Version = "6.0.1.6070_A00"
-    Name = "Latitude 3340"
-    Path = "DS001:\Out-of-Box Drivers\Windows 10 x64\Dell Inc."
-    Enabled = "True"
-    Comment = "Drivers for Dell Latitude 3340 Laptops"
-    SourcePath = "$($SourcePath)/Audio_Driver_5P33P_WN32"
-    TempLocation = $TempLocation
-    PSDriveName = $PSDriveName
-    PSDrivePath = $PSDrivePath
-}
-```
-
 #### cMDTOperatingSystem
 cMDTOperatingSystem is a DscResource that enables download, import of and lifecycle management of Operating System WIM files in MDT. These files can be updated and retrieved from a pull server according to Desired State Configuration principles.
 
@@ -512,46 +470,6 @@ cMDTUpdateBootImage updateBootImage {
     Force = $true
     Compress = $true
     DeploymentSharePath = $PSDrivePath
-}
-```
-
-#### cWDSBootImage
-cWDSBootImage is a DscResource that enables management of boot images with lifecycle management for the Windows Deployment Services (WDS). Boot images can be defined and managed from a pull server according to Desired State Configuration principles.
-
-Available parameters with example:
-* [Ensure] - Present/Absent
-* [Path] - Path to the boot image file in MDT
-* [ImageName] - Name of the boot imgage file to be created in WDS
-
-The DscResource will import applications according to the following principle:
-* Check if boot image exist in the MDT path
-* If it does exist the a boot image in WDS will be created
-
-Desired State Configuration job example:
-```sh
-cWDSBootImage wdsBootImage {
-    Ensure = "Present"
-    Path = "$($PSDrivePath)\Boot\LiteTouchPE_x64.wim"
-    ImageName = "LiteTouchTest X64 v1.0.0.0"
-}
-```
-
-#### cWDSConfiguration
-cWDSConfiguration is a DscResource that enables management and configuration for the Windows Deployment Services (WDS).
-
-Available parameters with example:
-* [Ensure] - Present/Absent
-* [RemoteInstallPath] - Remote installation path
-
-The DscResource will import applications according to the following principle:
-* Check if RemoteInstallPath exist
-* If it does not exist the RemoteInstallPath will be created
-
-Desired State Configuration job example:
-```sh
-cWDSConfiguration wdsConfig {
-    Ensure = "Present"
-    RemoteInstallPath = "C:\RemoteInstall"
 }
 ```
 
