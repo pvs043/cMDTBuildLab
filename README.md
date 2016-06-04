@@ -18,10 +18,11 @@ Prerequisites for infrastructure:
 *	Hyper-V Host: HV01 (Windows 2012 R2/Windows 8.1)
 
 cMDTBuildLab uses a number of components and open resource kit modules. The following are prerequisites for the module and need to be installed to the inteded deployment server (MDT01):
-* [.Net3.5] - .Net Framweworks 3.5
+* [.Net3.5] - .Net Framewework 3.5
 * [WMF5] (http://aka.ms/wmf5latest) - Windows Management Framework 5.0.
-* [xSmbShare] (http://www.powershellgallery.com/packages/xSmbShare/) - DSC Module available from Powershell Gallery.<br>
-  ```Powershell
+* [xSmbShare] (http://www.powershellgallery.com/packages/xSmbShare/) - DSC Module available from Powershell Gallery.
+  
+  ```powershell
   Install-Module -Name xSmbShare
   ```
 * [PowerShellAccessControl] (https://github.com/PowerShellOrg/PowerShellAccessControl) - DSC Module available from GitHub
