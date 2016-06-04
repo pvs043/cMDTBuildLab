@@ -20,7 +20,11 @@ Prerequisites for infrastructure:
 cMDTBuildLab uses a number of components and open resource kit modules. The following are prerequisites for the module and need to be installed to the inteded deployment server (MDT01):
 * [.Net3.5] - .Net Framweworks 3.5
 * [WMF5] (http://aka.ms/wmf5latest) - Windows Management Framework 5.0.
-* [xSmbShare] (http://www.powershellgallery.com/packages/xSmbShare/) - DSC Module available from Powershell Gallery. Install from Powershell 5: Install-Module -Name xSmbShare
+* [xSmbShare] (http://www.powershellgallery.com/packages/xSmbShare/) - DSC Module available from Powershell Gallery.<br>
+  Install:
+  ```Powershell
+  Install-Module -Name xSmbShare
+  ```
 * [PowerShellAccessControl] (https://github.com/PowerShellOrg/PowerShellAccessControl) - DSC Module available from GitHub
 
 The following prerequisites can automatically be downloaded with the cMDTBuildLab Module:
@@ -31,10 +35,10 @@ The following prerequisites can automatically be downloaded with the cMDTBuildLa
 
 ### Installation
 
-To install the xMDTBuildLab Module from the Powershell Gallery:
+To install the cMDTBuildLab Module from the Powershell Gallery:
 
-```sh
-Find-Module xMDTBuildLab | Install-Module
+```powershell
+Find-Module cMDTBuildLab | Install-Module
 ```
 
 ### Quick start
