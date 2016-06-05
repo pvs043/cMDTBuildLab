@@ -9,7 +9,6 @@
             PSDscAllowDomainUser        = $true
             RebootNodeIfNeeded          = $true
             ConfigurationMode           = "ApplyAndAutoCorrect"      
-
         },
 
         @{
@@ -109,6 +108,7 @@
             #>
 
             #Custom folder/files to add to the MDT
+			<#
             CustomSettings   = @(
                 @{  
                     Ensure     = "Present"
@@ -124,6 +124,7 @@
                     Protected  = $true
                 }
             )
+			#>
 
             #Custom settings and boot ini file management
             CustomizeIniFiles  = @(
@@ -176,8 +177,8 @@
                     Version    = "1.0.0.0"
                     Path       = "\Boot\LiteTouchPE_x64.wim"
                     ImageName  = "LiteTouchTest X64"
-                    ExtraDirectory = "PEExtraFiles"
-                    BackgroundFile = "PEExtraFiles\background.bmp"
+                    #ExtraDirectory = "PEExtraFiles"
+                    #BackgroundFile = "PEExtraFiles\background.bmp"
                     LiteTouchWIMDescription = "Customer Deployment"
                 }
             )

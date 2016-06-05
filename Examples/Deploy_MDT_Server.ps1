@@ -23,7 +23,7 @@ Configuration DeployMDTServerContract
     Import-DscResource –ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName xSmbShare
     Import-DscResource -ModuleName PowerShellAccessControl
-    Import-DscResource -ModuleName cMDT
+    Import-DscResource -ModuleName cMDTBuildLab
 
     node $AllNodes.Where{$_.Role -match "MDT Server"}.NodeName
     {
@@ -63,18 +63,6 @@ Configuration DeployMDTServerContract
             Name   = "Net-Framework-Core"
         }
 
-        WindowsFeature WDS {
-            Ensure               = "Present"
-            Name                 = "WDS"
-            IncludeAllSubFeature = $true
-            LogPath              = "C:\Windows\debug\DSC_WindowsFeature_WindowsDeploymentServices.log"
-        }
-
-        cWDSConfiguration wdsConfig {
-            Ensure            = "Present"
-            RemoteInstallPath = "C:\RemoteInstall"
-        }
-
         Package ADK {
             Ensure     = "Present"
             Name       = "Windows Assessment and Deployment Kit - Windows 10"
@@ -90,13 +78,6 @@ Configuration DeployMDTServerContract
             Path       = "$($Node.TempLocation)\Microsoft Deployment Toolkit\MicrosoftDeploymentToolkit2013_x64.msi"
             ProductId  = "F172B6C7-45DD-4C22-A5BF-1B2C084CADEF"
             ReturnCode = 0
-        }
-
-        Service WDSServer {
-            Name        = "WDSServer"
-            State       = "Running"
-            StartUpType = "Automatic"
-            DependsOn   = "[WindowsFeature]WDS"
         }
 
         cMDTDirectory TempFolder
@@ -358,50 +339,6 @@ Configuration DeployMDTServerContract
                     DependsOn   = "[cMDTDirectory]DeploymentFolder"
                 }
 
-            }
-        }
-
-        ForEach ($Driver in $Node.Drivers)   
-        {
-
-            [string]$Ensure     = ""
-            [string]$Name       = ""
-            [string]$Version    = ""
-            [string]$Path       = ""
-            [string]$SourcePath = ""
-            [string]$Comment    = ""
-
-            $Driver.GetEnumerator() | % {
-                If ($_.key -eq "Ensure")     { $Ensure     = $_.value }
-                If ($_.key -eq "Name")       { $Name       = $_.value }
-                If ($_.key -eq "Version")    { $Version    = $_.value }
-                If ($_.key -eq "Path")       { $Path       = "$($Node.PSDriveName):$($_.value)" }
-                If ($_.key -eq "SourcePath")
-                {
-                    If (($_.value -like "*:*") -or ($_.value -like "*\\*"))
-                                             { $SourcePath = $_.value }
-                    Else
-                    {
-                        If ($weblink)        { $SourcePath = "$($Node.SourcePath)$($_.value.Replace("\","/"))" }
-                        Else                 { $SourcePath = "$($Node.SourcePath)$($_.value.Replace("/","\"))" }
-                    }
-                }
-                If ($_.key -eq "Comment")    { $Comment    = $_.value }
-            }
-
-            cMDTDriver $Name.Replace(' ','')
-            {
-                Ensure       = $Ensure
-                Name         = $Name
-                Version      = $Version
-                Path         = $Path
-                SourcePath   = $SourcePath
-                Comment      = $Comment
-                Enabled      = "True"
-                PSDriveName  = $Node.PSDriveName
-                PSDrivePath  = $Node.PSDrivePath
-                TempLocation = $Node.TempLocation
-                DependsOn   = "[cMDTDirectory]DeploymentFolder"
             }
         }
 
@@ -773,5 +710,5 @@ Set-DscLocalConfigurationManager -Path "$PSScriptRoot\MDT-Deploy_MDT_Server" -Ve
 #Start DSC MOF job
 Start-DscConfiguration -Wait -Force -Verbose -ComputerName "$env:computername" -Path "$PSScriptRoot\MDT-Deploy_MDT_Server"
 
-Write-Host ""
-Write-Host "AddLevel Deploy MDT Server Builder completed!"
+Write-Output ""
+Write-Output "Deploy MDT Server Builder completed!"
