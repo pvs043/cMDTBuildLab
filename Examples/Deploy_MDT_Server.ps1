@@ -20,6 +20,7 @@ Configuration DeployMDTServerContract
     )
 
     #NOTE: Every Module must be constant, DSC Bug?!
+    Import-Module -Name PSDesiredStateConfiguration, xSmbShare, PowerShellAccessControl, cMDTBuildLab
     Import-DscResource –ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName xSmbShare
     Import-DscResource -ModuleName PowerShellAccessControl
@@ -686,13 +687,6 @@ $($KeyboardLocalePE)
                 DependsOn               = "[cMDTBuildDirectory]DeploymentFolder"
             }
         
-            cWDSBootImage wdsBootImage {
-                Ensure    = $Ensure
-                Path      = $Path
-                ImageName = $ImageName
-                DependsOn = "[cMDTBuildUpdateBootImage]updateBootImage"
-            }
-
         }
 
     }

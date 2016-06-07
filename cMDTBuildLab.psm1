@@ -213,7 +213,7 @@ class cMDTBuildBootstrapIni
         }
     }
 
-    [cMDTBuildBuildBootstrapIni] Get()
+    [cMDTBuildBootstrapIni] Get()
     {
         return $this
     }
