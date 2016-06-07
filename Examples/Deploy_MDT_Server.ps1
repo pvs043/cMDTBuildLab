@@ -42,7 +42,7 @@ Configuration DeployMDTServerContract
             ConfigurationMode  = $AllNodes.ConfigurationMode   
         }
 
-        cMDTPreReqs MDTPreReqs {
+        cMDTBuildBuildPreReqs MDTPreReqs {
             Ensure       = "Present"            
             DownloadPath = $Node.TempLocation
         }
@@ -80,14 +80,14 @@ Configuration DeployMDTServerContract
             ReturnCode = 0
         }
 
-        cMDTDirectory TempFolder
+        cMDTBuildBuildDirectory TempFolder
         {
             Ensure    = "Present"
             Name      = $Node.TempLocation.Replace("$($Node.TempLocation.Substring(0,2))\","")
             Path      = $Node.TempLocation.Substring(0,2)
         }
 
-        cMDTDirectory DeploymentFolder
+        cMDTBuildBuildDirectory DeploymentFolder
         {
             Ensure    = "Present"
             Name      = $Node.PSDrivePath.Replace("$($Node.PSDrivePath.Substring(0,2))\","")
@@ -102,7 +102,7 @@ Configuration DeployMDTServerContract
             Path                  = $Node.PSDrivePath
             FullAccess            = "$env:COMPUTERNAME\$($Node.MDTLocalAccount)"
             FolderEnumerationMode = "AccessBased"
-            DependsOn             = "[cMDTDirectory]DeploymentFolder"
+            DependsOn             = "[cMDTBuildBuildDirectory]DeploymentFolder"
         }
 
         cAccessControlEntry AssignPermissions
@@ -112,17 +112,17 @@ Configuration DeployMDTServerContract
             AceType    = "AccessAllowed"
             Principal  = "$env:COMPUTERNAME\$($Node.MDTLocalAccount)"
             AccessMask = [System.Security.AccessControl.FileSystemRights]::FullControl
-            DependsOn  = "[cMDTDirectory]DeploymentFolder"
+            DependsOn  = "[cMDTBuildBuildDirectory]DeploymentFolder"
         }
 
-        cMDTPersistentDrive DeploymentPSDrive
+        cMDTBuildBuildPersistentDrive DeploymentPSDrive
         {
             Ensure      = "Present"
             Name        = $Node.PSDriveName
             Path        = $Node.PSDrivePath
             Description = $Node.PSDrivePath.Replace("$($Node.PSDrivePath.Substring(0,2))\","")
             NetworkPath = "\\$($env:COMPUTERNAME)\$($Node.PSDriveShareName)"
-            DependsOn   = "[cMDTDirectory]DeploymentFolder"
+            DependsOn   = "[cMDTBuildBuildDirectory]DeploymentFolder"
         }
 
         ForEach ($OSDirectory in $Node.OSDirectories)   
@@ -135,34 +135,34 @@ Configuration DeployMDTServerContract
                 If ($_.key -eq "OperatingSystem") { $OSVersion = $_.value }
             }
 
-            cMDTDirectory $OSVersion.Replace(' ','')
+            cMDTBuildDirectory $OSVersion.Replace(' ','')
             {
                 Ensure      = $Ensure
                 Name        = $OSVersion
                 Path        = "$($Node.PSDriveName):\Operating Systems"
                 PSDriveName = $Node.PSDriveName
                 PSDrivePath = $Node.PSDrivePath
-                DependsOn   = "[cMDTDirectory]DeploymentFolder"
+                DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
             }
 
-            cMDTDirectory "OOB$($OSVersion.Replace(' ',''))"
+            cMDTBuildDirectory "OOB$($OSVersion.Replace(' ',''))"
             {
                 Ensure      = $Ensure
                 Name        = "$($OSVersion) x64"
                 Path        = "$($Node.PSDriveName):\Out-of-Box Drivers"
                 PSDriveName = $Node.PSDriveName
                 PSDrivePath = $Node.PSDrivePath
-                DependsOn   = "[cMDTDirectory]DeploymentFolder"
+                DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
             }
 
-            cMDTDirectory "TS$($OSVersion.Replace(' ',''))"
+            cMDTBuildDirectory "TS$($OSVersion.Replace(' ',''))"
             {
                 Ensure      = $Ensure
                 Name        = $OSVersion
                 Path        = "$($Node.PSDriveName):\Task Sequences"
                 PSDriveName = $Node.PSDriveName
                 PSDrivePath = $Node.PSDrivePath
-                DependsOn   = "[cMDTDirectory]DeploymentFolder"
+                DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
             }
 
             
@@ -178,14 +178,14 @@ Configuration DeployMDTServerContract
 
                 If ($Ensure -eq "Absent")    { $EnsureVendor = "Absent" }
 
-                cMDTDirectory "OOB$($OSVersion.Replace(' ',''))$($Vendor.Replace(' ',''))"
+                cMDTBuildDirectory "OOB$($OSVersion.Replace(' ',''))$($Vendor.Replace(' ',''))"
                 {
                     Ensure      = $EnsureVendor
                     Name        = $Vendor
                     Path        = "$($Node.PSDriveName):\Out-of-Box Drivers\$OSVersion x64"
                     PSDriveName = $Node.PSDriveName
                     PSDrivePath = $Node.PSDrivePath
-                    DependsOn   = "[cMDTDirectory]OOB$($OSVersion.Replace(' ',''))"
+                    DependsOn   = "[cMDTBuildDirectory]OOB$($OSVersion.Replace(' ',''))"
                 }
             }
 
@@ -203,14 +203,14 @@ Configuration DeployMDTServerContract
 
             If ($Ensure -eq "Absent")    { $EnsureApplicationFolder = "Absent" }
 
-            cMDTDirectory "AF$($ApplicationFolder.Replace(' ',''))"
+            cMDTBuildDirectory "AF$($ApplicationFolder.Replace(' ',''))"
             {
                 Ensure      = $EnsureApplicationFolder
                 Name        = $ApplicationFolder
                 Path        = "$($Node.PSDriveName):\Applications"
                 PSDriveName = $Node.PSDriveName
                 PSDrivePath = $Node.PSDrivePath
-                DependsOn   = "[cMDTDirectory]DeploymentFolder"
+                DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
             }
 
             ForEach ($CurrentApplicationSubFolder in $CurrentApplicationFolder.SubFolders)
@@ -225,14 +225,14 @@ Configuration DeployMDTServerContract
 
                 If ($Ensure -eq "Absent")    { $EnsureApplicationSubFolder = "Absent" }
 
-                cMDTDirectory "ASF$($ApplicationSubFolder.Replace(' ',''))"
+                cMDTBuildDirectory "ASF$($ApplicationSubFolder.Replace(' ',''))"
                 {
                     Ensure      = $EnsureApplicationSubFolder
                     Name        = $ApplicationSubFolder
                     Path        = "$($Node.PSDriveName):\Applications\$ApplicationFolder"
                     PSDriveName = $Node.PSDriveName
                     PSDrivePath = $Node.PSDrivePath
-                    DependsOn   = "[cMDTDirectory]DeploymentFolder"
+                    DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
                 }
 
             }
@@ -241,14 +241,14 @@ Configuration DeployMDTServerContract
 
         ForEach ($SelectionProfile in $Node.SelectionProfiles)   
         {
-            cMDTDirectory "SP$($SelectionProfile.Replace(' ',''))"
+            cMDTBuildDirectory "SP$($SelectionProfile.Replace(' ',''))"
             {
                 Ensure      = "Present"
                 Name        = $SelectionProfile
                 Path        = "$($Node.PSDriveName):\Selection Profiles"
                 PSDriveName = $Node.PSDriveName
                 PSDrivePath = $Node.PSDrivePath
-                DependsOn   = "[cMDTDirectory]DeploymentFolder"
+                DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
             }
         }
 
@@ -278,7 +278,7 @@ Configuration DeployMDTServerContract
                 }
             }
 
-            cMDTOperatingSystem $Name.Replace(' ','')
+            cMDTBuildOperatingSystem $Name.Replace(' ','')
             {
                 Ensure       = $Ensure
                 Name         = $Name
@@ -288,7 +288,7 @@ Configuration DeployMDTServerContract
                 PSDriveName  = $Node.PSDriveName
                 PSDrivePath  = $Node.PSDrivePath
                 TempLocation = $Node.TempLocation
-                DependsOn   = "[cMDTDirectory]DeploymentFolder"
+                DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
             }
         }
 
@@ -313,7 +313,7 @@ Configuration DeployMDTServerContract
 
             If ($WIMFileName)
             {
-                cMDTTaskSequence $Name.Replace(' ','')
+                cMDTBuildTaskSequence $Name.Replace(' ','')
                 {
                     Ensure      = $Ensure
                     Name        = $Name
@@ -322,12 +322,12 @@ Configuration DeployMDTServerContract
                     ID          = $ID
                     PSDriveName = $Node.PSDriveName
                     PSDrivePath = $Node.PSDrivePath
-                    DependsOn   = "[cMDTDirectory]DeploymentFolder"
+                    DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
                 }
             }
             Else
             {
-                cMDTTaskSequence $Name.Replace(' ','')
+                cMDTBuildTaskSequence $Name.Replace(' ','')
                 {
                     Ensure              = $Ensure
                     Name                = $Name
@@ -336,7 +336,7 @@ Configuration DeployMDTServerContract
                     ID                  = $ID
                     PSDriveName         = $Node.PSDriveName
                     PSDrivePath         = $Node.PSDrivePath
-                    DependsOn   = "[cMDTDirectory]DeploymentFolder"
+                    DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
                 }
 
             }
@@ -380,7 +380,7 @@ Configuration DeployMDTServerContract
                 If ($_.key -eq "DestinationFolder")     { $DestinationFolder     = $_.value }
             }
 
-            cMDTApplication $Name.Replace(' ','')
+            cMDTBuildApplication $Name.Replace(' ','')
             {
                 Ensure                = $Ensure
                 Name                  = $Name
@@ -397,7 +397,7 @@ Configuration DeployMDTServerContract
                 PSDriveName           = $Node.PSDriveName
                 PSDrivePath           = $Node.PSDrivePath
                 TempLocation          = $Node.TempLocation
-                DependsOn             = "[cMDTDirectory]DeploymentFolder"
+                DependsOn             = "[cMDTBuildDirectory]DeploymentFolder"
             }
         }
 
@@ -431,7 +431,7 @@ Configuration DeployMDTServerContract
 
             If ($Node.SourcePath -like "*/*") { $weblink = $true }
 
-            cMDTCustomize $Name.Replace(' ','')
+            cMDTBuildCustomize $Name.Replace(' ','')
             {
                 Ensure       = $Ensure
                 Name         = $Name
@@ -440,7 +440,7 @@ Configuration DeployMDTServerContract
                 Path         = $Node.PSDrivePath
                 TempLocation = $Node.TempLocation
                 #Protected    = $Protected
-                DependsOn    = "[cMDTDirectory]DeploymentFolder"
+                DependsOn    = "[cMDTBuildDirectory]DeploymentFolder"
             }
         }
 
@@ -546,10 +546,10 @@ Configuration DeployMDTServerContract
 
             If ($Name -eq "CustomSettingsIni")
             {
-                cMDTCustomSettingsIni ini {
+                cMDTBuildCustomSettingsIni ini {
                     Ensure    = $Ensure
                     Path      = $Path
-                    DependsOn = "[cMDTDirectory]DeploymentFolder"
+                    DependsOn = "[cMDTBuildDirectory]DeploymentFolder"
                     Content   = @"
 [Settings]
 Priority=SetModelAlias, Init, ModelAlias, Default
@@ -626,10 +626,10 @@ FinishAction=RESTART
 
             If ($Name -eq "BootstrapIni")
             {
-                cMDTBootstrapIni ini {
+                cMDTBuildBootstrapIni ini {
                     Ensure    = $Ensure
                     Path      = $Path
-                    DependsOn = "[cMDTDirectory]DeploymentFolder"
+                    DependsOn = "[cMDTBuildDirectory]DeploymentFolder"
                     Content   = @"
 [Settings]
 Priority=Default
@@ -674,7 +674,7 @@ $($KeyboardLocalePE)
                 If ($_.key -eq "LiteTouchWIMDescription")  { $LiteTouchWIMDescription  = $_.value }
             }
 
-            cMDTUpdateBootImage updateBootImage {
+            cMDTBuildUpdateBootImage updateBootImage {
                 Version                 = $Version
                 PSDeploymentShare       = $Node.PSDriveName
                 Force                   = $true
@@ -683,14 +683,14 @@ $($KeyboardLocalePE)
                 ExtraDirectory          = $ExtraDirectory
                 BackgroundFile          = $BackgroundFile
                 LiteTouchWIMDescription = $LiteTouchWIMDescription
-                DependsOn               = "[cMDTDirectory]DeploymentFolder"
+                DependsOn               = "[cMDTBuildDirectory]DeploymentFolder"
             }
         
             cWDSBootImage wdsBootImage {
                 Ensure    = $Ensure
                 Path      = $Path
                 ImageName = $ImageName
-                DependsOn = "[cMDTUpdateBootImage]updateBootImage"
+                DependsOn = "[cMDTBuildUpdateBootImage]updateBootImage"
             }
 
         }
