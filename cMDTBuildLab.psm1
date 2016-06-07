@@ -174,7 +174,7 @@ class cMDTBuildApplication
 }
 
 [DscResource()]
-class cMDTBuildBuildBootstrapIni
+class cMDTBuildBootstrapIni
 {
 
     [DscProperty(Mandatory)]
