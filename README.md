@@ -25,7 +25,8 @@ cMDTBuildLab uses a number of components and open resource kit modules. The foll
   ```powershell
   Install-Module -Name xSmbShare
   ```
-* [PowerShellAccessControl] (https://github.com/PowerShellOrg/PowerShellAccessControl) - DSC Module available from GitHub. Copy it to %ProgramFiles%\WindowsPowerShell\Modules\PowerShellAccessControl folder.
+* [PowerShellAccessControl] (https://github.com/PowerShellOrg/PowerShellAccessControl) - DSC Module available from GitHub.
+  Copy it to %ProgramFiles%\WindowsPowerShell\Modules\PowerShellAccessControl folder.
 
 The following prerequisites can automatically be downloaded with the cMDTBuildLab Module:
 * [MicrosoftDeploymentToolkit2013_x64] (https://download.microsoft.com/download/3/0/1/3012B93D-C445-44A9-8BFB-F28EB937B060/MicrosoftDeploymentToolkit2013_x64.msi) - Microsoft Deployment Toolkit (MDT) 2013 Update 2 (6.3.8330.1000)
