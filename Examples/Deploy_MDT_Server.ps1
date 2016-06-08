@@ -81,14 +81,14 @@ Configuration DeployMDTServerContract
             ReturnCode = 0
         }
 
-        cMDTBuildBuildDirectory TempFolder
+        cMDTBuildDirectory TempFolder
         {
             Ensure    = "Present"
             Name      = $Node.TempLocation.Replace("$($Node.TempLocation.Substring(0,2))\","")
             Path      = $Node.TempLocation.Substring(0,2)
         }
 
-        cMDTBuildBuildDirectory DeploymentFolder
+        cMDTBuildDirectory DeploymentFolder
         {
             Ensure    = "Present"
             Name      = $Node.PSDrivePath.Replace("$($Node.PSDrivePath.Substring(0,2))\","")
@@ -116,7 +116,7 @@ Configuration DeployMDTServerContract
             DependsOn  = "[cMDTBuildBuildDirectory]DeploymentFolder"
         }
 
-        cMDTBuildBuildPersistentDrive DeploymentPSDrive
+        cMDTBuildPersistentDrive DeploymentPSDrive
         {
             Ensure      = "Present"
             Name        = $Node.PSDriveName
