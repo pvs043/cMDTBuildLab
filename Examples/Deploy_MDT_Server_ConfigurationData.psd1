@@ -57,8 +57,12 @@
             ApplicationFolderStructure   = @(
                 @{  
                     Ensure = "Present"
-                    Folder = "Core Applications"
+                    Folder = "Core"
                     SubFolders   = @(
+                        @{  
+                            Ensure    = "Present"
+                            SubFolder = "Configure"
+                        }
                         @{  
                             Ensure    = "Present"
                             SubFolder = "Microsoft"
