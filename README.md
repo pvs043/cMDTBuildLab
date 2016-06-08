@@ -4,7 +4,7 @@ cMDTBuildLab is a Powershell Module to help automize deployment Windows Referenc
 cMDTBuildLab is a fork from cMDT module (https://github.com/addlevel/cMDT) by info@addlevel.se (c)
 
 ### Version
-0.0.2
+0.0.3
 
 ### Tech
 
@@ -19,13 +19,12 @@ Prerequisites for infrastructure:
 
 cMDTBuildLab uses a number of components and open resource kit modules. The following are prerequisites for the module and need to be installed to the inteded deployment server (MDT01):
 * [.Net3.5] - .Net Framewework 3.5
-* [WMF5] (http://aka.ms/wmf5latest) - Windows Management Framework 5.0.
-* [xSmbShare] (http://www.powershellgallery.com/packages/xSmbShare/) - DSC Module available from Powershell Gallery.
-
+* [WMF5] (http://aka.ms/wmf5latest) - Windows Management Framework 5.0
+* [xSmbShare] (http://www.powershellgallery.com/packages/xSmbShare/) - DSC Module available from Powershell Gallery<br>
   ```powershell
   Install-Module -Name xSmbShare
   ```
-* [PowerShellAccessControl] (https://github.com/PowerShellOrg/PowerShellAccessControl) - DSC Module available from GitHub.
+* [PowerShellAccessControl] (https://gallery.technet.microsoft.com/scriptcenter/PowerShellAccessControl-d3be7b83#content) - DSC Module available from Technet Gallery.<br>
   Copy it to %ProgramFiles%\WindowsPowerShell\Modules\PowerShellAccessControl folder.
 
 The following prerequisites can automatically be downloaded with the cMDTBuildLab Module:
