@@ -146,16 +146,6 @@ Configuration DeployMDTServerContract
                 DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
             }
 
-            cMDTBuildDirectory "OOB$($OSVersion.Replace(' ',''))"
-            {
-                Ensure      = $Ensure
-                Name        = "$($OSVersion) x64"
-                Path        = "$($Node.PSDriveName):\Out-of-Box Drivers"
-                PSDriveName = $Node.PSDriveName
-                PSDrivePath = $Node.PSDrivePath
-                DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
-            }
-
             cMDTBuildDirectory "TS$($OSVersion.Replace(' ',''))"
             {
                 Ensure      = $Ensure
@@ -166,7 +156,17 @@ Configuration DeployMDTServerContract
                 DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
             }
 
-            
+			<#
+            cMDTBuildDirectory "OOB$($OSVersion.Replace(' ',''))"
+            {
+                Ensure      = $Ensure
+                Name        = "$($OSVersion) x64"
+                Path        = "$($Node.PSDriveName):\Out-of-Box Drivers"
+                PSDriveName = $Node.PSDriveName
+                PSDrivePath = $Node.PSDrivePath
+                DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
+            }
+
             ForEach ($CurrentVendor in $Node.Vendors)
             {
 
@@ -189,7 +189,7 @@ Configuration DeployMDTServerContract
                     DependsOn   = "[cMDTBuildDirectory]OOB$($OSVersion.Replace(' ',''))"
                 }
             }
-
+			#>
         }
 
         ForEach ($CurrentApplicationFolder in $Node.ApplicationFolderStructure)

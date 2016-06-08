@@ -41,6 +41,14 @@
             OSDirectories   = @(
                 @{  
                     Ensure = "Present"
+                    OperatingSystem = "Windows 7"
+                }
+                @{  
+                    Ensure = "Present"
+                    OperatingSystem = "Windows 8.1"
+                }
+                @{  
+                    Ensure = "Present"
                     OperatingSystem = "Windows 10"
                 }
             )
