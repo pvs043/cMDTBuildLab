@@ -43,7 +43,7 @@ Configuration DeployMDTServerContract
             ConfigurationMode  = $AllNodes.ConfigurationMode   
         }
 
-        cMDTBuildBuildPreReqs MDTPreReqs {
+        cMDTBuildPreReqs MDTPreReqs {
             Ensure       = "Present"            
             DownloadPath = $Node.TempLocation
         }
@@ -103,7 +103,7 @@ Configuration DeployMDTServerContract
             Path                  = $Node.PSDrivePath
             FullAccess            = "$env:COMPUTERNAME\$($Node.MDTLocalAccount)"
             FolderEnumerationMode = "AccessBased"
-            DependsOn             = "[cMDTBuildBuildDirectory]DeploymentFolder"
+            DependsOn             = "[cMDTBuildDirectory]DeploymentFolder"
         }
 
         cAccessControlEntry AssignPermissions
@@ -113,7 +113,7 @@ Configuration DeployMDTServerContract
             AceType    = "AccessAllowed"
             Principal  = "$env:COMPUTERNAME\$($Node.MDTLocalAccount)"
             AccessMask = [System.Security.AccessControl.FileSystemRights]::FullControl
-            DependsOn  = "[cMDTBuildBuildDirectory]DeploymentFolder"
+            DependsOn  = "[cMDTBuildDirectory]DeploymentFolder"
         }
 
         cMDTBuildPersistentDrive DeploymentPSDrive
@@ -123,7 +123,7 @@ Configuration DeployMDTServerContract
             Path        = $Node.PSDrivePath
             Description = $Node.PSDrivePath.Replace("$($Node.PSDrivePath.Substring(0,2))\","")
             NetworkPath = "\\$($env:COMPUTERNAME)\$($Node.PSDriveShareName)"
-            DependsOn   = "[cMDTBuildBuildDirectory]DeploymentFolder"
+            DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
         }
 
         ForEach ($OSDirectory in $Node.OSDirectories)   
