@@ -1147,13 +1147,10 @@ class cMDTBuildPreReqs
 
             ForEach ($File in $this.downloadFiles)
             {
-               if($file.MDT){
                  Write-Verbose "   Testing for $($File.Name)..."
                  $present = (Test-Path -Path "$($this.DownloadPath)\$($File.Folder)\$($File.File)")
                  Write-Verbose "   $present"
                  if(!$Present){return $false}
-               }
-               
 			   <#
                if($file.ADK){
                  Write-Verbose "   Testing for ADK..."                 
