@@ -1099,7 +1099,7 @@ class cMDTBuildPreReqs
             #Set all files:               
             ForEach ($file in $this.downloadFiles)
             {
-                if(Test-Path -Path "$($this.DownloadPath)\$($file.Folder)"){
+                if(Test-Path -Path "$($this.DownloadPath)\$($file.Folder)\$($file.File)"){
                     Write-Verbose "   $($file.Name) already present!"
                 }
                 Else{
