@@ -45,7 +45,7 @@ Configuration DeployMDTServerContract
 
         cMDTBuildPreReqs MDTPreReqs {
             Ensure       = "Present"            
-            DownloadPath = $Node.TempLocation
+            DownloadPath = $Node.SourcePath
         }
 
         User MDTAccessAccount {
@@ -67,7 +67,7 @@ Configuration DeployMDTServerContract
         Package ADK {
             Ensure     = "Present"
             Name       = "Windows Assessment and Deployment Kit - Windows 10"
-            Path       = "$($Node.TempLocation)\Windows Assessment and Deployment Kit\adksetup.exe"
+            Path       = "$($Node.SourcePath)\Windows Assessment and Deployment Kit\adksetup.exe"
             ProductId  = "82daddb6-d4e0-42cb-988d-1e7f5739e155"
             Arguments  = "/quiet /features OptionId.DeploymentTools OptionId.WindowsPreinstallationEnvironment"
             ReturnCode = 0
@@ -76,7 +76,7 @@ Configuration DeployMDTServerContract
         Package MDT {
             Ensure     = "Present"
             Name       = "Microsoft Deployment Toolkit 2013 Update 2 (6.3.8330.1000)"
-            Path       = "$($Node.TempLocation)\Microsoft Deployment Toolkit\MicrosoftDeploymentToolkit2013_x64.msi"
+            Path       = "$($Node.SourcePath)\Microsoft Deployment Toolkit\MicrosoftDeploymentToolkit2013_x64.msi"
             ProductId  = "F172B6C7-45DD-4C22-A5BF-1B2C084CADEF"
             ReturnCode = 0
         }

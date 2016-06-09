@@ -977,11 +977,109 @@ class cMDTBuildPreReqs
     [string]$DownloadPath
 
     [DscProperty(NotConfigurable)]
-    [hashtable]
-    $downloadFiles = @{
-        MDT = "https://download.microsoft.com/download/3/0/1/3012B93D-C445-44A9-8BFB-F28EB937B060/MicrosoftDeploymentToolkit2013_x64.msi"  #Version: MDT 2013 Update 2 (Build: 6.3.8330.1000)
-        ADK = "http://download.microsoft.com/download/3/8/B/38BBCA6A-ADC9-4245-BCD8-DAA136F63C8B/adk/adksetup.exe"                         #Version: Windows 10 (Build: 10.1.10586.0)
-    }
+    [hashtable[]]
+    $downloadFiles = @(
+        @{
+            #Version: MDT 2013 Update 2 (Build: 6.3.8330.1000)
+            Name = "MDT"
+            URI = "https://download.microsoft.com/download/3/0/1/3012B93D-C445-44A9-8BFB-F28EB937B060/MicrosoftDeploymentToolkit2013_x64.msi"
+            Folder = "Microsoft Deployment Toolkit"
+            File = "MicrosoftDeploymentToolkit2013_x64.msi"
+        }
+        @{
+            #Version: Windows 10 (Build: 10.1.10586.0)
+            Name = "ADK"
+            URI = "http://download.microsoft.com/download/3/8/B/38BBCA6A-ADC9-4245-BCD8-DAA136F63C8B/adk/adksetup.exe"
+            Folder = "Windows Assessment and Deployment Kit"
+            File = "adksetup.exe"
+        }
+        @{
+            #Version: 5 (Build: 5.1.41212.0)
+		    Name = "Silverlight_x64"
+            URI = "http://download.microsoft.com/download/5/3/D/53D3880B-25F8-4714-A4AC-E463A492F96E/41212.00/Silverlight_x64.exe"
+            Folder = "Silverlight_x64"
+            File = "Silverlight_x64.exe"
+        }
+        @{
+            #Version: 5 (Build: 5.1.41212.0)
+		    Name = "Silverlight_x86"
+            URI = "http://download.microsoft.com/download/5/3/D/53D3880B-25F8-4714-A4AC-E463A492F96E/41212.00/Silverlight.exe"
+            Folder = "Silverlight_x86"
+            File = "Silverlight.exe"
+        }
+        @{
+            Name = "VS2005SP1x86"
+            URI = "http://download.microsoft.com/download/8/B/4/8B42259F-5D70-43F4-AC2E-4B208FD8D66A/vcredist_x86.exe"
+            Folder = "VC++\Source\VS2005"
+            File = "vcredist_x86.exe"
+        }
+        @{
+            Name = "VS2005SP1x64"
+            URI = "http://download.microsoft.com/download/8/B/4/8B42259F-5D70-43F4-AC2E-4B208FD8D66A/vcredist_x64.exe"
+            Folder = "VC++\Source\VS2005"
+            File = "vcredist_x64.exe"
+        }
+        @{
+            Name = "VS2008SP1x86"
+            URI = "http://download.microsoft.com/download/5/D/8/5D8C65CB-C849-4025-8E95-C3966CAFD8AE/vcredist_x86.exe"
+            Folder = "VC++\Source\VS2008"
+            File = "vcredist_x86.exe"
+        }
+        @{
+            Name = "VS2008SP1x64"
+            URI = "http://download.microsoft.com/download/5/D/8/5D8C65CB-C849-4025-8E95-C3966CAFD8AE/vcredist_x64.exe"
+            Folder = "VC++\Source\VS2008"
+            File = "vcredist_x64.exe"
+        }
+        @{
+            Name = "VS2010SP1x86"
+            URI = "http://download.microsoft.com/download/1/6/5/165255E7-1014-4D0A-B094-B6A430A6BFFC/vcredist_x86.exe"
+            Folder = "VC++\Source\VS2010"
+            File = "vcredist_x86.exe"
+        }
+        @{
+            Name = "VS2010SP1x64"
+            URI = "http://download.microsoft.com/download/1/6/5/165255E7-1014-4D0A-B094-B6A430A6BFFC/vcredist_x64.exe"
+            Folder = "VC++\Source\VS2010"
+            File = "vcredist_x64.exe"
+        }
+        @{
+            Name = "VS2012UPD4x86"
+            URI = "http://download.microsoft.com/download/1/6/B/16B06F60-3B20-4FF2-B699-5E9B7962F9AE/VSU_4/vcredist_x86.exe"
+            Folder = "VC++\Source\VS2012"
+            File = "vcredist_x86.exe"
+        }
+        @{
+            Name = "VS2012UPD4x64"
+            URI = "http://download.microsoft.com/download/1/6/B/16B06F60-3B20-4FF2-B699-5E9B7962F9AE/VSU_4/vcredist_x64.exe"
+            Folder = "VC++\Source\VS2012"
+            File = "vcredist_x64.exe"
+        }
+        @{
+            Name = "VS2013x86"
+            URI = "http://download.microsoft.com/download/2/E/6/2E61CFA4-993B-4DD4-91DA-3737CD5CD6E3/vcredist_x86.exe"
+            Folder = "VC++\Source\VS2013"
+            File = "vcredist_x86.exe"
+        }
+        @{
+            Name = "VS2013x64"
+            URI = "http://download.microsoft.com/download/2/E/6/2E61CFA4-993B-4DD4-91DA-3737CD5CD6E3/vcredist_x64.exe"
+            Folder = "VC++\Source\VS2013"
+            File = "vcredist_x64.exe"
+        }
+        @{
+            Name = "VS2015x86"
+            URI = "https://download.microsoft.com/download/9/3/F/93FCF1E7-E6A4-478B-96E7-D4B285925B00/vc_redist.x86.exe"
+            Folder = "VC++\Source\VS2015"
+            File = "vc_redist.x86.exe"
+        }
+        @{
+            Name = "VS2015x86"
+            URI = "https://download.microsoft.com/download/9/3/F/93FCF1E7-E6A4-478B-96E7-D4B285925B00/vc_redist.x64.exe"
+            Folder = "VC++\Source\VS2015"
+            File = "vc_redist.x64.exe"
+        }
+    )
     
     [void] Set()
     {
@@ -998,26 +1096,18 @@ class cMDTBuildPreReqs
                 New-Item -Path $this.DownloadPath -ItemType Directory -Force
             }
 
-            [string]$separator = ""
-            If ($this.DownloadPath -like "*/*")
-            { $separator = "/" }
-            Else
-            { $separator = "\" }
-            
             #Set all files:               
             ForEach ($file in $this.downloadFiles)
             {
-                if($file.MDT){                     
-                    if(Test-Path -Path "$($this.DownloadPath)\Microsoft Deployment Toolkit"){
-                        Write-Verbose "   MDT already present!"
-                    }
-                    Else{
-                        Write-Verbose "   Creating MDT folder..."
-                        New-Item -Path "$($this.DownloadPath)\Microsoft Deployment Toolkit" -ItemType Directory -Force
-                        $this.WebClientDownload($file.MDT, "$($this.DownloadPath)\Microsoft Deployment Toolkit\MicrosoftDeploymentToolkit2013_x64.msi")
-                    }
+                if(Test-Path -Path "$($this.DownloadPath)\$($file.Folder)"){
+                    Write-Verbose "   $($file.Name) already present!"
                 }
-
+                Else{
+                    Write-Verbose "   Creating $($file.Name) folder..."
+                    New-Item -Path "$($this.DownloadPath)\$($file.Folder)" -ItemType Directory -Force
+                    $this.WebClientDownload($file.URI, "$($this.DownloadPath)\$($file.Folder)\$($file.File)")
+                }
+<#
                 if($file.ADK){                     
                     if(Test-Path -Path "$($this.DownloadPath)\Windows Assessment and Deployment Kit"){
                         Write-Verbose "   ADK folder already present!"
@@ -1029,7 +1119,8 @@ class cMDTBuildPreReqs
                         #Run setup to prepp files...
                     }
                 }
-            }            
+#>
+            }
         }
         else
         {
@@ -1051,23 +1142,26 @@ class cMDTBuildPreReqs
                 Write-Verbose "   Download path found!"}            
             Else{
                 Write-Verbose "   Download path not found!"
-                return $present }
+                return $false
+			}
 
             ForEach ($File in $this.downloadFiles)
             {
                if($file.MDT){
-                 Write-Verbose "   Testing for MDT..."                
-                 $present = (Test-Path -Path "$($this.DownloadPath)\Microsoft Deployment Toolkit\MicrosoftDeploymentToolkit2013_x64.msi")
+                 Write-Verbose "   Testing for $($File.Name)..."
+                 $present = (Test-Path -Path "$($this.DownloadPath)\$($File.Folder)\$($File.File)")
                  Write-Verbose "   $present"
-                 if($Present){}Else{return $false}
+                 if(!$Present){return $false}
                }
                
+			   <#
                if($file.ADK){
                  Write-Verbose "   Testing for ADK..."                 
                  $present = (Test-Path -Path "$($this.DownloadPath)\Windows Assessment and Deployment Kit\adksetup.exe")
                  Write-Verbose "   $present"
                  if($Present){}Else{return $false}   
                }
+			   #>
             }
         }
         else{
@@ -1098,20 +1192,6 @@ class cMDTBuildPreReqs
         }        
 
         return $present
-    }
-
-    [bool] VerifyFiles()
-    {
-
-        [bool]$match = $false
-
-        if (Get-ChildItem -Path $this.DownloadPath -Recurse)
-        {
-            #ForEach File, test...
-            $match = $true
-        }
-        
-        return $match
     }
 
     [void] WebClientDownload($Source,$Target)
