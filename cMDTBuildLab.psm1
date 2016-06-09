@@ -1008,6 +1008,12 @@ class cMDTBuildPreReqs
             File = "Silverlight.exe"
         }
         @{
+            Name = "VS++Application"
+            URI = "Sources\Install-MicrosoftVisualC++x86x64.wsf"
+            Folder = "VC++"
+            File = "Install-MicrosoftVisualC++x86x64.wsf"
+        }
+        @{
             Name = "VS2005SP1x86"
             URI = "http://download.microsoft.com/download/8/B/4/8B42259F-5D70-43F4-AC2E-4B208FD8D66A/vcredist_x86.exe"
             Folder = "VC++\Source\VS2005"
@@ -1079,6 +1085,18 @@ class cMDTBuildPreReqs
             Folder = "VC++\Source\VS2015"
             File = "vc_redist.x64.exe"
         }
+		@{
+			Name = "WMF30x86"
+			URI = "https://download.microsoft.com/download/E/7/6/E76850B8-DA6E-4FF5-8CCE-A24FC513FD16/Windows6.1-KB2506143-x86.msu"
+			Folder = "WMF30x86"
+			File = "Windows6.1-KB2506143-x86.msu"
+		}
+		@{
+			Name = "WMF30x64"
+			URI = "https://download.microsoft.com/download/E/7/6/E76850B8-DA6E-4FF5-8CCE-A24FC513FD16/Windows6.1-KB2506143-x64.msu"
+			Folder = "WMF30x64"
+			File = "Windows6.1-KB2506143-x64.msu"
+		}
     )
     
     [void] Set()
@@ -1102,24 +1120,16 @@ class cMDTBuildPreReqs
                 if(Test-Path -Path "$($this.DownloadPath)\$($file.Folder)\$($file.File)"){
                     Write-Verbose "   $($file.Name) already present!"
                 }
-                Else{
+                else{
                     Write-Verbose "   Creating $($file.Name) folder..."
                     New-Item -Path "$($this.DownloadPath)\$($file.Folder)" -ItemType Directory -Force
-                    $this.WebClientDownload($file.URI, "$($this.DownloadPath)\$($file.Folder)\$($file.File)")
+					If ($file.URI -like "*/*"){
+						$this.WebClientDownload($file.URI, "$($this.DownloadPath)\$($file.Folder)\$($file.File)")
+					}
+					else{
+						$this.CopyFromSource("$($PSScriptRoot)\$($file.URI)", "$($this.DownloadPath)\$($file.Folder)\$($file.File)")
+					}
                 }
-<#
-                if($file.ADK){                     
-                    if(Test-Path -Path "$($this.DownloadPath)\Windows Assessment and Deployment Kit"){
-                        Write-Verbose "   ADK folder already present!"
-                    }
-                    Else{
-                        Write-Verbose "   Creating ADK folder..."
-                        New-Item -Path "$($this.DownloadPath)\Windows Assessment and Deployment Kit" -ItemType Directory -Force
-                        $this.WebClientDownload($file.ADK,"$($this.DownloadPath)\Windows Assessment and Deployment Kit\adksetup.exe")
-                        #Run setup to prepp files...
-                    }
-                }
-#>
             }
         }
         else
@@ -1151,14 +1161,6 @@ class cMDTBuildPreReqs
                  $present = (Test-Path -Path "$($this.DownloadPath)\$($File.Folder)\$($File.File)")
                  Write-Verbose "   $present"
                  if(!$Present){return $false}
-			   <#
-               if($file.ADK){
-                 Write-Verbose "   Testing for ADK..."                 
-                 $present = (Test-Path -Path "$($this.DownloadPath)\Windows Assessment and Deployment Kit\adksetup.exe")
-                 Write-Verbose "   $present"
-                 if($Present){}Else{return $false}   
-               }
-			   #>
             }
         }
         else{
@@ -1198,6 +1200,12 @@ class cMDTBuildPreReqs
         Write-Verbose "      Downloading to $($Target)"
         $WebClient.DownloadFile($Source, $Target)
     }
+
+	[void] CopyFromSource($Source,$Target)
+	{
+        Write-Verbose "      Copying $($Target)"
+		Copy-Item -Path $Source -Destination $Target
+	}
 
     [void] ExtractFile($Source,$Target)
     {
