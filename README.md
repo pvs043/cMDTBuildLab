@@ -4,7 +4,7 @@ cMDTBuildLab is a Powershell Module to help automize deployment Windows Referenc
 cMDTBuildLab is a fork from cMDT module (https://github.com/addlevel/cMDT) by info@addlevel.se (c)
 
 ### Version
-0.0.3
+0.0.4
 
 ### Tech
 
@@ -30,9 +30,12 @@ cMDTBuildLab uses a number of components and open resource kit modules. The foll
 The following prerequisites can automatically be downloaded with the cMDTBuildLab Module:
 * [MicrosoftDeploymentToolkit2013_x64] (https://download.microsoft.com/download/3/0/1/3012B93D-C445-44A9-8BFB-F28EB937B060/MicrosoftDeploymentToolkit2013_x64.msi) - Microsoft Deployment Toolkit (MDT) 2013 Update 2 (6.3.8330.1000)
 * [adksetup] (http://download.microsoft.com/download/3/8/B/38BBCA6A-ADC9-4245-BCD8-DAA136F63C8B/adk/adksetup.exe) - Windows Assessment and Deployment Kit (10.1.10586.0)
-* devcon.exe: tool from [Windows Driver Kit] (https://msdn.microsoft.com/en-us/windows/hardware/hh852365)
 * Visual C++ runtimes (2005,2008,2010,2012,2013,2015)
-* Microsoft Silverlight
+* Microsoft Silverlight 5
+* Windows Management Framewework 3.0 (https://www.microsoft.com/en-us/download/details.aspx?id=34595)
+
+This tool included to module (Sources directory)
+* devcon.exe: tool from [Windows Driver Kit] (https://msdn.microsoft.com/en-us/windows/hardware/hh852365)
 
 ### Installation
 
@@ -398,8 +401,8 @@ cMDTPersistentDrive DeploymentPSDrive {
 }
 ```
 
-#### cMDTPreReqs
-cMDTPreReqs is a DscResource that enables download of prerequisites for MDT server deployment. Prerequisites can be defined and managed from a pull server according to Desired State Configuration principles.
+#### cMDTBuildPreReqs
+cMDTBuildPreReqs is a DscResource that enables download of prerequisites for MDT server deployment. Prerequisites can be defined and managed from a pull server according to Desired State Configuration principles.
 
 Available parameters with example:
 * [Ensure] - Present/Absent
@@ -413,7 +416,7 @@ Desired State Configuration job example:
 ```sh
 cMDTPreReqs MDTPreReqs {
     Ensure = "Present"            
-    DownloadPath = "$(TempLocation)"
+    DownloadPath = "$(SourcePath)"
 }
 ```
 

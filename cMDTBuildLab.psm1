@@ -1097,6 +1097,42 @@ class cMDTBuildPreReqs
 			Folder = "WMF30x64"
 			File = "Windows6.1-KB2506143-x64.msu"
 		}
+        @{
+            Name = "KeyboardToggle"
+            URI = "Sources\Toggle.reg"
+            Folder = "KeyboardToggle"
+            File = "Toggle.reg"
+        }
+        @{
+            Name = "CleanupBeforeSysprep"
+            URI = "Sources\Action-CleanupBeforeSysprep.wsf"
+            Folder = "CleanupBeforeSysprep"
+            File = "Action-CleanupBeforeSysprep.wsf"
+        }
+        @{
+            Name = "RemoveWin8.1Apps"
+            URI = "Sources\Remove-Windows8.1Apps.ps1"
+            Folder = "Remove-Windows8.1Apps"
+            File = "Remove-Windows8.1Apps.ps1"
+        }
+        @{
+            Name = "CustomizeDefaultProfile"
+            URI = "Sources\Customize-DefaultProfile.ps1"
+            Folder = "Set-Startlayout"
+            File = "Customize-DefaultProfile.ps1"
+        }
+        @{
+            Name = "StartLayout"
+            URI = "Sources\Default_Start_Screen_Layout.bin"
+            Folder = "Set-Startlayout"
+            File = "Default_Start_Screen_Layout.bin"
+        }
+        @{
+            Name = "DesktopTheme"
+            URI = "Sources\Theme01.deskthemepack"
+            Folder = "Set-Startlayout"
+            File = "Theme01.deskthemepack"
+        }
     )
     
     [void] Set()
