@@ -506,5 +506,5 @@ License
 [Create a Windows 10 reference image] (https://technet.microsoft.com/itpro/windows/deploy/create-a-windows-10-reference-image)<br>
 [Back to Basics - Building a Windows 7 SP1 Reference Image using MDT 2013 Update 2] (http://deploymentresearch.com/Research/Post/521/Back-to-Basics-Building-a-Windows-7-SP1-Reference-Image-using-MDT-2013-Update-2)<br>
 [Building reference images like a boss!] (http://deploymentresearch.com/Research/Post/357/Building-reference-images-like-a-boss)<br>
-[PowerShell is King – Building a Reference Image Factory] (http://deploymentbunny.com/2014/01/06/powershell-is-king-building-a-reference-image-factory)<br>
+[PowerShell is King – Building a Reference Image Factory]
 [The battle begins - Building the perfect reference image for ConfigMgr 2012] (http://deploymentresearch.com/Research/Post/431/The-battle-begins-Building-the-perfect-reference-image-for-ConfigMgr-2012)
