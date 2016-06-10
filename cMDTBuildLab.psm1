@@ -483,7 +483,6 @@ SkipProductKey=YES
 [DscResource()]
 class cMDTBuildDirectory
 {
-
     [DscProperty(Mandatory)]
     [Ensure] $Ensure
 
@@ -501,19 +500,15 @@ class cMDTBuildDirectory
 
     [void] Set()
     {
-
-        if ($this.ensure -eq [Ensure]::Present)
-        {
+        if ($this.ensure -eq [Ensure]::Present) {
             $this.CreateDirectory()
         }
         else
         {
-            if (($this.PSDrivePath) -and ($this.PSDriveName))
-            {
+            if (($this.PSDrivePath) -and ($this.PSDriveName)) {
                 Invoke-RemovePath -Path "$($this.path)\$($this.Name)" -PSDriveName $this.PSDriveName -PSDrivePath $this.PSDrivePath -Verbose
             }
-            Else
-            {
+            else {
                 Invoke-RemovePath -Path "$($this.path)\$($this.Name)" -Verbose
             }
         }
@@ -521,22 +516,17 @@ class cMDTBuildDirectory
 
     [bool] Test()
     {
-
-        if (($this.PSDrivePath) -and ($this.PSDriveName))
-        {
+        if (($this.PSDrivePath) -and ($this.PSDriveName)) {
             $present = Invoke-TestPath -Path "$($this.path)\$($this.Name)" -PSDriveName $this.PSDriveName -PSDrivePath $this.PSDrivePath -Verbose
         }
-        Else
-        {
+        else {
             $present = Invoke-TestPath -Path "$($this.path)\$($this.Name)" -Verbose
         }
         
-        if ($this.Ensure -eq [Ensure]::Present)
-        {
+        if ($this.Ensure -eq [Ensure]::Present) {
             return $present
         }
-        else
-        {
+        else {
             return -not $present
         }
     }
@@ -548,19 +538,14 @@ class cMDTBuildDirectory
 
     [void] CreateDirectory()
     {
-
-        if (($this.PSDrivePath) -and ($this.PSDriveName))
-        {
+        if (($this.PSDrivePath) -and ($this.PSDriveName)) {
             Import-MicrosoftDeploymentToolkitModule
-
             New-PSDrive -Name $this.PSDriveName -PSProvider "MDTProvider" -Root $this.PSDrivePath -Verbose:$false | `
+	            New-Item -ItemType Directory -Path "$($this.path)\$($this.Name)" -Verbose
+        }
+        else {
             New-Item -ItemType Directory -Path "$($this.path)\$($this.Name)" -Verbose
         }
-        else
-        {
-            New-Item -ItemType Directory -Path "$($this.path)\$($this.Name)" -Verbose
-        }
-
     }
 }
 
@@ -969,7 +954,6 @@ class cMDTBuildPersistentDrive
 [DscResource()]
 class cMDTBuildPreReqs
 {
-
     [DscProperty(Mandatory)]
     [Ensure]$Ensure
     
@@ -1143,33 +1127,32 @@ class cMDTBuildPreReqs
         {
             $present = $this.TestDownloadPath()
 
-            if ($present){
+            if ($present) {
                 Write-Verbose "   Download folder present!"
             }
-            else{
+            else {
                 New-Item -Path $this.DownloadPath -ItemType Directory -Force
             }
 
             #Set all files:               
             ForEach ($file in $this.downloadFiles)
             {
-                if(Test-Path -Path "$($this.DownloadPath)\$($file.Folder)\$($file.File)"){
+                if(Test-Path -Path "$($this.DownloadPath)\$($file.Folder)\$($file.File)") {
                     Write-Verbose "   $($file.Name) already present!"
                 }
-                else{
+                else {
                     Write-Verbose "   Creating $($file.Name) folder..."
                     New-Item -Path "$($this.DownloadPath)\$($file.Folder)" -ItemType Directory -Force
-					If ($file.URI -like "*/*"){
+					If ($file.URI -like "*/*") {
 						$this.WebClientDownload($file.URI, "$($this.DownloadPath)\$($file.Folder)\$($file.File)")
 					}
-					else{
+					else {
 						$this.CopyFromSource("$($PSScriptRoot)\$($file.URI)", "$($this.DownloadPath)\$($file.Folder)\$($file.File)")
 					}
                 }
             }
         }
-        else
-        {
+        else {
             $this.RemoveDirectory("")
         }
 
@@ -1184,9 +1167,10 @@ class cMDTBuildPreReqs
         if ($this.ensure -eq [Ensure]::Present)
         {            
             Write-Verbose "   Testing for download path.."            
-            if($present){
-                Write-Verbose "   Download path found!"}            
-            Else{
+            if($present) {
+                Write-Verbose "   Download path found!"
+			}            
+            Else {
                 Write-Verbose "   Download path not found!"
                 return $false
 			}
@@ -1199,11 +1183,11 @@ class cMDTBuildPreReqs
                  if(!$Present){return $false}
             }
         }
-        else{
-            if ($Present){
+        else {
+            if ($Present) {
                $present = $false 
             }
-            else{
+            else {
                $present = $true 
             }
         }
@@ -1220,12 +1204,9 @@ class cMDTBuildPreReqs
     [bool] TestDownloadPath()
     {
         $present = $false
-
-        if (Test-Path -Path $this.DownloadPath -ErrorAction Ignore)
-        {
+        if (Test-Path -Path $this.DownloadPath -ErrorAction Ignore) {
             $present = $true
         }        
-
         return $present
     }
 
@@ -1251,7 +1232,6 @@ class cMDTBuildPreReqs
 
     [void] CleanTempDirectory($Object)
     {
-
         Remove-Item -Path $Object -Force -Recurse -Verbose:$False
     }
 

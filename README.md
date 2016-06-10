@@ -4,7 +4,7 @@ cMDTBuildLab is a Powershell Module to help automize deployment Windows Referenc
 cMDTBuildLab is a fork from cMDT module (https://github.com/addlevel/cMDT) by info@addlevel.se (c)
 
 ### Version
-0.0.4
+0.0.5
 
 ### Tech
 
@@ -62,19 +62,18 @@ You can use this module with a pull server, an SMB share or a local file reposit
 
 ### DscResources
 
-The cMDT Module contain the following DscResources:
+The cMDTBuildLab Module contain the following DscResources:
 
-* cMDTApplication
-* cMDTBootstrapIni
-* cMDTCustomize
-* cMDTCustomSettingsIni
-* cMDTDirectory
-* cMDTDriver
-* cMDTOperatingSystem
-* cMDTPersistentDrive
-* cMDTPreReqs
-* cMDTTaskSequence
-* cMDTUpdateBootImage
+* cMDTBuildApplication
+* cMDTBuildBootstrapIni
+* cMDTBuildCustomize
+* cMDTBuildCustomSettingsIni
+* cMDTBuildDirectory
+* cMDTBuildOperatingSystem
+* cMDTBuildPersistentDrive
+* cMDTBuildPreReqs
+* cMDTBuildTaskSequence
+* cMDTBuildUpdateBootImage
  
 #### cMDTApplication
 cMDTApplication is a DscResource that enables download, import of and lifecycle management of applications in MDT. Applications can be updated and retrieved from a pull server according to Desired State Configuration principles.
@@ -305,7 +304,7 @@ FinishAction=RESTART
 }
 ```
 
-#### cMDTDirectory
+#### cMDTBuildDirectory
 cMDTDirectory is a DscResource that enables management of folder structures with lifecycle management for MDT. These folders can be managed from a pull server according to Desired State Configuration principles.
 
 Available parameters with example:
@@ -325,7 +324,7 @@ The DscResource will manage MDT folders according to the following principle:
 
 Desired State Configuration job example:
 ```sh
-cMDTDirectory Windows10 {
+cMDTBuildDirectory Windows10 {
     Ensure = "Present"
     Name = "Windows 10"
     Path = "DS001:\Operating Systems"
