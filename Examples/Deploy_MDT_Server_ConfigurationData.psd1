@@ -17,7 +17,7 @@
             NodeName           = "$env:computername"
             Role               = "MDT Server"
 
-            #SMB or web link to a pull server
+            #Sources for download/Prereqs
             SourcePath         = "E:\Source"
 
             #Local account to create for MDT
@@ -33,8 +33,6 @@
             #MDT deoployment share paths
             PSDriveName        = "MDT001"
             PSDrivePath        = "E:\MDTBuildLab"
-
-            #SMB share name
             PSDriveShareName   = "MDTBuildLab$"
 
             #Operating system MDT directory information
