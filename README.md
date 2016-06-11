@@ -49,15 +49,21 @@ Find-Module cMDTBuildLab | Install-Module
 You can use this module with a pull server, an SMB share or a local file repository. The following quick start example use a local file repository. We recommend that you create a Checkpoint/Snapshot of the test deployment server after the initial prerequisites and sourcefiles have been installed/copied.
 
 1. Make sure you have installed all prerequisites.
-2. Install the cMDTBuildLab module on the test deployment server:
-
+2. Install the cMDTBuildLab module on the test deployment server:<br>
 ``` powershell
  Install-Module cMDTBuildLab
  ```
 3. Create a source directory (E:\Source). If you use another driveletter and patch you need to edit the configuration file: (Deploy_MDT_Server_ConfigurationData.psd1)
-4. Copy install.wim file from a Windows 10 media to C:\Sources and rename the file to install_1.0.0.0.wim
-5. Copy the Zip-files PEExtraFiles_1.0.0.0.zip and Scripts_1.0.0.0.zip from the Powershell cMDT Module install directory (C:\Program Files\WindowsPowerShell\Modules\adl_MDT\1.0.0.0\Sources) to the C:\Sources directory. 
-5. Run Powershell ISE as Administrator and open the file: C:\Program Files\WindowsPowerShell\Modules\cMDT\1.0.0.0\Examples\Deploy_MDT_Server.ps1
+4. Create subfolders under E:\Source and copy content from official Windows ISO to it:
+   * Windows7x86
+   * Windows7x64
+   * Windows81x86
+   * Windows81x64
+   * Windows10x86
+   * Windows10x64
+   * Windows2012R2
+   * Windows2016TP5
+5. Run Powershell ISE as Administrator and open the file: C:\Program Files\WindowsPowerShell\Modules\cMDTBuldLab\1.0.0\Examples\Deploy_MDT_Server.ps1
 6. Press F5 to run the script. It will take approximately 30 min (Depending on internet capacity and virtualization hardware). The server will reboot ones during this process.
 
 ### DscResources
@@ -505,6 +511,6 @@ License
 
 [Create a Windows 10 reference image] (https://technet.microsoft.com/itpro/windows/deploy/create-a-windows-10-reference-image)<br>
 [Back to Basics - Building a Windows 7 SP1 Reference Image using MDT 2013 Update 2] (http://deploymentresearch.com/Research/Post/521/Back-to-Basics-Building-a-Windows-7-SP1-Reference-Image-using-MDT-2013-Update-2/)<br>
-[Building reference images like a boss] (http://deploymentresearch.com/Research/Post/357/Building-reference-images-like-a-boss/)
-[PowerShell is King – Building a Reference Image Factory] (https://deploymentbunny.com/2014/01/06/powershell-is-king-building-a-reference-image-factory/)
+[Building reference images like a boss] (http://deploymentresearch.com/Research/Post/357/Building-reference-images-like-a-boss/)<br>
+[PowerShell is King Â– Building a Reference Image Factory] (https://deploymentbunny.com/2014/01/06/powershell-is-king-building-a-reference-image-factory/)<br>
 [The battle begins - Building the perfect reference image for ConfigMgr 2012] (http://deploymentresearch.com/Research/Post/431/The-battle-begins-Building-the-perfect-reference-image-for-ConfigMgr-2012)
