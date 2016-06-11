@@ -1064,7 +1064,7 @@ class cMDTBuildPreReqs
             File = "vc_redist.x86.exe"
         }
         @{
-            Name = "VS2015x86"
+            Name = "VS2015x64"
             URI = "https://download.microsoft.com/download/9/3/F/93FCF1E7-E6A4-478B-96E7-D4B285925B00/vc_redist.x64.exe"
             Folder = "VC++\Source\VS2015"
             File = "vc_redist.x64.exe"
