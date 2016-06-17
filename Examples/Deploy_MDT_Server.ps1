@@ -155,41 +155,6 @@ Configuration DeployMDTServerContract
                 PSDrivePath = $Node.PSDrivePath
                 DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
             }
-
-			<#
-            cMDTBuildDirectory "OOB$($OSVersion.Replace(' ',''))"
-            {
-                Ensure      = $Ensure
-                Name        = "$($OSVersion) x64"
-                Path        = "$($Node.PSDriveName):\Out-of-Box Drivers"
-                PSDriveName = $Node.PSDriveName
-                PSDrivePath = $Node.PSDrivePath
-                DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
-            }
-
-            ForEach ($CurrentVendor in $Node.Vendors)
-            {
-
-                [string]$EnsureVendor = ""
-                [string]$Vendor       = ""
-                $CurrentVendor.GetEnumerator() | % {
-                    If ($_.key -eq "Ensure") { $EnsureVendor = $_.value }
-                    If ($_.key -eq "Vendor") { $Vendor       = $_.value }
-                }
-
-                If ($Ensure -eq "Absent")    { $EnsureVendor = "Absent" }
-
-                cMDTBuildDirectory "OOB$($OSVersion.Replace(' ',''))$($Vendor.Replace(' ',''))"
-                {
-                    Ensure      = $EnsureVendor
-                    Name        = $Vendor
-                    Path        = "$($Node.PSDriveName):\Out-of-Box Drivers\$OSVersion x64"
-                    PSDriveName = $Node.PSDriveName
-                    PSDrivePath = $Node.PSDrivePath
-                    DependsOn   = "[cMDTBuildDirectory]OOB$($OSVersion.Replace(' ',''))"
-                }
-            }
-			#>
         }
 
         ForEach ($CurrentApplicationFolder in $Node.ApplicationFolderStructure)
