@@ -42,18 +42,15 @@ This tool included to module (Sources directory):
 To install the cMDTBuildLab Module from the Powershell Gallery:
 
 ```powershell
-Find-Module cMDTBuildLab | Install-Module
+Install-Module cMDTBuildLab
 ```
 
 ### Quick start
 You can use this module with a pull server, an SMB share or a local file repository. The following quick start example use a local file repository. We recommend that you create a Checkpoint/Snapshot of the test deployment server after the initial prerequisites and sourcefiles have been installed/copied.
 
 1. Make sure you have installed all prerequisites.
-2. Install the cMDTBuildLab module on the test deployment server:<br>
-``` powershell
- Install-Module cMDTBuildLab
- ```
-3. Create a source directory (E:\Source). If you use another driveletter and patch you need to edit the configuration file: (Deploy_MDT_Server_ConfigurationData.psd1)
+2. Install the cMDTBuildLab module on the test deployment server.
+3. Create a source directory (E:\Source). If you use another driveletter and patch you need to edit the configuration file (Deploy_MDT_Server_ConfigurationData.psd1)
 4. Create subfolders under E:\Source and copy content from official Windows ISO to it:
    * Windows7x86
    * Windows7x64
@@ -501,12 +498,11 @@ License
 
 ### Respects
 
-[Johan Arwidmark] (http://deploymentresearch.com/Research): Deployment Research
-[Mikael Nystrom] (https://anothermike2.wordpress.com): The Deployment Bunny
-[Jason Helmick] (https://twitter.com/theJasonHelmick), [Jeffrey Snover] (https://twitter.com/@jsnover):
-[1. Getting Started with PowerShell Desired State Configuration (DSC)] (https://mva.microsoft.com/en-US/training-courses/getting-started-with-powershell-desired-state-configuration-dsc--8672?l=ZwHuclG1_2504984382). ([Rus] (https://mva.microsoft.com/ru/training-courses/-powershell-dsc--8672?l=dlwgB3wFB_1704984382))
+[Johan Arwidmark] (http://deploymentresearch.com/Research): Deployment Research<br>
+[Mikael Nystrom] (https://anothermike2.wordpress.com): The Deployment Bunny<br>
+[Jason Helmick] (https://twitter.com/theJasonHelmick), [Jeffrey Snover] (https://twitter.com/@jsnover):<br>
+[1. Getting Started with PowerShell Desired State Configuration (DSC)] (https://mva.microsoft.com/en-US/training-courses/getting-started-with-powershell-desired-state-configuration-dsc--8672?l=ZwHuclG1_2504984382). ([Rus] (https://mva.microsoft.com/ru/training-courses/-powershell-dsc--8672?l=dlwgB3wFB_1704984382))<br>
 [2. Advanced PowerShell Desired State Configuration (DSC) and Custom Resources] (https://mva.microsoft.com/en-US/training-courses/advanced-powershell-desired-state-configuration-dsc-and-custom-resources-8702?l=3DnsS2H1_1504984382)
-
  
 ### Reference
 
