@@ -53,7 +53,7 @@ You can use this module with a pull server, an SMB share or a local file reposit
 ``` powershell
  Install-Module cMDTBuildLab
  ```
-3. Create a source directory (E:\Source). If you use another driveletter and patch you need to edit the configuration file: (Deploy_MDT_Server_ConfigurationData.psd1)
+3. Create a source directory (E:\Source). If you use another driveletter and patch you need to edit the configuration file (Deploy_MDT_Server_ConfigurationData.psd1)
 4. Create subfolders under E:\Source and copy content from official Windows ISO to it:
    * Windows7x86
    * Windows7x64
