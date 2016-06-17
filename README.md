@@ -52,7 +52,7 @@ You can use this module with a pull server, an SMB share or a local file reposit
 2. Install the cMDTBuildLab module on the test deployment server:<br>
 ``` powershell
  Install-Module cMDTBuildLab
- ```
+ ```<br>
 3. Create a source directory (E:\Source). If you use another driveletter and patch you need to edit the configuration file (Deploy_MDT_Server_ConfigurationData.psd1)
 4. Create subfolders under E:\Source and copy content from official Windows ISO to it:
    * Windows7x86
