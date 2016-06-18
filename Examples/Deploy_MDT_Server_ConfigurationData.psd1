@@ -83,12 +83,53 @@
 
             #Operating systems to import to MDT
             OperatingSystems   = @(
-                @{  
+                @{
                     Ensure     = "Present"
-                    Name       = "Windows 10 Enterprise x64"
-                    Version    = "1.0.0.0"
-                    Path       = "\Operating Systems\Windows 10"
-                    SourcePath = "/Install"
+                    Name       = "Windows 7 x86"
+                    Path       = "Windows 7"
+                    SourcePath = "$SourcePath/Windows7x86"
+                }
+                @{
+                    Ensure     = "Present"
+                    Name       = "Windows 7 x64"
+                    Path       = "Windows 7"
+                    SourcePath = "$SourcePath/Windows7x64"
+                }
+                @{
+                    Ensure     = "Present"
+                    Name       = "Windows 8.1 x86"
+                    Path       = "Windows 8.1"
+                    SourcePath = "$SourcePath/Windows81x86"
+                }
+                @{
+                    Ensure     = "Present"
+                    Name       = "Windows 8.1 x64"
+                    Path       = "Windows 8.1"
+                    SourcePath = "$SourcePath/Windows81x64"
+                }
+                @{
+                    Ensure     = "Present"
+                    Name       = "Windows 10 x86"
+                    Path       = "Windows 10"
+                    SourcePath = "$SourcePath/Windows10x86"
+                }
+                @{
+                    Ensure     = "Present"
+                    Name       = "Windows 10 x64"
+                    Path       = "Windows 10"
+                    SourcePath = "$SourcePath/Windows10x64"
+                }
+                @{
+                    Ensure     = "Present"
+                    Name       = "Windows 2012 R2"
+                    Path       = "Windows 2012 R2"
+                    SourcePath = "$SourcePath/Windows2012R2"
+                }
+                @{
+                    Ensure     = "Present"
+                    Name       = "Windows 2016 TP5"
+                    Path       = "Windows 2016 TP5"
+                    SourcePath = "$SourcePath/Windows2016TP5"
                 }
             )
 

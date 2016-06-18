@@ -210,37 +210,24 @@ Configuration DeployMDTServerContract
 
             [string]$Ensure     = ""
             [string]$Name       = ""
-            [string]$Version    = ""
             [string]$Path       = ""
             [string]$SourcePath = ""
 
             $OperatingSystem.GetEnumerator() | % {
                 If ($_.key -eq "Ensure")     { $Ensure     = $_.value }
                 If ($_.key -eq "Name")       { $Name       = $_.value }
-                If ($_.key -eq "Version")    { $Version    = $_.value }
-                If ($_.key -eq "Path")       { $Path       = "$($Node.PSDriveName):$($_.value)" }
-                If ($_.key -eq "SourcePath")
-                {
-                    If (($_.value -like "*:*") -or ($_.value -like "*\\*"))
-                                             { $SourcePath = $_.value }
-                    Else
-                    {
-                        If ($weblink)        { $SourcePath = "$($Node.SourcePath)$($_.value.Replace("\","/"))" }
-                        Else                 { $SourcePath = "$($Node.SourcePath)$($_.value.Replace("/","\"))" }
-                    }
-                }
+                If ($_.key -eq "Path")       { $Path       = "$($Node.PSDriveName):\Operating Systems\$($_.value)" }
+                If ($_.key -eq "SourcePath") { $SourcePath = "$($Node.SourcePath)$($_.value)" }
             }
 
             cMDTBuildOperatingSystem $Name.Replace(' ','')
             {
                 Ensure       = $Ensure
                 Name         = $Name
-                Version      = $Version
                 Path         = $Path
                 SourcePath   = $SourcePath
                 PSDriveName  = $Node.PSDriveName
                 PSDrivePath  = $Node.PSDrivePath
-                TempLocation = $Node.TempLocation
                 DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
             }
         }

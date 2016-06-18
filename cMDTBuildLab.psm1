@@ -556,20 +556,14 @@ class cMDTBuildOperatingSystem
     [DscProperty(Mandatory)]
     [Ensure]$Ensure
 
-    [DscProperty(Mandatory)]
-    [string]$Version
+    [DscProperty(Key)]
+    [string]$Name
 
     [DscProperty(Key)]
     [string]$Path
 
     [DscProperty(Key)]
-    [string]$Name
-
-    [DscProperty(Key)]
     [string]$SourcePath
-
-    [DscProperty(Mandatory)]
-    [string]$TempLocation
 
     [DscProperty(Mandatory)]
     [string]$PSDriveName
@@ -579,245 +573,23 @@ class cMDTBuildOperatingSystem
 
     [void] Set()
     {
-
-        [bool]$Hash = $False
-        If (-not ($this.version))
-        { $Hash = $True }
-
-        [string]$separator = ""
-        If ($this.SourcePath -like "*/*")
-        { $separator = "/" }
-        Else
-        { $separator = "\" }
-
-        $filename = $null
-        If ($Hash)
-        { $filename = "$($this.SourcePath.Split($separator)[-1]).wim" }
-        Else
-        { $filename = "$($this.SourcePath.Split($separator)[-1])_$($this.Version).wim" }
-        
-        $foldername = $filename.Replace(".$($filename.Split(".")[-1])","")
-
-        [bool]$download = $True
-        If (($separator -eq "/") -Or ($this.SourcePath.Substring(0,2) -eq "\\"))
-        {
-            $targetdownload = "$($this.TempLocation)\$($this.SourcePath.Split($separator)[-1]).wim"
-            $targetdownloadref = "$($this.TempLocation)\$($this.SourcePath.Split($separator)[-1]).version"
-        }
-        Else
-        {
-            If ($Hash)
-            {
-                $targetdownload = "$($this.SourcePath).wim"
-                $targetdownloadref = "$($this.SourcePath).version"
-            }
-            Else
-            {
-                $targetdownload = "$($this.SourcePath)_$($this.Version).wim"
-                $targetdownloadref = "$($this.SourcePath)_$($this.Version).version"
-            }
-            $download = $False
-        }
-
-        $referencefile = "$($this.PSDrivePath)\Operating Systems\$($this.Name)\$($this.SourcePath.Split($separator)[-1]).version"
-        $extractfolder = "$($this.TempLocation)\$($foldername)"
-
         if ($this.ensure -eq [Ensure]::Present)
         {
-
-            $present = Invoke-TestPath -Path "$($this.PSDrivePath)\Operating Systems\$($this.Name)\$($this.SourcePath.Split($separator)[-1]).wim"
-
-            if ($present)
-            {
-                
-                If ($Hash)
-                {
-                    If ($download)
-                    {
-
-                        Invoke-WebDownload -Source "$($this.SourcePath).wim" -Target $targetdownload -Verbose
-                        $present = Invoke-TestPath -Path $targetdownload
-                        If (-not($present)) { Write-Error "Cannot find path '$targetdownload' because it does not exist." ; Return }
-
-                        Invoke-WebDownload -Source "$($this.SourcePath).version" -Target $targetdownloadref
-                        $present = Invoke-TestPath -Path $targetdownloadref
-                        If (-not($present)) { Write-Error "Cannot find path '$targetdownloadref' because it does not exist." ; Return }
-
-                    }
-                    Else
-                    {
-
-                        $present = Invoke-TestPath -Path $targetdownload
-                        If (-not($present)) { Write-Error "Cannot find path '$targetdownload' because it does not exist." ; Return }
-
-                    }
-                }
-                Else
-                {
-                    If ($download)
-                    {
-
-                        Invoke-WebDownload -Source "$($this.SourcePath)_$($this.Version).wim" -Target $targetdownload -Verbose
-                        $present = Invoke-TestPath -Path $targetdownload
-                        If (-not($present)) { Write-Error "Cannot find path '$targetdownload' because it does not exist." ; Return }
-
-                    }
-                }
-
-                Invoke-RemovePath -Path "$($this.PSDrivePath)\Operating Systems\$($this.Name)\$($this.SourcePath.Split($separator)[-1]).wim" -Verbose
-                $present = Invoke-TestPath -Path "$($this.PSDrivePath)\Operating Systems\$($this.Name)\$($this.SourcePath.Split($separator)[-1]).wim"
-                If ($present) { Write-Error "Could not remove path '$($this.PSDrivePath)\Operating Systems\$($this.Name)\$($this.SourcePath.Split($separator)[-1]).wim'." ; Return }
-
-                $oldname = $null
-                $newname = $null
-                If (-not ($Hash))
-                {
-                    $oldname = $targetdownload
-                    $newname = $targetdownload.Replace("_$($this.Version)","")
-                }
-
-                If ($download)
-                {
-                    Copy-Item $targetdownload -Destination "$($this.PSDrivePath)\Operating Systems\$($this.Name)\$($this.SourcePath.Split($separator)[-1]).wim" -Force -Verbose
-                }
-                Else
-                {
-                    If (-not ($Hash)) { Rename-Item -Path $oldname -NewName $newname -ErrorAction SilentlyContinue -Verbose:$False }
-                    If ($Hash)
-                    {
-                        Copy-Item $targetdownload -Destination "$($this.PSDrivePath)\Operating Systems\$($this.Name)\$($this.SourcePath.Split($separator)[-1]).wim" -Force -Verbose
-                    }
-                    Else
-                    {
-                        Copy-Item $newname -Destination "$($this.PSDrivePath)\Operating Systems\$($this.Name)\$($this.SourcePath.Split($separator)[-1]).wim" -Force -Verbose
-                    }
-                    If (-not ($Hash)) { Rename-Item -Path $newname -NewName $oldname -ErrorAction SilentlyContinue -Verbose:$False }
-                }
-
-                If ($Hash)
-                {
-                    $this.version = Get-Content -Path $targetdownloadref
-                }
-
-                Set-Content -Path $referencefile -Value "$($this.Version)" -Verbose:$false
-            }
-            else
-            {
-                
-                $oldname = $null
-                $newname = $null
-                If (-not ($Hash))
-                {
-                    $oldname = $targetdownload
-                    $newname = $targetdownload.Replace("_$($this.Version)","")
-                }
-
-                If ($download)
-                {
-                    If ($Hash)
-                    {
-
-                        Invoke-WebDownload -Source "$($this.SourcePath).wim" -Target $targetdownload -Verbose
-                        $present = Invoke-TestPath -Path $targetdownload
-                        If (-not($present)) { Write-Error "Cannot find path '$targetdownload' because it does not exist." ; Return }
-
-                        Invoke-WebDownload -Source "$($this.SourcePath).version" -Target $targetdownloadref
-                        $present = Invoke-TestPath -Path $targetdownloadref
-                        If (-not($present)) { Write-Error "Cannot find path '$targetdownloadref' because it does not exist." ; Return }
-
-                    }
-                    Else
-                    {
-                        Invoke-WebDownload -Source "$($this.SourcePath)_$($this.Version).wim" -Target $targetdownload -Verbose
-                        $present = Invoke-TestPath -Path $targetdownload
-                        If (-not($present)) { Write-Error "Cannot find path '$targetdownload' because it does not exist." ; Return }
-
-                    }
-                    $this.ImportOperatingSystem($targetdownload)
-                }
-                Else
-                {
-                    If (-not ($Hash)) { Rename-Item -Path $oldname -NewName $newname -ErrorAction SilentlyContinue -Verbose:$False }
-                    If ($Hash)
-                    {
-                        $this.ImportOperatingSystem($targetdownload)
-                    }
-                    Else
-                    {
-                        $this.ImportOperatingSystem($newname)
-                    }
-                    If (-not ($Hash)) { Rename-Item -Path $newname -NewName $oldname -ErrorAction SilentlyContinue -Verbose:$False }
-                }
-
-                New-ReferenceFile -Path $referencefile -PSDriveName $this.PSDriveName -PSDrivePath $this.PSDrivePath
-
-                If ($Hash)
-                {
-                    $this.version = Get-Content -Path $targetdownloadref
-                }
-
-                Set-Content -Path $referencefile -Value "$($this.Version)"
+            if ( !$this.Test() ) {
+				$this.ImportOperatingSystem("$($this.SourcePath)")
             }
         }
         else
         {
-
             Invoke-RemovePath -Path "$($this.PSDrivePath)\Operating Systems\$($this.Name)" -PSDriveName $this.PSDriveName -PSDrivePath $this.PSDrivePath -Verbose
-            $present = Invoke-TestPath -Path "$($this.PSDrivePath)\Operating Systems\$($this.Name)"
-            If ($present) { Write-Error "Cannot find path '$($this.PSDrivePath)\Operating Systems\$($this.Name)' because it does not exist." }
-
+            If ( $this.Test() ) { Write-Error "Cannot remove '$($this.PSDrivePath)\Operating Systems\$($this.Name)'" }
         }
-
     }
 
     [bool] Test()
     {
-
-        [string]$separator = ""
-        If ($this.SourcePath -like "*/*")
-        { $separator = "/" }
-        Else
-        { $separator = "\" }
-
-        If (-not ($this.version))
-        {
-            [bool]$download = $True
-            If (($separator -eq "/") -Or ($this.SourcePath.Substring(0,2) -eq "\\"))
-            { $targetdownloadref = "$($this.TempLocation)\$($this.SourcePath.Split($separator)[-1]).version" }
-            Else
-            { $targetdownloadref = "$($this.SourcePath).version" ; $download = $False }
-
-            If ($download)
-            {
-                Invoke-WebDownload -Source "$($this.SourcePath).version" -Target $targetdownloadref
-                $present = Invoke-TestPath -Path $targetdownloadref
-                If (-not($present)) { Write-Error "Cannot find path '$targetdownloadref' because it does not exist." ; Exit }
-            }
-            $this.version = Get-Content -Path $targetdownloadref
-        }
-
-        $present = Invoke-TestPath -Path "$($this.PSDrivePath)\Operating Systems\$($this.Name)\$($this.SourcePath.Split($separator)[-1]).wim"
-
-        if (($present) -and ($this.ensure -eq [Ensure]::Present))
-        {
-
-            $match = Compare-Version -Source "$($this.PSDrivePath)\Operating Systems\$($this.Name)\$($this.SourcePath.Split($separator)[-1]).version" -Target $this.Version
-
-            if (-not ($match))
-            {
-                Write-Verbose "$($this.Name) version has been updated on the pull server"
-                $present = $false
-            }
-        }
-        
-        if ($this.Ensure -eq [Ensure]::Present)
-        {
-            return $present
-        }
-        else
-        {
-            return -not $present
-        }
+        $present = Invoke-TestPath -Path "$($this.PSDrivePath)\Operating Systems\$($this.Name)\sources\install.wim"
+        return $present
     }
 
     [cMDTBuildOperatingSystem] Get()
@@ -827,30 +599,22 @@ class cMDTBuildOperatingSystem
 
     [void] ImportOperatingSystem($OperatingSystem)
     {
-
         Import-MicrosoftDeploymentToolkitModule
-
         New-PSDrive -Name $this.PSDriveName -PSProvider "MDTProvider" -Root $this.PSDrivePath -Verbose:$false
 
-        Try
-        {
-            
+        Try {
             $ErrorActionPreference = "Stop"
-            Import-MDTOperatingSystem -Path $this.Path -SourceFile $OperatingSystem -DestinationFolder $this.Name -Verbose
+            Import-MDTOperatingSystem -Path $this.Path -SourcePath $OperatingSystem -DestinationFolder $this.Name -Verbose
             $ErrorActionPreference = "Continue"
         }
-            Catch [Microsoft.Management.Infrastructure.CimException]
-            {
-                If ($_.FullyQualifiedErrorId -notlike "*ItemAlreadyExists*")
-                {
-                    throw $_
-                }
-            }
-            Finally
-            {
-                
+        Catch [Microsoft.Management.Infrastructure.CimException] {
+            If ($_.FullyQualifiedErrorId -notlike "*ItemAlreadyExists*") {
+                throw $_
             }
         }
+        Finally {
+        }
+    }
 }
 
 [DscResource()]
@@ -1566,7 +1330,6 @@ Function Invoke-TestPath
 
     if (($PSDrivePath) -and ($PSDriveName))
     {
-
         Import-MicrosoftDeploymentToolkitModule
         if (New-PSDrive -Name $PSDriveName -PSProvider "MDTProvider" -Root $PSDrivePath -Verbose:$false | `
             Test-Path -Path $Path -ErrorAction Ignore)
@@ -1576,7 +1339,6 @@ Function Invoke-TestPath
     }
     else
     {
-
         if (Test-Path -Path $Path -ErrorAction Ignore)
         {
             $present = $true
