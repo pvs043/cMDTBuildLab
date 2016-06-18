@@ -375,8 +375,8 @@ cMDTOperatingSystem Win10x64 {
 }
 ```
 
-#### cMDTPersistentDrive
-cMDTPersistentDrive is a DscResource that enables management of MDT persistent drives with lifecycle management for MDT. These folders can be managed from a pull server according to Desired State Configuration principles.
+#### cMDTBuildPersistentDrive
+cMDTBuildPersistentDrive is a DscResource that enables management of MDT persistent drives with lifecycle management for MDT. These folders can be managed from a pull server according to Desired State Configuration principles.
 
 Available parameters with example:
 * [Ensure] - Present/Absent
@@ -395,7 +395,7 @@ The DscResource will manage MDT folders according to the following principle:
 
 Desired State Configuration job example:
 ```sh
-cMDTPersistentDrive DeploymentPSDrive {
+cMDTBuildPersistentDrive DeploymentPSDrive {
     Ensure = "Present"
     Name = $PSDriveName
     Path = $PSDrivePath

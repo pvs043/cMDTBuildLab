@@ -49,6 +49,14 @@
                     Ensure = "Present"
                     OperatingSystem = "Windows 10"
                 }
+                @{  
+                    Ensure = "Present"
+                    OperatingSystem = "Windows 2012 R2"
+                }
+                @{  
+                    Ensure = "Present"
+                    OperatingSystem = "Windows 2016 TP5"
+                }
             )
 
             #MDT Application Folder Structure
