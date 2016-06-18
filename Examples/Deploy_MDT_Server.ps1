@@ -205,19 +205,6 @@ Configuration DeployMDTServerContract
 
         }
 
-        ForEach ($SelectionProfile in $Node.SelectionProfiles)   
-        {
-            cMDTBuildDirectory "SP$($SelectionProfile.Replace(' ',''))"
-            {
-                Ensure      = "Present"
-                Name        = $SelectionProfile
-                Path        = "$($Node.PSDriveName):\Selection Profiles"
-                PSDriveName = $Node.PSDriveName
-                PSDrivePath = $Node.PSDrivePath
-                DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
-            }
-        }
-
         ForEach ($OperatingSystem in $Node.OperatingSystems)   
         {
 

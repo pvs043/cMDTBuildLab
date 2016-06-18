@@ -81,9 +81,6 @@
                 }
             )
 
-            #Selection profile creation
-            SelectionProfiles  = @("WinPE x86","WinPE x64")
-
             #Operating systems to import to MDT
             OperatingSystems   = @(
                 @{  
