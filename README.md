@@ -4,7 +4,7 @@ cMDTBuildLab is a Powershell Module to help automize deployment Windows Referenc
 cMDTBuildLab is a fork from cMDT module (https://github.com/addlevel/cMDT) by info@addlevel.se (c)
 
 ### Version
-0.0.5
+0.0.6
 
 ### Tech
 
@@ -337,27 +337,21 @@ cMDTBuildDirectory Windows10 {
 }
 ```
 
-#### cMDTOperatingSystem
-cMDTOperatingSystem is a DscResource that enables download, import of and lifecycle management of Operating System WIM files in MDT. These files can be updated and retrieved from a pull server according to Desired State Configuration principles.
+#### cMDTBuildOperatingSystem
+cMDTBuildOperatingSystem is a DscResource that import of Operating Systems source files in MDT.
 
-Available parameters with example:
-* [Ensure] - Present/Absent
-* [Version] - Version number (optional)
+Available parameters:
+* <b>[Ensure]</b> - Present/Absent
 * [Name] - Name
 * [Path] - MDT path
-* [SourcePath] - Web link, SMB or local path
-* [TempLocation] - Tenmporary download location
+* [SourcePath] - Source path to content of Windows ISO distribution
 * [PSDriveName] - The PSDrive name for the MDT deployment share
 * [PSDrivePath] - The physical path to the MDT deployment share
 
 The DscResource will import Operating Systems according to the following principle:
 * Verify status present or absent
 * If present:
-    * If version is defined, appends version number to the SourcePath together with a .wim extension
-    * If version is not defined, download checksum version information from the pull server. The checksum file needs to be named as image file name and ".version"; ex: REFW10X64.version.
-    * Verify if the Operating System already exist in MDT, and if determine version
-    * If the Operating System does not exist or version number do not matched the Operating System WIM file will be downloaded
-    * If the Operating System does not exist the WIM file will be imported in to the MDT, if the Operating System do exist and upgrade mode is determined the WIM file will be copied in to the appropriate MDT directory path
+    * Verify if the Operating System already exist in MDT
 * If absent:
     * The operating system will be removed
 
@@ -365,11 +359,9 @@ Desired State Configuration job example:
 ```sh
 cMDTOperatingSystem Win10x64 {
     Ensure = "Present"
-    Version = "1.0.0.0"
-    Name = "Windows 10 Enterprise x64"
-    Path = "DS001:\Operating Systems\Windows 10"
-    SourcePath = "$($SourcePath)/REFW10X64"
-    TempLocation = $TempLocation
+    Name = "Windows 10 x64"
+    Path = "Windows 10"
+    SourcePath = "$SourcePath\Windows10x64"
     PSDriveName = $PSDriveName
     PSDrivePath = $PSDrivePath
 }
