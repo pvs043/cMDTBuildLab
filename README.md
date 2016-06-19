@@ -312,11 +312,11 @@ FinishAction=RESTART
 cMDTDirectory is a DscResource that enables management of folder structures with lifecycle management for MDT. These folders can be managed from a pull server according to Desired State Configuration principles.
 
 Available parameters with example:
-* [Ensure] - Present/Absent
-* [Name] - Name of folder
-* [Path] - MDT path
-* [PSDriveName] - The PSDrive name for the MDT deployment share
-* [PSDrivePath] - The physical path to the MDT deployment share
+* <b>[Ensure]</b> - Present/Absent
+* <b>[Name]</b> - Name of folder
+* <b>[Path]</b> - MDT path
+* <b>[PSDriveName]</b> - The PSDrive name for the MDT deployment share
+* <b>[PSDrivePath]</b> - The physical path to the MDT deployment share
 
 The DscResource will manage MDT folders according to the following principle:
 * Verify status present or absent
@@ -342,16 +342,17 @@ cMDTBuildOperatingSystem is a DscResource that import of Operating Systems sourc
 
 Available parameters:
 * <b>[Ensure]</b> - Present/Absent
-* [Name] - Name
-* [Path] - MDT path
-* [SourcePath] - Source path to content of Windows ISO distribution
-* [PSDriveName] - The PSDrive name for the MDT deployment share
-* [PSDrivePath] - The physical path to the MDT deployment share
+* <b>[Name]</b> - Name
+* <b>[Path]</b> - MDT path
+* <b>[SourcePath]</b> - Source path to content of Windows ISO distribution
+* <b>[PSDriveName]</b> - The PSDrive name for the MDT deployment share
+* <b>[PSDrivePath]</b> - The physical path to the MDT deployment share
 
 The DscResource will import Operating Systems according to the following principle:
 * Verify status present or absent
 * If present:
     * Verify if the Operating System already exist in MDT
+	* If OS not exist, import from SourcePath
 * If absent:
     * The operating system will be removed
 
@@ -371,11 +372,11 @@ cMDTOperatingSystem Win10x64 {
 cMDTBuildPersistentDrive is a DscResource that enables management of MDT persistent drives with lifecycle management for MDT. These folders can be managed from a pull server according to Desired State Configuration principles.
 
 Available parameters with example:
-* [Ensure] - Present/Absent
-* [Name] - Name of drive
-* [Path] - MDT path
-* [Description] - A description of the drive
-* [NetworkPath] - Network share name of the MDT persistent drive
+* <b>[Ensure]</b> - Present/Absent
+* <b>[Name]</b> - Name of drive
+* <b>[Path]</b> - MDT path
+* <b>[Description]</b> - A description of the drive
+* <b>[NetworkPath]</b> - Network share name of the MDT persistent drive
 
 The DscResource will manage MDT folders according to the following principle:
 * Verify status present or absent
@@ -400,8 +401,8 @@ cMDTBuildPersistentDrive DeploymentPSDrive {
 cMDTBuildPreReqs is a DscResource that enables download of prerequisites for MDT server deployment. Prerequisites can be defined and managed from a pull server according to Desired State Configuration principles.
 
 Available parameters with example:
-* [Ensure] - Present/Absent
-* [DownloadPath] - Download path for binaries
+* <b>[Ensure]</b> - Present/Absent
+* <b>[DownloadPath]</b> - Download path for binaries
 
 The DscResource will import applications according to the following principle:
 * Check if prerequisites exist in the DownloadPath
