@@ -410,9 +410,9 @@ The DscResource will import applications according to the following principle:
 
 Desired State Configuration job example:
 ```sh
-cMDTPreReqs MDTPreReqs {
+cMDTBuildPreReqs MDTPreReqs {
     Ensure = "Present"            
-    DownloadPath = "$(SourcePath)"
+    DownloadPath = "$SourcePath"
 }
 ```
 
