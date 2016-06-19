@@ -155,41 +155,6 @@ Configuration DeployMDTServerContract
                 PSDrivePath = $Node.PSDrivePath
                 DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
             }
-
-			<#
-            cMDTBuildDirectory "OOB$($OSVersion.Replace(' ',''))"
-            {
-                Ensure      = $Ensure
-                Name        = "$($OSVersion) x64"
-                Path        = "$($Node.PSDriveName):\Out-of-Box Drivers"
-                PSDriveName = $Node.PSDriveName
-                PSDrivePath = $Node.PSDrivePath
-                DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
-            }
-
-            ForEach ($CurrentVendor in $Node.Vendors)
-            {
-
-                [string]$EnsureVendor = ""
-                [string]$Vendor       = ""
-                $CurrentVendor.GetEnumerator() | % {
-                    If ($_.key -eq "Ensure") { $EnsureVendor = $_.value }
-                    If ($_.key -eq "Vendor") { $Vendor       = $_.value }
-                }
-
-                If ($Ensure -eq "Absent")    { $EnsureVendor = "Absent" }
-
-                cMDTBuildDirectory "OOB$($OSVersion.Replace(' ',''))$($Vendor.Replace(' ',''))"
-                {
-                    Ensure      = $EnsureVendor
-                    Name        = $Vendor
-                    Path        = "$($Node.PSDriveName):\Out-of-Box Drivers\$OSVersion x64"
-                    PSDriveName = $Node.PSDriveName
-                    PSDrivePath = $Node.PSDrivePath
-                    DependsOn   = "[cMDTBuildDirectory]OOB$($OSVersion.Replace(' ',''))"
-                }
-            }
-			#>
         }
 
         ForEach ($CurrentApplicationFolder in $Node.ApplicationFolderStructure)
@@ -240,55 +205,29 @@ Configuration DeployMDTServerContract
 
         }
 
-        ForEach ($SelectionProfile in $Node.SelectionProfiles)   
-        {
-            cMDTBuildDirectory "SP$($SelectionProfile.Replace(' ',''))"
-            {
-                Ensure      = "Present"
-                Name        = $SelectionProfile
-                Path        = "$($Node.PSDriveName):\Selection Profiles"
-                PSDriveName = $Node.PSDriveName
-                PSDrivePath = $Node.PSDrivePath
-                DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
-            }
-        }
-
         ForEach ($OperatingSystem in $Node.OperatingSystems)   
         {
 
             [string]$Ensure     = ""
             [string]$Name       = ""
-            [string]$Version    = ""
             [string]$Path       = ""
             [string]$SourcePath = ""
 
             $OperatingSystem.GetEnumerator() | % {
                 If ($_.key -eq "Ensure")     { $Ensure     = $_.value }
                 If ($_.key -eq "Name")       { $Name       = $_.value }
-                If ($_.key -eq "Version")    { $Version    = $_.value }
-                If ($_.key -eq "Path")       { $Path       = "$($Node.PSDriveName):$($_.value)" }
-                If ($_.key -eq "SourcePath")
-                {
-                    If (($_.value -like "*:*") -or ($_.value -like "*\\*"))
-                                             { $SourcePath = $_.value }
-                    Else
-                    {
-                        If ($weblink)        { $SourcePath = "$($Node.SourcePath)$($_.value.Replace("\","/"))" }
-                        Else                 { $SourcePath = "$($Node.SourcePath)$($_.value.Replace("/","\"))" }
-                    }
-                }
+                If ($_.key -eq "Path")       { $Path       = "$($Node.PSDriveName):\Operating Systems\$($_.value)" }
+                If ($_.key -eq "SourcePath") { $SourcePath = "$($Node.SourcePath)$($_.value)" }
             }
 
             cMDTBuildOperatingSystem $Name.Replace(' ','')
             {
                 Ensure       = $Ensure
                 Name         = $Name
-                Version      = $Version
                 Path         = $Path
                 SourcePath   = $SourcePath
                 PSDriveName  = $Node.PSDriveName
                 PSDrivePath  = $Node.PSDrivePath
-                TempLocation = $Node.TempLocation
                 DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
             }
         }
