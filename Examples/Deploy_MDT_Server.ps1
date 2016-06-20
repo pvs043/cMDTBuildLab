@@ -244,7 +244,7 @@ Configuration DeployMDTServerContract
             $TaskSequence.GetEnumerator() | % {
                 If ($_.key -eq "Ensure")   { $Ensure   = $_.value }
                 If ($_.key -eq "Name")     { $Name     = $_.value }
-                If ($_.key -eq "Path")     { $Path     = "$($Node.PSDriveName):$($_.value)" }
+                If ($_.key -eq "Path")     { $Path     = "$($Node.PSDriveName):\Task Sequences\$($_.value)" }
                 If ($_.key -eq "Template") { $Template = $_.value }
                 If ($_.key -eq "ID")       { $ID       = $_.value }
                 If ($_.key -eq "OrgName")  { $OrgName  = $_.value }
