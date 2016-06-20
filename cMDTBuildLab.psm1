@@ -1023,14 +1023,14 @@ class cMDTBuildTaskSequence
     [DscProperty(Key)]
     [string]$Name
 
-    [DscProperty()]
-    [string]$OperatingSystemPath
-
-    [DscProperty()]
-    [string]$WIMFileName
+    [DscProperty(Mandatory)]
+    [string]$Template
 
     [DscProperty(Mandatory)]
     [string]$ID
+
+    [DscProperty(Mandatory)]
+    [string]$OrgName
 
     [DscProperty(Mandatory)]
     [string]$PSDriveName
@@ -1040,28 +1040,21 @@ class cMDTBuildTaskSequence
 
     [void] Set()
     {
-
-        if ($this.ensure -eq [Ensure]::Present)
-        {
+        if ($this.ensure -eq [Ensure]::Present) {
             $this.ImportTaskSequence()
         }
-        else
-        {
-            Invoke-RemovePath -Path "$($this.path)\$($this.name)" -PSDriveName $this.PSDriveName -PSDrivePath $this.PSDrivePath -Verbose
+        else {
+            Invoke-RemovePath -Path "\Task Sequences\$($this.path)\$($this.name)" -PSDriveName $this.PSDriveName -PSDrivePath $this.PSDrivePath -Verbose
         }
     }
 
     [bool] Test()
     {
-
-        $present = Invoke-TestPath -Path "$($this.path)\$($this.name)" -PSDriveName $this.PSDriveName -PSDrivePath $this.PSDrivePath 
-        
-        if ($this.Ensure -eq [Ensure]::Present)
-        {
+	    $present = Invoke-TestPath -Path "\Task Sequences\$($this.path)\$($this.name)" -PSDriveName $this.PSDriveName -PSDrivePath $this.PSDrivePath 
+        if ($this.Ensure -eq [Ensure]::Present) {
             return $present
         }
-        else
-        {
+        else {
             return -not $present
         }
     }
@@ -1073,33 +1066,9 @@ class cMDTBuildTaskSequence
 
     [void] ImportTaskSequence()
     {
-
         Import-MicrosoftDeploymentToolkitModule
-
         New-PSDrive -Name $this.PSDriveName -PSProvider "MDTProvider" -Root $this.PSDrivePath -Verbose:$false
-
-        $OperatingSystemFile = ""
-
-        If ($this.OperatingSystemPath)
-        {
-            $OperatingSystemFile = $this.OperatingSystemPath
-        }
-
-        If ($this.WIMFileName)
-        {
-            $Directory = $this.Name.Replace(" x64","")
-            $Directory = $Directory.Replace(" x32","")
-            $OperatingSystemFiles = (Get-ChildItem -Path "$($this.PSDriveName):\Operating Systems\$($Directory)")
-            ForEach ($OSFile in $OperatingSystemFiles)
-            {
-                If ($OSFile.Name -like "*$($this.WIMFileName)*")
-                {
-                    $OperatingSystemFile = "$($this.PSDriveName):\Operating Systems\$($Directory)\$($OSFile.Name)"
-                }
-            }
-        }
-
-        Import-MDTTaskSequence -path $this.Path -Name $this.Name -Template "Client.xml" -Comments "" -ID $this.ID -Version "1.0" -OperatingSystemPath $OperatingSystemFile -FullName "Windows User" -OrgName "Addlevel" -HomePage "about:blank" -Verbose
+        Import-MDTTaskSequence -path $this.Path -Name $this.Name -Template $this.Template -Comments "" -ID $this.ID -Version "1.0" -OperatingSystemPath "$($this.path)\$($this.name)" -FullName "Windows User" -OrgName $this.OrgName -HomePage "about:blank" -Verbose
     }
 }
 

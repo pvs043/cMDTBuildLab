@@ -234,51 +234,33 @@ Configuration DeployMDTServerContract
 
         ForEach ($TaskSequence in $Node.TaskSequences)   
         {
-
             [string]$Ensure              = ""
             [string]$Name                = ""
             [string]$Path                = ""
             [string]$OperatingSystemPath = ""
-            [string]$WIMFileName         = ""
             [string]$ID                  = ""
+            [string]$OrgName             = ""
 
             $TaskSequence.GetEnumerator() | % {
-                If ($_.key -eq "Ensure")              { $Ensure              = $_.value }
-                If ($_.key -eq "Name")                { $Name                = $_.value }
-                If ($_.key -eq "Path")                { $Path                = "$($Node.PSDriveName):$($_.value)" }
-                If ($_.key -eq "OperatingSystemPath") { $OperatingSystemPath = "$($Node.PSDriveName):$($_.value)" }
-                If ($_.key -eq "WIMFileName")         { $WIMFileName         = $_.value }
-                If ($_.key -eq "ID")                  { $ID                  = $_.value }
+                If ($_.key -eq "Ensure")   { $Ensure   = $_.value }
+                If ($_.key -eq "Name")     { $Name     = $_.value }
+                If ($_.key -eq "Path")     { $Path     = "$($Node.PSDriveName):$($_.value)" }
+                If ($_.key -eq "Template") { $Template = $_.value }
+                If ($_.key -eq "ID")       { $ID       = $_.value }
+                If ($_.key -eq "OrgName")  { $OrgName  = $_.value }
             }
 
-            If ($WIMFileName)
+            cMDTBuildTaskSequence $Name.Replace(' ','')
             {
-                cMDTBuildTaskSequence $Name.Replace(' ','')
-                {
-                    Ensure      = $Ensure
-                    Name        = $Name
-                    Path        = $Path
-                    WIMFileName = $WIMFileName
-                    ID          = $ID
-                    PSDriveName = $Node.PSDriveName
-                    PSDrivePath = $Node.PSDrivePath
-                    DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
-                }
-            }
-            Else
-            {
-                cMDTBuildTaskSequence $Name.Replace(' ','')
-                {
-                    Ensure              = $Ensure
-                    Name                = $Name
-                    Path                = $Path
-                    OperatingSystemPath = $OperatingSystemPath
-                    ID                  = $ID
-                    PSDriveName         = $Node.PSDriveName
-                    PSDrivePath         = $Node.PSDrivePath
-                    DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
-                }
-
+                Ensure      = $Ensure
+                Name        = $Name
+                Path        = $Path
+                Template    = $Template
+                ID          = $ID
+				OrgName     = $OrgName
+                PSDriveName = $Node.PSDriveName
+                PSDrivePath = $Node.PSDrivePath
+                DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
             }
         }
 
