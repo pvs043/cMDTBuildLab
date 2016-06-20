@@ -133,74 +133,6 @@
                 }
             )
 
-            #Task sqeuences; are dependent on imported Operating system in MDT
-            TaskSequences   = @(
-                @{  
-                    Ensure     = "Present"
-                    Name       = "Windows 7 x86"
-                    Path       = "Windows 7"
-                    OrgName    = "BuildLab"
-					Template   = "Client.xml"
-                    ID         = "01"
-                }
-                @{  
-                    Ensure     = "Present"
-                    Name       = "Windows 7 x64"
-                    Path       = "Windows 7"
-                    OrgName    = "BuildLab"
-					Template   = "Client.xml"
-                    ID         = "01"
-                }
-                @{  
-                    Ensure     = "Present"
-                    Name       = "Windows 8.1 x86"
-                    Path       = "Windows 8.1"
-                    OrgName    = "BuildLab"
-					Template   = "Client.xml"
-                    ID         = "01"
-                }
-                @{  
-                    Ensure     = "Present"
-                    Name       = "Windows 8.1 x64"
-                    Path       = "Windows 8.1"
-                    OrgName    = "BuildLab"
-					Template   = "Client.xml"
-                    ID         = "01"
-                }
-                @{
-                    Ensure     = "Present"
-                    Name       = "Windows 10 x86"
-                    Path       = "Windows 10"
-                    OrgName    = "BuildLab"
-					Template   = "Client.xml"
-                    ID         = "01"
-                }
-                @{  
-                    Ensure     = "Present"
-                    Name       = "Windows 10 x64"
-                    Path       = "Windows 10"
-                    OrgName    = "BuildLab"
-					Template   = "Client.xml"
-                    ID         = "01"
-                }
-                @{  
-                    Ensure     = "Present"
-                    Name       = "Windows 2012 R2"
-                    Path       = "Windows 2012 R2"
-                    OrgName    = "BuildLab"
-					Template   = "Server.xml"
-                    ID         = "01"
-                }
-                @{  
-                    Ensure     = "Present"
-                    Name       = "Windows 2016 TP5"
-                    Path       = "Windows 2016 TP5"
-                    OrgName    = "BuildLab"
-					Template   = "Server.xml"
-                    ID         = "01"
-                }
-            )
-
             <#
             #Applications to import
             Applications   = @(
@@ -219,6 +151,74 @@
                 }
             )
             #>
+
+            #Task sqeuences; are dependent on imported Operating system in MDT
+            TaskSequences   = @(
+                @{  
+                    Ensure     = "Present"
+                    Name       = "Windows 7 x86"
+                    Path       = "Windows 7"
+                    OrgName    = "BuildLab"
+					Template   = "Client.xml"
+                    ID         = "REFW7X86-001"
+                }
+                @{  
+                    Ensure     = "Present"
+                    Name       = "Windows 7 x64"
+                    Path       = "Windows 7"
+                    OrgName    = "BuildLab"
+					Template   = "Client.xml"
+                    ID         = "REFW7X64-001"
+                }
+                @{  
+                    Ensure     = "Present"
+                    Name       = "Windows 8.1 x86"
+                    Path       = "Windows 8.1"
+                    OrgName    = "BuildLab"
+					Template   = "Client.xml"
+                    ID         = "REFW81X86-001"
+                }
+                @{  
+                    Ensure     = "Present"
+                    Name       = "Windows 8.1 x64"
+                    Path       = "Windows 8.1"
+                    OrgName    = "BuildLab"
+					Template   = "Client.xml"
+                    ID         = "REFW81X64-001"
+                }
+                @{
+                    Ensure     = "Present"
+                    Name       = "Windows 10 x86"
+                    Path       = "Windows 10"
+                    OrgName    = "BuildLab"
+					Template   = "Client.xml"
+                    ID         = "REFW10X86-001"
+                }
+                @{  
+                    Ensure     = "Present"
+                    Name       = "Windows 10 x64"
+                    Path       = "Windows 10"
+                    OrgName    = "BuildLab"
+					Template   = "Client.xml"
+                    ID         = "REFW10X64-001"
+                }
+                @{  
+                    Ensure     = "Present"
+                    Name       = "Windows 2012 R2"
+                    Path       = "Windows 2012 R2"
+                    OrgName    = "BuildLab"
+					Template   = "Server.xml"
+                    ID         = "REFW2012R2-001"
+                }
+                @{  
+                    Ensure     = "Present"
+                    Name       = "Windows 2016 TP5"
+                    Path       = "Windows 2016 TP5"
+                    OrgName    = "BuildLab"
+					Template   = "Server.xml"
+                    ID         = "REFW2016TP5-001"
+                }
+            )
 
             #Custom folder/files to add to the MDT
 			<#
