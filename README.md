@@ -9,16 +9,16 @@ cMDTBuildLab is a fork from cMDT module (https://github.com/addlevel/cMDT) by in
 ### Tech
 
 Prerequisites for infrastructure:
-*	Domain Controller: DC01 (Windows 2012 R2)
-*	Windows Update Server (WSUS): WU01 (Windows 2012 R2)
-*	Deployment server: MDT01 (Windows 2012 R2/Windows 8.1)<br>
-   Disk C: - System<br>
-   Disk E: - DATA<br>
-   (Disk D: is used for Temp in Azure or Virtual DVD for on-premise deploy)
-*	Hyper-V Host: HV01 (Windows 2012 R2/Windows 8.1)
+* Domain Controller: DC01 (Windows 2012 R2)
+* Windows Update Server (WSUS): WU01 (Windows 2012 R2)
+* Deployment server: MDT01 (Windows 2012 R2/Windows 8.1)<br>
+    Disk C: - System<br>
+    Disk E: - DATA<br>
+    (Disk D: is used for Temp in Azure or Virtual DVD for on-premise deploy)
+* Hyper-V Host: HV01 (Windows 2012 R2/Windows 8.1)
 
 cMDTBuildLab uses a number of components and open resource kit modules. The following are prerequisites for the module and need to be installed to the inteded deployment server (MDT01):
-* [.Net3.5] - .Net Framewework 3.5
+* [.NET3.5] - .NET Framewework 3.5
 * [WMF5] (http://aka.ms/wmf5latest) - Windows Management Framework 5.0
 * [xSmbShare] (http://www.powershellgallery.com/packages/xSmbShare/) - DSC Module available from Powershell Gallery<br>
   ```powershell
@@ -27,7 +27,7 @@ cMDTBuildLab uses a number of components and open resource kit modules. The foll
 * [PowerShellAccessControl] (https://gallery.technet.microsoft.com/scriptcenter/PowerShellAccessControl-d3be7b83#content) - DSC Module available from Technet Gallery.<br>
   Copy it to %ProgramFiles%\WindowsPowerShell\Modules\PowerShellAccessControl folder.
 
-The following prerequisites can automatically be downloaded with the cMDTBuildLab Module:
+The following prerequisites automatically downloaded with the cMDTBuildLab Module:
 * [MicrosoftDeploymentToolkit2013_x64] (https://download.microsoft.com/download/3/0/1/3012B93D-C445-44A9-8BFB-F28EB937B060/MicrosoftDeploymentToolkit2013_x64.msi) - Microsoft Deployment Toolkit (MDT) 2013 Update 2 (6.3.8330.1000)
 * [adksetup] (http://download.microsoft.com/download/3/8/B/38BBCA6A-ADC9-4245-BCD8-DAA136F63C8B/adk/adksetup.exe) - Windows Assessment and Deployment Kit (10.1.10586.0)
 * [Visual C++ runtimes] (https://support.microsoft.com/ru-ru/kb/2977003) (2005,2008,2010,2012,2013,2015)
@@ -68,16 +68,16 @@ You can use this module with a pull server, an SMB share or a local file reposit
 
 The cMDTBuildLab Module contain the following DscResources:
 
-* cMDTBuildApplication
-* cMDTBuildBootstrapIni
-* cMDTBuildCustomize
-* cMDTBuildCustomSettingsIni
-* cMDTBuildDirectory
-* cMDTBuildOperatingSystem
-* cMDTBuildPersistentDrive
-* cMDTBuildPreReqs
-* cMDTBuildTaskSequence
-* cMDTBuildUpdateBootImage
+* <br>cMDTBuildApplication</br>
+* <br>cMDTBuildBootstrapIni</br>
+* <br>cMDTBuildCustomize</br>
+* <br>cMDTBuildCustomSettingsIni</br>
+* <br>cMDTBuildDirectory</br>
+* <br>cMDTBuildOperatingSystem</br>
+* <br>cMDTBuildPersistentDrive</br>
+* <br>cMDTBuildPreReqs</br>
+* <br>cMDTBuildTaskSequence</br>
+* <br>cMDTBuildUpdateBootImage</br>
  
 #### cMDTApplication
 cMDTApplication is a DscResource that enables download, import of and lifecycle management of applications in MDT. Applications can be updated and retrieved from a pull server according to Desired State Configuration principles.
@@ -358,7 +358,7 @@ The DscResource will import Operating Systems according to the following princip
 
 Desired State Configuration job example:
 ```sh
-cMDTOperatingSystem Win10x64 {
+cMDTBuildOperatingSystem Win10x64 {
     Ensure = "Present"
     Name = "Windows 10 x64"
     Path = "Windows 10"
@@ -392,7 +392,7 @@ cMDTBuildPersistentDrive DeploymentPSDrive {
     Ensure = "Present"
     Name = $PSDriveName
     Path = $PSDrivePath
-    Description = "Deployment Share"
+    Description = "MDT Build Share"
     NetworkPath = "\\$ComputerName\DeploymentShare$"
 }
 ```
@@ -442,7 +442,7 @@ Note: The Operating System must exist in the OSName path for the Task Sequence t
 
 Desired State Configuration job example:
 ```sh
-cMDTTaskSequence Win10x64 {
+cMDTBuildTaskSequence Win10x64 {
     Ensure      = "Present"
     Name        = "Windows 10 x64"
     Path        = "Windows 10"
