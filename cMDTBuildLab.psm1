@@ -20,16 +20,7 @@ class cMDTBuildApplication
     [DscProperty(Key)]
     [string]$ShortName
 
-    [DscProperty(Mandatory)]
-    [string]$Version
-
-    [DscProperty(Mandatory)]
-    [string]$Publisher
-
-    [DscProperty(Mandatory)]
-    [string]$Language
-    
-    [DscProperty(Mandatory)]
+	[DscProperty(Mandatory)]
     [string]$CommandLine
     
     [DscProperty(Mandatory)]
@@ -39,14 +30,8 @@ class cMDTBuildApplication
     [string]$ApplicationSourcePath
     
     [DscProperty(Mandatory)]
-    [string]$TempLocation
-
-    [DscProperty(Mandatory)]
     [string]$DestinationFolder
     
-    [DscProperty(Mandatory)]
-    [string]$Enabled
-
     [DscProperty(Mandatory)]
     [string]$PSDriveName
 
@@ -55,25 +40,6 @@ class cMDTBuildApplication
 
     [void] Set()
     {
-
-        [string]$separator = ""
-        If ($this.ApplicationSourcePath -like "*/*")
-        { $separator = "/" }
-        Else
-        { $separator = "\" }
-
-        $filename = "$($this.ApplicationSourcePath.Split($separator)[-1])_$($this.Version).zip"
-        $foldername = $filename.Replace(".$($filename.Split(".")[-1])","")
-
-        [bool]$download = $True
-        If (($separator -eq "/") -Or ($this.ApplicationSourcePath.Substring(0,2) -eq "\\"))
-        { $targetdownload = "$($this.TempLocation)\$($filename)" }
-        Else
-        { $targetdownload = "$($this.ApplicationSourcePath)_$($this.Version).zip" ; $download = $False }
-        
-        $extractfolder = "$($this.TempLocation)\$($foldername)"
-        $referencefile = "$($this.PSDrivePath)\Applications\$($this.DestinationFolder)\$($this.ApplicationSourcePath.Split($separator)[-1]).version"
-
         if ($this.ensure -eq [Ensure]::Present)
         {
 
@@ -81,13 +47,6 @@ class cMDTBuildApplication
             if ($present)
             {
 
-                If ($download)
-                {
-                    Invoke-WebDownload -Source "$($this.ApplicationSourcePath)_$($this.Version).zip" -Target $targetdownload -Verbose
-                    $present = Invoke-TestPath -Path $targetdownload
-                    If (-not($present)) { Write-Error "Cannot find path '$targetdownload' because it does not exist." ; Return }
-                }
-                Invoke-ExpandArchive -Source $targetdownload -Target "$($this.PSDrivePath)\Applications\$($this.name)"
                 If ($download)
                 { Invoke-RemovePath -Path $targetdownload }
             }
@@ -112,24 +71,15 @@ class cMDTBuildApplication
                 Invoke-RemovePath -Path $extractfolder
                 New-ReferenceFile -Path $referencefile -PSDriveName $this.PSDriveName -PSDrivePath $this.PSDrivePath
             }
-
-            Set-Content -Path $referencefile -Value "$($this.Version)"
         }
         else
         {   
-            
             Invoke-RemovePath -Path "$($this.path)\$($this.name)" -PSDriveName $this.PSDriveName -PSDrivePath $this.PSDrivePath -Verbose
         }
     }
 
     [bool] Test()
     {
-
-        [string]$separator = ""
-        If ($this.ApplicationSourcePath -like "*/*")
-        { $separator = "/" }
-        Else
-        { $separator = "\" }
 
         $present = Invoke-TestPath -Path "$($this.path)\$($this.name)" -PSDriveName $this.PSDriveName -PSDrivePath $this.PSDrivePath 
 
@@ -161,15 +111,11 @@ class cMDTBuildApplication
 
     [void] ImportApplication($Source)
     {
-
         Import-MicrosoftDeploymentToolkitModule
-
         New-PSDrive -Name $this.PSDriveName -PSProvider "MDTProvider" -Root $this.PSDrivePath -Verbose:$false
-
-        Import-MDTApplication -Path $this.Path -Enable $this.Enabled -Name $this.Name -ShortName $this.ShortName -Version $this.Version `
-                              -Publisher $this.Publisher -Language $this.Language -CommandLine $this.CommandLine -WorkingDirectory $this.WorkingDirectory `
+        Import-MDTApplication -Path $this.Path -Enable $this.Enabled -Name $this.Name -ShortName $this.ShortName `
+                              -CommandLine $this.CommandLine -WorkingDirectory $this.WorkingDirectory `
                               -ApplicationSourcePath $Source -DestinationFolder $this.DestinationFolder -Verbose
-
     }
 }
 

@@ -232,6 +232,58 @@ Configuration DeployMDTServerContract
             }
         }
 
+        ForEach ($Application in $Node.Applications)
+        {
+
+            [string]$Ensure                = ""
+            [string]$Name                  = ""
+            [string]$Version               = ""
+            [string]$Path                  = ""
+            [string]$ShortName             = ""
+            [string]$CommandLine           = ""
+            [string]$WorkingDirectory      = ""
+            [string]$ApplicationSourcePath = ""
+            [string]$DestinationFolder     = ""
+
+            $Application.GetEnumerator() | % {
+                If ($_.key -eq "Ensure")                { $Ensure                = $_.value }
+                If ($_.key -eq "Name")                  { $Name                  = $_.value }
+                If ($_.key -eq "Version")               { $Version               = $_.value }
+                If ($_.key -eq "Path")                  { $Path                  = "$($Node.PSDriveName):$($_.value)" }
+                If ($_.key -eq "ShortName")             { $ShortName             = $_.value }
+                If ($_.key -eq "CommandLine")           { $CommandLine           = $_.value }
+                If ($_.key -eq "WorkingDirectory")      { $WorkingDirectory      = $_.value }
+                If ($_.key -eq "ApplicationSourcePath")
+                {
+                    If (($_.value -like "*:*") -or ($_.value -like "*\\*"))
+                                                        { $ApplicationSourcePath = $_.value }
+                    Else
+                    {
+                        If ($weblink)                   { $ApplicationSourcePath = "$($Node.SourcePath)$($_.value.Replace("\","/"))" }
+                        Else                            { $ApplicationSourcePath = "$($Node.SourcePath)$($_.value.Replace("/","\"))" }
+                    }
+                }
+                If ($_.key -eq "DestinationFolder")     { $DestinationFolder     = $_.value }
+            }
+
+            cMDTBuildApplication $Name.Replace(' ','')
+            {
+                Ensure                = $Ensure
+                Name                  = $Name
+                Version               = $Version
+                Path                  = $Path
+                ShortName             = $ShortName
+                CommandLine           = $CommandLine
+                WorkingDirectory      = $WorkingDirectory
+                ApplicationSourcePath = $ApplicationSourcePath
+                DestinationFolder     = $DestinationFolder
+                Enabled               = "True"
+                PSDriveName           = $Node.PSDriveName
+                PSDrivePath           = $Node.PSDrivePath
+                DependsOn             = "[cMDTBuildDirectory]DeploymentFolder"
+            }
+        }
+
         ForEach ($TaskSequence in $Node.TaskSequences)   
         {
             [string]$Ensure   = ""
@@ -264,65 +316,6 @@ Configuration DeployMDTServerContract
                 PSDriveName = $Node.PSDriveName
                 PSDrivePath = $Node.PSDrivePath
                 DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
-            }
-        }
-
-        ForEach ($Application in $Node.Applications)   
-        {
-
-            [string]$Ensure                = ""
-            [string]$Name                  = ""
-            [string]$Version               = ""
-            [string]$Path                  = ""
-            [string]$ShortName             = ""
-            [string]$Publisher             = ""
-            [string]$Language              = ""
-            [string]$CommandLine           = ""
-            [string]$WorkingDirectory      = ""
-            [string]$ApplicationSourcePath = ""
-            [string]$DestinationFolder     = ""
-
-            $Application.GetEnumerator() | % {
-                If ($_.key -eq "Ensure")                { $Ensure                = $_.value }
-                If ($_.key -eq "Name")                  { $Name                  = $_.value }
-                If ($_.key -eq "Version")               { $Version               = $_.value }
-                If ($_.key -eq "Path")                  { $Path                  = "$($Node.PSDriveName):$($_.value)" }
-                If ($_.key -eq "ShortName")             { $ShortName             = $_.value }
-                If ($_.key -eq "Publisher")             { $Publisher             = $_.value }
-                If ($_.key -eq "Language")              { $Language              = $_.value }
-                If ($_.key -eq "CommandLine")           { $CommandLine           = $_.value }
-                If ($_.key -eq "WorkingDirectory")      { $WorkingDirectory      = $_.value }
-                If ($_.key -eq "ApplicationSourcePath")
-                {
-                    If (($_.value -like "*:*") -or ($_.value -like "*\\*"))
-                                                        { $ApplicationSourcePath = $_.value }
-                    Else
-                    {
-                        If ($weblink)                   { $ApplicationSourcePath = "$($Node.SourcePath)$($_.value.Replace("\","/"))" }
-                        Else                            { $ApplicationSourcePath = "$($Node.SourcePath)$($_.value.Replace("/","\"))" }
-                    }
-                }
-                If ($_.key -eq "DestinationFolder")     { $DestinationFolder     = $_.value }
-            }
-
-            cMDTBuildApplication $Name.Replace(' ','')
-            {
-                Ensure                = $Ensure
-                Name                  = $Name
-                Version               = $Version
-                Path                  = $Path
-                ShortName             = $ShortName
-                Publisher             = $Publisher
-                Language              = $Language
-                CommandLine           = $CommandLine
-                WorkingDirectory      = $WorkingDirectory
-                ApplicationSourcePath = $ApplicationSourcePath
-                DestinationFolder     = $DestinationFolder
-                Enabled               = "True"
-                PSDriveName           = $Node.PSDriveName
-                PSDrivePath           = $Node.PSDrivePath
-                TempLocation          = $Node.TempLocation
-                DependsOn             = "[cMDTBuildDirectory]DeploymentFolder"
             }
         }
 

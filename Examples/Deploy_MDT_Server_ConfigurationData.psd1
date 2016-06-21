@@ -133,24 +133,32 @@
                 }
             )
 
-            <#
             #Applications to import
             Applications   = @(
+				<#
                 @{  
                     Ensure                = "Present"
                     Name                  = "Teamviewer"
-                    Version               = "1.0.0.0"
                     Path                  = "\Applications\Common Applications"
                     ShortName             = "Teamviewer"
-                    Publisher             = "Teamviewer"
-                    Language              = "en-US"
                     CommandLine           = "install.cmd"
                     WorkingDirectory      = ".\"
                     ApplicationSourcePath = "/TeamViewer_Setup_sv"
                     DestinationFolder     = "Common Applications\Teamviewer"
                 }
+				#>
+				@(
+                    Ensure                = "Present"
+                    Name                  = "Install - Microsoft Visual C++"
+                    Path                  = "\Applications\Core\Microsoft"
+                    ShortName             = "VS++Application"
+                    CommandLine           = "cscript.exe Install-MicrosoftVisualC++x86x64.wsf"
+                    WorkingDirectory      = ".\"
+                    ApplicationSourcePath = "$SourcePath\VC++"
+                    DestinationFolder     = "Core\Microsft\Install - Microsoft Visual C++"
+					
+				)
             )
-            #>
 
             #Task sqeuences; are dependent on imported Operating system in MDT
             TaskSequences   = @(
