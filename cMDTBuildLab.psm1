@@ -1024,6 +1024,9 @@ class cMDTBuildTaskSequence
     [string]$Name
 
     [DscProperty(Mandatory)]
+    [string]$OSName
+
+    [DscProperty(Mandatory)]
     [string]$Template
 
     [DscProperty(Mandatory)]
@@ -1044,13 +1047,13 @@ class cMDTBuildTaskSequence
             $this.ImportTaskSequence()
         }
         else {
-            Invoke-RemovePath -Path "\Task Sequences\$($this.path)\$($this.name)" -PSDriveName $this.PSDriveName -PSDrivePath $this.PSDrivePath -Verbose
+            Invoke-RemovePath -Path "$($this.path)\$($this.name)" -PSDriveName $this.PSDriveName -PSDrivePath $this.PSDrivePath -Verbose
         }
     }
 
     [bool] Test()
     {
-	    $present = Invoke-TestPath -Path "\Task Sequences\$($this.path)\$($this.name)" -PSDriveName $this.PSDriveName -PSDrivePath $this.PSDrivePath 
+	    $present = Invoke-TestPath -Path "$($this.path)\$($this.name)" -PSDriveName $this.PSDriveName -PSDrivePath $this.PSDrivePath 
         if ($this.Ensure -eq [Ensure]::Present) {
             return $present
         }
@@ -1068,7 +1071,7 @@ class cMDTBuildTaskSequence
     {
         Import-MicrosoftDeploymentToolkitModule
         New-PSDrive -Name $this.PSDriveName -PSProvider "MDTProvider" -Root $this.PSDrivePath -Verbose:$false
-        Import-MDTTaskSequence -path $this.Path -Name $this.Name -Template $this.Template -Comments "" -ID $this.ID -Version "1.0" -OperatingSystemPath "$($this.path)\$($this.name)" -FullName "Windows User" -OrgName $this.OrgName -HomePage "about:blank" -Verbose
+        Import-MDTTaskSequence -path $this.Path -Name $this.Name -Template $this.Template -Comments "Build Reference Image" -ID $this.ID -Version "1.0" -OperatingSystemPath $this.OSName -FullName "Windows User" -OrgName $this.OrgName -HomePage "about:blank" -Verbose
     }
 }
 

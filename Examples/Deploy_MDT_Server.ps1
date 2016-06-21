@@ -222,29 +222,31 @@ Configuration DeployMDTServerContract
 
             cMDTBuildOperatingSystem $Name.Replace(' ','')
             {
-                Ensure       = $Ensure
-                Name         = $Name
-                Path         = $Path
-                SourcePath   = $SourcePath
-                PSDriveName  = $Node.PSDriveName
-                PSDrivePath  = $Node.PSDrivePath
+                Ensure      = $Ensure
+                Name        = $Name
+                Path        = $Path
+                SourcePath  = $SourcePath
+                PSDriveName = $Node.PSDriveName
+                PSDrivePath = $Node.PSDrivePath
                 DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
             }
         }
 
         ForEach ($TaskSequence in $Node.TaskSequences)   
         {
-            [string]$Ensure              = ""
-            [string]$Name                = ""
-            [string]$Path                = ""
-            [string]$OperatingSystemPath = ""
-            [string]$ID                  = ""
-            [string]$OrgName             = ""
+            [string]$Ensure   = ""
+            [string]$Name     = ""
+            [string]$Path     = ""
+            [string]$OSName   = ""
+			[string]$Template = ""
+            [string]$ID       = ""
+            [string]$OrgName  = ""
 
             $TaskSequence.GetEnumerator() | % {
                 If ($_.key -eq "Ensure")   { $Ensure   = $_.value }
                 If ($_.key -eq "Name")     { $Name     = $_.value }
                 If ($_.key -eq "Path")     { $Path     = "$($Node.PSDriveName):\Task Sequences\$($_.value)" }
+                If ($_.key -eq "OSName")   { $OSName   = "$($Node.PSDriveName):\Operating Systems\$($_.value)" }
                 If ($_.key -eq "Template") { $Template = $_.value }
                 If ($_.key -eq "ID")       { $ID       = $_.value }
                 If ($_.key -eq "OrgName")  { $OrgName  = $_.value }
@@ -255,6 +257,7 @@ Configuration DeployMDTServerContract
                 Ensure      = $Ensure
                 Name        = $Name
                 Path        = $Path
+				OSName      = $OSName
                 Template    = $Template
                 ID          = $ID
 				OrgName     = $OrgName
