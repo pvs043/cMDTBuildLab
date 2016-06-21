@@ -416,20 +416,21 @@ cMDTBuildPreReqs MDTPreReqs {
 }
 ```
 
-#### cMDTTaskSequence
+#### cMDTBuildTaskSequence
 cMDTTaskSequence is a DscResource that enables management of Task Sequences with lifecycle management for MDT. Task Sequences can be defined and managed from a pull server according to Desired State Configuration principles.
 
-Available parameters with example:
-* [Ensure] - Present/Absent
-* [Name] - Name of drive
-* [Path] - MDT path
-* [OperatingSystemPath] - MDT path
-* [WIMFileName] - Name of Operating System WIM file to create Task Sequence for. Overrides OperatingSystemPath Parameter.
-* [ID] - MDT path
-* [PSDriveName] - MDT path
-* [PSDrivePath] - MDT path
+Available parameters:
+* <b>[Ensure]</b> - Present/Absent
+* <b>[Name]</b> - Name of Task Sequence
+* <b>[Path]</b> - MDT folder for Task Sequence
+* <b>[OSName]</b> - MDT path and name for OS image, imported with cMDTBuildOperatingSystem resource
+* <b>[Template]</b> - Client.xml / Server.xml
+* <b>[ID]</b> - Task Sequence ID
+* <b>[OrgName]</b> - Organization Name of Windows Reference Image
+* <b>[PSDriveName]</b> - The PSDrive name for the MDT deployment share
+* <b>[PSDrivePath]</b> - The physical path to the MDT deployment share
 
-The DscResource will import applications according to the following principle:
+The DscResource will create Task Sequences according to the following principle:
 * Verify status present or absent
 * If present:
     * Check if Task Sequence exist in the MDT path
@@ -437,17 +438,18 @@ The DscResource will import applications according to the following principle:
 * If absent:
     * The Task Sequence will be removed
 
-Note: The Operating System WIM file must exist in the OperatingSystemPath for the Task Sequence to be created correctly.
+Note: The Operating System must exist in the OSName path for the Task Sequence to be created correctly.
 
 Desired State Configuration job example:
 ```sh
 cMDTTaskSequence Win10x64 {
-    Ensure = "Present"
-    Name = "Windows 10 x64"
-    Path = "DS001:\Task Sequences\Windows 10"
-    #OperatingSystemPath = "DS001:\Operating Systems\Windows 10\REFW10X64DDrive in Windows 10 Enterprise x64 REFW10X64.wim"
-    WIMFileName = "REFW10X64"    
-    ID = "01"
+    Ensure      = "Present"
+    Name        = "Windows 10 x64"
+    Path        = "Windows 10"
+    OSName      = "Windows 10\Windows 10 Enterprise in Windows 10 x64 install.wim"
+    OrgName     = "BuildLab"
+	Template    = "Client.xml"
+    ID          = "REFW10X64-001"
     PSDriveName = $PSDriveName
     PSDrivePath = $PSDrivePath
 }

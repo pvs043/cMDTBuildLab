@@ -1018,10 +1018,10 @@ class cMDTBuildTaskSequence
     [Ensure] $Ensure
 
     [DscProperty(Key)]
-    [string]$Path
+    [string]$Name
 
     [DscProperty(Key)]
-    [string]$Name
+    [string]$Path
 
     [DscProperty(Mandatory)]
     [string]$OSName
