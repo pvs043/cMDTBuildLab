@@ -30,7 +30,7 @@ cMDTBuildLab uses a number of components and open resource kit modules. The foll
 The following prerequisites automatically downloaded with the cMDTBuildLab Module:
 * [MicrosoftDeploymentToolkit2013_x64] (https://download.microsoft.com/download/3/0/1/3012B93D-C445-44A9-8BFB-F28EB937B060/MicrosoftDeploymentToolkit2013_x64.msi) - Microsoft Deployment Toolkit (MDT) 2013 Update 2 (6.3.8330.1000)
 * [adksetup] (http://download.microsoft.com/download/3/8/B/38BBCA6A-ADC9-4245-BCD8-DAA136F63C8B/adk/adksetup.exe) - Windows Assessment and Deployment Kit (10.1.10586.0)
-* [Visual C++ runtimes] (https://support.microsoft.com/ru-ru/kb/2977003) (2005,2008,2010,2012,2013,2015)
+* [Visual C++ runtimes] (https://support.microsoft.com/en-us/kb/2977003) (2005,2008,2010,2012,2013,2015)
 * [Microsoft Silverlight 5] (https://www.microsoft.com/getsilverlight/Get-Started/Install/Default.aspx)
 * [Windows Management Framewework 3.0] (https://www.microsoft.com/en-us/download/details.aspx?id=34595)
 
