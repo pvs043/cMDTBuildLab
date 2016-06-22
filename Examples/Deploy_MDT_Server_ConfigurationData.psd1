@@ -147,17 +147,14 @@
                     DestinationFolder     = "Common Applications\Teamviewer"
                 }
 				#>
-				@(
+				@{
                     Ensure                = "Present"
                     Name                  = "Install - Microsoft Visual C++"
                     Path                  = "\Applications\Core\Microsoft"
-                    ShortName             = "VS++Application"
                     CommandLine           = "cscript.exe Install-MicrosoftVisualC++x86x64.wsf"
-                    WorkingDirectory      = ".\"
-                    ApplicationSourcePath = "$SourcePath\VC++"
-                    DestinationFolder     = "Core\Microsft\Install - Microsoft Visual C++"
-					
-				)
+                    ApplicationSourcePath = "VC++"
+                    #DestinationFolder     = "Core\Microsft\Install - Microsoft Visual C++"
+				}
             )
 
             #Task sqeuences; are dependent on imported Operating system in MDT

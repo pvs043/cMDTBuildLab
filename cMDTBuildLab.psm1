@@ -7,30 +7,26 @@ enum Ensure
 [DscResource()]
 class cMDTBuildApplication
 {
-
     [DscProperty(Mandatory)]
-    [Ensure] $Ensure
-
-    [DscProperty(Key)]
-    [string]$Path
+    [Ensure]$Ensure
 
     [DscProperty(Key)]
     [string]$Name
 
     [DscProperty(Key)]
-    [string]$ShortName
+    [string]$Path
 
+	[DscProperty(Mandatory)]
+    [string]$Enabled
+    
 	[DscProperty(Mandatory)]
     [string]$CommandLine
     
     [DscProperty(Mandatory)]
-    [string]$WorkingDirectory
-    
-    [DscProperty(Mandatory)]
     [string]$ApplicationSourcePath
     
-    [DscProperty(Mandatory)]
-    [string]$DestinationFolder
+    #[DscProperty(Mandatory)]
+    #[string]$DestinationFolder
     
     [DscProperty(Mandatory)]
     [string]$PSDriveName
@@ -40,66 +36,25 @@ class cMDTBuildApplication
 
     [void] Set()
     {
-        if ($this.ensure -eq [Ensure]::Present)
-        {
-
+        if ($this.ensure -eq [Ensure]::Present) {
             $present = Invoke-TestPath -Path "$($this.path)\$($this.name)" -PSDriveName $this.PSDriveName -PSDrivePath $this.PSDrivePath
-            if ($present)
-            {
-
-                If ($download)
-                { Invoke-RemovePath -Path $targetdownload }
-            }
-            else
-            {
-
-                If ($download)
-                {
-                    Invoke-WebDownload -Source "$($this.ApplicationSourcePath)_$($this.Version).zip" -Target $targetdownload -Verbose
-                    $present = Invoke-TestPath -Path $targetdownload
-                    If (-not($present)) { Write-Error "Cannot find path '$targetdownload' because it does not exist." ; Return }
-                }
-
-                Invoke-ExpandArchive -Source $targetdownload -Target $extractfolder
-                $present = Invoke-TestPath -Path $extractfolder
-                If (-not($present)) { Write-Error "Cannot find path '$extractfolder' because it does not exist." ; Return }
-
-                If ($download) { Invoke-RemovePath -Path $targetdownload }
-
-                $this.ImportApplication($extractfolder)
-
-                Invoke-RemovePath -Path $extractfolder
-                New-ReferenceFile -Path $referencefile -PSDriveName $this.PSDriveName -PSDrivePath $this.PSDrivePath
+            if ( !$present ) {
+                $this.ImportApplication()
             }
         }
-        else
-        {   
+        else {   
             Invoke-RemovePath -Path "$($this.path)\$($this.name)" -PSDriveName $this.PSDriveName -PSDrivePath $this.PSDrivePath -Verbose
         }
     }
 
     [bool] Test()
     {
-
         $present = Invoke-TestPath -Path "$($this.path)\$($this.name)" -PSDriveName $this.PSDriveName -PSDrivePath $this.PSDrivePath 
 
-        if (($present) -and ($this.ensure -eq [Ensure]::Present))
-        {
-
-            $match = Compare-Version -Source "$($this.PSDrivePath)\Applications\$($this.DestinationFolder)\$($this.ApplicationSourcePath.Split($separator)[-1]).version" -Target $this.Version
-            if (-not ($match))
-            {
-                Write-Verbose "$($this.Name) version has been updated on the pull server"
-                $present = $false
-            }
-        }
-        
-        if ($this.Ensure -eq [Ensure]::Present)
-        {
+        if ($this.Ensure -eq [Ensure]::Present) {
             return $present
         }
-        else
-        {
+        else {
             return -not $present
         }
     }
@@ -113,9 +68,9 @@ class cMDTBuildApplication
     {
         Import-MicrosoftDeploymentToolkitModule
         New-PSDrive -Name $this.PSDriveName -PSProvider "MDTProvider" -Root $this.PSDrivePath -Verbose:$false
-        Import-MDTApplication -Path $this.Path -Enable $this.Enabled -Name $this.Name -ShortName $this.ShortName `
-                              -CommandLine $this.CommandLine -WorkingDirectory $this.WorkingDirectory `
-                              -ApplicationSourcePath $Source -DestinationFolder $this.DestinationFolder -Verbose
+        Import-MDTApplication -Path $this.Path -Enable $this.Enabled -Name $this.Name -ShortName $this.Name `
+                              -CommandLine $this.CommandLine -WorkingDirectory ".\Applications\$($this.Name)" `
+                              -ApplicationSourcePath $this.ApplicationSourcePath -DestinationFolder $this.Name -Verbose
     }
 }
 
