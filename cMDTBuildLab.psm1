@@ -949,6 +949,8 @@ class cMDTBuildTaskSequence
     {
         if ($this.ensure -eq [Ensure]::Present) {
             $this.ImportTaskSequence()
+			$ts = $this.ReadTaskSequence()
+			Write-Verbose "Read TS after SET: `n$ts"
         }
         else {
             Invoke-RemovePath -Path "$($this.path)\$($this.name)" -PSDriveName $this.PSDriveName -PSDrivePath $this.PSDrivePath -Verbose
@@ -964,6 +966,8 @@ class cMDTBuildTaskSequence
         else {
             return -not $present
         }
+		$ts = $this.ReadTaskSequence()
+		Write-Verbose "Read TS after TEST: `n$ts"
     }
 
     [cMDTBuildTaskSequence] Get()
@@ -977,6 +981,13 @@ class cMDTBuildTaskSequence
         New-PSDrive -Name $this.PSDriveName -PSProvider "MDTProvider" -Root $this.PSDrivePath -Verbose:$false
         Import-MDTTaskSequence -path $this.Path -Name $this.Name -Template $this.Template -Comments "Build Reference Image" -ID $this.ID -Version "1.0" -OperatingSystemPath $this.OSName -FullName "Windows User" -OrgName $this.OrgName -HomePage "about:blank" -Verbose
     }
+
+	[xml] ReadTaskSequence()
+	{
+		$tsPath = "$(this.$PSDrivePath)\Control\$($this.ID)\ts.xml"
+		$xml = [xml](Get-Content $tsPath)
+		return $xml
+	}
 }
 
 [DscResource()]
