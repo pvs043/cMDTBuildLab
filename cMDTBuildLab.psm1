@@ -950,7 +950,6 @@ class cMDTBuildTaskSequence
         if ($this.ensure -eq [Ensure]::Present) {
             $this.ImportTaskSequence()
 			$ts = $this.ReadTaskSequence()
-			Write-Verbose "Read TS after SET: `n$ts"
         }
         else {
             Invoke-RemovePath -Path "$($this.path)\$($this.name)" -PSDriveName $this.PSDriveName -PSDrivePath $this.PSDrivePath -Verbose
@@ -967,7 +966,6 @@ class cMDTBuildTaskSequence
             return -not $present
         }
 		$ts = $this.ReadTaskSequence()
-		Write-Verbose "Read TS after TEST: `n$ts"
     }
 
     [cMDTBuildTaskSequence] Get()
@@ -984,7 +982,7 @@ class cMDTBuildTaskSequence
 
 	[xml] ReadTaskSequence()
 	{
-		$tsPath = "$(this.$PSDrivePath)\Control\$($this.ID)\ts.xml"
+		$tsPath = "$($this.PSDrivePath)\Control\$($this.ID)\ts.xml"
 		$xml = [xml](Get-Content $tsPath)
 		return $xml
 	}
