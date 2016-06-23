@@ -135,26 +135,85 @@
 
             #Applications to import
             Applications   = @(
-				<#
-                @{  
-                    Ensure                = "Present"
-                    Name                  = "Teamviewer"
-                    Path                  = "\Applications\Common Applications"
-                    ShortName             = "Teamviewer"
-                    CommandLine           = "install.cmd"
-                    WorkingDirectory      = ".\"
-                    ApplicationSourcePath = "/TeamViewer_Setup_sv"
-                    DestinationFolder     = "Common Applications\Teamviewer"
-                }
-				#>
 				@{
                     Ensure                = "Present"
                     Name                  = "Install - Microsoft Visual C++"
                     Path                  = "\Applications\Core\Microsoft"
                     CommandLine           = "cscript.exe Install-MicrosoftVisualC++x86x64.wsf"
                     ApplicationSourcePath = "VC++"
-                    #DestinationFolder     = "Core\Microsft\Install - Microsoft Visual C++"
 				}
+				@{
+                    Ensure                = "Present"
+                    Name                  = "Install - Microsoft Silverlight - x86"
+                    Path                  = "\Applications\Core\Microsoft"
+                    CommandLine           = "Silverlight.exe /Q"
+                    ApplicationSourcePath = "Silverlight_x86"
+				}
+				@{
+                    Ensure                = "Present"
+                    Name                  = "Install - Microsoft Silverlight - x64"
+                    Path                  = "\Applications\Core\Microsoft"
+                    CommandLine           = "Silverlight_x64.exe /Q"
+                    ApplicationSourcePath = "Silverlight_x64"
+				}
+				@{
+                    Ensure                = "Present"
+                    Name                  = "Install - Windows Management Framework 3.0 - x86"
+                    Path                  = "\Applications\Core\Microsoft"
+                    CommandLine           = "wusa.exe Windows6.1-KB2506143-x86.msu /quiet /norestart"
+                    ApplicationSourcePath = "WMF30x86"
+				}
+				@{
+                    Ensure                = "Present"
+                    Name                  = "Install - Windows Management Framework 3.0 - x64"
+                    Path                  = "\Applications\Core\Microsoft"
+                    CommandLine           = "wusa.exe Windows6.1-KB2506143-x64.msu /quiet /norestart"
+                    ApplicationSourcePath = "WMF30x64"
+				}
+				@{
+                    Ensure                = "Present"
+                    Name                  = "Install - Windows Management Framework 5.0 - x64"
+                    Path                  = "\Applications\Core\Microsoft"
+                    CommandLine           = "wusa.exe Win8.1AndW2K12R2-KB3134758-x64.msu /quiet /norestart"
+                    ApplicationSourcePath = "WMF50x64"
+				}
+				@{
+                    Ensure                = "Present"
+                    Name                  = "Configure - Set Control+Shift Keyboard Toggle"
+                    Path                  = "\Applications\Core\Configure"
+                    CommandLine           = "cmd /c reg import Toggle.reg"
+                    ApplicationSourcePath = "KeyboardToggle"
+				}
+				@{
+                    Ensure                = "Present"
+                    Name                  = "Action - CleanupBeforeSysprep"
+                    Path                  = "\Applications\Core\Configure"
+                    CommandLine           = "cscript.exe Action-CleanupBeforeSysprep.wsf"
+                    ApplicationSourcePath = "CleanupBeforeSysprep"
+				}
+				@{
+                    Ensure                = "Present"
+                    Name                  = "Configure - Remove Windows 8.1 Default Applications"
+                    Path                  = "\Applications\Core\Configure"
+                    CommandLine           = "powershell.exe -ExecutionPolicy Bypass -File Remove-Windows8.1Apps.ps1"
+                    ApplicationSourcePath = "Remove-Windows8.1Apps"
+				}
+				@{
+                    Ensure                = "Present"
+                    Name                  = "Configure - Set Start Layout"
+                    Path                  = "\Applications\Core\Configure"
+                    CommandLine           = "powershell.exe -ExecutionPolicy Bypass -File Customize-DefaultProfile.ps1"
+                    ApplicationSourcePath = "Set-Startlayout"
+				}
+				<#
+                @{
+                    Ensure                = "Present"
+                    Name                  = "Install - APP-V Client 5.1 - x86-x64"
+                    Path                  = "\Applications\Common Applications"
+                    CommandLine           = "appv_client_setup.exe /ACCEPTEULA /q /ENABLEPACKAGESCRIPTS=1"
+                    ApplicationSourcePath = "APPV51x86x64"
+                }
+				#>
             )
 
             #Task sqeuences; are dependent on imported Operating system in MDT

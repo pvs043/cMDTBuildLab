@@ -239,7 +239,6 @@ Configuration DeployMDTServerContract
             [string]$Path                  = ""
             [string]$CommandLine           = ""
             [string]$ApplicationSourcePath = ""
-            #[string]$DestinationFolder     = ""
 
             $Application.GetEnumerator() | % {
                 If ($_.key -eq "Ensure")                { $Ensure                = $_.value }
@@ -247,7 +246,6 @@ Configuration DeployMDTServerContract
                 If ($_.key -eq "Path")                  { $Path                  = "$($Node.PSDriveName):$($_.value)" }
                 If ($_.key -eq "CommandLine")           { $CommandLine           = $_.value }
                 If ($_.key -eq "ApplicationSourcePath") { $ApplicationSourcePath = "$($Node.SourcePath)\$($_.value)" }
-                #If ($_.key -eq "DestinationFolder")     { $DestinationFolder     = $_.value }
             }
 
             cMDTBuildApplication $Name.Replace(' ','')
@@ -257,7 +255,6 @@ Configuration DeployMDTServerContract
                 Path                  = $Path
                 CommandLine           = $CommandLine
                 ApplicationSourcePath = $ApplicationSourcePath
-                #DestinationFolder     = $DestinationFolder
                 Enabled               = "True"
                 PSDriveName           = $Node.PSDriveName
                 PSDrivePath           = $Node.PSDrivePath

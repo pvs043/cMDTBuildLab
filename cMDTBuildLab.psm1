@@ -64,7 +64,7 @@ class cMDTBuildApplication
         return $this
     }
 
-    [void] ImportApplication($Source)
+    [void] ImportApplication()
     {
         Import-MicrosoftDeploymentToolkitModule
         New-PSDrive -Name $this.PSDriveName -PSProvider "MDTProvider" -Root $this.PSDrivePath -Verbose:$false
@@ -643,16 +643,16 @@ class cMDTBuildPreReqs
             File = "adksetup.exe"
         }
         @{
-            #Version: 5 (Build: 5.1.41212.0)
+            #Version: 5 (Build: 5.1.50428.0)
 		    Name = "Silverlight_x64"
-            URI = "http://download.microsoft.com/download/5/3/D/53D3880B-25F8-4714-A4AC-E463A492F96E/41212.00/Silverlight_x64.exe"
+            URI = "https://download.microsoft.com/download/1/F/6/1F637DB3-8EF9-4D96-A8F1-909DFD7C5E69/50428.00/Silverlight_x64.exe"
             Folder = "Silverlight_x64"
             File = "Silverlight_x64.exe"
         }
         @{
-            #Version: 5 (Build: 5.1.41212.0)
+            #Version: 5 (Build: 5.1.50428.0)
 		    Name = "Silverlight_x86"
-            URI = "http://download.microsoft.com/download/5/3/D/53D3880B-25F8-4714-A4AC-E463A492F96E/41212.00/Silverlight.exe"
+            URI = "https://download.microsoft.com/download/1/F/6/1F637DB3-8EF9-4D96-A8F1-909DFD7C5E69/50428.00/Silverlight.exe"
             Folder = "Silverlight_x86"
             File = "Silverlight.exe"
         }
@@ -745,6 +745,12 @@ class cMDTBuildPreReqs
 			URI = "https://download.microsoft.com/download/E/7/6/E76850B8-DA6E-4FF5-8CCE-A24FC513FD16/Windows6.1-KB2506143-x64.msu"
 			Folder = "WMF30x64"
 			File = "Windows6.1-KB2506143-x64.msu"
+		}
+		@{
+			Name = "WMF50x64"
+			URI = "https://download.microsoft.com/download/2/C/6/2C6E1B4A-EBE5-48A6-B225-2D2058A9CEFB/Win8.1AndW2K12R2-KB3134758-x64.msu"
+			Folder = "WMF50x64"
+			File = "Win8.1AndW2K12R2-KB3134758-x64.msu"
 		}
         @{
             Name = "KeyboardToggle"
