@@ -382,7 +382,7 @@ SkipProductKey=YES
 class cMDTBuildDirectory
 {
     [DscProperty(Mandatory)]
-    [Ensure] $Ensure
+    [Ensure]$Ensure
 
     [DscProperty(Key)]
     [string]$Path

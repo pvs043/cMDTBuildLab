@@ -159,7 +159,6 @@ Configuration DeployMDTServerContract
 
         ForEach ($CurrentApplicationFolder in $Node.ApplicationFolderStructure)
         {
-
             [string]$EnsureApplicationFolder = ""
             [string]$ApplicationFolder       = ""
             $CurrentApplicationFolder.GetEnumerator() | % {
@@ -181,7 +180,6 @@ Configuration DeployMDTServerContract
 
             ForEach ($CurrentApplicationSubFolder in $CurrentApplicationFolder.SubFolders)
             {
-
                 [string]$EnsureApplicationSubFolder = ""
                 [string]$ApplicationSubFolder       = ""
                 $CurrentApplicationSubFolder.GetEnumerator() | % {
@@ -200,9 +198,7 @@ Configuration DeployMDTServerContract
                     PSDrivePath = $Node.PSDrivePath
                     DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
                 }
-
             }
-
         }
 
         ForEach ($OperatingSystem in $Node.OperatingSystems)   
