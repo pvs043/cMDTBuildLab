@@ -294,7 +294,7 @@ FinishAction=RESTART
 ```
 
 #### cMDTBuildDirectory
-cMDTDirectory is a DscResource that enables management of folder structures with lifecycle management for MDT. These folders can be managed from a pull server according to Desired State Configuration principles.
+cMDTBuildDirectory is a DscResource that enables management of folder structures with lifecycle management for MDT. These folders can be managed from a pull server according to Desired State Configuration principles.
 
 Available parameters:
 * <b>[Ensure]</b> - Present/Absent
