@@ -25,9 +25,6 @@ class cMDTBuildApplication
     [DscProperty(Mandatory)]
     [string]$ApplicationSourcePath
     
-    #[DscProperty(Mandatory)]
-    #[string]$DestinationFolder
-    
     [DscProperty(Mandatory)]
     [string]$PSDriveName
 

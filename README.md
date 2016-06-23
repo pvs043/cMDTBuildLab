@@ -33,6 +33,7 @@ The following prerequisites automatically downloaded with the cMDTBuildLab Modul
 * [Visual C++ runtimes] (https://support.microsoft.com/en-us/kb/2977003) (2005,2008,2010,2012,2013,2015)
 * [Microsoft Silverlight 5] (https://www.microsoft.com/getsilverlight/Get-Started/Install/Default.aspx)
 * [Windows Management Framewework 3.0] (https://www.microsoft.com/en-us/download/details.aspx?id=34595)
+* [Windows Management Framewework 5.0] (http://aka.ms/wmf5latest)
 
 This tool included to module (Sources directory):
 * devcon.exe: tool from [Windows Driver Kit] (https://msdn.microsoft.com/en-us/windows/hardware/hh852365)
@@ -68,63 +69,47 @@ You can use this module with a pull server, an SMB share or a local file reposit
 
 The cMDTBuildLab Module contain the following DscResources:
 
-* <br>cMDTBuildApplication</br>
-* <br>cMDTBuildBootstrapIni</br>
-* <br>cMDTBuildCustomize</br>
-* <br>cMDTBuildCustomSettingsIni</br>
-* <br>cMDTBuildDirectory</br>
-* <br>cMDTBuildOperatingSystem</br>
-* <br>cMDTBuildPersistentDrive</br>
-* <br>cMDTBuildPreReqs</br>
-* <br>cMDTBuildTaskSequence</br>
-* <br>cMDTBuildUpdateBootImage</br>
+* <b>cMDTBuildApplication</b>
+* <b>cMDTBuildBootstrapIni</b>
+* <b>cMDTBuildCustomize</b>
+* <b>cMDTBuildCustomSettingsIni</b>
+* <b>cMDTBuildDirectory</b>
+* <b>cMDTBuildOperatingSystem</b>
+* <b>cMDTBuildPersistentDrive</b>
+* <b>cMDTBuildPreReqs</b>
+* <b>cMDTBuildTaskSequence</b>
+* <b>cMDTBuildUpdateBootImage</b>
  
-#### cMDTApplication
-cMDTApplication is a DscResource that enables download, import of and lifecycle management of applications in MDT. Applications can be updated and retrieved from a pull server according to Desired State Configuration principles.
+#### cMDTBuildApplication
+cMDTBuildApplication is a DscResource that enables import applications in MDT. Applications downloaded before with cMDTBuildPreReqs DscResource.
 
-Available parameters with example:
-* [Ensure] - Present/Absent
-* [Version] - Version number
-* [Name] - Name
-* [Path] - MDT path
-* [Enabled] - True/False
-* [ShortName] - Shortname
-* [Publisher] - Publisher information
-* [Language] - Language
-* [CommandLine] - Command Line file
-* [WorkingDirectory] - Working directory
-* [ApplicationSourcePath] - Web link, SMB or local path
-* [DestinationFolder] - Destination folder in MDT
-* [TempLocation] - Tenmporary download location
-* [PSDriveName] - The PSDrive name for the MDT deployment share
-* [PSDrivePath] - The physical path to the MDT deployment share
+Available parameters:
+* <b>[Ensure]</b> - Present/Absent
+* <b>[Name]</b> - Application name
+* <b>[Path]</b> - MDT path
+* <b>[Enabled]</b> - True/False
+* <b>[CommandLine]</b> - Install command line
+* <b>[ApplicationSourcePath]</b> - Folder under $SourcePath
+* <b>[PSDriveName]</b> - The PSDrive name for the MDT deployment share
+* <b>[PSDrivePath]</b> - The physical path to the MDT deployment share
 
 The DscResource will import applications according to the following principle:
 * Verify status present or absent
 * If present:
-    * Append version number to the ApplicationSourcePath together with a .zip extension
-    * Verify if the application already exist in MDT, and if determine version
-    * If the application does not exist or version number not matched the application will be downloaded
-    * The application will be extracted from the Zip archive and imported in to the MDT
+    * Verify if the application already exist in MDT
+    * If the application does not exist the application will be imported
 * If absent:
     * If application exist it will be removed
 
 Desired State Configuration job example:
 ```sh
-cMDTApplication Teamviewer {
+cMDTBuildApplication WMF5 {
     Ensure = "Present"
-    Version = "1.0.0.1"
-    Name = "Teamviewer"
-    Path = "DS001:\Applications\Core Applications"
+    Name = "Install - Windows Management Framework 5.0 - x64"
+    Path = "\Applications\Core\Microsoft"
+    CommandLine = "wusa.exe Win8.1AndW2K12R2-KB3134758-x64.msu /quiet /norestart"
+    ApplicationSourcePath = "WMF50x64"
     Enabled = "True"
-    ShortName = "Teamviewer"
-    Publisher = "Teamviewer"
-    Language = "en-US"
-    CommandLine = "install.cmd"
-    WorkingDirectory = ".\"
-    ApplicationSourcePath = "$($SourcePath)/TeamViewer_Setup_sv"
-    DestinationFolder = "Teamviewer"
-    TempLocation = $TempLocation
     PSDriveName = $PSDriveName
     PSDrivePath = $PSDrivePath
 }
@@ -311,7 +296,7 @@ FinishAction=RESTART
 #### cMDTBuildDirectory
 cMDTDirectory is a DscResource that enables management of folder structures with lifecycle management for MDT. These folders can be managed from a pull server according to Desired State Configuration principles.
 
-Available parameters with example:
+Available parameters:
 * <b>[Ensure]</b> - Present/Absent
 * <b>[Name]</b> - Name of folder
 * <b>[Path]</b> - MDT path
@@ -371,7 +356,7 @@ cMDTBuildOperatingSystem Win10x64 {
 #### cMDTBuildPersistentDrive
 cMDTBuildPersistentDrive is a DscResource that enables management of MDT persistent drives with lifecycle management for MDT. These folders can be managed from a pull server according to Desired State Configuration principles.
 
-Available parameters with example:
+Available parameters:
 * <b>[Ensure]</b> - Present/Absent
 * <b>[Name]</b> - Name of drive
 * <b>[Path]</b> - MDT path
@@ -400,7 +385,7 @@ cMDTBuildPersistentDrive DeploymentPSDrive {
 #### cMDTBuildPreReqs
 cMDTBuildPreReqs is a DscResource that enables download of prerequisites for MDT server deployment. Prerequisites can be defined and managed from a pull server according to Desired State Configuration principles.
 
-Available parameters with example:
+Available parameters:
 * <b>[Ensure]</b> - Present/Absent
 * <b>[DownloadPath]</b> - Download path for binaries
 
@@ -417,7 +402,7 @@ cMDTBuildPreReqs MDTPreReqs {
 ```
 
 #### cMDTBuildTaskSequence
-cMDTTaskSequence is a DscResource that enables management of Task Sequences with lifecycle management for MDT. Task Sequences can be defined and managed from a pull server according to Desired State Configuration principles.
+cMDTBuildTaskSequence is a DscResource that enables management of Task Sequences with lifecycle management for MDT.
 
 Available parameters:
 * <b>[Ensure]</b> - Present/Absent
