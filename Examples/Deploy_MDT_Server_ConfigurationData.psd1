@@ -273,24 +273,24 @@
                     ID       = "REFW10X64-001"
 					Customize = @(
 						@{
-							Name    = "Windows Update (Pre-Application Installation)"
-							Type    = "Run Command Line"
-							Disable = "false"
+							Name       = "Windows Update (Pre-Application Installation)"
+							Type       = "Run Command Line"
+							Disable    = "false"
 						}
 						@{
-							Name    = "Windows Update (Post-Application Installation)"
-							Type    = "Run Command Line"
-							Disable = "false"
+							Name       = "Windows Update (Post-Application Installation)"
+							Type       = "Run Command Line"
+							Disable    = "false"
 						}
 						@{
-							Name      = "Custom Tasks (Pre-Windows Update)"
-							Type      = "Group"
-							AddAfter  = "Tattoo"
+							Name       = "Custom Tasks (Pre-Windows Update)"
+							Type       = "Group"
+							AddAfter   = "Tattoo"
 						}
 						@{
-							Name      = "Custom Tasks"
-							Type      = "Group"
-							NewName   = "Custom Tasks (Post-Windows Update). "
+							Name       = "Custom Tasks"
+							Type       = "Group"
+							NewName    = "Custom Tasks (Post-Windows Update). "
 						}
 						@{
 							Name       = "Install - Microsoft NET Framework 3.5.1"
@@ -323,9 +323,16 @@
 							AddAfter   = "Apply Local GPO Package"
 						}
 						@{
+							Name       = "Action - CleanupBeforeSysprep"
+							Type       = "Install Application"
+							Group      = "Cleanup before Sysprep"
+							AppName    = "Action - CleanupBeforeSysprep"
+						}
+						@{
 							Name       = "Restart Computer"
 							Type       = "Restart Computer"
 							Group      = "Cleanup before Sysprep"
+							AddAfter   = "Action - CleanupBeforeSysprep"
 						}
 					)
                 }
