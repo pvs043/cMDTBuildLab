@@ -60,11 +60,11 @@
             )
 
             #MDT Application Folder Structure
-            ApplicationFolderStructure   = @(
+            ApplicationFolderStructure = @(
                 @{  
-                    Ensure = "Present"
-                    Folder = "Core"
-                    SubFolders   = @(
+                    Ensure     = "Present"
+                    Folder     = "Core"
+                    SubFolders = @(
                         @{  
                             Ensure    = "Present"
                             SubFolder = "Configure"
@@ -216,7 +216,7 @@
 				#>
             )
 
-            #Task sqeuences; are dependent on imported Operating system in MDT
+            #Task sqeuences; are dependent on imported Operating system and Applications in MDT
             TaskSequences   = @(
                 @{  
                     Ensure   = "Present"
@@ -263,7 +263,7 @@
 					Template = "Client.xml"
                     ID       = "REFW10X86-001"
                 }
-                @{  
+                @{
                     Ensure   = "Present"
                     Name     = "Windows 10 x64"
                     Path     = "Windows 10"
@@ -271,6 +271,63 @@
                     OrgName  = "BuildLab"
 					Template = "Client.xml"
                     ID       = "REFW10X64-001"
+					Customize = @(
+						@{
+							Name    = "Windows Update (Pre-Application Installation)"
+							Type    = "Run Command Line"
+							Disable = "false"
+						}
+						@{
+							Name    = "Windows Update (Post-Application Installation)"
+							Type    = "Run Command Line"
+							Disable = "false"
+						}
+						@{
+							Name      = "Custom Tasks (Pre-Windows Update)"
+							Type      = "Group"
+							AddAfter  = "Tattoo"
+						}
+						@{
+							Name      = "Custom Tasks"
+							Type      = "Group"
+							NewName   = "Custom Tasks (Post-Windows Update). "
+						}
+						@{
+							Name       = "Install - Microsoft NET Framework 3.5.1"
+							Type       = "Install Roles and Features"
+							Group      = "Custom Tasks (Pre-Windows Update)"
+							OSName     = "Windows 10"
+							OSFeatures = "NetFx3,TelnetClient"
+						}
+						@{
+							Name       = "Install - Microsoft Visual C++"
+							Type       = "Install Application"
+							AddAfter   = "Install - Microsoft NET Framework 3.5.1"
+							AppName    = "Install - Microsoft Visual C++"
+						}
+						@{
+							Name       = "Install - Microsoft Silverlight - x64"
+							Type       = "Install Application"
+							AddAfter   = "Install - Microsoft Visual C++"
+							AppName    = "Install - Microsoft Silverlight - x64"
+						}
+						@{
+							Name       = "Configure - Set Control+Shift Keyboard Toggle"
+							Type       = "Install Application"
+							AddAfter   = "Install - Microsoft Silverlight - x64"
+							AppName    = "Configure - Set Control+Shift Keyboard Toggle"
+						}
+						@{
+							Name       = "Cleanup before Sysprep"
+							Type       = "Group"
+							AddAfter   = "Apply Local GPO Package"
+						}
+						@{
+							Name       = "Restart Computer"
+							Type       = "Restart Computer"
+							Group      = "Cleanup before Sysprep"
+						}
+					)
                 }
                 @{  
                     Ensure   = "Present"
