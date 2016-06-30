@@ -988,6 +988,65 @@ class cMDTBuildTaskSequence
 }
 
 [DscResource()]
+class cMDTBuildTaskSequenceCustomize
+{
+	# Task Sequence
+	[DscProperty(Mandatory)]
+	[xml]$TS
+
+	# Step name
+	[DscProperty(Key)]
+	[string]$Name
+
+	# New step name
+	[DscProperty()]
+	[string]$NewName
+
+	# Step type
+	[DscProperty(Mandatory)]
+	[string]$Type
+
+	# Group for step
+	[DscProperty()]
+	[string]$GroupName
+
+	# Enable/Disable step
+	[DscProperty()]
+	[string]$Disable
+
+	# Add this step after that step
+	[DscProperty()]
+	[string]$AddAfter
+
+	# OS name for OS features
+	[DscProperty()]
+	[string]$OSName
+
+	# OS features
+	[DscProperty()]
+	[string]$OSFeatures
+
+	# Application Name for this step
+	[DscProperty()]
+	[string]$AppName
+
+	[void] Set()
+    {
+	}
+
+	[bool] Test()
+    {
+		$present = $false
+		return $present
+	}
+
+    [cMDTBuildTaskSequenceCustomize] Get()
+    {
+        return $this
+    }
+}
+
+[DscResource()]
 class cMDTBuildUpdateBootImage
 {
     [DscProperty(Key)]

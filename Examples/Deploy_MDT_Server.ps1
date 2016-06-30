@@ -278,6 +278,7 @@ Configuration DeployMDTServerContract
                 If ($_.key -eq "OrgName")  { $OrgName  = $_.value }
             }
 
+			# Create Task Sequence for one OS image
             cMDTBuildTaskSequence $Name.Replace(' ','')
             {
                 Ensure      = $Ensure
@@ -291,6 +292,50 @@ Configuration DeployMDTServerContract
                 PSDrivePath = $Node.PSDrivePath
                 DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
             }
+
+			# Read TS
+			$tsPath = "$($Node.PSDrivePath)\Control\$($ID)\ts.xml"
+			$TS     = [xml](Get-Content $tsPath)
+
+			# Customize Task Sequence for one OS image
+            ForEach ($TSCustomize in $TaskSequence.Customize)
+            {
+				[string]$Name       = ""
+				[string]$NewName    = ""
+				[string]$Type       = ""
+				[string]$GroupName  = ""
+				[string]$Disable    = ""
+				[string]$AddAfter   = ""
+				[string]$OSName     = ""    # for OS features only
+				[string]$OSFeatures = ""
+				[string]$AppName    = ""
+
+				$TSCustomize.GetEnumerator() | % {
+	                If ($_.key -eq "Name")       { $Name       = $_.value }
+					If ($_.key -eq "NewName")    { $NewName    = $_.value }
+					If ($_.key -eq "Type")       { $Type       = $_.value }
+					If ($_.key -eq "GroupName")  { $GroupName  = $_.value }
+					If ($_.key -eq "Disable")    { $Disable    = $_.value }
+					If ($_.key -eq "AddAfter")   { $AddAfter   = $_.value }
+					If ($_.key -eq "OSName")     { $OSName     = $_.value }
+					If ($_.key -eq "OSFeatures") { $OSFeatures = $_.value }
+					If ($_.key -eq "AppName")    { $AppName    = $_.value }
+				}
+
+	            cMDTBuildTaskSequenceCustomize $Name.Replace(' ','')
+				{
+					TS         = $TS
+					Name       = $Name
+					NewName    = $NewName
+					Type       = $Type
+					GroupName  = $GroupName
+					Disable    = $Disable
+					AddAfter   = $AddAfter
+					OSName     = $OSName
+					OSFeatures = $OSFeatures
+					AppName    = $AppName
+				}
+			}
         }
 
         ForEach ($CustomSetting in $Node.CustomSettings)   

@@ -295,7 +295,7 @@
 						@{
 							Name       = "Install - Microsoft NET Framework 3.5.1"
 							Type       = "Install Roles and Features"
-							Group      = "Custom Tasks (Pre-Windows Update)"
+							GroupName  = "Custom Tasks (Pre-Windows Update)"
 							OSName     = "Windows 10"
 							OSFeatures = "NetFx3,TelnetClient"
 						}
@@ -325,13 +325,13 @@
 						@{
 							Name       = "Action - CleanupBeforeSysprep"
 							Type       = "Install Application"
-							Group      = "Cleanup before Sysprep"
+							GroupName  = "Cleanup before Sysprep"
 							AppName    = "Action - CleanupBeforeSysprep"
 						}
 						@{
 							Name       = "Restart Computer"
 							Type       = "Restart Computer"
-							Group      = "Cleanup before Sysprep"
+							GroupName  = "Cleanup before Sysprep"
 							AddAfter   = "Action - CleanupBeforeSysprep"
 						}
 					)
