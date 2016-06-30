@@ -293,11 +293,8 @@ Configuration DeployMDTServerContract
                 DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
             }
 
-			# Read TS
-			$tsPath = "$($Node.PSDrivePath)\Control\$($ID)\ts.xml"
-			$TS     = [xml](Get-Content $tsPath)
-
 			# Customize Task Sequence for one OS image
+
             ForEach ($TSCustomize in $TaskSequence.Customize)
             {
 				[string]$Name       = ""
@@ -321,6 +318,10 @@ Configuration DeployMDTServerContract
 					If ($_.key -eq "OSFeatures") { $OSFeatures = $_.value }
 					If ($_.key -eq "AppName")    { $AppName    = $_.value }
 				}
+
+				# Read current TS
+				$tsPath = "$($Node.PSDrivePath)\Control\$($ID)\ts.xml"
+				$TS     = [xml](Get-Content $tsPath)
 
 	            cMDTBuildTaskSequenceCustomize $Name.Replace(' ','')
 				{
