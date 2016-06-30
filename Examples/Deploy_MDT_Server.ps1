@@ -319,13 +319,12 @@ Configuration DeployMDTServerContract
 					If ($_.key -eq "AppName")    { $AppName    = $_.value }
 				}
 
-				# Read current TS
-				$tsPath = "$($Node.PSDrivePath)\Control\$($ID)\ts.xml"
-				$TS     = [xml](Get-Content $tsPath)
+				# Current TS XML file name
+				$TSFile = "$($Node.PSDrivePath)\Control\$($ID)\ts.xml"
 
 	            cMDTBuildTaskSequenceCustomize $Name.Replace(' ','')
 				{
-					TS         = $TS
+					TSFile     = $TSFile
 					Name       = $Name
 					NewName    = $NewName
 					Type       = $Type

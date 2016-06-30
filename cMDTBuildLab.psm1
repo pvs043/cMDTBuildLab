@@ -990,9 +990,9 @@ class cMDTBuildTaskSequence
 [DscResource()]
 class cMDTBuildTaskSequenceCustomize
 {
-	# Task Sequence
-	[DscProperty(Mandatory)]
-	[xml]$TS
+	# Task Sequence File
+	[DscProperty(Key)]
+	[string]$TSFile
 
 	# Step name
 	[DscProperty(Key)]
@@ -1032,11 +1032,13 @@ class cMDTBuildTaskSequenceCustomize
 
 	[void] Set()
     {
+		$TS = $this.LoadTaskSequence()
 	}
 
 	[bool] Test()
     {
-		$present = $false
+		$TS = $this.LoadTaskSequence()
+		$present = $true
 		return $present
 	}
 
@@ -1044,6 +1046,14 @@ class cMDTBuildTaskSequenceCustomize
     {
         return $this
     }
+
+	[xml] LoadTaskSequence()
+	{
+		$tsPath = $this.TSFile
+		$xml = [xml](Get-Content $tsPath)
+		return $xml
+	}
+
 }
 
 [DscResource()]
