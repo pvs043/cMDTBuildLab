@@ -294,7 +294,6 @@ Configuration DeployMDTServerContract
             }
 
 			# Customize Task Sequence for one OS image
-
             ForEach ($TSCustomize in $TaskSequence.Customize)
             {
 				[string]$Name       = ""

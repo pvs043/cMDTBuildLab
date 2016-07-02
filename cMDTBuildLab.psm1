@@ -1033,12 +1033,26 @@ class cMDTBuildTaskSequenceCustomize
 	[void] Set()
     {
 		$TS = $this.LoadTaskSequence()
+		if (!$this.AddAfter) {
+			$group = $TS.sequence.group | ?{$_.Name -eq $this.GroupName}
+			$step = $group.step | ?{$_.Name -eq $this.Name}
+			if ($this.Disable -ne "") {
+				$step.disable = $this.Disable
+			}
+		}
 	}
 
 	[bool] Test()
     {
 		$TS = $this.LoadTaskSequence()
 		$present = $true
+		if (!$this.AddAfter) {
+			$group = $TS.sequence.group | ?{$_.Name -eq $this.GroupName}
+			$step = $group.step | ?{$_.Name -eq $this.Name}
+			if ($this.Disable -ne "") {
+				if ($step.disable -ne $this.Disable) { $present = $false}
+			}
+		}
 		return $present
 	}
 
