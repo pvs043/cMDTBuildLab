@@ -276,12 +276,14 @@
 							Name       = "Windows Update (Pre-Application Installation)"
 							Type       = "Run Command Line"
 							GroupName  = "State Restore"
+							ExistAfter = "Opt In to CEIP and WER"
 							Disable    = "false"
 						}
 						@{
 							Name       = "Windows Update (Post-Application Installation)"
 							Type       = "Run Command Line"
 							GroupName  = "State Restore"
+							ExistAfter = "Install Applications"
 							Disable    = "false"
 						}
 						@{
