@@ -1086,12 +1086,18 @@ class cMDTBuildTaskSequenceCustomize
 			}
 			else {
 				if ($this.NewName -ne "") {
-					$present = ( ($group.step | ?{$_.Name -eq $this.NewName}) -ne $null )
+					# For rename "Custom Tasks" group only
+					$present = ( ($group.group | ?{$_.Name -eq $this.NewName}) -ne $null )
 				}
 			}
 		}
 		else {
-			$present = ( ($group.step | ?{$_.Name -eq $this.Name}) -ne $null )
+			if ($this.Type -eq "Group") {
+				$present = ( ($group.group | ?{$_.Name -eq $this.Name}) -ne $null )
+			}
+			else {
+				$present = ( ($group.step | ?{$_.Name -eq $this.Name}) -ne $null )
+			}
 		}
 
 		return $present
