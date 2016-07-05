@@ -1034,7 +1034,12 @@ class cMDTBuildTaskSequenceCustomize
     {
 		$TS = $this.LoadTaskSequence()
 		$group = $TS.sequence.group | ?{$_.Name -eq $this.GroupName}
-		$step = $group.step | ?{$_.Name -eq $this.Name}
+		if ($this.Type -eq "Group") {
+			$step = $group.group | ?{$_.Name -eq $this.Name}
+		}
+		else {
+			$step = $group.step | ?{$_.Name -eq $this.Name}
+		}
 
 		if (!$this.AddAfter) {
 			if ($step) {
@@ -1065,9 +1070,15 @@ class cMDTBuildTaskSequenceCustomize
 		$TS = $this.LoadTaskSequence()
 		$present = $false
 
-		if (!$this.AddAfter) {
-			$group = $TS.sequence.group | ?{$_.Name -eq $this.GroupName}
+		$group = $TS.sequence.group | ?{$_.Name -eq $this.GroupName}
+		if ($this.Type -eq "Group") {
+			$step = $group.group | ?{$_.Name -eq $this.Name}
+		}
+		else {
 			$step = $group.step | ?{$_.Name -eq $this.Name}
+		}
+
+		if (!$this.AddAfter) {
 			if ($step) {
 				if ($this.Disable -ne "") {
 					$present = ($step.disable -eq $this.Disable)
@@ -1080,7 +1091,7 @@ class cMDTBuildTaskSequenceCustomize
 			}
 		}
 		else {
-			
+			$present = ( ($group.step | ?{$_.Name -eq $this.Name}) -ne $null )
 		}
 
 		return $present

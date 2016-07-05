@@ -300,7 +300,7 @@
 							Name       = "Custom Tasks"
 							Type       = "Group"
 							GroupName  = "State Restore"
-							NewName    = "Custom Tasks (Post-Windows Update). "
+							NewName    = "Custom Tasks (Post-Windows Update)"
 						}
 						@{
 							Name       = "Install - Microsoft NET Framework 3.5.1"
