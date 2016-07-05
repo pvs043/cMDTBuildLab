@@ -1033,12 +1033,27 @@ class cMDTBuildTaskSequenceCustomize
 	[void] Set()
     {
 		$TS = $this.LoadTaskSequence()
+		$group = $TS.sequence.group | ?{$_.Name -eq $this.GroupName}
+		$step = $group.step | ?{$_.Name -eq $this.Name}
 
 		if (!$this.AddAfter) {
-			$group = $TS.sequence.group | ?{$_.Name -eq $this.GroupName}
-			$step = $group.step | ?{$_.Name -eq $this.Name}
-			if ($step -and $this.Disable -ne "") {
-				$step.disable = $this.Disable
+			if ($step) {
+				if ($this.Disable -ne "") {
+					$step.disable = $this.Disable
+				}
+				elseif ($this.NewName -ne "") {
+					$step.Name = $this.NewName
+				}
+			}
+		}
+		else {
+			$afterstep = $group.step | ?{$_.Name -eq $this.AddAfter}
+			if ($this.Type -eq "Group") {
+				# Empty group "Custom Tasks" exist in clean TS
+				$groupTemplate = $group.group[0]
+				$newGroup = $groupTemplate.Clone()
+				$newGroup.name = $this.Name
+				$group.InsertAfter($newGroup, $afterstep)
 			}
 		}
 
@@ -1053,12 +1068,19 @@ class cMDTBuildTaskSequenceCustomize
 		if (!$this.AddAfter) {
 			$group = $TS.sequence.group | ?{$_.Name -eq $this.GroupName}
 			$step = $group.step | ?{$_.Name -eq $this.Name}
-			if ($step -and $this.Disable -ne "") {
-				if ($step.disable -eq $this.Disable) { $present = $true}
+			if ($step) {
+				if ($this.Disable -ne "") {
+					$present = ($step.disable -eq $this.Disable)
+				}
+			}
+			else {
+				if ($this.NewName -ne "") {
+					$present = ( ($group.step | ?{$_.Name -eq $this.NewName}) -ne $null )
+				}
 			}
 		}
 		else {
-
+			
 		}
 
 		return $present

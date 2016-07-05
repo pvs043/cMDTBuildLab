@@ -287,11 +287,19 @@
 						@{
 							Name       = "Custom Tasks (Pre-Windows Update)"
 							Type       = "Group"
+							GroupName  = "State Restore"
 							AddAfter   = "Tattoo"
+						}
+						@{
+							Name       = "Cleanup before Sysprep"
+							Type       = "Group"
+							GroupName  = "State Restore"
+							AddAfter   = "Apply Local GPO Package"
 						}
 						@{
 							Name       = "Custom Tasks"
 							Type       = "Group"
+							GroupName  = "State Restore"
 							NewName    = "Custom Tasks (Post-Windows Update). "
 						}
 						@{
@@ -318,11 +326,6 @@
 							Type       = "Install Application"
 							AddAfter   = "Install - Microsoft Silverlight - x64"
 							AppName    = "Configure - Set Control+Shift Keyboard Toggle"
-						}
-						@{
-							Name       = "Cleanup before Sysprep"
-							Type       = "Group"
-							AddAfter   = "Apply Local GPO Package"
 						}
 						@{
 							Name       = "Action - CleanupBeforeSysprep"
