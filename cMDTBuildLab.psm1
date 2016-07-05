@@ -1014,10 +1014,6 @@ class cMDTBuildTaskSequenceCustomize
 	[DscProperty()]
 	[string]$Disable
 
-	# This step must be exist
-	[DscProperty()]
-	[string]$ExistAfter
-
 	# Add this step after that step
 	[DscProperty()]
 	[string]$AddAfter
@@ -1054,15 +1050,10 @@ class cMDTBuildTaskSequenceCustomize
 		$TS = $this.LoadTaskSequence()
 		$present = $false
 
-		if ($this.ExistAfter) {
+		if (!$this.AddAfter) {
 			$group = $TS.sequence.group | ?{$_.Name -eq $this.GroupName}
 			$step = $group.step | ?{$_.Name -eq $this.Name}
-			if (!$step) {
-				#TS step must be exist, but not found. Add it.
-				$this.AddStep($TS, $group, $this.Name, $this.ExistAfter)
-				$TS.Save($this.TSFile)
-			}
-			elseif ($this.Disable -ne "") {
+			if ($step -and $this.Disable -ne "") {
 				if ($step.disable -eq $this.Disable) { $present = $true}
 			}
 		}
@@ -1087,6 +1078,9 @@ class cMDTBuildTaskSequenceCustomize
 
 	[void] AddStep($TS, $group, $Name, $After)
 	{
+		$group = $TS.sequence.group | ?{$_.Name -eq $group}
+		$afterStep = $group.step | ?{$_.Name -eq $After}
+		$afterStep.InsertAfter($afterStep)
 
 	}
 }
