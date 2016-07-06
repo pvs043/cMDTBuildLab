@@ -1054,10 +1054,12 @@ class cMDTBuildTaskSequenceCustomize
 		else {
 			$afterstep = $group.step | ?{$_.Name -eq $this.AddAfter}
 			if ($this.Type -eq "Group") {
-				# Empty group "Custom Tasks" exist in clean TS
-				$groupTemplate = $group.group[0]
-				$newGroup = $groupTemplate.Clone()
-				$newGroup.name = $this.Name
+				$newGroup = $TS.CreateElement("group")
+				$newGroup.SetAttribute("name", $this.Name)
+				$newGroup.SetAttribute("disable", "false")
+				$newGroup.SetAttribute("continueOnError", "false")
+				$newGroup.SetAttribute("expand", "true")
+				$newGroup.SetAttribute("description", "")
 				$group.InsertAfter($newGroup, $afterstep)
 			}
 		}
