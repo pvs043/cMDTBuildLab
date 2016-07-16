@@ -78,6 +78,7 @@ The cMDTBuildLab Module contain the following DscResources:
 * <b>cMDTBuildPersistentDrive</b>
 * <b>cMDTBuildPreReqs</b>
 * <b>cMDTBuildTaskSequence</b>
+* <b>cMDTBuildTaskSequenceCustomize</b>
 * <b>cMDTBuildUpdateBootImage</b>
  
 #### cMDTBuildApplication
@@ -440,10 +441,13 @@ cMDTBuildTaskSequence Win10x64 {
 }
 ```
 
+#### cMDTBuildTaskSequenceCustomize
+cMDTBuildTaskSequenceCusomize is a DscResource that enables add custom steps for Task Sequences with lifecycle management for MDT.
+
 #### cMDTUpdateBootImage
 cMDTUpdateBootImage is a DscResource that enables creation and management of boot images with lifecycle management for MDT. Boot images can be defined and managed from a pull server according to Desired State Configuration principles.
 
-Available parameters with example:
+Available parameters:
 * [Version] - Version number
 * [PSDeploymentShare] - Name of drive
 * [Force] - MDT path
