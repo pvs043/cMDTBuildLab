@@ -300,6 +300,7 @@ Configuration DeployMDTServerContract
 				[string]$NewName    = ""
 				[string]$Type       = ""
 				[string]$GroupName  = ""
+				[string]$SubGroup   = ""
 				[string]$Disable    = ""
 				[string]$AddAfter   = ""
 				[string]$OSName     = ""    # for OS features only
@@ -311,6 +312,7 @@ Configuration DeployMDTServerContract
 					If ($_.key -eq "NewName")    { $NewName    = $_.value }
 					If ($_.key -eq "Type")       { $Type       = $_.value }
 					If ($_.key -eq "GroupName")  { $GroupName  = $_.value }
+					If ($_.key -eq "SubGroup")   { $SubGroup   = $_.value }
 					If ($_.key -eq "Disable")    { $Disable    = $_.value }
 					If ($_.key -eq "AddAfter")   { $AddAfter   = $_.value }
 					If ($_.key -eq "OSName")     { $OSName     = $_.value }
@@ -328,6 +330,7 @@ Configuration DeployMDTServerContract
 					NewName    = $NewName
 					Type       = $Type
 					GroupName  = $GroupName
+					SubGroup   = $SubGroup
 					Disable    = $Disable
 					AddAfter   = $AddAfter
 					OSName     = $OSName

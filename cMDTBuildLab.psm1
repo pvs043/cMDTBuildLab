@@ -1010,6 +1010,10 @@ class cMDTBuildTaskSequenceCustomize
 	[DscProperty()]
 	[string]$GroupName
 
+	# SubGroup for step
+	[DscProperty()]
+	[string]$SubGroup
+
 	# Enable/Disable step
 	[DscProperty()]
 	[string]$Disable
@@ -1049,6 +1053,27 @@ class cMDTBuildTaskSequenceCustomize
 				elseif ($this.NewName -ne "") {
 					$step.Name = $this.NewName
 				}
+			}
+			else {
+				$addGroup = $group.group | ?{$_.name -eq $this.SubGroup}
+				$newStep = $TS.CreateElement("step")
+				$newStep.SetAttribute("name", $this.Name)
+				$newStep.SetAttribute("disable", "false")
+				$newStep.SetAttribute("continueOnError", "false")
+				$newStep.SetAttribute("successCodeList", "0 3010")
+				$newStep.SetAttribute("expand", "true")
+				$newStep.SetAttribute("description", "")
+
+				switch ($this.Type) {
+					"Install Roles and Features" {
+						$newStep.SetAttribute("type", "BDD_InstallRoles")
+						$newStep.SetAttribute("runIn", "WinPEandFullOS")
+						$newStep.SetAttribute("action", 'cscript.exe "%SCRIPTROOT%\ZTIOSRole.wsf"')
+
+					}
+
+				}
+				$addGroup.AppendChild($newStep)
 			}
 		}
 		else {
