@@ -1116,6 +1116,10 @@ class cMDTBuildTaskSequenceCustomize
 					# For rename "Custom Tasks" group only
 					$present = ( ($group.group | ?{$_.Name -eq $this.NewName}) -ne $null )
 				}
+				elseif ($this.SubGroup) {
+					$addGroup = $group.group | ?{$_.name -eq $this.SubGroup}
+					$present = ( ($addGroup.step | ?{$_.Name -eq $this.NewName}) -ne $null )
+				}
 			}
 		}
 		else {
