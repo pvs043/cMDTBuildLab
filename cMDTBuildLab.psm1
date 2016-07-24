@@ -1118,7 +1118,7 @@ class cMDTBuildTaskSequenceCustomize
 				}
 				elseif ($this.SubGroup) {
 					$addGroup = $group.group | ?{$_.name -eq $this.SubGroup}
-					$present = ( ($addGroup.step | ?{$_.Name -eq $this.NewName}) -ne $null )
+					$present = ( ($addGroup.step | ?{$_.Name -eq $this.Name}) -ne $null )
 				}
 			}
 		}
