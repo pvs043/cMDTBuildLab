@@ -633,9 +633,9 @@ class cMDTBuildPreReqs
             File = "MicrosoftDeploymentToolkit2013_x64.msi"
         }
         @{
-            #Version: Windows 10 (Build: 10.1.10586.0)
+            #Version: Windows 10 v1607 (Build: 10.1.14393.0)
             Name = "ADK"
-            URI = "http://download.microsoft.com/download/3/8/B/38BBCA6A-ADC9-4245-BCD8-DAA136F63C8B/adk/adksetup.exe"
+            URI = "http://download.microsoft.com/download/9/A/E/9AE69DD5-BA93-44E0-864E-180F5E700AB4/adk/adksetup.exe"
             Folder = "Windows Assessment and Deployment Kit"
             File = "adksetup.exe"
         }
@@ -1069,6 +1069,10 @@ class cMDTBuildTaskSequenceCustomize
 						$newStep.SetAttribute("type", "BDD_InstallRoles")
 						$newStep.SetAttribute("runIn", "WinPEandFullOS")
 						$newStep.SetAttribute("action", 'cscript.exe "%SCRIPTROOT%\ZTIOSRole.wsf"')
+
+                        $varList = $TS.CreateElement("defailtVarList")
+                        $varList.SetAttribute("name", "OSRoleIndex")
+
 
 					}
 
