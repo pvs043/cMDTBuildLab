@@ -68,7 +68,7 @@ Configuration DeployMDTServerContract
             Ensure     = "Present"
             Name       = "Windows Assessment and Deployment Kit - Windows 10"
             Path       = "$($Node.SourcePath)\Windows Assessment and Deployment Kit\adksetup.exe"
-            ProductId  = "82daddb6-d4e0-42cb-988d-1e7f5739e155"
+            ProductId  = "39ebb79f-797c-418f-b329-97cfdf92b7ab"
             Arguments  = "/quiet /features OptionId.DeploymentTools OptionId.WindowsPreinstallationEnvironment"
             ReturnCode = 0
         }
