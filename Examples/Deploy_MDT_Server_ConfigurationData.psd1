@@ -313,31 +313,35 @@
 						@{
 							Name       = "Install - Microsoft Visual C++"
 							Type       = "Install Application"
+							GroupName  = "State Restore"
+							SubGroup   = "Custom Tasks (Pre-Windows Update)"
 							AddAfter   = "Install - Microsoft NET Framework 3.5.1"
-							AppName    = "Install - Microsoft Visual C++"
 						}
 						@{
 							Name       = "Install - Microsoft Silverlight - x64"
 							Type       = "Install Application"
+							GroupName  = "State Restore"
+							SubGroup   = "Custom Tasks (Pre-Windows Update)"
 							AddAfter   = "Install - Microsoft Visual C++"
-							AppName    = "Install - Microsoft Silverlight - x64"
 						}
 						@{
 							Name       = "Configure - Set Control+Shift Keyboard Toggle"
 							Type       = "Install Application"
+							GroupName  = "State Restore"
+							SubGroup   = "Custom Tasks (Pre-Windows Update)"
 							AddAfter   = "Install - Microsoft Silverlight - x64"
-							AppName    = "Configure - Set Control+Shift Keyboard Toggle"
 						}
 						@{
 							Name       = "Action - CleanupBeforeSysprep"
 							Type       = "Install Application"
-							GroupName  = "Cleanup before Sysprep"
-							AppName    = "Action - CleanupBeforeSysprep"
+							GroupName  = "State Restore"
+							SubGroup   = "Cleanup before Sysprep"
 						}
 						@{
 							Name       = "Restart Computer"
 							Type       = "Restart Computer"
-							GroupName  = "Cleanup before Sysprep"
+							GroupName  = "State Restore"
+							SubGroup   = "Cleanup before Sysprep"
 							AddAfter   = "Action - CleanupBeforeSysprep"
 						}
 					)

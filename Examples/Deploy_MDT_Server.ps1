@@ -305,7 +305,6 @@ Configuration DeployMDTServerContract
 				[string]$AddAfter   = ""
 				[string]$OSName     = ""    # for OS features only
 				[string]$OSFeatures = ""
-				[string]$AppName    = ""
 
 				$TSCustomize.GetEnumerator() | % {
 	                If ($_.key -eq "Name")       { $Name       = $_.value }
@@ -317,7 +316,6 @@ Configuration DeployMDTServerContract
 					If ($_.key -eq "AddAfter")   { $AddAfter   = $_.value }
 					If ($_.key -eq "OSName")     { $OSName     = $_.value }
 					If ($_.key -eq "OSFeatures") { $OSFeatures = $_.value }
-					If ($_.key -eq "AppName")    { $AppName    = $_.value }
 				}
 
 				# Current TS XML file name
@@ -325,17 +323,18 @@ Configuration DeployMDTServerContract
 
 	            cMDTBuildTaskSequenceCustomize $Name.Replace(' ','')
 				{
-					TSFile     = $TSFile
-					Name       = $Name
-					NewName    = $NewName
-					Type       = $Type
-					GroupName  = $GroupName
-					SubGroup   = $SubGroup
-					Disable    = $Disable
-					AddAfter   = $AddAfter
-					OSName     = $OSName
-					OSFeatures = $OSFeatures
-					AppName    = $AppName
+					TSFile      = $TSFile
+					Name        = $Name
+					NewName     = $NewName
+					Type        = $Type
+					GroupName   = $GroupName
+					SubGroup    = $SubGroup
+					Disable     = $Disable
+					AddAfter    = $AddAfter
+					OSName      = $OSName
+					OSFeatures  = $OSFeatures
+	                PSDriveName = $Node.PSDriveName
+		            PSDrivePath = $Node.PSDrivePath
 				}
 			}
         }

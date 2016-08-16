@@ -1030,9 +1030,11 @@ class cMDTBuildTaskSequenceCustomize
 	[DscProperty()]
 	[string]$OSFeatures
 
-	# Application Name for this step
-	[DscProperty()]
-	[string]$AppName
+    [DscProperty(Mandatory)]
+    [string]$PSDriveName
+
+    [DscProperty(Mandatory)]
+    [string]$PSDrivePath
 
 	[void] Set()
     {
@@ -1100,6 +1102,32 @@ class cMDTBuildTaskSequenceCustomize
 
 						$action = $TS.CreateElement("action")
 						$action.AppendChild($TS.CreateTextNode('cscript.exe "%SCRIPTROOT%\ZTIOSRole.wsf"')) | Out-Null
+
+						$newStep.AppendChild($varList) | Out-Null
+						$newStep.AppendChild($action) | Out-Null
+					}
+
+					"Install Application" {
+						# for 'Action - Cleanup Before Sysprep' (empty AddAfter)
+						$newStep.SetAttribute("type", "BDD_InstallApplication")
+						$newStep.SetAttribute("runIn", "WinPEandFullOS")
+						
+						$varList = $TS.CreateElement("defaultVarList")
+						$varName = $TS.CreateElement("variable")
+						$varName.SetAttribute("name", "ApplicationGUID") | Out-Null
+						$varName.SetAttribute("property", "ApplicationGUID") | Out-Null
+                        $AppGUID = Get-ApplicationGUID($this.Name, $this.PSDriveName, $this.PSDrivePath)
+						$varName.AppendChild($TS.CreateTextNode($AppGUID)) | Out-Null
+						$varList.AppendChild($varName) | Out-Null
+						
+						$varName = $TS.CreateElement("variable")
+						$varName.SetAttribute("name", "ApplicationSuccessCodes") | Out-Null
+						$varName.SetAttribute("property", "ApplicationSuccessCodes") | Out-Null
+						$varName.AppendChild($TS.CreateTextNode("0 3010")) | Out-Null
+						$varList.AppendChild($varName) | Out-Null
+
+						$action = $TS.CreateElement("action")
+						$action.AppendChild($TS.CreateTextNode('cscript.exe "%SCRIPTROOT%\ZTIApplications.wsf"')) | Out-Null
 
 						$newStep.AppendChild($varList) | Out-Null
 						$newStep.AppendChild($action) | Out-Null
@@ -1509,4 +1537,25 @@ Function New-ReferenceFile
 
         New-Item -Type File -Path $Path -Force -Verbose:$False  
     }
+}
+
+Function Get-ApplicationGUID
+{
+    [CmdletBinding()]
+    [OutputType([string])]
+    param(
+        [Parameter(Mandatory=$True)]
+        [ValidateNotNullorEmpty()]
+        [string]$AppName,
+        [Parameter()]
+        [string]$PSDriveName,
+        [Parameter()]
+        [string]$PSDrivePath
+	)
+
+	Import-MicrosoftDeploymentToolkitModule
+    New-PSDrive -Name $PSDriveName -PSProvider "MDTProvider" -Root $PSDrivePath -Verbose:$false
+	$app = Get-ChildItem -Path "$($PSDriveName):\Applications" -Recurse | ?{ $_.Name -eq  $AppName }
+
+	return $app.GUID
 }
