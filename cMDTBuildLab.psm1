@@ -1116,7 +1116,7 @@ class cMDTBuildTaskSequenceCustomize
 						$varName = $TS.CreateElement("variable")
 						$varName.SetAttribute("name", "ApplicationGUID") | Out-Null
 						$varName.SetAttribute("property", "ApplicationGUID") | Out-Null
-                        $AppGUID = Get-ApplicationGUID($this.Name, $this.PSDriveName, $this.PSDrivePath)
+                        $AppGUID = Get-ApplicationGUID -AppName $this.Name -PSDriveName $this.PSDriveName -PSDrivePath $this.PSDrivePath
 						$varName.AppendChild($TS.CreateTextNode($AppGUID)) | Out-Null
 						$varList.AppendChild($varName) | Out-Null
 						
@@ -1545,16 +1545,15 @@ Function Get-ApplicationGUID
     [OutputType([string])]
     param(
         [Parameter(Mandatory=$True)]
-        [ValidateNotNullorEmpty()]
         [string]$AppName,
-        [Parameter()]
+        [Parameter(Mandatory=$True)]
         [string]$PSDriveName,
-        [Parameter()]
+        [Parameter(Mandatory=$True)]
         [string]$PSDrivePath
 	)
 
 	Import-MicrosoftDeploymentToolkitModule
-    New-PSDrive -Name $PSDriveName -PSProvider "MDTProvider" -Root $PSDrivePath -Verbose:$false
+    New-PSDrive -Name $PSDriveName -PSProvider "MDTProvider" -Root $PSDrivePath -Verbose:$false | Out-Null
 	$app = Get-ChildItem -Path "$($PSDriveName):\Applications" -Recurse | ?{ $_.Name -eq  $AppName }
 
 	return $app.GUID
