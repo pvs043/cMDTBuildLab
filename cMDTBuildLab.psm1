@@ -1007,7 +1007,7 @@ class cMDTBuildTaskSequenceCustomize
 	[string]$Type
 
 	# Group for step
-	[DscProperty()]
+	[DscProperty(Mandatory)]
 	[string]$GroupName
 
 	# SubGroup for step
@@ -1138,15 +1138,61 @@ class cMDTBuildTaskSequenceCustomize
 			}
 		}
 		else {
-			$afterstep = $group.step | ?{$_.Name -eq $this.AddAfter}
-			if ($this.Type -eq "Group") {
-				$newGroup = $TS.CreateElement("group")
-				$newGroup.SetAttribute("name", $this.Name)
-				$newGroup.SetAttribute("disable", "false")
-				$newGroup.SetAttribute("continueOnError", "false")
-				$newGroup.SetAttribute("expand", "true")
-				$newGroup.SetAttribute("description", "")
-				$group.InsertAfter($newGroup, $afterstep)
+			if ($this.SubGroup) {
+				$AddGroup = $group.group | ?{$_.name -eq $this.SubGroup}
+				$AfterStep = $addGroup.step | ?{$_.Name -eq $this.AddAfter}
+			}
+			else {
+				$addGroup = $group
+				$AfterStep = $group.step | ?{$_.Name -eq $this.AddAfter}
+			}
+
+			switch ($this.Type) {
+				"Group" {
+					$newGroup = $TS.CreateElement("group")
+					$newGroup.SetAttribute("name", $this.Name)
+					$newGroup.SetAttribute("disable", "false")
+					$newGroup.SetAttribute("continueOnError", "false")
+					$newGroup.SetAttribute("expand", "true")
+					$newGroup.SetAttribute("description", "")
+					$AddGroup.InsertAfter($newGroup, $afterstep)
+				}
+
+				"Restart Computer" {
+					$newStep = $TS.CreateElement("step")
+					$newStep.SetAttribute("name", $this.Name)
+					$newStep.SetAttribute("disable", "false")
+					$newStep.SetAttribute("continueOnError", "false")
+					$newStep.SetAttribute("successCodeList", "0 3010")
+					$newStep.SetAttribute("description", "")
+					$newStep.SetAttribute("type", "SMS_TaskSequence_RebootAction")
+					$newStep.SetAttribute("runIn", "WinPEandFullOS")
+
+					$varList = $TS.CreateElement("defaultVarList")
+					$varName = $TS.CreateElement("variable")
+					$varName.SetAttribute("name", "Message") | Out-Null
+					$varName.SetAttribute("property", "Message") | Out-Null
+					$varList.AppendChild($varName) | Out-Null
+
+					$varName = $TS.CreateElement("variable")
+					$varName.SetAttribute("name", "MessageTimeout") | Out-Null
+					$varName.SetAttribute("property", "MessageTimeout") | Out-Null
+					$varName.AppendChild($TS.CreateTextNode("60")) | Out-Null
+					$varList.AppendChild($varName) | Out-Null
+
+					$varName = $TS.CreateElement("variable")
+					$varName.SetAttribute("name", "Target") | Out-Null
+					$varName.SetAttribute("property", "Target") | Out-Null
+					$varList.AppendChild($varName) | Out-Null
+
+					$action = $TS.CreateElement("action")
+					$action.AppendChild($TS.CreateTextNode("smsboot.exe /target:WinPE")) | Out-Null
+
+					$newStep.AppendChild($varList) | Out-Null
+					$newStep.AppendChild($action) | Out-Null
+
+					$AddGroup.InsertAfter($newStep, $afterstep)
+				}
 			}
 		}
 
