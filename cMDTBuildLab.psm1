@@ -1061,19 +1061,48 @@ class cMDTBuildTaskSequenceCustomize
 				$newStep.SetAttribute("disable", "false")
 				$newStep.SetAttribute("continueOnError", "false")
 				$newStep.SetAttribute("successCodeList", "0 3010")
-				$newStep.SetAttribute("expand", "true")
 				$newStep.SetAttribute("description", "")
 
 				switch ($this.Type) {
 					"Install Roles and Features" {
+						$OSIndex = @{
+							"Windows 10"      = 13
+							"Windows 7"       = 4
+							"Windows 8.1"     = 10
+							"Windows 2012 R2" = 11
+						}
+
 						$newStep.SetAttribute("type", "BDD_InstallRoles")
 						$newStep.SetAttribute("runIn", "WinPEandFullOS")
-						$newStep.SetAttribute("action", 'cscript.exe "%SCRIPTROOT%\ZTIOSRole.wsf"')
+						
+						$varList = $TS.CreateElement("defaultVarList")
+						$varName = $TS.CreateElement("variable")
+						$varName.SetAttribute("name", "OSRoleIndex") | Out-Null
+						$varName.SetAttribute("property", "OSRoleIndex") | Out-Null
+						$varName.AppendChild($TS.CreateTextNode($OSIndex.$($this.OSName))) | Out-Null
+						$varList.AppendChild($varName) | Out-Null
 
-                        $varList = $TS.CreateElement("defailtVarList")
-                        $varList.SetAttribute("name", "OSRoleIndex")
+						$varName = $TS.CreateElement("variable")
+						$varName.SetAttribute("name", "OSRoles") | Out-Null
+						$varName.SetAttribute("property", "OSRoles") | Out-Null
+						$varList.AppendChild($varName) | Out-Null
 
+						$varName = $TS.CreateElement("variable")
+						$varName.SetAttribute("name", "OSRoleServices") | Out-Null
+						$varName.SetAttribute("property", "OSRoleServices") | Out-Null
+						$varList.AppendChild($varName) | Out-Null
 
+						$varName = $TS.CreateElement("variable")
+						$varName.SetAttribute("name", "OSFeatures") | Out-Null
+						$varName.SetAttribute("property", "OSFeatures") | Out-Null
+						$varName.AppendChild($TS.CreateTextNode("NetFx3,TelnetClient")) | Out-Null
+						$varList.AppendChild($varName) | Out-Null
+
+						$action = $TS.CreateElement("action")
+						$action.AppendChild($TS.CreateTextNode('cscript.exe "%SCRIPTROOT%\ZTIOSRole.wsf"')) | Out-Null
+
+						$newStep.AppendChild($varList) | Out-Null
+						$newStep.AppendChild($action) | Out-Null
 					}
 
 				}
