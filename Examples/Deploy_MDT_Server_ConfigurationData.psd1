@@ -193,10 +193,10 @@
 				}
 				@{
                     Ensure                = "Present"
-                    Name                  = "Configure - Remove Windows 8.1 Default Applications"
+                    Name                  = "Configure - Remove Windows Default Applications"
                     Path                  = "\Applications\Core\Configure"
-                    CommandLine           = "powershell.exe -ExecutionPolicy Bypass -File Remove-Windows8.1Apps.ps1"
-                    ApplicationSourcePath = "Remove-Windows8.1Apps"
+                    CommandLine           = "powershell.exe -ExecutionPolicy Bypass -File RemoveApps.ps1"
+                    ApplicationSourcePath = "RemoveApps"
 				}
 				@{
                     Ensure                = "Present"
@@ -311,11 +311,18 @@
 							OSFeatures = "NetFx3,TelnetClient"
 						}
 						@{
-							Name       = "Install - Microsoft Visual C++"
+							Name       = "Configure - Remove Windows Default Applications"
 							Type       = "Install Application"
 							GroupName  = "State Restore"
 							SubGroup   = "Custom Tasks (Pre-Windows Update)"
 							AddAfter   = "Install - Microsoft NET Framework 3.5.1"
+						}
+						@{
+							Name       = "Install - Microsoft Visual C++"
+							Type       = "Install Application"
+							GroupName  = "State Restore"
+							SubGroup   = "Custom Tasks (Pre-Windows Update)"
+							AddAfter   = "Configure - Remove Windows Default Applications"
 						}
 						@{
 							Name       = "Install - Microsoft Silverlight - x64"

@@ -762,10 +762,22 @@ class cMDTBuildPreReqs
             File = "Action-CleanupBeforeSysprep.wsf"
         }
         @{
-            Name = "RemoveWin8.1Apps"
-            URI = "Sources\Remove-Windows8.1Apps.ps1"
-            Folder = "Remove-Windows8.1Apps"
-            File = "Remove-Windows8.1Apps.ps1"
+            Name = "RemoveAppsScript"
+            URI = "Sources\RemoveApps.ps1"
+            Folder = "RemoveApps"
+            File = "RemoveApps.ps1"
+        }
+        @{
+            Name = "RemoveApps8.1"
+            URI = "Sources\RemoveApps81.xml"
+            Folder = "RemoveApps"
+            File = "RemoveApps81.xml"
+        }
+        @{
+            Name = "RemoveApps10"
+            URI = "Sources\RemoveApps10.xml"
+            Folder = "RemoveApps"
+            File = "RemoveApps10.xml"
         }
         @{
             Name = "CustomizeDefaultProfile"
@@ -977,14 +989,6 @@ class cMDTBuildTaskSequence
         New-PSDrive -Name $this.PSDriveName -PSProvider "MDTProvider" -Root $this.PSDrivePath -Verbose:$false
         Import-MDTTaskSequence -path $this.Path -Name $this.Name -Template $this.Template -Comments "Build Reference Image" -ID $this.ID -Version "1.0" -OperatingSystemPath $this.OSName -FullName "Windows User" -OrgName $this.OrgName -HomePage "about:blank" -Verbose
     }
-<#
-	[xml] ReadTaskSequence()
-	{
-		$tsPath = "$($this.PSDrivePath)\Control\$($this.ID)\ts.xml"
-		$xml = [xml](Get-Content $tsPath)
-		return $xml
-	}
-#>
 }
 
 [DscResource()]
