@@ -1109,32 +1109,11 @@ class cMDTBuildTaskSequenceCustomize
 
 					"Install Application" {
 						# for 'Action - Cleanup Before Sysprep' (empty AddAfter)
-						$newStep.SetAttribute("type", "BDD_InstallApplication")
-						$newStep.SetAttribute("runIn", "WinPEandFullOS")
-						
-						$varList = $TS.CreateElement("defaultVarList")
-						$varName = $TS.CreateElement("variable")
-						$varName.SetAttribute("name", "ApplicationGUID") | Out-Null
-						$varName.SetAttribute("property", "ApplicationGUID") | Out-Null
-                        $AppGUID = Get-ApplicationGUID -AppName $this.Name -PSDriveName $this.PSDriveName -PSDrivePath $this.PSDrivePath
-						$varName.AppendChild($TS.CreateTextNode($AppGUID)) | Out-Null
-						$varList.AppendChild($varName) | Out-Null
-						
-						$varName = $TS.CreateElement("variable")
-						$varName.SetAttribute("name", "ApplicationSuccessCodes") | Out-Null
-						$varName.SetAttribute("property", "ApplicationSuccessCodes") | Out-Null
-						$varName.AppendChild($TS.CreateTextNode("0 3010")) | Out-Null
-						$varList.AppendChild($varName) | Out-Null
-
-						$action = $TS.CreateElement("action")
-						$action.AppendChild($TS.CreateTextNode('cscript.exe "%SCRIPTROOT%\ZTIApplications.wsf"')) | Out-Null
-
-						$newStep.AppendChild($varList) | Out-Null
-						$newStep.AppendChild($action) | Out-Null
+						$this.AddApplication($TS, $newStep)
 					}
 
 				}
-				$addGroup.AppendChild($newStep)
+				$addGroup.AppendChild($newStep) | Out-Null
 			}
 		}
 		else {
@@ -1147,6 +1126,13 @@ class cMDTBuildTaskSequenceCustomize
 				$AfterStep = $group.step | ?{$_.Name -eq $this.AddAfter}
 			}
 
+			$newStep = $TS.CreateElement("step")
+			$newStep.SetAttribute("name", $this.Name)
+			$newStep.SetAttribute("disable", "false")
+			$newStep.SetAttribute("continueOnError", "false")
+			$newStep.SetAttribute("successCodeList", "0 3010")
+			$newStep.SetAttribute("description", "")
+
 			switch ($this.Type) {
 				"Group" {
 					$newGroup = $TS.CreateElement("group")
@@ -1158,13 +1144,12 @@ class cMDTBuildTaskSequenceCustomize
 					$AddGroup.InsertAfter($newGroup, $afterstep)
 				}
 
+				"Install Application" {
+					$this.AddApplication($TS, $newStep)
+					$AddGroup.InsertAfter($newStep, $afterstep) | Out-Null
+				}
+
 				"Restart Computer" {
-					$newStep = $TS.CreateElement("step")
-					$newStep.SetAttribute("name", $this.Name)
-					$newStep.SetAttribute("disable", "false")
-					$newStep.SetAttribute("continueOnError", "false")
-					$newStep.SetAttribute("successCodeList", "0 3010")
-					$newStep.SetAttribute("description", "")
 					$newStep.SetAttribute("type", "SMS_TaskSequence_RebootAction")
 					$newStep.SetAttribute("runIn", "WinPEandFullOS")
 
@@ -1253,12 +1238,35 @@ class cMDTBuildTaskSequenceCustomize
 		return $xml
 	}
 
-	[void] AddStep($TS, $group, $Name, $After)
+	[void] AddApplication($TS, $Step)
 	{
-		$group = $TS.sequence.group | ?{$_.Name -eq $group}
-		$afterStep = $group.step | ?{$_.Name -eq $After}
-		$afterStep.InsertAfter($afterStep)
+		$Step.SetAttribute("type", "BDD_InstallApplication")
+		$Step.SetAttribute("runIn", "WinPEandFullOS")
+					
+		$varList = $TS.CreateElement("defaultVarList")
+		$varName = $TS.CreateElement("variable")
+		$varName.SetAttribute("name", "ApplicationGUID") | Out-Null
+		$varName.SetAttribute("property", "ApplicationGUID") | Out-Null
 
+		# Get Application GUID
+		Import-MicrosoftDeploymentToolkitModule
+		New-PSDrive -Name $this.PSDriveName -PSProvider "MDTProvider" -Root $this.PSDrivePath -Verbose:$false | Out-Null
+		$AppGUID = Get-ChildItem -Path "$($this.PSDriveName):\Applications" -Recurse | ?{ $_.Name -eq  $this.Name }
+
+		$varName.AppendChild($TS.CreateTextNode($AppGUID)) | Out-Null
+		$varList.AppendChild($varName) | Out-Null
+						
+		$varName = $TS.CreateElement("variable")
+		$varName.SetAttribute("name", "ApplicationSuccessCodes") | Out-Null
+		$varName.SetAttribute("property", "ApplicationSuccessCodes") | Out-Null
+		$varName.AppendChild($TS.CreateTextNode("0 3010")) | Out-Null
+		$varList.AppendChild($varName) | Out-Null
+
+		$action = $TS.CreateElement("action")
+		$action.AppendChild($TS.CreateTextNode('cscript.exe "%SCRIPTROOT%\ZTIApplications.wsf"')) | Out-Null
+
+		$Step.AppendChild($varList) | Out-Null
+		$Step.AppendChild($action) | Out-Null
 	}
 }
 
@@ -1583,24 +1591,4 @@ Function New-ReferenceFile
 
         New-Item -Type File -Path $Path -Force -Verbose:$False  
     }
-}
-
-Function Get-ApplicationGUID
-{
-    [CmdletBinding()]
-    [OutputType([string])]
-    param(
-        [Parameter(Mandatory=$True)]
-        [string]$AppName,
-        [Parameter(Mandatory=$True)]
-        [string]$PSDriveName,
-        [Parameter(Mandatory=$True)]
-        [string]$PSDrivePath
-	)
-
-	Import-MicrosoftDeploymentToolkitModule
-    New-PSDrive -Name $PSDriveName -PSProvider "MDTProvider" -Root $PSDrivePath -Verbose:$false | Out-Null
-	$app = Get-ChildItem -Path "$($PSDriveName):\Applications" -Recurse | ?{ $_.Name -eq  $AppName }
-
-	return $app.GUID
 }
