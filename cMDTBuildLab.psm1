@@ -1219,7 +1219,11 @@ class cMDTBuildTaskSequenceCustomize
 				$present = ( ($group.group | ?{$_.Name -eq $this.Name}) -ne $null )
 			}
 			else {
-				$present = ( ($group.step | ?{$_.Name -eq $this.Name}) -ne $null )
+				$AddGroup = $group
+				if ($this.SubGroup) {
+					$AddGroup = $group.group | ?{$_.name -eq $this.SubGroup}
+				}
+				$present = ( ($addGroup.step | ?{$_.Name -eq $this.Name}) -ne $null )
 			}
 		}
 
