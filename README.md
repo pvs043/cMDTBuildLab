@@ -444,6 +444,41 @@ cMDTBuildTaskSequence Win10x64 {
 #### cMDTBuildTaskSequenceCustomize
 cMDTBuildTaskSequenceCusomize is a DscResource that enables add custom steps for Task Sequences with lifecycle management for MDT.
 
+Available parameters:
+* <b>[TSFile]</b> - Task Sequence File Name
+* <b>[Name]</b> - Step/Group Name
+* <b>[NewName]</b> - New Step/Group Name
+* <b>[Type]</b> - Step Type
+* <b>[GroupName]</b> - Main Group for Step/Group
+* <b>[SubGroup]</b> - Subgroup Group for Step/Group
+* <b>[Disable]</b> - "true" / "false"
+* <b>[AddAfter]</b> - Add this Step/Group after that Step
+* <b>[OSName]</b> - "Windows 7" / "Windows 8.1" / "Windows 10" / "Windows 2012 R2"
+* <b>[OSFeatures]</b> - OS Features
+* <b>[Command]</b> - Command line for 'Run Command line' step
+* <b>[PSDriveName]</b> - The PSDrive name for the MDT deployment share
+* <b>[PSDrivePath]</b> - The physical path to the MDT deployment share
+
+The DscResource add/change the group or step into existing Task Sequence.
+
+Desired State Configuration job example:
+```sh
+$TSFile = "$($PSDrivePath)\Control\$($TSID)\ts.xml"
+
+cMDTBuildTaskSequenceCustomize AddFeatures {
+	TSFile      = $TSFile
+	Name        = "Install - Microsoft NET Framework 3.5.1"
+	Type        = "Install Roles and Features"
+	GroupName   = "State Restore"
+	SubGroup    = "Custom Tasks (Pre-Windows Update)"
+	OSName      = "Windows 10"
+	OSFeatures  = "NetFx3,TelnetClient"
+    PSDriveName = $Node.PSDriveName
+    PSDrivePath = $Node.PSDrivePath
+				}
+```
+See more complex example in "/Examples" folder of this project.
+
 #### cMDTUpdateBootImage
 cMDTUpdateBootImage is a DscResource that enables creation and management of boot images with lifecycle management for MDT. Boot images can be defined and managed from a pull server according to Desired State Configuration principles.
 
