@@ -262,6 +262,95 @@
                     OrgName  = "BuildLab"
 					Template = "Client.xml"
                     ID       = "REFW10X86-001"
+					Customize = @(
+						@{
+							Name       = "Windows Update (Pre-Application Installation)"
+							Type       = "Run Command Line"
+							GroupName  = "State Restore"
+							Disable    = "false"
+						}
+						@{
+							Name       = "Windows Update (Post-Application Installation)"
+							Type       = "Run Command Line"
+							GroupName  = "State Restore"
+							Disable    = "false"
+						}
+						@{
+							Name       = "Custom Tasks (Pre-Windows Update)"
+							Type       = "Group"
+							GroupName  = "State Restore"
+							AddAfter   = "Tattoo"
+						}
+						@{
+							Name       = "Custom Tasks"
+							Type       = "Group"
+							GroupName  = "State Restore"
+							NewName    = "Custom Tasks (Post-Windows Update)"
+						}
+						@{
+							Name       = "Cleanup before Sysprep"
+							Type       = "Group"
+							GroupName  = "State Restore"
+							AddAfter   = "Apply Local GPO Package"
+						}
+						@{
+							Name       = "Install - Microsoft NET Framework 3.5.1"
+							Type       = "Install Roles and Features"
+							GroupName  = "State Restore"
+							SubGroup   = "Custom Tasks (Pre-Windows Update)"
+							OSName     = "Windows 10"
+							OSFeatures = "NetFx3,TelnetClient"
+						}
+						@{
+							Name       = "Configure - Remove Windows Default Applications"
+							Type       = "Install Application"
+							GroupName  = "State Restore"
+							SubGroup   = "Custom Tasks (Pre-Windows Update)"
+							AddAfter   = "Install - Microsoft NET Framework 3.5.1"
+						}
+						@{
+							Name       = "Install - Microsoft Visual C++"
+							Type       = "Install Application"
+							GroupName  = "State Restore"
+							SubGroup   = "Custom Tasks (Pre-Windows Update)"
+							AddAfter   = "Configure - Remove Windows Default Applications"
+						}
+						@{
+							Name       = "Install - Microsoft Silverlight - x86"
+							Type       = "Install Application"
+							GroupName  = "State Restore"
+							SubGroup   = "Custom Tasks (Pre-Windows Update)"
+							AddAfter   = "Install - Microsoft Visual C++"
+						}
+						@{
+							Name       = "Configure - Set Control+Shift Keyboard Toggle"
+							Type       = "Install Application"
+							GroupName  = "State Restore"
+							SubGroup   = "Custom Tasks (Pre-Windows Update)"
+							AddAfter   = "Install - Microsoft Silverlight - x86"
+						}
+						@{
+							Name       = "Configure - Enable App-V Client"
+							Type       = "Run Command Line"
+							GroupName  = "State Restore"
+							SubGroup   = "Custom Tasks (Pre-Windows Update)"
+							AddAfter   = "Configure - Set Control+Shift Keyboard Toggle"
+							Command    = 'powershell.exe -ExecutionPolicy ByPass -Command "Enable-Appv; Set-AppvClientConfiguration -EnablePackageScripts 1"'
+						}
+						@{
+							Name       = "Action - CleanupBeforeSysprep"
+							Type       = "Install Application"
+							GroupName  = "State Restore"
+							SubGroup   = "Cleanup before Sysprep"
+						}
+						@{
+							Name       = "Restart Computer"
+							Type       = "Restart Computer"
+							GroupName  = "State Restore"
+							SubGroup   = "Cleanup before Sysprep"
+							AddAfter   = "Action - CleanupBeforeSysprep"
+						}
+					)
                 }
                 @{
                     Ensure   = "Present"
@@ -291,16 +380,16 @@
 							AddAfter   = "Tattoo"
 						}
 						@{
-							Name       = "Cleanup before Sysprep"
-							Type       = "Group"
-							GroupName  = "State Restore"
-							AddAfter   = "Apply Local GPO Package"
-						}
-						@{
 							Name       = "Custom Tasks"
 							Type       = "Group"
 							GroupName  = "State Restore"
 							NewName    = "Custom Tasks (Post-Windows Update)"
+						}
+						@{
+							Name       = "Cleanup before Sysprep"
+							Type       = "Group"
+							GroupName  = "State Restore"
+							AddAfter   = "Apply Local GPO Package"
 						}
 						@{
 							Name       = "Install - Microsoft NET Framework 3.5.1"
@@ -369,6 +458,79 @@
                     OrgName  = "BuildLab"
 					Template = "Server.xml"
                     ID       = "REFW2012R2-001"
+					Customize = @(
+						@{
+							Name       = "Windows Update (Pre-Application Installation)"
+							Type       = "Run Command Line"
+							GroupName  = "State Restore"
+							Disable    = "false"
+						}
+						@{
+							Name       = "Custom Tasks (Pre-Windows Update)"
+							Type       = "Group"
+							GroupName  = "State Restore"
+							AddAfter   = "Tattoo"
+						}
+						@{
+							Name       = "Custom Tasks"
+							Type       = "Group"
+							GroupName  = "State Restore"
+							NewName    = "Custom Tasks (Post-Windows Update)"
+						}
+						@{
+							Name       = "Install WMF 5.0"
+							Type       = "Group"
+							GroupName  = "State Restore"
+							AddAfter   = "Install Applications"
+						}
+						@{
+							Name       = "Cleanup before Sysprep"
+							Type       = "Group"
+							GroupName  = "State Restore"
+							AddAfter   = "Apply Local GPO Package"
+						}
+						@{
+							Name       = "Install - Microsoft NET Framework 3.5.1"
+							Type       = "Install Roles and Features"
+							GroupName  = "State Restore"
+							SubGroup   = "Custom Tasks (Pre-Windows Update)"
+							OSName     = "Windows 2012 R2"
+							OSFeatures = "NET-Framework-Features,Telnet-Client"
+						}
+						@{
+							Name       = "Configure - Set Control+Shift Keyboard Toggle"
+							Type       = "Install Application"
+							GroupName  = "State Restore"
+							SubGroup   = "Custom Tasks (Pre-Windows Update)"
+							AddAfter   = "Install - Microsoft NET Framework 3.5.1"
+						}
+						@{
+							Name       = "Install - Windows Management Framework 5.0 - x64"
+							Type       = "Install Application"
+							GroupName  = "State Restore"
+							SubGroup   = "Install WMF 5.0"
+						}
+						@{
+							Name       = "Restart Computer"
+							Type       = "Restart Computer"
+							GroupName  = "State Restore"
+							SubGroup   = "Install WMF 5.0"
+							AddAfter   = "Install - Windows Management Framework 5.0 - x64"
+						}
+						@{
+							Name       = "Action - CleanupBeforeSysprep"
+							Type       = "Install Application"
+							GroupName  = "State Restore"
+							SubGroup   = "Cleanup before Sysprep"
+						}
+						@{
+							Name       = "Restart Computer"
+							Type       = "Restart Computer"
+							GroupName  = "State Restore"
+							SubGroup   = "Cleanup before Sysprep"
+							AddAfter   = "Action - CleanupBeforeSysprep"
+						}
+					)
                 }
                 @{  
                     Ensure   = "Present"
@@ -378,6 +540,62 @@
                     OrgName  = "BuildLab"
 					Template = "Server.xml"
                     ID       = "REFW2016TP5-001"
+					Customize = @(
+						@{
+							Name       = "Windows Update (Pre-Application Installation)"
+							Type       = "Run Command Line"
+							GroupName  = "State Restore"
+							Disable    = "false"
+						}
+						@{
+							Name       = "Custom Tasks (Pre-Windows Update)"
+							Type       = "Group"
+							GroupName  = "State Restore"
+							AddAfter   = "Tattoo"
+						}
+						@{
+							Name       = "Custom Tasks"
+							Type       = "Group"
+							GroupName  = "State Restore"
+							NewName    = "Custom Tasks (Post-Windows Update)"
+						}
+						@{
+							Name       = "Cleanup before Sysprep"
+							Type       = "Group"
+							GroupName  = "State Restore"
+							AddAfter   = "Apply Local GPO Package"
+						}
+						<# Not released in MDT 2013 Update 2
+						@{
+							Name       = "Install - Microsoft NET Framework 3.5.1"
+							Type       = "Install Roles and Features"
+							GroupName  = "State Restore"
+							SubGroup   = "Custom Tasks (Pre-Windows Update)"
+							OSName     = "Windows 2012 R2"
+							OSFeatures = "NET-Framework-Features,Telnet-Client"
+						}
+						#>
+						@{
+							Name       = "Configure - Set Control+Shift Keyboard Toggle"
+							Type       = "Install Application"
+							GroupName  = "State Restore"
+							SubGroup   = "Custom Tasks (Pre-Windows Update)"
+							AddAfter   = "Install - Microsoft NET Framework 3.5.1"
+						}
+						@{
+							Name       = "Action - CleanupBeforeSysprep"
+							Type       = "Install Application"
+							GroupName  = "State Restore"
+							SubGroup   = "Cleanup before Sysprep"
+						}
+						@{
+							Name       = "Restart Computer"
+							Type       = "Restart Computer"
+							GroupName  = "State Restore"
+							SubGroup   = "Cleanup before Sysprep"
+							AddAfter   = "Action - CleanupBeforeSysprep"
+						}
+					)
                 }
             )
 
