@@ -339,6 +339,14 @@
 							AddAfter   = "Install - Microsoft Silverlight - x64"
 						}
 						@{
+							Name       = "Configure - Enable App-V Client"
+							Type       = "Run Command Line"
+							GroupName  = "State Restore"
+							SubGroup   = "Custom Tasks (Pre-Windows Update)"
+							AddAfter   = "Configure - Set Control+Shift Keyboard Toggle"
+							Command    = 'powershell.exe -ExecutionPolicy ByPass -Command "Enable-Appv; Set-AppvClientConfiguration -EnablePackageScripts 1"'
+						}
+						@{
 							Name       = "Action - CleanupBeforeSysprep"
 							Type       = "Install Application"
 							GroupName  = "State Restore"

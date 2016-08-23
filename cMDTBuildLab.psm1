@@ -1034,6 +1034,10 @@ class cMDTBuildTaskSequenceCustomize
 	[DscProperty()]
 	[string]$OSFeatures
 
+	# Command line for 'Run Command line' step
+	[DscProperty()]
+	[string]$Command
+
     [DscProperty(Mandatory)]
     [string]$PSDriveName
 
@@ -1098,6 +1102,9 @@ class cMDTBuildTaskSequenceCustomize
 				}
 				"Install Application" {
 					$this.AddApplication($TS, $newStep)
+				}
+				"Run Command Line" {
+					$this.RunCommandLine($TS, $newStep)
 				}
 				"Restart Computer" {
 					$this.RestartComputer($TS, $newStep)
@@ -1174,38 +1181,6 @@ class cMDTBuildTaskSequenceCustomize
 		return $xml
 	}
 
-	[void] AddApplication($TS, $Step)
-	{
-		$Step.SetAttribute("successCodeList", "0 3010")
-		$Step.SetAttribute("type", "BDD_InstallApplication")
-		$Step.SetAttribute("runIn", "WinPEandFullOS")
-					
-		$varList = $TS.CreateElement("defaultVarList")
-		$varName = $TS.CreateElement("variable")
-		$varName.SetAttribute("name", "ApplicationGUID") | Out-Null
-		$varName.SetAttribute("property", "ApplicationGUID") | Out-Null
-
-		# Get Application GUID
-		Import-MicrosoftDeploymentToolkitModule
-		New-PSDrive -Name $this.PSDriveName -PSProvider "MDTProvider" -Root $this.PSDrivePath -Verbose:$false | Out-Null
-		$App = Get-ChildItem -Path "$($this.PSDriveName):\Applications" -Recurse | ?{ $_.Name -eq  $this.Name }
-
-		$varName.AppendChild($TS.CreateTextNode($($App.guid))) | Out-Null
-		$varList.AppendChild($varName) | Out-Null
-						
-		$varName = $TS.CreateElement("variable")
-		$varName.SetAttribute("name", "ApplicationSuccessCodes") | Out-Null
-		$varName.SetAttribute("property", "ApplicationSuccessCodes") | Out-Null
-		$varName.AppendChild($TS.CreateTextNode("0 3010")) | Out-Null
-		$varList.AppendChild($varName) | Out-Null
-
-		$action = $TS.CreateElement("action")
-		$action.AppendChild($TS.CreateTextNode('cscript.exe "%SCRIPTROOT%\ZTIApplications.wsf"')) | Out-Null
-
-		$Step.AppendChild($varList) | Out-Null
-		$Step.AppendChild($action) | Out-Null
-	}
-
 	[void] InstallRolesAndFeatures($TS, $Step)
 	{
 		$OSIndex = @{
@@ -1221,29 +1196,103 @@ class cMDTBuildTaskSequenceCustomize
 						
 		$varList = $TS.CreateElement("defaultVarList")
 		$varName = $TS.CreateElement("variable")
-		$varName.SetAttribute("name", "OSRoleIndex") | Out-Null
-		$varName.SetAttribute("property", "OSRoleIndex") | Out-Null
+		$varName.SetAttribute("name", "OSRoleIndex")
+		$varName.SetAttribute("property", "OSRoleIndex")
 		$varName.AppendChild($TS.CreateTextNode($OSIndex.$($this.OSName))) | Out-Null
 		$varList.AppendChild($varName) | Out-Null
 
 		$varName = $TS.CreateElement("variable")
-		$varName.SetAttribute("name", "OSRoles") | Out-Null
-		$varName.SetAttribute("property", "OSRoles") | Out-Null
+		$varName.SetAttribute("name", "OSRoles")
+		$varName.SetAttribute("property", "OSRoles")
 		$varList.AppendChild($varName) | Out-Null
 
 		$varName = $TS.CreateElement("variable")
-		$varName.SetAttribute("name", "OSRoleServices") | Out-Null
-		$varName.SetAttribute("property", "OSRoleServices") | Out-Null
+		$varName.SetAttribute("name", "OSRoleServices")
+		$varName.SetAttribute("property", "OSRoleServices")
 		$varList.AppendChild($varName) | Out-Null
 
 		$varName = $TS.CreateElement("variable")
-		$varName.SetAttribute("name", "OSFeatures") | Out-Null
-		$varName.SetAttribute("property", "OSFeatures") | Out-Null
+		$varName.SetAttribute("name", "OSFeatures")
+		$varName.SetAttribute("property", "OSFeatures")
 		$varName.AppendChild($TS.CreateTextNode($this.OSFeatures)) | Out-Null
 		$varList.AppendChild($varName) | Out-Null
 
 		$action = $TS.CreateElement("action")
 		$action.AppendChild($TS.CreateTextNode('cscript.exe "%SCRIPTROOT%\ZTIOSRole.wsf"')) | Out-Null
+
+		$Step.AppendChild($varList) | Out-Null
+		$Step.AppendChild($action) | Out-Null
+	}
+
+	[void] AddApplication($TS, $Step)
+	{
+		$Step.SetAttribute("successCodeList", "0 3010")
+		$Step.SetAttribute("type", "BDD_InstallApplication")
+		$Step.SetAttribute("runIn", "WinPEandFullOS")
+					
+		$varList = $TS.CreateElement("defaultVarList")
+		$varName = $TS.CreateElement("variable")
+		$varName.SetAttribute("name", "ApplicationGUID")
+		$varName.SetAttribute("property", "ApplicationGUID")
+
+		# Get Application GUID
+		Import-MicrosoftDeploymentToolkitModule
+		New-PSDrive -Name $this.PSDriveName -PSProvider "MDTProvider" -Root $this.PSDrivePath -Verbose:$false | Out-Null
+		$App = Get-ChildItem -Path "$($this.PSDriveName):\Applications" -Recurse | ?{ $_.Name -eq  $this.Name }
+
+		$varName.AppendChild($TS.CreateTextNode($($App.guid))) | Out-Null
+		$varList.AppendChild($varName) | Out-Null
+						
+		$varName = $TS.CreateElement("variable")
+		$varName.SetAttribute("name", "ApplicationSuccessCodes")
+		$varName.SetAttribute("property", "ApplicationSuccessCodes")
+		$varName.AppendChild($TS.CreateTextNode("0 3010")) | Out-Null
+		$varList.AppendChild($varName) | Out-Null
+
+		$action = $TS.CreateElement("action")
+		$action.AppendChild($TS.CreateTextNode('cscript.exe "%SCRIPTROOT%\ZTIApplications.wsf"')) | Out-Null
+
+		$Step.AppendChild($varList) | Out-Null
+		$Step.AppendChild($action) | Out-Null
+	}
+
+	[void] RunCommandLine($TS, $Step)
+	{
+		$Step.SetAttribute("startIn", "")
+		$Step.SetAttribute("successCodeList", "0 3010")
+		$Step.SetAttribute("type", "SMS_TaskSequence_RunCommandLineAction")
+		$Step.SetAttribute("runIn", "WinPEandFullOS")
+
+		$varList = $TS.CreateElement("defaultVarList")
+		$varName = $TS.CreateElement("variable")
+		$varName.SetAttribute("name", "PackageID")
+		$varName.SetAttribute("property", "PackageID")
+		$varList.AppendChild($varName) | Out-Null
+
+		$varName = $TS.CreateElement("variable")
+		$varName.SetAttribute("name", "RunAsUser")
+		$varName.SetAttribute("property", "RunAsUser")
+		$varName.AppendChild($TS.CreateTextNode("false")) | Out-Null
+		$varList.AppendChild($varName) | Out-Null
+
+		$varName = $TS.CreateElement("variable")
+		$varName.SetAttribute("name", "SMSTSRunCommandLineUserName")
+		$varName.SetAttribute("property", "SMSTSRunCommandLineUserName")
+		$varList.AppendChild($varName) | Out-Null
+
+		$varName = $TS.CreateElement("variable")
+		$varName.SetAttribute("name", "SMSTSRunCommandLineUserPassword")
+		$varName.SetAttribute("property", "SMSTSRunCommandLineUserPassword")
+		$varList.AppendChild($varName) | Out-Null
+
+		$varName = $TS.CreateElement("variable")
+		$varName.SetAttribute("name", "LoadProfile")
+		$varName.SetAttribute("property", "LoadProfile")
+		$varName.AppendChild($TS.CreateTextNode("false")) | Out-Null
+		$varList.AppendChild($varName) | Out-Null
+
+		$action = $TS.CreateElement("action")
+		$action.AppendChild($TS.CreateTextNode($this.Command)) | Out-Null
 
 		$Step.AppendChild($varList) | Out-Null
 		$Step.AppendChild($action) | Out-Null
@@ -1257,19 +1306,19 @@ class cMDTBuildTaskSequenceCustomize
 
 		$varList = $TS.CreateElement("defaultVarList")
 		$varName = $TS.CreateElement("variable")
-		$varName.SetAttribute("name", "Message") | Out-Null
-		$varName.SetAttribute("property", "Message") | Out-Null
+		$varName.SetAttribute("name", "Message")
+		$varName.SetAttribute("property", "Message")
 		$varList.AppendChild($varName) | Out-Null
 
 		$varName = $TS.CreateElement("variable")
-		$varName.SetAttribute("name", "MessageTimeout") | Out-Null
-		$varName.SetAttribute("property", "MessageTimeout") | Out-Null
+		$varName.SetAttribute("name", "MessageTimeout")
+		$varName.SetAttribute("property", "MessageTimeout")
 		$varName.AppendChild($TS.CreateTextNode("60")) | Out-Null
 		$varList.AppendChild($varName) | Out-Null
 
 		$varName = $TS.CreateElement("variable")
-		$varName.SetAttribute("name", "Target") | Out-Null
-		$varName.SetAttribute("property", "Target") | Out-Null
+		$varName.SetAttribute("name", "Target")
+		$varName.SetAttribute("property", "Target")
 		$varList.AppendChild($varName) | Out-Null
 
 		$action = $TS.CreateElement("action")

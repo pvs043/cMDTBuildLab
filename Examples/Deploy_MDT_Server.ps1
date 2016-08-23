@@ -305,6 +305,7 @@ Configuration DeployMDTServerContract
 				[string]$AddAfter   = ""
 				[string]$OSName     = ""    # for OS features only
 				[string]$OSFeatures = ""
+				[string]$Command    = ""    # for Run Command line only
 
 				$TSCustomize.GetEnumerator() | % {
 	                If ($_.key -eq "Name")       { $Name       = $_.value }
@@ -316,6 +317,7 @@ Configuration DeployMDTServerContract
 					If ($_.key -eq "AddAfter")   { $AddAfter   = $_.value }
 					If ($_.key -eq "OSName")     { $OSName     = $_.value }
 					If ($_.key -eq "OSFeatures") { $OSFeatures = $_.value }
+					If ($_.key -eq "Command")    { $Command    = $_.value }
 				}
 
 				# Current TS XML file name
@@ -333,6 +335,7 @@ Configuration DeployMDTServerContract
 					AddAfter    = $AddAfter
 					OSName      = $OSName
 					OSFeatures  = $OSFeatures
+					Command     = $Command
 	                PSDriveName = $Node.PSDriveName
 		            PSDrivePath = $Node.PSDrivePath
 				}
