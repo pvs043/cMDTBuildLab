@@ -1043,6 +1043,12 @@ class cMDTBuildTaskSequenceCustomize
 	[void] Set()
     {
 		$TS = $this.LoadTaskSequence()
+		
+		# Set node:
+		# $group     - 1st level
+		# $AddGroup  - Group to add
+		# $Step      - Step (or Group) to add
+		# $AfterStep - Insert after this step (may be null)
 		$group = $TS.sequence.group | ?{$_.Name -eq $this.GroupName}
 		if ($this.Type -eq "Group") {
 			$step = $group.group | ?{$_.Name -eq $this.Name}
@@ -1051,137 +1057,59 @@ class cMDTBuildTaskSequenceCustomize
 			$step = $group.step | ?{$_.Name -eq $this.Name}
 		}
 
-		if (!$this.AddAfter) {
-			if ($step) {
-				if ($this.Disable -ne "") {
-					$step.disable = $this.Disable
-				}
-				elseif ($this.NewName -ne "") {
-					$step.Name = $this.NewName
-				}
+		if ($this.SubGroup) {
+			$AddGroup = $group.group | ?{$_.name -eq $this.SubGroup}
+			$AfterStep = $addGroup.step | ?{$_.Name -eq $this.AddAfter}
+		}
+		else {
+			$addGroup = $group
+			$AfterStep = $group.step | ?{$_.Name -eq $this.AddAfter}
+		}
+
+		if ($step) {
+			# Change existing step or group
+			if ($this.Disable -ne "") {
+				$step.disable = $this.Disable
 			}
-			else {
-				$addGroup = $group.group | ?{$_.name -eq $this.SubGroup}
-				$newStep = $TS.CreateElement("step")
-				$newStep.SetAttribute("name", $this.Name)
-				$newStep.SetAttribute("disable", "false")
-				$newStep.SetAttribute("continueOnError", "false")
-				$newStep.SetAttribute("successCodeList", "0 3010")
-				$newStep.SetAttribute("description", "")
-
-				switch ($this.Type) {
-					"Install Roles and Features" {
-						$OSIndex = @{
-							"Windows 10"      = 13
-							"Windows 7"       = 4
-							"Windows 8.1"     = 10
-							"Windows 2012 R2" = 11
-						}
-
-						$newStep.SetAttribute("type", "BDD_InstallRoles")
-						$newStep.SetAttribute("runIn", "WinPEandFullOS")
-						
-						$varList = $TS.CreateElement("defaultVarList")
-						$varName = $TS.CreateElement("variable")
-						$varName.SetAttribute("name", "OSRoleIndex") | Out-Null
-						$varName.SetAttribute("property", "OSRoleIndex") | Out-Null
-						$varName.AppendChild($TS.CreateTextNode($OSIndex.$($this.OSName))) | Out-Null
-						$varList.AppendChild($varName) | Out-Null
-
-						$varName = $TS.CreateElement("variable")
-						$varName.SetAttribute("name", "OSRoles") | Out-Null
-						$varName.SetAttribute("property", "OSRoles") | Out-Null
-						$varList.AppendChild($varName) | Out-Null
-
-						$varName = $TS.CreateElement("variable")
-						$varName.SetAttribute("name", "OSRoleServices") | Out-Null
-						$varName.SetAttribute("property", "OSRoleServices") | Out-Null
-						$varList.AppendChild($varName) | Out-Null
-
-						$varName = $TS.CreateElement("variable")
-						$varName.SetAttribute("name", "OSFeatures") | Out-Null
-						$varName.SetAttribute("property", "OSFeatures") | Out-Null
-						$varName.AppendChild($TS.CreateTextNode("NetFx3,TelnetClient")) | Out-Null
-						$varList.AppendChild($varName) | Out-Null
-
-						$action = $TS.CreateElement("action")
-						$action.AppendChild($TS.CreateTextNode('cscript.exe "%SCRIPTROOT%\ZTIOSRole.wsf"')) | Out-Null
-
-						$newStep.AppendChild($varList) | Out-Null
-						$newStep.AppendChild($action) | Out-Null
-					}
-
-					"Install Application" {
-						# for 'Action - Cleanup Before Sysprep' (empty AddAfter)
-						$this.AddApplication($TS, $newStep)
-					}
-
-				}
-				$addGroup.AppendChild($newStep) | Out-Null
+			if ($this.NewName -ne "") {
+				$step.Name = $this.NewName
 			}
 		}
 		else {
-			if ($this.SubGroup) {
-				$AddGroup = $group.group | ?{$_.name -eq $this.SubGroup}
-				$AfterStep = $addGroup.step | ?{$_.Name -eq $this.AddAfter}
+			# Create new step or group
+			if ($this.Type -eq "Group") {
+				$newStep = $TS.CreateElement("group")
+				$newStep.SetAttribute("expand", "true")
 			}
 			else {
-				$addGroup = $group
-				$AfterStep = $group.step | ?{$_.Name -eq $this.AddAfter}
+				$newStep = $TS.CreateElement("step")
 			}
 
-			$newStep = $TS.CreateElement("step")
+			# Set common attributes
 			$newStep.SetAttribute("name", $this.Name)
 			$newStep.SetAttribute("disable", "false")
 			$newStep.SetAttribute("continueOnError", "false")
-			$newStep.SetAttribute("successCodeList", "0 3010")
 			$newStep.SetAttribute("description", "")
 
+			# Create new step
 			switch ($this.Type) {
-				"Group" {
-					$newGroup = $TS.CreateElement("group")
-					$newGroup.SetAttribute("name", $this.Name)
-					$newGroup.SetAttribute("disable", "false")
-					$newGroup.SetAttribute("continueOnError", "false")
-					$newGroup.SetAttribute("expand", "true")
-					$newGroup.SetAttribute("description", "")
-					$AddGroup.InsertAfter($newGroup, $afterstep)
+				"Install Roles and Features" {
+					$this.InstallRolesAndFeatures($TS, $newStep)
 				}
-
 				"Install Application" {
 					$this.AddApplication($TS, $newStep)
-					$AddGroup.InsertAfter($newStep, $afterstep) | Out-Null
 				}
-
 				"Restart Computer" {
-					$newStep.SetAttribute("type", "SMS_TaskSequence_RebootAction")
-					$newStep.SetAttribute("runIn", "WinPEandFullOS")
-
-					$varList = $TS.CreateElement("defaultVarList")
-					$varName = $TS.CreateElement("variable")
-					$varName.SetAttribute("name", "Message") | Out-Null
-					$varName.SetAttribute("property", "Message") | Out-Null
-					$varList.AppendChild($varName) | Out-Null
-
-					$varName = $TS.CreateElement("variable")
-					$varName.SetAttribute("name", "MessageTimeout") | Out-Null
-					$varName.SetAttribute("property", "MessageTimeout") | Out-Null
-					$varName.AppendChild($TS.CreateTextNode("60")) | Out-Null
-					$varList.AppendChild($varName) | Out-Null
-
-					$varName = $TS.CreateElement("variable")
-					$varName.SetAttribute("name", "Target") | Out-Null
-					$varName.SetAttribute("property", "Target") | Out-Null
-					$varList.AppendChild($varName) | Out-Null
-
-					$action = $TS.CreateElement("action")
-					$action.AppendChild($TS.CreateTextNode("smsboot.exe /target:WinPE")) | Out-Null
-
-					$newStep.AppendChild($varList) | Out-Null
-					$newStep.AppendChild($action) | Out-Null
-
-					$AddGroup.InsertAfter($newStep, $afterstep)
+					$this.RestartComputer($TS, $newStep)
 				}
+			}
+
+			# Insert new step into TS
+			if ($AfterStep) {
+				$AddGroup.InsertAfter($newStep, $AfterStep) | Out-Null
+			}
+			else {
+				$AddGroup.AppendChild($newStep) | Out-Null
 			}
 		}
 
@@ -1248,6 +1176,7 @@ class cMDTBuildTaskSequenceCustomize
 
 	[void] AddApplication($TS, $Step)
 	{
+		$Step.SetAttribute("successCodeList", "0 3010")
 		$Step.SetAttribute("type", "BDD_InstallApplication")
 		$Step.SetAttribute("runIn", "WinPEandFullOS")
 					
@@ -1272,6 +1201,79 @@ class cMDTBuildTaskSequenceCustomize
 
 		$action = $TS.CreateElement("action")
 		$action.AppendChild($TS.CreateTextNode('cscript.exe "%SCRIPTROOT%\ZTIApplications.wsf"')) | Out-Null
+
+		$Step.AppendChild($varList) | Out-Null
+		$Step.AppendChild($action) | Out-Null
+	}
+
+	[void] InstallRolesAndFeatures($TS, $Step)
+	{
+		$OSIndex = @{
+			"Windows 7"       = 4
+			"Windows 8.1"     = 10
+			"Windows 2012 R2" = 11
+			"Windows 10"      = 13
+		}
+
+		$Step.SetAttribute("successCodeList", "0 3010")
+		$Step.SetAttribute("type", "BDD_InstallRoles")
+		$Step.SetAttribute("runIn", "WinPEandFullOS")
+						
+		$varList = $TS.CreateElement("defaultVarList")
+		$varName = $TS.CreateElement("variable")
+		$varName.SetAttribute("name", "OSRoleIndex") | Out-Null
+		$varName.SetAttribute("property", "OSRoleIndex") | Out-Null
+		$varName.AppendChild($TS.CreateTextNode($OSIndex.$($this.OSName))) | Out-Null
+		$varList.AppendChild($varName) | Out-Null
+
+		$varName = $TS.CreateElement("variable")
+		$varName.SetAttribute("name", "OSRoles") | Out-Null
+		$varName.SetAttribute("property", "OSRoles") | Out-Null
+		$varList.AppendChild($varName) | Out-Null
+
+		$varName = $TS.CreateElement("variable")
+		$varName.SetAttribute("name", "OSRoleServices") | Out-Null
+		$varName.SetAttribute("property", "OSRoleServices") | Out-Null
+		$varList.AppendChild($varName) | Out-Null
+
+		$varName = $TS.CreateElement("variable")
+		$varName.SetAttribute("name", "OSFeatures") | Out-Null
+		$varName.SetAttribute("property", "OSFeatures") | Out-Null
+		$varName.AppendChild($TS.CreateTextNode($this.OSFeatures)) | Out-Null
+		$varList.AppendChild($varName) | Out-Null
+
+		$action = $TS.CreateElement("action")
+		$action.AppendChild($TS.CreateTextNode('cscript.exe "%SCRIPTROOT%\ZTIOSRole.wsf"')) | Out-Null
+
+		$Step.AppendChild($varList) | Out-Null
+		$Step.AppendChild($action) | Out-Null
+	}
+
+	[void] RestartComputer($TS, $Step)
+	{
+		$Step.SetAttribute("successCodeList", "0 3010")
+		$Step.SetAttribute("type", "SMS_TaskSequence_RebootAction")
+		$Step.SetAttribute("runIn", "WinPEandFullOS")
+
+		$varList = $TS.CreateElement("defaultVarList")
+		$varName = $TS.CreateElement("variable")
+		$varName.SetAttribute("name", "Message") | Out-Null
+		$varName.SetAttribute("property", "Message") | Out-Null
+		$varList.AppendChild($varName) | Out-Null
+
+		$varName = $TS.CreateElement("variable")
+		$varName.SetAttribute("name", "MessageTimeout") | Out-Null
+		$varName.SetAttribute("property", "MessageTimeout") | Out-Null
+		$varName.AppendChild($TS.CreateTextNode("60")) | Out-Null
+		$varList.AppendChild($varName) | Out-Null
+
+		$varName = $TS.CreateElement("variable")
+		$varName.SetAttribute("name", "Target") | Out-Null
+		$varName.SetAttribute("property", "Target") | Out-Null
+		$varList.AppendChild($varName) | Out-Null
+
+		$action = $TS.CreateElement("action")
+		$action.AppendChild($TS.CreateTextNode("smsboot.exe /target:WinPE")) | Out-Null
 
 		$Step.AppendChild($varList) | Out-Null
 		$Step.AppendChild($action) | Out-Null
