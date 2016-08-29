@@ -244,6 +244,115 @@
                     OrgName  = "BuildLab"
 					Template = "Client.xml"
                     ID       = "REFW81X86-001"
+					Customize = @(
+						@{
+							Name       = "Windows Update (Pre-Application Installation)"
+							Type       = "Run Command Line"
+							GroupName  = "State Restore"
+							Disable    = "false"
+						}
+						@{
+							Name       = "Windows Update (Post-Application Installation)"
+							Type       = "Run Command Line"
+							GroupName  = "State Restore"
+							Disable    = "false"
+						}
+						@{
+							Name       = "Custom Tasks (Pre-Windows Update)"
+							Type       = "Group"
+							GroupName  = "State Restore"
+							AddAfter   = "Tattoo"
+						}
+						@{
+							Name       = "Custom Tasks"
+							Type       = "Group"
+							GroupName  = "State Restore"
+							NewName    = "Custom Tasks (Post-Windows Update)"
+						}
+						@{
+							Name       = "Cleanup before Sysprep"
+							Type       = "Group"
+							GroupName  = "State Restore"
+							AddAfter   = "Apply Local GPO Package"
+						}
+						@{
+							Name       = "Install - Microsoft NET Framework 3.5.1"
+							Type       = "Install Roles and Features"
+							GroupName  = "State Restore"
+							SubGroup   = "Custom Tasks (Pre-Windows Update)"
+							OSName     = "Windows 8.1"
+							OSFeatures = "NetFx3,TelnetClient"
+						}
+						@{
+							Name       = "Configure - Remove Windows Default Applications"
+							Type       = "Install Application"
+							GroupName  = "State Restore"
+							SubGroup   = "Custom Tasks (Pre-Windows Update)"
+							AddAfter   = "Install - Microsoft NET Framework 3.5.1"
+						}
+						@{
+							Name       = "Install - Microsoft Visual C++"
+							Type       = "Install Application"
+							GroupName  = "State Restore"
+							SubGroup   = "Custom Tasks (Pre-Windows Update)"
+							AddAfter   = "Configure - Remove Windows Default Applications"
+						}
+						@{
+							Name       = "Install - Microsoft Silverlight - x86"
+							Type       = "Install Application"
+							GroupName  = "State Restore"
+							SubGroup   = "Custom Tasks (Pre-Windows Update)"
+							AddAfter   = "Install - Microsoft Visual C++"
+						}
+						@{
+							Name       = "Configure - Set Control+Shift Keyboard Toggle"
+							Type       = "Install Application"
+							GroupName  = "State Restore"
+							SubGroup   = "Custom Tasks (Pre-Windows Update)"
+							AddAfter   = "Install - Microsoft Silverlight - x64"
+						}
+						@{
+							Name       = "Configure - Set Start Layout"
+							Type       = "Install Application"
+							GroupName  = "State Restore"
+							SubGroup   = "Custom Tasks (Pre-Windows Update)"
+							AddAfter   = "Configure - Set Control+Shift Keyboard Toggle"
+						}
+						<#
+						@{
+							Name       = "Install APP-V 5.1"
+							Type       = "Group"
+							GroupName  = "State Restore"
+							AddAfter   = "Install Applications"
+						}
+						@{
+							Name       = "Install - APP-V Client 5.1 - x86-x64"
+							Type       = "Install Application"
+							GroupName  = "State Restore"
+							SubGroup   = "Install APP-V 5.1"
+						}
+						@{
+							Name       = "Restart Computer"
+							Type       = "Restart Computer"
+							GroupName  = "State Restore"
+							SubGroup   = "Install APP-V 5.1"
+							AddAfter   = "Install - APP-V Client 5.1 - x86-x64"
+						}
+						#>
+						@{
+							Name       = "Action - CleanupBeforeSysprep"
+							Type       = "Install Application"
+							GroupName  = "State Restore"
+							SubGroup   = "Cleanup before Sysprep"
+						}
+						@{
+							Name       = "Restart Computer"
+							Type       = "Restart Computer"
+							GroupName  = "State Restore"
+							SubGroup   = "Cleanup before Sysprep"
+							AddAfter   = "Action - CleanupBeforeSysprep"
+						}
+					)
                 }
                 @{  
                     Ensure   = "Present"
@@ -253,6 +362,115 @@
                     OrgName  = "BuildLab"
 					Template = "Client.xml"
                     ID       = "REFW81X64-001"
+					Customize = @(
+						@{
+							Name       = "Windows Update (Pre-Application Installation)"
+							Type       = "Run Command Line"
+							GroupName  = "State Restore"
+							Disable    = "false"
+						}
+						@{
+							Name       = "Windows Update (Post-Application Installation)"
+							Type       = "Run Command Line"
+							GroupName  = "State Restore"
+							Disable    = "false"
+						}
+						@{
+							Name       = "Custom Tasks (Pre-Windows Update)"
+							Type       = "Group"
+							GroupName  = "State Restore"
+							AddAfter   = "Tattoo"
+						}
+						@{
+							Name       = "Custom Tasks"
+							Type       = "Group"
+							GroupName  = "State Restore"
+							NewName    = "Custom Tasks (Post-Windows Update)"
+						}
+						@{
+							Name       = "Cleanup before Sysprep"
+							Type       = "Group"
+							GroupName  = "State Restore"
+							AddAfter   = "Apply Local GPO Package"
+						}
+						@{
+							Name       = "Install - Microsoft NET Framework 3.5.1"
+							Type       = "Install Roles and Features"
+							GroupName  = "State Restore"
+							SubGroup   = "Custom Tasks (Pre-Windows Update)"
+							OSName     = "Windows 8.1"
+							OSFeatures = "NetFx3,TelnetClient"
+						}
+						@{
+							Name       = "Configure - Remove Windows Default Applications"
+							Type       = "Install Application"
+							GroupName  = "State Restore"
+							SubGroup   = "Custom Tasks (Pre-Windows Update)"
+							AddAfter   = "Install - Microsoft NET Framework 3.5.1"
+						}
+						@{
+							Name       = "Install - Microsoft Visual C++"
+							Type       = "Install Application"
+							GroupName  = "State Restore"
+							SubGroup   = "Custom Tasks (Pre-Windows Update)"
+							AddAfter   = "Configure - Remove Windows Default Applications"
+						}
+						@{
+							Name       = "Install - Microsoft Silverlight - x64"
+							Type       = "Install Application"
+							GroupName  = "State Restore"
+							SubGroup   = "Custom Tasks (Pre-Windows Update)"
+							AddAfter   = "Install - Microsoft Visual C++"
+						}
+						@{
+							Name       = "Configure - Set Control+Shift Keyboard Toggle"
+							Type       = "Install Application"
+							GroupName  = "State Restore"
+							SubGroup   = "Custom Tasks (Pre-Windows Update)"
+							AddAfter   = "Install - Microsoft Silverlight - x64"
+						}
+						@{
+							Name       = "Configure - Set Start Layout"
+							Type       = "Install Application"
+							GroupName  = "State Restore"
+							SubGroup   = "Custom Tasks (Pre-Windows Update)"
+							AddAfter   = "Configure - Set Control+Shift Keyboard Toggle"
+						}
+						<#
+						@{
+							Name       = "Install APP-V 5.1"
+							Type       = "Group"
+							GroupName  = "State Restore"
+							AddAfter   = "Install Applications"
+						}
+						@{
+							Name       = "Install - APP-V Client 5.1 - x86-x64"
+							Type       = "Install Application"
+							GroupName  = "State Restore"
+							SubGroup   = "Install APP-V 5.1"
+						}
+						@{
+							Name       = "Restart Computer"
+							Type       = "Restart Computer"
+							GroupName  = "State Restore"
+							SubGroup   = "Install APP-V 5.1"
+							AddAfter   = "Install - APP-V Client 5.1 - x86-x64"
+						}
+						#>
+						@{
+							Name       = "Action - CleanupBeforeSysprep"
+							Type       = "Install Application"
+							GroupName  = "State Restore"
+							SubGroup   = "Cleanup before Sysprep"
+						}
+						@{
+							Name       = "Restart Computer"
+							Type       = "Restart Computer"
+							GroupName  = "State Restore"
+							SubGroup   = "Cleanup before Sysprep"
+							AddAfter   = "Action - CleanupBeforeSysprep"
+						}
+					)
                 }
                 @{
                     Ensure   = "Present"
