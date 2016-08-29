@@ -286,7 +286,6 @@
 							SubGroup   = "Custom Tasks (Pre-Windows Update)"
 							AddAfter   = "Install - Microsoft Silverlight - x86"
 						}
-						<#
 						@{
 							Name       = "Install APP-V 5.1"
 							Type       = "Group"
@@ -306,6 +305,7 @@
 							SubGroup   = "Install APP-V 5.1"
 							AddAfter   = "Install - Windows Management Framework 3.0 - x86"
 						}
+						<#
 						@{
 							Name       = "Install - APP-V Client 5.1 - x86-x64"
 							Type       = "Install Application"
@@ -404,7 +404,6 @@
 							SubGroup   = "Custom Tasks (Pre-Windows Update)"
 							AddAfter   = "Install - Microsoft Silverlight - x64"
 						}
-						<#
 						@{
 							Name       = "Install APP-V 5.1"
 							Type       = "Group"
@@ -424,6 +423,7 @@
 							SubGroup   = "Install APP-V 5.1"
 							AddAfter   = "Install - Windows Management Framework 3.0 - x64"
 						}
+						<#
 						@{
 							Name       = "Install - APP-V Client 5.1 - x86-x64"
 							Type       = "Install Application"
