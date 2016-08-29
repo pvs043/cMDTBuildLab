@@ -300,7 +300,7 @@
 							SubGroup   = "Install APP-V 5.1"
 						}
 						@{
-							Name       = "Restart Computer"
+							Name       = "Restart Computer 1"
 							Type       = "Restart Computer"
 							GroupName  = "State Restore"
 							SubGroup   = "Install APP-V 5.1"
@@ -311,11 +311,11 @@
 							Type       = "Install Application"
 							GroupName  = "State Restore"
 							SubGroup   = "Install APP-V 5.1"
-							AddAfter   = "Restart Computer"
+							AddAfter   = "Restart Computer 1"
 						}
 						@{
 							Name       = "Restart Computer"
-							Type       = "Restart Computer"
+							Type       = "Restart Computer 2"
 							GroupName  = "State Restore"
 							SubGroup   = "Install APP-V 5.1"
 							AddAfter   = "Install - APP-V Client 5.1 - x86-x64"
@@ -418,7 +418,7 @@
 							SubGroup   = "Install APP-V 5.1"
 						}
 						@{
-							Name       = "Restart Computer"
+							Name       = "Restart Computer 1"
 							Type       = "Restart Computer"
 							GroupName  = "State Restore"
 							SubGroup   = "Install APP-V 5.1"
@@ -429,10 +429,10 @@
 							Type       = "Install Application"
 							GroupName  = "State Restore"
 							SubGroup   = "Install APP-V 5.1"
-							AddAfter   = "Restart Computer"
+							AddAfter   = "Restart Computer 1"
 						}
 						@{
-							Name       = "Restart Computer"
+							Name       = "Restart Computer 2"
 							Type       = "Restart Computer"
 							GroupName  = "State Restore"
 							SubGroup   = "Install APP-V 5.1"
@@ -550,7 +550,7 @@
 							SubGroup   = "Install APP-V 5.1"
 						}
 						@{
-							Name       = "Restart Computer"
+							Name       = "Restart Computer 1"
 							Type       = "Restart Computer"
 							GroupName  = "State Restore"
 							SubGroup   = "Install APP-V 5.1"
@@ -668,7 +668,7 @@
 							SubGroup   = "Install APP-V 5.1"
 						}
 						@{
-							Name       = "Restart Computer"
+							Name       = "Restart Computer 1"
 							Type       = "Restart Computer"
 							GroupName  = "State Restore"
 							SubGroup   = "Install APP-V 5.1"
@@ -947,7 +947,7 @@
 							SubGroup   = "Install WMF 5.0"
 						}
 						@{
-							Name       = "Restart Computer"
+							Name       = "Restart Computer 1"
 							Type       = "Restart Computer"
 							GroupName  = "State Restore"
 							SubGroup   = "Install WMF 5.0"

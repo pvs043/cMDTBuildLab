@@ -323,7 +323,8 @@ Configuration DeployMDTServerContract
 				# Current TS XML file name
 				$TSFile = "$($Node.PSDrivePath)\Control\$($ID)\ts.xml"
 
-	            cMDTBuildTaskSequenceCustomize $Name.Replace(' ','')
+                $CustomResource = $ID + '-' + $Name.Replace(' ','')
+	            cMDTBuildTaskSequenceCustomize $CustomResource
 				{
 					TSFile      = $TSFile
 					Name        = $Name
