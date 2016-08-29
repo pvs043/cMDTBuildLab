@@ -345,7 +345,6 @@ Configuration DeployMDTServerContract
 
         ForEach ($CustomSetting in $Node.CustomSettings)   
         {
-
             [string]$Ensure     = ""
             [string]$Name       = ""
             [string]$Version    = ""
