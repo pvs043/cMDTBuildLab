@@ -352,7 +352,7 @@ Configuration DeployMDTServerContract
             $CustomSetting.GetEnumerator() | % {
                 If ($_.key -eq "Ensure")     { $Ensure     = $_.value }
                 If ($_.key -eq "Name")       { $Name       = $_.value }
-                If ($_.key -eq "SourcePath") { "$($Node.SourcePath)\$($_.value)" }
+                If ($_.key -eq "SourcePath") { $SourcePath = "$($Node.SourcePath)\$($_.value)" }
             }
 
             cMDTBuildCustomize $Name.Replace(' ','')
