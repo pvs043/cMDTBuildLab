@@ -162,6 +162,9 @@ class cMDTBuildCustomize
     [DscProperty(Mandatory)]
     [string]$SourcePath
 
+    [DscProperty(Mandatory)]
+    [string[]]$TestFiles
+
     [DscProperty(NotConfigurable)]
     [string]$Directory
 
@@ -180,7 +183,13 @@ class cMDTBuildCustomize
 
     [bool] Test()
     {
-        $present = Invoke-TestPath -Path "$($this.path)\$($this.name)"
+        $present = $true
+		foreach ($file in $this.TestFiles) {
+		    if ( !(Test-Path -Path "$($this.path)\$($this.name)\$($file)") ) {
+				$present = $false
+				break
+			}
+		}
 
         if ($this.Ensure -eq [Ensure]::Present) {
             return $present
@@ -701,6 +710,12 @@ class cMDTBuildPreReqs
             URI = "Sources\Extra.zip"
             Folder = "Extra"
             File = "Extra.zip"
+        }
+        @{
+            Name = "Scripts"
+            URI = "Sources\Scripts.zip"
+            Folder = "Scripts"
+            File = "Scripts.zip"
         }
     )
     
