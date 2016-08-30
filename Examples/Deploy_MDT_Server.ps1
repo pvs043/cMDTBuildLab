@@ -68,7 +68,7 @@ Configuration DeployMDTServerContract
             Ensure     = "Present"
             Name       = "Windows Assessment and Deployment Kit - Windows 10"
             Path       = "$($Node.SourcePath)\Windows Assessment and Deployment Kit\adksetup.exe"
-            ProductId  = "82daddb6-d4e0-42cb-988d-1e7f5739e155"
+            ProductId  = "39ebb79f-797c-418f-b329-97cfdf92b7ab"
             Arguments  = "/quiet /features OptionId.DeploymentTools OptionId.WindowsPreinstallationEnvironment"
             ReturnCode = 0
         }
@@ -159,7 +159,6 @@ Configuration DeployMDTServerContract
 
         ForEach ($CurrentApplicationFolder in $Node.ApplicationFolderStructure)
         {
-
             [string]$EnsureApplicationFolder = ""
             [string]$ApplicationFolder       = ""
             $CurrentApplicationFolder.GetEnumerator() | % {
@@ -181,7 +180,6 @@ Configuration DeployMDTServerContract
 
             ForEach ($CurrentApplicationSubFolder in $CurrentApplicationFolder.SubFolders)
             {
-
                 [string]$EnsureApplicationSubFolder = ""
                 [string]$ApplicationSubFolder       = ""
                 $CurrentApplicationSubFolder.GetEnumerator() | % {
@@ -200,9 +198,7 @@ Configuration DeployMDTServerContract
                     PSDrivePath = $Node.PSDrivePath
                     DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
                 }
-
             }
-
         }
 
         ForEach ($OperatingSystem in $Node.OperatingSystems)   
@@ -222,128 +218,133 @@ Configuration DeployMDTServerContract
 
             cMDTBuildOperatingSystem $Name.Replace(' ','')
             {
-                Ensure       = $Ensure
-                Name         = $Name
-                Path         = $Path
-                SourcePath   = $SourcePath
-                PSDriveName  = $Node.PSDriveName
-                PSDrivePath  = $Node.PSDrivePath
+                Ensure      = $Ensure
+                Name        = $Name
+                Path        = $Path
+                SourcePath  = $SourcePath
+                PSDriveName = $Node.PSDriveName
+                PSDrivePath = $Node.PSDrivePath
                 DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
             }
         }
 
-        ForEach ($TaskSequence in $Node.TaskSequences)   
+        ForEach ($Application in $Node.Applications)
         {
-
-            [string]$Ensure              = ""
-            [string]$Name                = ""
-            [string]$Path                = ""
-            [string]$OperatingSystemPath = ""
-            [string]$WIMFileName         = ""
-            [string]$ID                  = ""
-
-            $TaskSequence.GetEnumerator() | % {
-                If ($_.key -eq "Ensure")              { $Ensure              = $_.value }
-                If ($_.key -eq "Name")                { $Name                = $_.value }
-                If ($_.key -eq "Path")                { $Path                = "$($Node.PSDriveName):$($_.value)" }
-                If ($_.key -eq "OperatingSystemPath") { $OperatingSystemPath = "$($Node.PSDriveName):$($_.value)" }
-                If ($_.key -eq "WIMFileName")         { $WIMFileName         = $_.value }
-                If ($_.key -eq "ID")                  { $ID                  = $_.value }
-            }
-
-            If ($WIMFileName)
-            {
-                cMDTBuildTaskSequence $Name.Replace(' ','')
-                {
-                    Ensure      = $Ensure
-                    Name        = $Name
-                    Path        = $Path
-                    WIMFileName = $WIMFileName
-                    ID          = $ID
-                    PSDriveName = $Node.PSDriveName
-                    PSDrivePath = $Node.PSDrivePath
-                    DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
-                }
-            }
-            Else
-            {
-                cMDTBuildTaskSequence $Name.Replace(' ','')
-                {
-                    Ensure              = $Ensure
-                    Name                = $Name
-                    Path                = $Path
-                    OperatingSystemPath = $OperatingSystemPath
-                    ID                  = $ID
-                    PSDriveName         = $Node.PSDriveName
-                    PSDrivePath         = $Node.PSDrivePath
-                    DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
-                }
-
-            }
-        }
-
-        ForEach ($Application in $Node.Applications)   
-        {
-
             [string]$Ensure                = ""
             [string]$Name                  = ""
-            [string]$Version               = ""
             [string]$Path                  = ""
-            [string]$ShortName             = ""
-            [string]$Publisher             = ""
-            [string]$Language              = ""
             [string]$CommandLine           = ""
-            [string]$WorkingDirectory      = ""
             [string]$ApplicationSourcePath = ""
-            [string]$DestinationFolder     = ""
 
             $Application.GetEnumerator() | % {
                 If ($_.key -eq "Ensure")                { $Ensure                = $_.value }
                 If ($_.key -eq "Name")                  { $Name                  = $_.value }
-                If ($_.key -eq "Version")               { $Version               = $_.value }
                 If ($_.key -eq "Path")                  { $Path                  = "$($Node.PSDriveName):$($_.value)" }
-                If ($_.key -eq "ShortName")             { $ShortName             = $_.value }
-                If ($_.key -eq "Publisher")             { $Publisher             = $_.value }
-                If ($_.key -eq "Language")              { $Language              = $_.value }
                 If ($_.key -eq "CommandLine")           { $CommandLine           = $_.value }
-                If ($_.key -eq "WorkingDirectory")      { $WorkingDirectory      = $_.value }
-                If ($_.key -eq "ApplicationSourcePath")
-                {
-                    If (($_.value -like "*:*") -or ($_.value -like "*\\*"))
-                                                        { $ApplicationSourcePath = $_.value }
-                    Else
-                    {
-                        If ($weblink)                   { $ApplicationSourcePath = "$($Node.SourcePath)$($_.value.Replace("\","/"))" }
-                        Else                            { $ApplicationSourcePath = "$($Node.SourcePath)$($_.value.Replace("/","\"))" }
-                    }
-                }
-                If ($_.key -eq "DestinationFolder")     { $DestinationFolder     = $_.value }
+                If ($_.key -eq "ApplicationSourcePath") { $ApplicationSourcePath = "$($Node.SourcePath)\$($_.value)" }
             }
 
             cMDTBuildApplication $Name.Replace(' ','')
             {
                 Ensure                = $Ensure
                 Name                  = $Name
-                Version               = $Version
                 Path                  = $Path
-                ShortName             = $ShortName
-                Publisher             = $Publisher
-                Language              = $Language
                 CommandLine           = $CommandLine
-                WorkingDirectory      = $WorkingDirectory
                 ApplicationSourcePath = $ApplicationSourcePath
-                DestinationFolder     = $DestinationFolder
                 Enabled               = "True"
                 PSDriveName           = $Node.PSDriveName
                 PSDrivePath           = $Node.PSDrivePath
-                TempLocation          = $Node.TempLocation
                 DependsOn             = "[cMDTBuildDirectory]DeploymentFolder"
             }
         }
 
+        ForEach ($TaskSequence in $Node.TaskSequences)   
+        {
+            [string]$Ensure   = ""
+            [string]$Name     = ""
+            [string]$Path     = ""
+            [string]$OSName   = ""
+			[string]$Template = ""
+            [string]$ID       = ""
+            [string]$OrgName  = ""
+
+            $TaskSequence.GetEnumerator() | % {
+                If ($_.key -eq "Ensure")   { $Ensure   = $_.value }
+                If ($_.key -eq "Name")     { $Name     = $_.value }
+                If ($_.key -eq "Path")     { $Path     = "$($Node.PSDriveName):\Task Sequences\$($_.value)" }
+                If ($_.key -eq "OSName")   { $OSName   = "$($Node.PSDriveName):\Operating Systems\$($_.value)" }
+                If ($_.key -eq "Template") { $Template = $_.value }
+                If ($_.key -eq "ID")       { $ID       = $_.value }
+                If ($_.key -eq "OrgName")  { $OrgName  = $_.value }
+            }
+
+			# Create Task Sequence for one OS image
+            cMDTBuildTaskSequence $Name.Replace(' ','')
+            {
+                Ensure      = $Ensure
+                Name        = $Name
+                Path        = $Path
+				OSName      = $OSName
+                Template    = $Template
+                ID          = $ID
+				OrgName     = $OrgName
+                PSDriveName = $Node.PSDriveName
+                PSDrivePath = $Node.PSDrivePath
+                DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
+            }
+
+			# Customize Task Sequence for one OS image
+            ForEach ($TSCustomize in $TaskSequence.Customize)
+            {
+				[string]$Name       = ""
+				[string]$NewName    = ""
+				[string]$Type       = ""
+				[string]$GroupName  = ""
+				[string]$SubGroup   = ""
+				[string]$Disable    = ""
+				[string]$AddAfter   = ""
+				[string]$OSName     = ""    # for OS features only
+				[string]$OSFeatures = ""
+				[string]$Command    = ""    # for Run Command line only
+
+				$TSCustomize.GetEnumerator() | % {
+	                If ($_.key -eq "Name")       { $Name       = $_.value }
+					If ($_.key -eq "NewName")    { $NewName    = $_.value }
+					If ($_.key -eq "Type")       { $Type       = $_.value }
+					If ($_.key -eq "GroupName")  { $GroupName  = $_.value }
+					If ($_.key -eq "SubGroup")   { $SubGroup   = $_.value }
+					If ($_.key -eq "Disable")    { $Disable    = $_.value }
+					If ($_.key -eq "AddAfter")   { $AddAfter   = $_.value }
+					If ($_.key -eq "OSName")     { $OSName     = $_.value }
+					If ($_.key -eq "OSFeatures") { $OSFeatures = $_.value }
+					If ($_.key -eq "Command")    { $Command    = $_.value }
+				}
+
+				# Current TS XML file name
+				$TSFile = "$($Node.PSDrivePath)\Control\$($ID)\ts.xml"
+
+                $CustomResource = $ID + '-' + $Name.Replace(' ','')
+	            cMDTBuildTaskSequenceCustomize $CustomResource
+				{
+					TSFile      = $TSFile
+					Name        = $Name
+					NewName     = $NewName
+					Type        = $Type
+					GroupName   = $GroupName
+					SubGroup    = $SubGroup
+					Disable     = $Disable
+					AddAfter    = $AddAfter
+					OSName      = $OSName
+					OSFeatures  = $OSFeatures
+					Command     = $Command
+	                PSDriveName = $Node.PSDriveName
+		            PSDrivePath = $Node.PSDrivePath
+				}
+			}
+        }
+
         ForEach ($CustomSetting in $Node.CustomSettings)   
         {
-
             [string]$Ensure     = ""
             [string]$Name       = ""
             [string]$Version    = ""

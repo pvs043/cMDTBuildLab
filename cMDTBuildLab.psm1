@@ -7,46 +7,24 @@ enum Ensure
 [DscResource()]
 class cMDTBuildApplication
 {
-
     [DscProperty(Mandatory)]
-    [Ensure] $Ensure
-
-    [DscProperty(Key)]
-    [string]$Path
+    [Ensure]$Ensure
 
     [DscProperty(Key)]
     [string]$Name
 
     [DscProperty(Key)]
-    [string]$ShortName
+    [string]$Path
 
-    [DscProperty(Mandatory)]
-    [string]$Version
-
-    [DscProperty(Mandatory)]
-    [string]$Publisher
-
-    [DscProperty(Mandatory)]
-    [string]$Language
+	[DscProperty(Mandatory)]
+    [string]$Enabled
     
-    [DscProperty(Mandatory)]
+	[DscProperty(Mandatory)]
     [string]$CommandLine
-    
-    [DscProperty(Mandatory)]
-    [string]$WorkingDirectory
     
     [DscProperty(Mandatory)]
     [string]$ApplicationSourcePath
     
-    [DscProperty(Mandatory)]
-    [string]$TempLocation
-
-    [DscProperty(Mandatory)]
-    [string]$DestinationFolder
-    
-    [DscProperty(Mandatory)]
-    [string]$Enabled
-
     [DscProperty(Mandatory)]
     [string]$PSDriveName
 
@@ -55,101 +33,25 @@ class cMDTBuildApplication
 
     [void] Set()
     {
-
-        [string]$separator = ""
-        If ($this.ApplicationSourcePath -like "*/*")
-        { $separator = "/" }
-        Else
-        { $separator = "\" }
-
-        $filename = "$($this.ApplicationSourcePath.Split($separator)[-1])_$($this.Version).zip"
-        $foldername = $filename.Replace(".$($filename.Split(".")[-1])","")
-
-        [bool]$download = $True
-        If (($separator -eq "/") -Or ($this.ApplicationSourcePath.Substring(0,2) -eq "\\"))
-        { $targetdownload = "$($this.TempLocation)\$($filename)" }
-        Else
-        { $targetdownload = "$($this.ApplicationSourcePath)_$($this.Version).zip" ; $download = $False }
-        
-        $extractfolder = "$($this.TempLocation)\$($foldername)"
-        $referencefile = "$($this.PSDrivePath)\Applications\$($this.DestinationFolder)\$($this.ApplicationSourcePath.Split($separator)[-1]).version"
-
-        if ($this.ensure -eq [Ensure]::Present)
-        {
-
+        if ($this.ensure -eq [Ensure]::Present) {
             $present = Invoke-TestPath -Path "$($this.path)\$($this.name)" -PSDriveName $this.PSDriveName -PSDrivePath $this.PSDrivePath
-            if ($present)
-            {
-
-                If ($download)
-                {
-                    Invoke-WebDownload -Source "$($this.ApplicationSourcePath)_$($this.Version).zip" -Target $targetdownload -Verbose
-                    $present = Invoke-TestPath -Path $targetdownload
-                    If (-not($present)) { Write-Error "Cannot find path '$targetdownload' because it does not exist." ; Return }
-                }
-                Invoke-ExpandArchive -Source $targetdownload -Target "$($this.PSDrivePath)\Applications\$($this.name)"
-                If ($download)
-                { Invoke-RemovePath -Path $targetdownload }
+            if ( !$present ) {
+                $this.ImportApplication()
             }
-            else
-            {
-
-                If ($download)
-                {
-                    Invoke-WebDownload -Source "$($this.ApplicationSourcePath)_$($this.Version).zip" -Target $targetdownload -Verbose
-                    $present = Invoke-TestPath -Path $targetdownload
-                    If (-not($present)) { Write-Error "Cannot find path '$targetdownload' because it does not exist." ; Return }
-                }
-
-                Invoke-ExpandArchive -Source $targetdownload -Target $extractfolder
-                $present = Invoke-TestPath -Path $extractfolder
-                If (-not($present)) { Write-Error "Cannot find path '$extractfolder' because it does not exist." ; Return }
-
-                If ($download) { Invoke-RemovePath -Path $targetdownload }
-
-                $this.ImportApplication($extractfolder)
-
-                Invoke-RemovePath -Path $extractfolder
-                New-ReferenceFile -Path $referencefile -PSDriveName $this.PSDriveName -PSDrivePath $this.PSDrivePath
-            }
-
-            Set-Content -Path $referencefile -Value "$($this.Version)"
         }
-        else
-        {   
-            
+        else {   
             Invoke-RemovePath -Path "$($this.path)\$($this.name)" -PSDriveName $this.PSDriveName -PSDrivePath $this.PSDrivePath -Verbose
         }
     }
 
     [bool] Test()
     {
-
-        [string]$separator = ""
-        If ($this.ApplicationSourcePath -like "*/*")
-        { $separator = "/" }
-        Else
-        { $separator = "\" }
-
         $present = Invoke-TestPath -Path "$($this.path)\$($this.name)" -PSDriveName $this.PSDriveName -PSDrivePath $this.PSDrivePath 
 
-        if (($present) -and ($this.ensure -eq [Ensure]::Present))
-        {
-
-            $match = Compare-Version -Source "$($this.PSDrivePath)\Applications\$($this.DestinationFolder)\$($this.ApplicationSourcePath.Split($separator)[-1]).version" -Target $this.Version
-            if (-not ($match))
-            {
-                Write-Verbose "$($this.Name) version has been updated on the pull server"
-                $present = $false
-            }
-        }
-        
-        if ($this.Ensure -eq [Ensure]::Present)
-        {
+        if ($this.Ensure -eq [Ensure]::Present) {
             return $present
         }
-        else
-        {
+        else {
             return -not $present
         }
     }
@@ -159,17 +61,13 @@ class cMDTBuildApplication
         return $this
     }
 
-    [void] ImportApplication($Source)
+    [void] ImportApplication()
     {
-
         Import-MicrosoftDeploymentToolkitModule
-
         New-PSDrive -Name $this.PSDriveName -PSProvider "MDTProvider" -Root $this.PSDrivePath -Verbose:$false
-
-        Import-MDTApplication -Path $this.Path -Enable $this.Enabled -Name $this.Name -ShortName $this.ShortName -Version $this.Version `
-                              -Publisher $this.Publisher -Language $this.Language -CommandLine $this.CommandLine -WorkingDirectory $this.WorkingDirectory `
-                              -ApplicationSourcePath $Source -DestinationFolder $this.DestinationFolder -Verbose
-
+        Import-MDTApplication -Path $this.Path -Enable $this.Enabled -Name $this.Name -ShortName $this.Name `
+                              -CommandLine $this.CommandLine -WorkingDirectory ".\Applications\$($this.Name)" `
+                              -ApplicationSourcePath $this.ApplicationSourcePath -DestinationFolder $this.Name -Verbose
     }
 }
 
@@ -484,7 +382,7 @@ SkipProductKey=YES
 class cMDTBuildDirectory
 {
     [DscProperty(Mandatory)]
-    [Ensure] $Ensure
+    [Ensure]$Ensure
 
     [DscProperty(Key)]
     [string]$Path
@@ -735,23 +633,23 @@ class cMDTBuildPreReqs
             File = "MicrosoftDeploymentToolkit2013_x64.msi"
         }
         @{
-            #Version: Windows 10 (Build: 10.1.10586.0)
+            #Version: Windows 10 v1607 (Build: 10.1.14393.0)
             Name = "ADK"
-            URI = "http://download.microsoft.com/download/3/8/B/38BBCA6A-ADC9-4245-BCD8-DAA136F63C8B/adk/adksetup.exe"
+            URI = "http://download.microsoft.com/download/9/A/E/9AE69DD5-BA93-44E0-864E-180F5E700AB4/adk/adksetup.exe"
             Folder = "Windows Assessment and Deployment Kit"
             File = "adksetup.exe"
         }
         @{
-            #Version: 5 (Build: 5.1.41212.0)
+            #Version: 5 (Build: 5.1.50428.0)
 		    Name = "Silverlight_x64"
-            URI = "http://download.microsoft.com/download/5/3/D/53D3880B-25F8-4714-A4AC-E463A492F96E/41212.00/Silverlight_x64.exe"
+            URI = "https://download.microsoft.com/download/1/F/6/1F637DB3-8EF9-4D96-A8F1-909DFD7C5E69/50428.00/Silverlight_x64.exe"
             Folder = "Silverlight_x64"
             File = "Silverlight_x64.exe"
         }
         @{
-            #Version: 5 (Build: 5.1.41212.0)
+            #Version: 5 (Build: 5.1.50428.0)
 		    Name = "Silverlight_x86"
-            URI = "http://download.microsoft.com/download/5/3/D/53D3880B-25F8-4714-A4AC-E463A492F96E/41212.00/Silverlight.exe"
+            URI = "https://download.microsoft.com/download/1/F/6/1F637DB3-8EF9-4D96-A8F1-909DFD7C5E69/50428.00/Silverlight.exe"
             Folder = "Silverlight_x86"
             File = "Silverlight.exe"
         }
@@ -845,6 +743,12 @@ class cMDTBuildPreReqs
 			Folder = "WMF30x64"
 			File = "Windows6.1-KB2506143-x64.msu"
 		}
+		@{
+			Name = "WMF50x64"
+			URI = "https://download.microsoft.com/download/2/C/6/2C6E1B4A-EBE5-48A6-B225-2D2058A9CEFB/Win8.1AndW2K12R2-KB3134758-x64.msu"
+			Folder = "WMF50x64"
+			File = "Win8.1AndW2K12R2-KB3134758-x64.msu"
+		}
         @{
             Name = "KeyboardToggle"
             URI = "Sources\Toggle.reg"
@@ -858,10 +762,22 @@ class cMDTBuildPreReqs
             File = "Action-CleanupBeforeSysprep.wsf"
         }
         @{
-            Name = "RemoveWin8.1Apps"
-            URI = "Sources\Remove-Windows8.1Apps.ps1"
-            Folder = "Remove-Windows8.1Apps"
-            File = "Remove-Windows8.1Apps.ps1"
+            Name = "RemoveAppsScript"
+            URI = "Sources\RemoveApps.ps1"
+            Folder = "RemoveApps"
+            File = "RemoveApps.ps1"
+        }
+        @{
+            Name = "RemoveApps8.1"
+            URI = "Sources\RemoveApps81.xml"
+            Folder = "RemoveApps"
+            File = "RemoveApps81.xml"
+        }
+        @{
+            Name = "RemoveApps10"
+            URI = "Sources\RemoveApps10.xml"
+            Folder = "RemoveApps"
+            File = "RemoveApps10.xml"
         }
         @{
             Name = "CustomizeDefaultProfile"
@@ -1018,19 +934,22 @@ class cMDTBuildTaskSequence
     [Ensure] $Ensure
 
     [DscProperty(Key)]
-    [string]$Path
-
-    [DscProperty(Key)]
     [string]$Name
 
-    [DscProperty()]
-    [string]$OperatingSystemPath
+    [DscProperty(Key)]
+    [string]$Path
 
-    [DscProperty()]
-    [string]$WIMFileName
+    [DscProperty(Mandatory)]
+    [string]$OSName
+
+    [DscProperty(Mandatory)]
+    [string]$Template
 
     [DscProperty(Mandatory)]
     [string]$ID
+
+    [DscProperty(Mandatory)]
+    [string]$OrgName
 
     [DscProperty(Mandatory)]
     [string]$PSDriveName
@@ -1040,28 +959,21 @@ class cMDTBuildTaskSequence
 
     [void] Set()
     {
-
-        if ($this.ensure -eq [Ensure]::Present)
-        {
+        if ($this.ensure -eq [Ensure]::Present) {
             $this.ImportTaskSequence()
         }
-        else
-        {
+        else {
             Invoke-RemovePath -Path "$($this.path)\$($this.name)" -PSDriveName $this.PSDriveName -PSDrivePath $this.PSDrivePath -Verbose
         }
     }
 
     [bool] Test()
     {
-
-        $present = Invoke-TestPath -Path "$($this.path)\$($this.name)" -PSDriveName $this.PSDriveName -PSDrivePath $this.PSDrivePath 
-        
-        if ($this.Ensure -eq [Ensure]::Present)
-        {
+	    $present = Invoke-TestPath -Path "$($this.path)\$($this.name)" -PSDriveName $this.PSDriveName -PSDrivePath $this.PSDrivePath 
+        if ($this.Ensure -eq [Ensure]::Present) {
             return $present
         }
-        else
-        {
+        else {
             return -not $present
         }
     }
@@ -1073,34 +985,348 @@ class cMDTBuildTaskSequence
 
     [void] ImportTaskSequence()
     {
-
         Import-MicrosoftDeploymentToolkitModule
-
         New-PSDrive -Name $this.PSDriveName -PSProvider "MDTProvider" -Root $this.PSDrivePath -Verbose:$false
-
-        $OperatingSystemFile = ""
-
-        If ($this.OperatingSystemPath)
-        {
-            $OperatingSystemFile = $this.OperatingSystemPath
-        }
-
-        If ($this.WIMFileName)
-        {
-            $Directory = $this.Name.Replace(" x64","")
-            $Directory = $Directory.Replace(" x32","")
-            $OperatingSystemFiles = (Get-ChildItem -Path "$($this.PSDriveName):\Operating Systems\$($Directory)")
-            ForEach ($OSFile in $OperatingSystemFiles)
-            {
-                If ($OSFile.Name -like "*$($this.WIMFileName)*")
-                {
-                    $OperatingSystemFile = "$($this.PSDriveName):\Operating Systems\$($Directory)\$($OSFile.Name)"
-                }
-            }
-        }
-
-        Import-MDTTaskSequence -path $this.Path -Name $this.Name -Template "Client.xml" -Comments "" -ID $this.ID -Version "1.0" -OperatingSystemPath $OperatingSystemFile -FullName "Windows User" -OrgName "Addlevel" -HomePage "about:blank" -Verbose
+        Import-MDTTaskSequence -path $this.Path -Name $this.Name -Template $this.Template -Comments "Build Reference Image" -ID $this.ID -Version "1.0" -OperatingSystemPath $this.OSName -FullName "Windows User" -OrgName $this.OrgName -HomePage "about:blank" -Verbose
     }
+}
+
+[DscResource()]
+class cMDTBuildTaskSequenceCustomize
+{
+	# Task Sequence File
+	[DscProperty(Key)]
+	[string]$TSFile
+
+	# Step name
+	[DscProperty(Key)]
+	[string]$Name
+
+	# New step name
+	[DscProperty()]
+	[string]$NewName
+
+	# Step type
+	[DscProperty(Mandatory)]
+	[string]$Type
+
+	# Group for step
+	[DscProperty(Mandatory)]
+	[string]$GroupName
+
+	# SubGroup for step
+	[DscProperty()]
+	[string]$SubGroup
+
+	# Enable/Disable step
+	[DscProperty()]
+	[string]$Disable
+
+	# Add this step after that step
+	[DscProperty()]
+	[string]$AddAfter
+
+	# OS name for OS features
+	[DscProperty()]
+	[string]$OSName
+
+	# OS features
+	[DscProperty()]
+	[string]$OSFeatures
+
+	# Command line for 'Run Command line' step
+	[DscProperty()]
+	[string]$Command
+
+    [DscProperty(Mandatory)]
+    [string]$PSDriveName
+
+    [DscProperty(Mandatory)]
+    [string]$PSDrivePath
+
+	[void] Set()
+    {
+		$TS = $this.LoadTaskSequence()
+		
+		# Set node:
+		# $group     - 1st level
+		# $AddGroup  - Group to add
+		# $Step      - Step (or Group) to add
+		# $AfterStep - Insert after this step (may be null)
+		$group = $TS.sequence.group | ?{$_.Name -eq $this.GroupName}
+		if ($this.Type -eq "Group") {
+			$step = $group.group | ?{$_.Name -eq $this.Name}
+		}
+		else {
+			$step = $group.step | ?{$_.Name -eq $this.Name}
+		}
+
+		if ($this.SubGroup) {
+			$AddGroup = $group.group | ?{$_.name -eq $this.SubGroup}
+			$AfterStep = $addGroup.step | ?{$_.Name -eq $this.AddAfter}
+		}
+		else {
+			$addGroup = $group
+			$AfterStep = $group.step | ?{$_.Name -eq $this.AddAfter}
+		}
+
+		if ($step) {
+			# Change existing step or group
+			if ($this.Disable -ne "") {
+				$step.disable = $this.Disable
+			}
+			if ($this.NewName -ne "") {
+				$step.Name = $this.NewName
+			}
+		}
+		else {
+			# Create new step or group
+			if ($this.Type -eq "Group") {
+				$newStep = $TS.CreateElement("group")
+				$newStep.SetAttribute("expand", "true")
+			}
+			else {
+				$newStep = $TS.CreateElement("step")
+			}
+
+			# Set common attributes
+			$newStep.SetAttribute("name", $this.Name)
+			$newStep.SetAttribute("disable", "false")
+			$newStep.SetAttribute("continueOnError", "false")
+			$newStep.SetAttribute("description", "")
+
+			# Create new step
+			switch ($this.Type) {
+				"Install Roles and Features" {
+					$this.InstallRolesAndFeatures($TS, $newStep)
+				}
+				"Install Application" {
+					$this.AddApplication($TS, $newStep)
+				}
+				"Run Command Line" {
+					$this.RunCommandLine($TS, $newStep)
+				}
+				"Restart Computer" {
+					$this.RestartComputer($TS, $newStep)
+				}
+			}
+
+			# Insert new step into TS
+			if ($AfterStep) {
+				$AddGroup.InsertAfter($newStep, $AfterStep) | Out-Null
+			}
+			else {
+				$AddGroup.AppendChild($newStep) | Out-Null
+			}
+		}
+
+        $TS.Save($this.TSFile)
+	}
+
+	[bool] Test()
+    {
+		$TS = $this.LoadTaskSequence()
+		$present = $false
+
+		$group = $TS.sequence.group | ?{$_.Name -eq $this.GroupName}
+		if ($this.Type -eq "Group") {
+			$step = $group.group | ?{$_.Name -eq $this.Name}
+		}
+		else {
+			$step = $group.step | ?{$_.Name -eq $this.Name}
+		}
+
+		if (!$this.AddAfter) {
+			if ($step) {
+				if ($this.Disable -ne "") {
+					$present = ($step.disable -eq $this.Disable)
+				}
+			}
+			else {
+				if ($this.NewName -ne "") {
+					# For rename "Custom Tasks" group only
+					$present = ( ($group.group | ?{$_.Name -eq $this.NewName}) -ne $null )
+				}
+				elseif ($this.SubGroup) {
+					$addGroup = $group.group | ?{$_.name -eq $this.SubGroup}
+					$present = ( ($addGroup.step | ?{$_.Name -eq $this.Name}) -ne $null )
+				}
+			}
+		}
+		else {
+			if ($this.Type -eq "Group") {
+				$present = ( ($group.group | ?{$_.Name -eq $this.Name}) -ne $null )
+			}
+			else {
+				$AddGroup = $group
+				if ($this.SubGroup) {
+					$AddGroup = $group.group | ?{$_.name -eq $this.SubGroup}
+				}
+				$present = ( ($addGroup.step | ?{$_.Name -eq $this.Name}) -ne $null )
+			}
+		}
+
+		return $present
+	}
+
+    [cMDTBuildTaskSequenceCustomize] Get()
+    {
+        return $this
+    }
+
+	[xml] LoadTaskSequence()
+	{
+		$tsPath = $this.TSFile
+		$xml = [xml](Get-Content $tsPath)
+		return $xml
+	}
+
+	[void] InstallRolesAndFeatures($TS, $Step)
+	{
+		$OSIndex = @{
+			"Windows 7"       = 4
+			"Windows 8.1"     = 10
+			"Windows 2012 R2" = 11
+			"Windows 10"      = 13
+		}
+
+		$Step.SetAttribute("successCodeList", "0 3010")
+		$Step.SetAttribute("type", "BDD_InstallRoles")
+		$Step.SetAttribute("runIn", "WinPEandFullOS")
+						
+		$varList = $TS.CreateElement("defaultVarList")
+		$varName = $TS.CreateElement("variable")
+		$varName.SetAttribute("name", "OSRoleIndex")
+		$varName.SetAttribute("property", "OSRoleIndex")
+		$varName.AppendChild($TS.CreateTextNode($OSIndex.$($this.OSName))) | Out-Null
+		$varList.AppendChild($varName) | Out-Null
+
+		$varName = $TS.CreateElement("variable")
+		$varName.SetAttribute("name", "OSRoles")
+		$varName.SetAttribute("property", "OSRoles")
+		$varList.AppendChild($varName) | Out-Null
+
+		$varName = $TS.CreateElement("variable")
+		$varName.SetAttribute("name", "OSRoleServices")
+		$varName.SetAttribute("property", "OSRoleServices")
+		$varList.AppendChild($varName) | Out-Null
+
+		$varName = $TS.CreateElement("variable")
+		$varName.SetAttribute("name", "OSFeatures")
+		$varName.SetAttribute("property", "OSFeatures")
+		$varName.AppendChild($TS.CreateTextNode($this.OSFeatures)) | Out-Null
+		$varList.AppendChild($varName) | Out-Null
+
+		$action = $TS.CreateElement("action")
+		$action.AppendChild($TS.CreateTextNode('cscript.exe "%SCRIPTROOT%\ZTIOSRole.wsf"')) | Out-Null
+
+		$Step.AppendChild($varList) | Out-Null
+		$Step.AppendChild($action) | Out-Null
+	}
+
+	[void] AddApplication($TS, $Step)
+	{
+		$Step.SetAttribute("successCodeList", "0 3010")
+		$Step.SetAttribute("type", "BDD_InstallApplication")
+		$Step.SetAttribute("runIn", "WinPEandFullOS")
+					
+		$varList = $TS.CreateElement("defaultVarList")
+		$varName = $TS.CreateElement("variable")
+		$varName.SetAttribute("name", "ApplicationGUID")
+		$varName.SetAttribute("property", "ApplicationGUID")
+
+		# Get Application GUID
+		Import-MicrosoftDeploymentToolkitModule
+		New-PSDrive -Name $this.PSDriveName -PSProvider "MDTProvider" -Root $this.PSDrivePath -Verbose:$false | Out-Null
+		$App = Get-ChildItem -Path "$($this.PSDriveName):\Applications" -Recurse | ?{ $_.Name -eq  $this.Name }
+
+		$varName.AppendChild($TS.CreateTextNode($($App.guid))) | Out-Null
+		$varList.AppendChild($varName) | Out-Null
+						
+		$varName = $TS.CreateElement("variable")
+		$varName.SetAttribute("name", "ApplicationSuccessCodes")
+		$varName.SetAttribute("property", "ApplicationSuccessCodes")
+		$varName.AppendChild($TS.CreateTextNode("0 3010")) | Out-Null
+		$varList.AppendChild($varName) | Out-Null
+
+		$action = $TS.CreateElement("action")
+		$action.AppendChild($TS.CreateTextNode('cscript.exe "%SCRIPTROOT%\ZTIApplications.wsf"')) | Out-Null
+
+		$Step.AppendChild($varList) | Out-Null
+		$Step.AppendChild($action) | Out-Null
+	}
+
+	[void] RunCommandLine($TS, $Step)
+	{
+		$Step.SetAttribute("startIn", "")
+		$Step.SetAttribute("successCodeList", "0 3010")
+		$Step.SetAttribute("type", "SMS_TaskSequence_RunCommandLineAction")
+		$Step.SetAttribute("runIn", "WinPEandFullOS")
+
+		$varList = $TS.CreateElement("defaultVarList")
+		$varName = $TS.CreateElement("variable")
+		$varName.SetAttribute("name", "PackageID")
+		$varName.SetAttribute("property", "PackageID")
+		$varList.AppendChild($varName) | Out-Null
+
+		$varName = $TS.CreateElement("variable")
+		$varName.SetAttribute("name", "RunAsUser")
+		$varName.SetAttribute("property", "RunAsUser")
+		$varName.AppendChild($TS.CreateTextNode("false")) | Out-Null
+		$varList.AppendChild($varName) | Out-Null
+
+		$varName = $TS.CreateElement("variable")
+		$varName.SetAttribute("name", "SMSTSRunCommandLineUserName")
+		$varName.SetAttribute("property", "SMSTSRunCommandLineUserName")
+		$varList.AppendChild($varName) | Out-Null
+
+		$varName = $TS.CreateElement("variable")
+		$varName.SetAttribute("name", "SMSTSRunCommandLineUserPassword")
+		$varName.SetAttribute("property", "SMSTSRunCommandLineUserPassword")
+		$varList.AppendChild($varName) | Out-Null
+
+		$varName = $TS.CreateElement("variable")
+		$varName.SetAttribute("name", "LoadProfile")
+		$varName.SetAttribute("property", "LoadProfile")
+		$varName.AppendChild($TS.CreateTextNode("false")) | Out-Null
+		$varList.AppendChild($varName) | Out-Null
+
+		$action = $TS.CreateElement("action")
+		$action.AppendChild($TS.CreateTextNode($this.Command)) | Out-Null
+
+		$Step.AppendChild($varList) | Out-Null
+		$Step.AppendChild($action) | Out-Null
+	}
+
+	[void] RestartComputer($TS, $Step)
+	{
+		$Step.SetAttribute("successCodeList", "0 3010")
+		$Step.SetAttribute("type", "SMS_TaskSequence_RebootAction")
+		$Step.SetAttribute("runIn", "WinPEandFullOS")
+
+		$varList = $TS.CreateElement("defaultVarList")
+		$varName = $TS.CreateElement("variable")
+		$varName.SetAttribute("name", "Message")
+		$varName.SetAttribute("property", "Message")
+		$varList.AppendChild($varName) | Out-Null
+
+		$varName = $TS.CreateElement("variable")
+		$varName.SetAttribute("name", "MessageTimeout")
+		$varName.SetAttribute("property", "MessageTimeout")
+		$varName.AppendChild($TS.CreateTextNode("60")) | Out-Null
+		$varList.AppendChild($varName) | Out-Null
+
+		$varName = $TS.CreateElement("variable")
+		$varName.SetAttribute("name", "Target")
+		$varName.SetAttribute("property", "Target")
+		$varList.AppendChild($varName) | Out-Null
+
+		$action = $TS.CreateElement("action")
+		$action.AppendChild($TS.CreateTextNode("smsboot.exe /target:WinPE")) | Out-Null
+
+		$Step.AppendChild($varList) | Out-Null
+		$Step.AppendChild($action) | Out-Null
+	}
 }
 
 [DscResource()]

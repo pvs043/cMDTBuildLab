@@ -4,21 +4,21 @@ cMDTBuildLab is a Powershell Module to help automize deployment Windows Referenc
 cMDTBuildLab is a fork from cMDT module (https://github.com/addlevel/cMDT) by info@addlevel.se (c)
 
 ### Version
-0.0.6
+0.0.7
 
 ### Tech
 
 Prerequisites for infrastructure:
-*	Domain Controller: DC01 (Windows 2012 R2)
-*	Windows Update Server (WSUS): WU01 (Windows 2012 R2)
-*	Deployment server: MDT01 (Windows 2012 R2/Windows 8.1)<br>
-   Disk C: - System<br>
-   Disk E: - DATA<br>
-   (Disk D: is used for Temp in Azure or Virtual DVD for on-premise deploy)
-*	Hyper-V Host: HV01 (Windows 2012 R2/Windows 8.1)
+* Domain Controller: DC01 (Windows 2012 R2)
+* Windows Update Server (WSUS): WU01 (Windows 2012 R2)
+* Deployment server: MDT01 (Windows 2012 R2/Windows 8.1)<br>
+    Disk C: - System<br>
+    Disk E: - DATA<br>
+    (Disk D: is used for Temp in Azure or Virtual DVD for on-premise deploy)
+* Hyper-V Host: HV01 (Windows 2012 R2/Windows 8.1)
 
 cMDTBuildLab uses a number of components and open resource kit modules. The following are prerequisites for the module and need to be installed to the inteded deployment server (MDT01):
-* [.Net3.5] - .Net Framewework 3.5
+* [.NET3.5] - .NET Framewework 3.5
 * [WMF5] (http://aka.ms/wmf5latest) - Windows Management Framework 5.0
 * [xSmbShare] (http://www.powershellgallery.com/packages/xSmbShare/) - DSC Module available from Powershell Gallery<br>
   ```powershell
@@ -27,12 +27,13 @@ cMDTBuildLab uses a number of components and open resource kit modules. The foll
 * [PowerShellAccessControl] (https://gallery.technet.microsoft.com/scriptcenter/PowerShellAccessControl-d3be7b83#content) - DSC Module available from Technet Gallery.
   Copy it to %ProgramFiles%\WindowsPowerShell\Modules\PowerShellAccessControl folder.
 
-The following prerequisites can automatically be downloaded with the cMDTBuildLab Module:
+The following prerequisites automatically downloaded with the cMDTBuildLab Module:
 * [MicrosoftDeploymentToolkit2013_x64] (https://download.microsoft.com/download/3/0/1/3012B93D-C445-44A9-8BFB-F28EB937B060/MicrosoftDeploymentToolkit2013_x64.msi) - Microsoft Deployment Toolkit (MDT) 2013 Update 2 (6.3.8330.1000)
-* [adksetup] (http://download.microsoft.com/download/3/8/B/38BBCA6A-ADC9-4245-BCD8-DAA136F63C8B/adk/adksetup.exe) - Windows Assessment and Deployment Kit (10.1.10586.0)
-* [Visual C++ runtimes] (https://support.microsoft.com/ru-ru/kb/2977003) (2005,2008,2010,2012,2013,2015)
+* [adksetup] (http://download.microsoft.com/download/9/A/E/9AE69DD5-BA93-44E0-864E-180F5E700AB4/adk/adksetup.exe) - Windows Assessment and Deployment Kit (10.1.14393.0)
+* [Visual C++ runtimes] (https://support.microsoft.com/en-us/kb/2977003) (2005,2008,2010,2012,2013,2015)
 * [Microsoft Silverlight 5] (https://www.microsoft.com/getsilverlight/Get-Started/Install/Default.aspx)
 * [Windows Management Framewework 3.0] (https://www.microsoft.com/en-us/download/details.aspx?id=34595)
+* [Windows Management Framewework 5.0] (http://aka.ms/wmf5latest)
 
 This tool included to module (Sources directory):
 * devcon.exe: tool from [Windows Driver Kit] (https://msdn.microsoft.com/en-us/windows/hardware/hh852365)
@@ -68,63 +69,48 @@ You can use this module with a pull server, an SMB share or a local file reposit
 
 The cMDTBuildLab Module contain the following DscResources:
 
-* cMDTBuildApplication
-* cMDTBuildBootstrapIni
-* cMDTBuildCustomize
-* cMDTBuildCustomSettingsIni
-* cMDTBuildDirectory
-* cMDTBuildOperatingSystem
-* cMDTBuildPersistentDrive
-* cMDTBuildPreReqs
-* cMDTBuildTaskSequence
-* cMDTBuildUpdateBootImage
+* <b>cMDTBuildApplication</b>
+* <b>cMDTBuildBootstrapIni</b>
+* <b>cMDTBuildCustomize</b>
+* <b>cMDTBuildCustomSettingsIni</b>
+* <b>cMDTBuildDirectory</b>
+* <b>cMDTBuildOperatingSystem</b>
+* <b>cMDTBuildPersistentDrive</b>
+* <b>cMDTBuildPreReqs</b>
+* <b>cMDTBuildTaskSequence</b>
+* <b>cMDTBuildTaskSequenceCustomize</b>
+* <b>cMDTBuildUpdateBootImage</b>
  
-#### cMDTApplication
-cMDTApplication is a DscResource that enables download, import of and lifecycle management of applications in MDT. Applications can be updated and retrieved from a pull server according to Desired State Configuration principles.
+#### cMDTBuildApplication
+cMDTBuildApplication is a DscResource that enables import applications in MDT. Applications downloaded before with cMDTBuildPreReqs DscResource.
 
-Available parameters with example:
-* [Ensure] - Present/Absent
-* [Version] - Version number
-* [Name] - Name
-* [Path] - MDT path
-* [Enabled] - True/False
-* [ShortName] - Shortname
-* [Publisher] - Publisher information
-* [Language] - Language
-* [CommandLine] - Command Line file
-* [WorkingDirectory] - Working directory
-* [ApplicationSourcePath] - Web link, SMB or local path
-* [DestinationFolder] - Destination folder in MDT
-* [TempLocation] - Tenmporary download location
-* [PSDriveName] - The PSDrive name for the MDT deployment share
-* [PSDrivePath] - The physical path to the MDT deployment share
+Available parameters:
+* <b>[Ensure]</b> - Present/Absent
+* <b>[Name]</b> - Application name
+* <b>[Path]</b> - MDT path
+* <b>[Enabled]</b> - True/False
+* <b>[CommandLine]</b> - Install command line
+* <b>[ApplicationSourcePath]</b> - Folder under $SourcePath
+* <b>[PSDriveName]</b> - The PSDrive name for the MDT deployment share
+* <b>[PSDrivePath]</b> - The physical path to the MDT deployment share
 
 The DscResource will import applications according to the following principle:
 * Verify status present or absent
 * If present:
-    * Append version number to the ApplicationSourcePath together with a .zip extension
-    * Verify if the application already exist in MDT, and if determine version
-    * If the application does not exist or version number not matched the application will be downloaded
-    * The application will be extracted from the Zip archive and imported in to the MDT
+    * Verify if the application already exist in MDT
+    * If the application does not exist the application will be imported
 * If absent:
     * If application exist it will be removed
 
 Desired State Configuration job example:
 ```sh
-cMDTApplication Teamviewer {
+cMDTBuildApplication WMF5 {
     Ensure = "Present"
-    Version = "1.0.0.1"
-    Name = "Teamviewer"
-    Path = "DS001:\Applications\Core Applications"
+    Name = "Install - Windows Management Framework 5.0 - x64"
+    Path = "\Applications\Core\Microsoft"
+    CommandLine = "wusa.exe Win8.1AndW2K12R2-KB3134758-x64.msu /quiet /norestart"
+    ApplicationSourcePath = "WMF50x64"
     Enabled = "True"
-    ShortName = "Teamviewer"
-    Publisher = "Teamviewer"
-    Language = "en-US"
-    CommandLine = "install.cmd"
-    WorkingDirectory = ".\"
-    ApplicationSourcePath = "$($SourcePath)/TeamViewer_Setup_sv"
-    DestinationFolder = "Teamviewer"
-    TempLocation = $TempLocation
     PSDriveName = $PSDriveName
     PSDrivePath = $PSDrivePath
 }
@@ -171,7 +157,7 @@ KeyboardLocalePE=041d:0000041d
 ```
 
 #### cMDTCustomize
-cMDTCustomize is a DscResource that enables management of custom settings, additional folders and scripts with lifecycle management for MDT. The files can be updated and retrieved from a pull server according to Desired State Configuration principles.
+cMDTCustomize is a DscResource that enables management of custom settings, additional folders and scripts with lifecycle management for MDT.
 
 Available parameters with example:
 * [Ensure] - Present/Absent
@@ -309,9 +295,9 @@ FinishAction=RESTART
 ```
 
 #### cMDTBuildDirectory
-cMDTDirectory is a DscResource that enables management of folder structures with lifecycle management for MDT. These folders can be managed from a pull server according to Desired State Configuration principles.
+cMDTBuildDirectory is a DscResource that enables management of folder structures with lifecycle management for MDT. These folders can be managed from a pull server according to Desired State Configuration principles.
 
-Available parameters with example:
+Available parameters:
 * <b>[Ensure]</b> - Present/Absent
 * <b>[Name]</b> - Name of folder
 * <b>[Path]</b> - MDT path
@@ -358,7 +344,7 @@ The DscResource will import Operating Systems according to the following princip
 
 Desired State Configuration job example:
 ```sh
-cMDTOperatingSystem Win10x64 {
+cMDTBuildOperatingSystem Win10x64 {
     Ensure = "Present"
     Name = "Windows 10 x64"
     Path = "Windows 10"
@@ -371,7 +357,7 @@ cMDTOperatingSystem Win10x64 {
 #### cMDTBuildPersistentDrive
 cMDTBuildPersistentDrive is a DscResource that enables management of MDT persistent drives with lifecycle management for MDT. These folders can be managed from a pull server according to Desired State Configuration principles.
 
-Available parameters with example:
+Available parameters:
 * <b>[Ensure]</b> - Present/Absent
 * <b>[Name]</b> - Name of drive
 * <b>[Path]</b> - MDT path
@@ -392,7 +378,7 @@ cMDTBuildPersistentDrive DeploymentPSDrive {
     Ensure = "Present"
     Name = $PSDriveName
     Path = $PSDrivePath
-    Description = "Deployment Share"
+    Description = "MDT Build Share"
     NetworkPath = "\\$ComputerName\DeploymentShare$"
 }
 ```
@@ -400,7 +386,7 @@ cMDTBuildPersistentDrive DeploymentPSDrive {
 #### cMDTBuildPreReqs
 cMDTBuildPreReqs is a DscResource that enables download of prerequisites for MDT server deployment. Prerequisites can be defined and managed from a pull server according to Desired State Configuration principles.
 
-Available parameters with example:
+Available parameters:
 * <b>[Ensure]</b> - Present/Absent
 * <b>[DownloadPath]</b> - Download path for binaries
 
@@ -416,20 +402,21 @@ cMDTBuildPreReqs MDTPreReqs {
 }
 ```
 
-#### cMDTTaskSequence
-cMDTTaskSequence is a DscResource that enables management of Task Sequences with lifecycle management for MDT. Task Sequences can be defined and managed from a pull server according to Desired State Configuration principles.
+#### cMDTBuildTaskSequence
+cMDTBuildTaskSequence is a DscResource that enables management of Task Sequences with lifecycle management for MDT.
 
-Available parameters with example:
-* [Ensure] - Present/Absent
-* [Name] - Name of drive
-* [Path] - MDT path
-* [OperatingSystemPath] - MDT path
-* [WIMFileName] - Name of Operating System WIM file to create Task Sequence for. Overrides OperatingSystemPath Parameter.
-* [ID] - MDT path
-* [PSDriveName] - MDT path
-* [PSDrivePath] - MDT path
+Available parameters:
+* <b>[Ensure]</b> - Present/Absent
+* <b>[Name]</b> - Name of Task Sequence
+* <b>[Path]</b> - MDT folder for Task Sequence
+* <b>[OSName]</b> - MDT path and name for OS image, imported with cMDTBuildOperatingSystem resource
+* <b>[Template]</b> - Client.xml / Server.xml
+* <b>[ID]</b> - Task Sequence ID
+* <b>[OrgName]</b> - Organization Name of Windows Reference Image
+* <b>[PSDriveName]</b> - The PSDrive name for the MDT deployment share
+* <b>[PSDrivePath]</b> - The physical path to the MDT deployment share
 
-The DscResource will import applications according to the following principle:
+The DscResource will create Task Sequences according to the following principle:
 * Verify status present or absent
 * If present:
     * Check if Task Sequence exist in the MDT path
@@ -437,26 +424,65 @@ The DscResource will import applications according to the following principle:
 * If absent:
     * The Task Sequence will be removed
 
-Note: The Operating System WIM file must exist in the OperatingSystemPath for the Task Sequence to be created correctly.
+Note: The Operating System must exist in the OSName path for the Task Sequence to be created correctly.
 
 Desired State Configuration job example:
 ```sh
-cMDTTaskSequence Win10x64 {
-    Ensure = "Present"
-    Name = "Windows 10 x64"
-    Path = "DS001:\Task Sequences\Windows 10"
-    #OperatingSystemPath = "DS001:\Operating Systems\Windows 10\REFW10X64DDrive in Windows 10 Enterprise x64 REFW10X64.wim"
-    WIMFileName = "REFW10X64"    
-    ID = "01"
+cMDTBuildTaskSequence Win10x64 {
+    Ensure      = "Present"
+    Name        = "Windows 10 x64"
+    Path        = "Windows 10"
+    OSName      = "Windows 10\Windows 10 Enterprise in Windows 10 x64 install.wim"
+    OrgName     = "BuildLab"
+	Template    = "Client.xml"
+    ID          = "REFW10X64-001"
     PSDriveName = $PSDriveName
     PSDrivePath = $PSDrivePath
 }
 ```
 
+#### cMDTBuildTaskSequenceCustomize
+cMDTBuildTaskSequenceCusomize is a DscResource that enables add custom steps for Task Sequences with lifecycle management for MDT.
+
+Available parameters:
+* <b>[TSFile]</b> - Task Sequence File Name
+* <b>[Name]</b> - Step/Group Name
+* <b>[NewName]</b> - New Step/Group Name
+* <b>[Type]</b> - Step Type
+* <b>[GroupName]</b> - Main Group for Step/Group
+* <b>[SubGroup]</b> - Subgroup Group for Step/Group
+* <b>[Disable]</b> - "true" / "false"
+* <b>[AddAfter]</b> - Add this Step/Group after that Step
+* <b>[OSName]</b> - "Windows 7" / "Windows 8.1" / "Windows 10" / "Windows 2012 R2"
+* <b>[OSFeatures]</b> - OS Features
+* <b>[Command]</b> - Command line for 'Run Command line' step
+* <b>[PSDriveName]</b> - The PSDrive name for the MDT deployment share
+* <b>[PSDrivePath]</b> - The physical path to the MDT deployment share
+
+The DscResource add/change the group or step into existing Task Sequence.
+
+Desired State Configuration job example:
+```sh
+$TSFile = "$($PSDrivePath)\Control\$($TSID)\ts.xml"
+
+cMDTBuildTaskSequenceCustomize AddFeatures {
+	TSFile      = $TSFile
+	Name        = "Install - Microsoft NET Framework 3.5.1"
+	Type        = "Install Roles and Features"
+	GroupName   = "State Restore"
+	SubGroup    = "Custom Tasks (Pre-Windows Update)"
+	OSName      = "Windows 10"
+	OSFeatures  = "NetFx3,TelnetClient"
+    PSDriveName = $Node.PSDriveName
+    PSDrivePath = $Node.PSDrivePath
+				}
+```
+See more complex example in "/Examples" folder of this project.
+
 #### cMDTUpdateBootImage
 cMDTUpdateBootImage is a DscResource that enables creation and management of boot images with lifecycle management for MDT. Boot images can be defined and managed from a pull server according to Desired State Configuration principles.
 
-Available parameters with example:
+Available parameters:
 * [Version] - Version number
 * [PSDeploymentShare] - Name of drive
 * [Force] - MDT path
