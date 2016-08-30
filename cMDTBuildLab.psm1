@@ -150,13 +150,9 @@ Priority=Default
 [DscResource()]
 class cMDTBuildCustomize
 {
-
     [DscProperty(Mandatory)]
-    [Ensure] $Ensure
+    [Ensure]$Ensure
     
-    [DscProperty(Mandatory)]
-    [string]$Version
-
     [DscProperty(Key)]
     [string]$Name
 
@@ -166,127 +162,30 @@ class cMDTBuildCustomize
     [DscProperty(Mandatory)]
     [string]$SourcePath
 
-    [DscProperty(Mandatory)]
-    [string]$TempLocation
-
-    [bool]$Protected
-
     [DscProperty(NotConfigurable)]
     [string]$Directory
 
     [void] Set()
     {
-
-        [string]$separator = ""
-        If ($this.SourcePath -like "*/*")
-        { $separator = "/" }
-        Else
-        { $separator = "\" }
-
-        $filename = "$($this.SourcePath.Split($separator)[-1])_$($this.Version).zip"
-        $foldername = $filename.Replace(".$($filename.Split(".")[-1])","")
-
-        [bool]$download = $True
-        If (($separator -eq "/") -Or ($this.SourcePath.Substring(0,2) -eq "\\"))
-        { $targetdownload = "$($this.TempLocation)\$($filename)" }
-        Else
-        { $targetdownload = "$($this.SourcePath)_$($this.Version).zip" ; $download = $False }
-
+        $filename = "$($this.SourcePath)\$($this.Name).zip"
         $extractfolder = "$($this.path)\$($this.name)"
-        $referencefile = "$($this.path)\$($this.name)\$($this.SourcePath.Split($separator)[-1]).version"
 
-        if ($this.ensure -eq [Ensure]::Present)
-        {
-
-            $present = Invoke-TestPath -Path "$($this.path)\$($this.name)"
-
-            if ($present)
-            {
-
-                If ($download)
-                {
-                    Invoke-WebDownload -Source "$($this.SourcePath)_$($this.Version).zip" -Target $targetdownload -Verbose
-                    $present = Invoke-TestPath -Path $targetdownload
-                    If (-not($present)) { Write-Error "Cannot find path '$targetdownload' because it does not exist." ; Return }
-                }
-                if (-not $this.Protected)
-                {
-                    $present = Invoke-TestPath -Path $referencefile
-                    If ($present) { Invoke-RemovePath -Path $referencefile }
-                }
-                Invoke-ExpandArchive -Source $targetdownload -Target $extractfolder -Verbose
-                If ($download) { Invoke-RemovePath -Path $targetdownload }
-                if ($this.Protected) { New-ReferenceFile -Path $referencefile }
-            }
-            else
-            {
-                If ($download)
-                {
-                    Invoke-WebDownload -Source "$($this.SourcePath)_$($this.Version).zip" -Target $targetdownload -Verbose
-                    $present = Invoke-TestPath -Path $targetdownload
-                    If (-not($present)) { Write-Error "Cannot find path '$targetdownload' because it does not exist." ; Return }
-                }
-                Invoke-ExpandArchive -Source $targetdownload -Target $extractfolder -Verbose
-                If ($download) { Invoke-RemovePath -Path $targetdownload }
-                New-ReferenceFile -Path $referencefile 
-            }
-
-            Set-Content -Path $referencefile -Value "$($this.Version)"
+        if ($this.ensure -eq [Ensure]::Present) {
+            Invoke-ExpandArchive -Source $filename -Target $extractfolder -Verbose
         }
-        else
-        {
-
-            Invoke-RemovePath -Path "$($this.path)\$($this.name)" -Verbose
+        else {
+            Invoke-RemovePath -Path $extractfolder -Verbose
         }
     }
 
     [bool] Test()
     {
-
-        [string]$separator = ""
-        If ($this.SourcePath -like "*/*")
-        { $separator = "/" }
-        Else
-        { $separator = "\" }
-
         $present = Invoke-TestPath -Path "$($this.path)\$($this.name)"
 
-        $this.Protected
-
-        if (($present) -and ($this.ensure -eq [Ensure]::Present))
-        {
-            If (Test-Path -Path "$($this.path)\$($this.name)\$($this.SourcePath.Split($separator)[-1]).version" -ErrorAction Ignore)
-            {
-
-                $match = Compare-Version -Source "$($this.path)\$($this.name)\$($this.SourcePath.Split($separator)[-1]).version" -Target $this.Version
-
-                if (-not ($match))
-                {
-
-                    Write-Verbose "$($this.Name) version has been updated on the pull server"
-                    $present = $false
-                }
-            }
-            else
-            {
-                $present = $false
-            }
-        }
-
-        if (($present) -and ($this.Protected) -and ($this.ensure -eq [Ensure]::Absent))
-        {
-
-            Write-Verbose "Folder protection override mode defined"
-            Write-Verbose "$($this.Name) folder will not be removed"
-            return $true
-        }
-        
-        if ($this.Ensure -eq [Ensure]::Present)
-        {
+        if ($this.Ensure -eq [Ensure]::Present) {
             return $present
         }
-        else
-        {
+        else {
             return -not $present
         }
     }
@@ -796,6 +695,12 @@ class cMDTBuildPreReqs
             URI = "Sources\Theme01.deskthemepack"
             Folder = "Set-Startlayout"
             File = "Theme01.deskthemepack"
+        }
+        @{
+            Name = "Extra"
+            URI = "Sources\Extra.zip"
+            Folder = "Extra"
+            File = "Extra.zip"
         }
     )
     
@@ -1450,6 +1355,7 @@ class cMDTBuildUpdateBootImage
     
 }
 
+<#
 Function Compare-Version
 {
     [CmdletBinding()]
@@ -1472,6 +1378,7 @@ Function Compare-Version
 
     return $match
 }
+#>
 
 Function Import-MicrosoftDeploymentToolkitModule
 {
@@ -1626,6 +1533,7 @@ Function Invoke-WebDownload
     }
 }
 
+<#
 Function New-ReferenceFile
 {
     [CmdletBinding()]
@@ -1651,3 +1559,4 @@ Function New-ReferenceFile
         New-Item -Type File -Path $Path -Force -Verbose:$False  
     }
 }
+#>

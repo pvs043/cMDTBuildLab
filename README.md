@@ -4,7 +4,7 @@ cMDTBuildLab is a Powershell Module to help automize deployment Windows Referenc
 cMDTBuildLab is a fork from cMDT module (https://github.com/addlevel/cMDT) by info@addlevel.se (c)
 
 ### Version
-0.0.7
+0.0.8
 
 ### Tech
 
@@ -35,8 +35,9 @@ The following prerequisites automatically downloaded with the cMDTBuildLab Modul
 * [Windows Management Framewework 3.0] (https://www.microsoft.com/en-us/download/details.aspx?id=34595)
 * [Windows Management Framewework 5.0] (http://aka.ms/wmf5latest)
 
-This tool included to module (Sources directory):
+This extra files included to module (\Sources\Extra.zip):
 * devcon.exe: tool from [Windows Driver Kit] (https://msdn.microsoft.com/en-us/windows/hardware/hh852365)
+* KVP (Key Value Pair Exchange) driver for WinPE. This extracted from VMGuest.iso image on Hyper-V host (\support\x86\Windows6.x-HyperVIntegrationServices-x86.cab).
 
 ### Installation
 
@@ -156,46 +157,29 @@ KeyboardLocalePE=041d:0000041d
 }
 ```
 
-#### cMDTCustomize
-cMDTCustomize is a DscResource that enables management of custom settings, additional folders and scripts with lifecycle management for MDT.
+#### cMDTBuildCustomize
+cMDTBuildCustomize is a DscResource that enables management of custom settings, additional folders and scripts with lifecycle management for MDT.
 
 Available parameters with example:
-* [Ensure] - Present/Absent
-* [Version] - Version number
-* [Name] - Name
-* [Path] - MDT path
-* [SourcePath] - Web link, SMB or local path
-* [TempLocation] - Temporary download location
-* [Protected] - Protected mode ensures that if even if Ensure is set to Absent the existing folder will not be removed.
+* <b>[Ensure]</b> - Present/Absent
+* <b>[Name]</b> - Name of zip archive
+* <b>[Path]</b> - MDT path
+* <b>[SourcePath]</b> - Folder under $SourcePath
 
 The DscResource will import custom settings files and directories according to the following principle:
 * Verify status present or absent
 * If present:
-    * Append version number to the ApplicationSourcePath together with a .zip extension,
-    * Verify if the defined folder already exist in MDT, and if determine version
-    * If the folder does not exist or version number do not match the zip will be downloaded
-    * The zip will be extracted from the archive in to the MDT
+    * Extract custom files from zip archive to MDT folder
 * If absent:
-    * If the folder has not been defined as protected it will be removed
+    * The folder will be removed
 
 Desired State Configuration job example:
 ```sh
-cMDTCustomize PEExtraFiles {
+cMDTBuildCustomize PEExtraFiles {
     Ensure = "Present"
-    Version = "1.0.0.0"
     Name = "PEExtraFiles"
     Path = $PSDrivePath
     SourcePath = "$($SourcePath)/PEExtraFiles"
-    TempLocation = $TempLocation
-}
-cMDTCustomize Scripts {
-    Ensure = "Present"
-    Version = "1.0.0.0"
-    Name = "Scripts"
-    Path = $PSDrivePath
-    SourcePath = "$($SourcePath)/Scripts"
-    TempLocation = $TempLocation
-    Protected = $true
 }
 ```
 

@@ -1012,23 +1012,13 @@
             )
 
             #Custom folder/files to add to the MDT
-			<#
             CustomSettings   = @(
                 @{  
                     Ensure     = "Present"
-                    Name       = "PEExtraFiles"
-                    Version    = "1.0.0.0"
-                    SourcePath = "/PEExtraFiles"
-                }
-                @{  
-                    Ensure     = "Present"
-                    Name       = "Scripts"
-                    Version    = "1.0.0.0"
-                    SourcePath = "/Scripts"
-                    Protected  = $true
+                    Name       = "Extra"
+                    SourcePath = "Extra"
                 }
             )
-			#>
 
             #Custom settings and boot ini file management
             CustomizeIniFiles  = @(

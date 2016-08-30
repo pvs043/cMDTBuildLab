@@ -347,40 +347,20 @@ Configuration DeployMDTServerContract
         {
             [string]$Ensure     = ""
             [string]$Name       = ""
-            [string]$Version    = ""
-            [bool]$Protected    = $False
             [string]$SourcePath = ""
 
             $CustomSetting.GetEnumerator() | % {
                 If ($_.key -eq "Ensure")     { $Ensure     = $_.value }
                 If ($_.key -eq "Name")       { $Name       = $_.value }
-                If ($_.key -eq "Version")    { $Version    = $_.value }
-                If ($_.key -eq "Protected")  {
-                    If ($_.value)            { $Protected  = $_.value }
-                }
-                If ($_.key -eq "SourcePath")
-                {
-                    If (($_.value -like "*:*") -or ($_.value -like "*\\*"))
-                                             { $SourcePath = $_.value }
-                    Else
-                    {
-                        If ($weblink)        { $SourcePath = "$($Node.SourcePath)$($_.value.Replace("\","/"))" }
-                        Else                 { $SourcePath = "$($Node.SourcePath)$($_.value.Replace("/","\"))" }
-                    }
-                }
+                If ($_.key -eq "SourcePath") { $SourcePath = "$($Node.SourcePath)\$($_.value)" }
             }
-
-            If ($Node.SourcePath -like "*/*") { $weblink = $true }
 
             cMDTBuildCustomize $Name.Replace(' ','')
             {
                 Ensure       = $Ensure
                 Name         = $Name
-                Version      = $Version
                 SourcePath   = $SourcePath
                 Path         = $Node.PSDrivePath
-                TempLocation = $Node.TempLocation
-                #Protected    = $Protected
                 DependsOn    = "[cMDTBuildDirectory]DeploymentFolder"
             }
         }
