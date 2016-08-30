@@ -154,9 +154,6 @@ class cMDTBuildCustomize
     [DscProperty(Mandatory)]
     [Ensure] $Ensure
     
-    [DscProperty(Mandatory)]
-    [string]$Version
-
     [DscProperty(Key)]
     [string]$Name
 
@@ -168,8 +165,6 @@ class cMDTBuildCustomize
 
     [DscProperty(Mandatory)]
     [string]$TempLocation
-
-    [bool]$Protected
 
     [DscProperty(NotConfigurable)]
     [string]$Directory
@@ -796,6 +791,12 @@ class cMDTBuildPreReqs
             URI = "Sources\Theme01.deskthemepack"
             Folder = "Set-Startlayout"
             File = "Theme01.deskthemepack"
+        }
+        @{
+            Name = "Extra"
+            URI = "Sources\Extra.zip"
+            Folder = "Extra"
+            File = "Extra.zip"
         }
     )
     

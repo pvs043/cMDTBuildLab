@@ -4,7 +4,7 @@ cMDTBuildLab is a Powershell Module to help automize deployment Windows Referenc
 cMDTBuildLab is a fork from cMDT module (https://github.com/addlevel/cMDT) by info@addlevel.se (c)
 
 ### Version
-0.0.7
+0.0.8
 
 ### Tech
 
@@ -156,27 +156,22 @@ KeyboardLocalePE=041d:0000041d
 }
 ```
 
-#### cMDTCustomize
-cMDTCustomize is a DscResource that enables management of custom settings, additional folders and scripts with lifecycle management for MDT.
+#### cMDTBuildCustomize
+cMDTBuildCustomize is a DscResource that enables management of custom settings, additional folders and scripts with lifecycle management for MDT.
 
 Available parameters with example:
-* [Ensure] - Present/Absent
-* [Version] - Version number
-* [Name] - Name
-* [Path] - MDT path
-* [SourcePath] - Web link, SMB or local path
-* [TempLocation] - Temporary download location
-* [Protected] - Protected mode ensures that if even if Ensure is set to Absent the existing folder will not be removed.
+* <b>[Ensure]</b> - Present/Absent
+* <b>[Name]</b> - Name
+* <b>[Path]</b> - MDT path
+* <b>[SourcePath]</b> - Web link, SMB or local path
 
 The DscResource will import custom settings files and directories according to the following principle:
 * Verify status present or absent
 * If present:
-    * Append version number to the ApplicationSourcePath together with a .zip extension,
-    * Verify if the defined folder already exist in MDT, and if determine version
-    * If the folder does not exist or version number do not match the zip will be downloaded
-    * The zip will be extracted from the archive in to the MDT
+    * Verify if the defined folder already exist in MDT
+    * If the folder does not exist the custom files will be copied
 * If absent:
-    * If the folder has not been defined as protected it will be removed
+    * The folder will be removed
 
 Desired State Configuration job example:
 ```sh
