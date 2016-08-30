@@ -1355,6 +1355,7 @@ class cMDTBuildUpdateBootImage
     
 }
 
+<#
 Function Compare-Version
 {
     [CmdletBinding()]
@@ -1377,6 +1378,7 @@ Function Compare-Version
 
     return $match
 }
+#>
 
 Function Import-MicrosoftDeploymentToolkitModule
 {
@@ -1531,6 +1533,7 @@ Function Invoke-WebDownload
     }
 }
 
+<#
 Function New-ReferenceFile
 {
     [CmdletBinding()]
@@ -1556,3 +1559,4 @@ Function New-ReferenceFile
         New-Item -Type File -Path $Path -Force -Verbose:$False  
     }
 }
+#>
