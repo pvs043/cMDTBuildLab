@@ -165,11 +165,12 @@ Available parameters with example:
 * <b>[Name]</b> - Name of zip archive
 * <b>[Path]</b> - MDT path
 * <b>[SourcePath]</b> - Folder under $SourcePath
+* <b>[TestFiles]</b> - File names into zip archive
 
 The DscResource will import custom settings files and directories according to the following principle:
 * Verify status present or absent
 * If present:
-    * Extract custom files from zip archive to MDT folder
+    * Extract files from zip archive to MDT folder
 * If absent:
     * The folder will be removed
 
@@ -180,6 +181,7 @@ cMDTBuildCustomize PEExtraFiles {
     Name = "PEExtraFiles"
     Path = $PSDrivePath
     SourcePath = "$($SourcePath)/PEExtraFiles"
+	TestFiles = @("Script1.vbs", "Script2.vbs")
 }
 ```
 

@@ -345,14 +345,16 @@ Configuration DeployMDTServerContract
 
         ForEach ($CustomSetting in $Node.CustomSettings)   
         {
-            [string]$Ensure     = ""
-            [string]$Name       = ""
-            [string]$SourcePath = ""
+            [string]$Ensure      = ""
+            [string]$Name        = ""
+            [string]$SourcePath  = ""
+			[string[]]$TestFiles = ""
 
             $CustomSetting.GetEnumerator() | % {
                 If ($_.key -eq "Ensure")     { $Ensure     = $_.value }
                 If ($_.key -eq "Name")       { $Name       = $_.value }
                 If ($_.key -eq "SourcePath") { $SourcePath = "$($Node.SourcePath)\$($_.value)" }
+				If ($_.key -eq "TestFiles")  { $TestFiles  = $_.value }
             }
 
             cMDTBuildCustomize $Name.Replace(' ','')
@@ -361,6 +363,7 @@ Configuration DeployMDTServerContract
                 Name         = $Name
                 SourcePath   = $SourcePath
                 Path         = $Node.PSDrivePath
+				TestFiles    = $TestFiles
                 DependsOn    = "[cMDTBuildDirectory]DeploymentFolder"
             }
         }

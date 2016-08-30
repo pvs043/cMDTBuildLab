@@ -1017,6 +1017,22 @@
                     Ensure     = "Present"
                     Name       = "Extra"
                     SourcePath = "Extra"
+					TestFiles  = @("Deploy\Scripts\LoadKVPInWinPE.vbs",
+								   "KVP\devcon.exe",
+								   "KVP\iccoinstall2.dll",
+								   "KVP\icsvc.dll",
+								   "KVP\vmapplicationhealthmonitorproxy.dll",
+								   "KVP\vmicres.dll",
+								   "KVP\vmictimeprovider.dll",
+								   "KVP\vmrdvcore.dll",
+								   "KVP\wvmic.inf"
+								  )
+                }
+                @{  
+                    Ensure     = "Present"
+                    Name       = "Scripts"
+                    SourcePath = "Scripts"
+					TestFiles  = "ReadKVPData.vbs"
                 }
             )
 
