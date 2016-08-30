@@ -24,9 +24,6 @@
             MDTLocalAccount    = "SVCMDTConnect001"
             MDTLocalPassword   = "P@ssw0rd"
 
-            #Client local administrator password on client
-            LocalAdminPassword   = "P@ssw0rd"
-
             #Download and extraction temporary folder
             TempLocation       = "E:\Temp"
 
@@ -1042,39 +1039,16 @@
                     Ensure               = "Present"
                     Name                 = "CustomSettingsIni"
                     Path                 = "\Control\CustomSettings.ini"
-                    HomePage             = "http://companyURL"
-                    SkipAdminPassword    = "NO"
-                    SkipApplications     = "YES"
-                    SkipBitLocker        = "NO"
-                    SkipCapture          = "YES"
-                    SkipComputerBackup   = "YES"
-                    SkipComputerName     = "NO"
-                    SkipDomainMembership = "NO"
-                    SkipFinalSummary     = "NO"
-                    SkipLocaleSelection  = "NO"
-                    SkipPackageDisplay   = "YES"
-                    SkipProductKey       = "YES"
-                    SkipRoles            = "YES"
-                    SkipSummary          = "NO"
-                    SkipTimeZone         = "NO"
-                    SkipUserData         = "YES"
-                    SkipTaskSequence     = "NO"
-                    JoinDomain           = "ad.company.net"
-                    DomainAdmin          = "DomainJoinAccount"
-                    DomainAdminDomain    = "ad.company.net"
-                    DomainAdminPassword  = "DomainJoinAccountPassword"
-                    MachineObjectOU      = "OU=Clients,OU=company,DC=ad,DC=company,DC=net"
-                    TimeZoneName         = "W. Europe Standard Time"
+                    Company              = "Build Lab"
+                    TimeZoneName         = "Ekaterinburg Standard Time"
                     WSUSServer           = "http://fqdn:port"
                     UserLocale           = "en-US"
-                    KeyboardLocale       = "en-US"
-                    UILanguage           = "en-US"
+                    KeyboardLocale       = "en-US;ru-RU"
                 }
                 @{  
                     Ensure           = "Present"
                     Name             = "BootstrapIni"
                     Path             = "\Control\Bootstrap.ini"
-                    DeployRoot       = "\DeploymentShare$"
                 }
             )
 

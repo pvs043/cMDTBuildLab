@@ -200,7 +200,6 @@ class cMDTBuildCustomize
 [DscResource()]
 class cMDTBuildCustomSettingsIni
 {
-
     [DscProperty(Mandatory)]
     [Ensure]$Ensure
 
@@ -212,13 +211,10 @@ class cMDTBuildCustomSettingsIni
 
     [void] Set()
     {
-
-        if ($this.Ensure -eq [Ensure]::Present)
-        {
+        if ($this.Ensure -eq [Ensure]::Present) {
             $this.SetContent()
         }
-        else
-        {
+        else {
             $this.SetDefaultContent()
         }
     }
@@ -227,12 +223,10 @@ class cMDTBuildCustomSettingsIni
     {
         $present = $this.TestFileContent()
         
-        if ($this.Ensure -eq [Ensure]::Present)
-        {
+        if ($this.Ensure -eq [Ensure]::Present) {
             return $present
         }
-        else
-        {
+        else {
             return -not $present
         }
     }
@@ -247,11 +241,9 @@ class cMDTBuildCustomSettingsIni
         $present = $false 
         $existingConfiguration = Get-Content -Path $this.Path -Raw #-Encoding UTF8
 
-        if ($existingConfiguration -eq $this.Content.Replace("`n","`r`n"))
-        {
+        if ($existingConfiguration -eq $this.Content.Replace("`n","`r`n")) {
             $present = $true   
         }
-
         return $present
     }
 

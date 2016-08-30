@@ -123,7 +123,7 @@ cMDTBootstrapIni is a DscResource that enables configuration and lifecycle manag
 Available parameters with example:
 * <b>[Ensure]</b> - Present/Absent
 * <b>[Path]</b> - MDT path
-* <b>[Content]</b> - True/False
+* <b>[Content]</b> - INI file content
 
 The DscResource will manage the content of this file according to the following principle:
 * Verify status present or absent
@@ -135,7 +135,7 @@ The DscResource will manage the content of this file according to the following 
 
 Desired State Configuration job example:
 ```sh
-cMDTBootstrapIni ini {
+cMDTBuildBootstrapIni ini {
     Ensure = "Present"
     Path = "$($PSDrivePath)\Control\Bootstrap.ini"
     Content = @"
@@ -182,13 +182,13 @@ cMDTBuildCustomize PEExtraFiles {
 }
 ```
 
-#### cMDTCustomSettingsIni
-cMDTCustomSettingsIni is a DscResource that enables configuration and lifecycle management of the CustomSettings.ini in MDT. This file can be updated and managed from a pull server according to Desired State Configuration principles.
+#### cMDTBuildCustomSettingsIni
+cMDTBuildCustomSettingsIni is a DscResource that enables configuration and lifecycle management of the CustomSettings.ini in MDT.
 
 Available parameters with example:
-* [Ensure] - Present/Absent
-* [Path] - MDT path
-* [Content] - True/False
+* <b>[Ensure]</b> - Present/Absent
+* <b>[Path]</b> - MDT path
+* <b>[Content]</b> - INI file content
 
 The DscResource will manage the content of this file according to the following principle:
 * Verify status present or absent
@@ -200,79 +200,59 @@ The DscResource will manage the content of this file according to the following 
 
 Desired State Configuration job example:
 ```sh
-cMDTCustomSettingsIni ini {
+cMDTBuildCustomSettingsIni ini {
     Ensure = "Present"
     Path = "$($PSDrivePath)\Control\CustomSettings.ini"
     Content = @"
 [Settings]
-Priority=SetModelAlias, Init, ModelAlias, Default
-Properties=ModelAlias, ComputerSerialNumber
-
-[SetModelAlias]
-UserExit=ModelAliasExit.vbs
-ModelAlias=#SetModelAlias()#
+Priority=Init,Default
+Properties=VMNameAlias
 
 [Init]
-ComputerSerialNumber=#Mid(Replace(Replace(oEnvironment.Item("SerialNumber")," ",""),"-",""),1,11)#
+UserExit=ReadKVPData.vbs
+VMNameAlias=#SetVMNameAlias()#
 
 [Default]
+$($Company)
 OSInstall=Y
-_SMSTSORGNAME=Company
 HideShell=YES
-DisableTaskMgr=YES
 ApplyGPOPack=NO
 UserDataLocation=NONE
-DoCapture=NO
-OSDComputerName=CLI%ComputerSerialNumber%
+DoNotCreateExtraPartition=YES
+JoinWorkgroup=WORKGROUP
+$($TimeZoneName)
+$($WSUSServer)
+;SLShare=%DeployRoot%\Logs
+TaskSequenceID=%VMNameAlias%
+FinishAction=SHUTDOWN
 
-;Local admin password
-AdminPassword=C@ang3Me!
-SLShare=%DeployRoot%\Logs
+;Set keyboard layout
+$($UserLocale)
+$($KeyboardLocale)
 
-OrgName=Company
-Home_Page=http://companyURL
+ComputerBackupLocation=NETWORK
+BackupShare=\\$($ComputerName)\DeploymentShare$
+BackupDir=Captures
+BackupFile=#left("%TaskSequenceID%", len("%TaskSequenceID%")-3) & year(date) & right("0" & month(date), 2) & right("0" & day(date), 2)#.wim
+DoCapture=YES
 
-;Enable or disable options:
-SkipAdminPassword=NO
+;Disable all wizard pages
+SkipAdminPassword=YES
 SkipApplications=YES
-SkipBitLocker=NO
+SkipBitLocker=YES
 SkipCapture=YES
 SkipComputerBackup=YES
-SkipComputerName=NO
-SkipDomainMembership=NO
-SkipFinalSummary=NO
-SkipLocaleSelection=NO
+SkipComputerName=YES
+SkipDomainMembership=YES
+SkipFinalSummary=YES
+SkipLocaleSelection=YES
 SkipPackageDisplay=YES
 SkipProductKey=YES
 SkipRoles=YES
-SkipSummary=NO
-SkipTimeZone=NO
+SkipSummary=YES
+SkipTimeZone=YES
 SkipUserData=YES
-SkipTaskSequence=NO
-
-;DomainJoin
-JoinDomain=ad.company.net
-DomainAdmin=DomainJoinAccount
-DomainAdminDomain=ad.company.net
-DomainAdminPassword=DomainJoinAccountPassword
-MachineObjectOU=OU=Clients,OU=company,DC=ad,DC=company,DC=net
-
-;TimeZone settings
-TimeZoneName=W. Europe Standard Time
-
-WSUSServer=http://fqdn:port
-
-;Example keyboard layout.
-UserLocale=en-US
-KeyboardLocale=en-US
-UILanguage=en-US
-
-;Drivers
-DriverSelectionProfile=Nothing
-
-;DriverInjectionMode=ALL
-
-FinishAction=RESTART
+SkipTaskSequence=YES
 "@
 }
 ```

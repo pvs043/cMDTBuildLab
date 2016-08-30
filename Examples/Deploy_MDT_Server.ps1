@@ -373,99 +373,28 @@ Configuration DeployMDTServerContract
             [string]$Ensure               = ""
             [string]$Name                 = ""
             [string]$Path                 = ""
-            [string]$HomePage             = ""
-            [string]$SkipAdminPassword    = ""
-            [string]$SkipApplications     = ""
-            [string]$SkipBitLocker        = ""
-            [string]$SkipCapture          = ""
-            [string]$SkipComputerBackup   = ""
-            [string]$SkipComputerName     = ""
-            [string]$SkipDomainMembership = ""
-            [string]$SkipFinalSummary     = ""
-            [string]$SkipLocaleSelection  = ""
-            [string]$SkipPackageDisplay   = ""
-            [string]$SkipProductKey       = ""
-            [string]$SkipRoles            = ""
-            [string]$SkipSummary          = ""
-            [string]$SkipTimeZone         = ""
-            [string]$SkipUserData         = ""
-            [string]$SkipTaskSequence     = ""
-            [string]$JoinDomain           = ""
-            [string]$DomainAdmin          = ""
-            [string]$DomainAdminDomain    = ""
-            [string]$DomainAdminPassword  = ""
-            [string]$MachineObjectOU      = ""
-            [string]$TimeZoneName         = ""
+            [string]$Company              = ""
+			[string]$TimeZomeName         = ""
             [string]$WSUSServer           = ""
             [string]$UserLocale           = ""
             [string]$KeyboardLocale       = ""
-            [string]$UILanguage           = ""
-            [string]$DeployRoot           = ""
-            [string]$KeyboardLocalePE     = ""
 
             $IniFile.GetEnumerator() | % {
                 If ($_.key -eq "Ensure")               { $Ensure               = $_.value }
                 If ($_.key -eq "Name")                 { $Name                 = $_.value }
                 If ($_.key -eq "Path")                 { $Path                 = "$($Node.PSDrivePath)$($_.value)" }                                                
-                If ($_.key -eq "HomePage")             { $HomePage             = $_.value }
-                If ($_.key -eq "SkipAdminPassword")    { $SkipAdminPassword    = $_.value }
-                If ($_.key -eq "SkipApplications")     { $SkipApplications     = $_.value }
-                If ($_.key -eq "SkipBitLocker")        { $SkipBitLocker        = $_.value }
-                If ($_.key -eq "SkipCapture")          { $SkipCapture          = $_.value }
-                If ($_.key -eq "SkipComputerBackup")   { $SkipComputerBackup   = $_.value }
-                If ($_.key -eq "SkipComputerName")     { $SkipComputerName     = $_.value }
-                If ($_.key -eq "SkipDomainMembership") { $SkipDomainMembership = $_.value }
-                If ($_.key -eq "SkipFinalSummary")     { $SkipFinalSummary     = $_.value }
-                If ($_.key -eq "SkipLocaleSelection")  { $SkipLocaleSelection  = $_.value }
-                If ($_.key -eq "SkipPackageDisplay")   { $SkipPackageDisplay   = $_.value }
-                If ($_.key -eq "SkipProductKey")       { $SkipProductKey       = $_.value }
-                If ($_.key -eq "SkipRoles")            { $SkipRoles            = $_.value }
-                If ($_.key -eq "SkipSummary")          { $SkipSummary          = $_.value }
-                If ($_.key -eq "SkipTimeZone")         { $SkipTimeZone         = $_.value }
-                If ($_.key -eq "SkipUserData")         { $SkipUserData         = $_.value }
-                If ($_.key -eq "SkipTaskSequence")     { $SkipTaskSequence     = $_.value }                                                      
-                If ($_.key -eq "JoinDomain")           { $JoinDomain           = $_.value }
-                If ($_.key -eq "DomainAdmin")          { $DomainAdmin          = $_.value }
-                If ($_.key -eq "DomainAdminDomain")    { $DomainAdminDomain    = $_.value }
-                If ($_.key -eq "DomainAdminPassword")  { $DomainAdminPassword  = $_.value }
-                If ($_.key -eq "MachineObjectOU")      { $MachineObjectOU      = $_.value }
+                If ($_.key -eq "Company")              { $Company              = $_.value }
                 If ($_.key -eq "TimeZoneName")         { $TimeZoneName         = $_.value }
                 If ($_.key -eq "WSUSServer")           { $WSUSServer           = $_.value }
                 If ($_.key -eq "UserLocale")           { $UserLocale           = $_.value }
                 If ($_.key -eq "KeyboardLocale")       { $KeyboardLocale       = $_.value }
-                If ($_.key -eq "UILanguage")           { $UILanguage           = $_.value }
-                If ($_.key -eq "DeployRoot")           { $DeployRoot           = "$($Node.SourcePath)$($_.value)" }
-                If ($_.key -eq "KeyboardLocalePE")     { $KeyboardLocalePE     = $_.value }
             }
 
-            If ($HomePage)             { $HomePage             = "Home_Page=$($HomePage)" }                        Else { $HomePage             = ";Home_Page=" }
-            If ($SkipAdminPassword)    { $SkipAdminPassword    = "SkipAdminPassword=$($SkipAdminPassword)" }       Else { $SkipAdminPassword    = ";SkipAdminPassword=" }
-            If ($SkipApplications)     { $SkipApplications     = "SkipApplications=$($SkipApplications)" }         Else { $SkipApplications     = ";SkipApplications=" }
-            If ($SkipBitLocker)        { $SkipBitLocker        = "SkipBitLocker=$($SkipBitLocker)" }               Else { $SkipBitLocker        = ";SkipBitLocker=" }
-            If ($SkipCapture)          { $SkipCapture          = "SkipCapture=$($SkipCapture)" }                   Else { $SkipCapture          = ";SkipCapture=" }
-            If ($SkipComputerBackup)   { $SkipComputerBackup   = "SkipComputerBackup=$($SkipComputerBackup)" }     Else { $SkipComputerBackup   = ";SkipComputerBackup=" }
-            If ($SkipComputerName)     { $SkipComputerName     = "SkipComputerName=$($SkipComputerName)" }         Else { $SkipComputerName     = ";SkipComputerName=" }
-            If ($SkipDomainMembership) { $SkipDomainMembership = "SkipDomainMembership=$($SkipDomainMembership)" } Else { $SkipDomainMembership = ";SkipDomainMembership=" }
-            If ($SkipFinalSummary)     { $SkipFinalSummary     = "SkipFinalSummary=$($SkipFinalSummary)" }         Else { $SkipFinalSummary     = ";SkipFinalSummary=" }
-            If ($SkipLocaleSelection)  { $SkipLocaleSelection  = "SkipLocaleSelection=$($SkipLocaleSelection)" }   Else { $SkipLocaleSelection  = ";SkipLocaleSelection=" }
-            If ($SkipPackageDisplay)   { $SkipPackageDisplay   = "SkipPackageDisplay=$($SkipPackageDisplay)" }     Else { $SkipPackageDisplay   = ";SkipPackageDisplay=" }
-            If ($SkipProductKey)       { $SkipProductKey       = "SkipProductKey=$($SkipProductKey)" }             Else { $SkipProductKey       = ";SkipProductKey=" }
-            If ($SkipRoles)            { $SkipRoles            = "SkipRoles=$($SkipRoles)" }                       Else { $SkipRoles            = ";SkipRoles=" }
-            If ($SkipSummary)          { $SkipSummary          = "SkipSummary=$($SkipSummary)" }                   Else { $SkipSummary          = ";SkipSummary=" }
-            If ($SkipTimeZone)         { $SkipTimeZone         = "SkipTimeZone=$($SkipTimeZone)" }                 Else { $SkipTimeZone         = ";SkipTimeZone=" }
-            If ($SkipUserData)         { $SkipUserData         = "SkipUserData=$($SkipUserData)" }                 Else { $SkipUserData         = ";SkipUserData=" }
-            If ($SkipTaskSequence)     { $SkipTaskSequence     = "SkipTaskSequence=$($SkipTaskSequence)" }         Else { $SkipTaskSequence     = ";SkipTaskSequence=" }
-            If ($JoinDomain)           { $JoinDomain           = "JoinDomain=$($JoinDomain)" }                     Else { $JoinDomain           = ";JoinDomain=" }
-            If ($DomainAdmin)          { $DomainAdmin          = "DomainAdmin=$($DomainAdmin)" }                   Else { $DomainAdmin          = ";DomainAdmin=" }
-            If ($DomainAdminDomain)    { $DomainAdminDomain    = "DomainAdminDomain=$($DomainAdminDomain)" }       Else { $DomainAdminDomain    = ";DomainAdminDomain=" }
-            If ($DomainAdminPassword)  { $DomainAdminPassword  = "DomainAdminPassword=$($DomainAdminPassword)" }   Else { $DomainAdminPassword  = ";DomainAdminPassword=" }
-            If ($MachineObjectOU)      { $MachineObjectOU      = "MachineObjectOU=$($MachineObjectOU)" }           Else { $MachineObjectOU      = ";MachineObjectOU=" }
+            If ($Company)              { $Company              = "_SMSTSORGNAME=$($Company)" }                     Else { $Company              = ";_SMSTSORGNAME=" }
             If ($TimeZoneName)         { $TimeZoneName         = "TimeZoneName=$($TimeZoneName)" }                 Else { $TimeZoneName         = ";TimeZoneName=" }
             If ($WSUSServer)           { $WSUSServer           = "WSUSServer=$($WSUSServer)" }                     Else { $WSUSServer           = ";WSUSServer=" }
             If ($UserLocale)           { $UserLocale           = "UserLocale=$($UserLocale)" }                     Else { $UserLocale           = ";UserLocale=" }
             If ($KeyboardLocale)       { $KeyboardLocale       = "KeyboardLocale=$($KeyboardLocale)" }             Else { $KeyboardLocale       = ";KeyboardLocale=" }
-            If ($UILanguage)           { $UILanguage           = "UILanguage=$($UILanguage)" }                     Else { $UILanguage           = ";UILanguage=" }
-            If ($KeyboardLocalePE)     { $KeyboardLocalePE     = "KeyboardLocalePE=$($KeyboardLocalePE)" }         Else { $KeyboardLocalePE     = ";KeyboardLocalePE=" }
 
             If ($Name -eq "CustomSettingsIni")
             {
@@ -475,74 +404,54 @@ Configuration DeployMDTServerContract
                     DependsOn = "[cMDTBuildDirectory]DeploymentFolder"
                     Content   = @"
 [Settings]
-Priority=SetModelAlias, Init, ModelAlias, Default
-Properties=ModelAlias, ComputerSerialNumber
-
-[SetModelAlias]
-UserExit=ModelAliasExit.vbs
-ModelAlias=#SetModelAlias()#
+Priority=Init,Default
+Properties=VMNameAlias
 
 [Init]
-ComputerSerialNumber=#Mid(Replace(Replace(oEnvironment.Item("SerialNumber")," ",""),"-",""),1,11)#
+UserExit=ReadKVPData.vbs
+VMNameAlias=#SetVMNameAlias()#
 
 [Default]
+$($Company)
 OSInstall=Y
-_SMSTSORGNAME=Company
 HideShell=YES
-DisableTaskMgr=YES
 ApplyGPOPack=NO
 UserDataLocation=NONE
-DoCapture=NO
-OSDComputerName=CLI%ComputerSerialNumber%
-
-;Local admin password
-AdminPassword=$($Node.LocalAdminPassword)
-SLShare=%DeployRoot%\Logs
-
-OrgName=Company
-$($HomePage)
-
-;Enable or disable options:
-$($SkipAdminPassword)
-$($SkipApplications)
-$($SkipBitLocker)
-$($SkipCapture)
-$($SkipComputerBackup)
-$($SkipComputerName)
-$($SkipDomainMembership)
-$($SkipFinalSummary)
-$($SkipLocaleSelection)
-$($SkipPackageDisplay)
-$($SkipProductKey)
-$($SkipRoles)
-$($SkipSummary)
-$($SkipTimeZone)
-$($SkipUserData)
-$($SkipTaskSequence)
-
-;DomainJoin
-$($JoinDomain)
-$($DomainAdmin)
-$($DomainAdminDomain)
-$($DomainAdminPassword)
-$($MachineObjectOU)
-
-;TimeZone settings
+DoNotCreateExtraPartition=YES
+JoinWorkgroup=WORKGROUP
 $($TimeZoneName)
-
 $($WSUSServer)
+;SLShare=%DeployRoot%\Logs
+TaskSequenceID=%VMNameAlias%
+FinishAction=SHUTDOWN
 
-;Example keyboard layout.
+;Set keyboard layout
 $($UserLocale)
 $($KeyboardLocale)
-$($UILanguage)
 
-;Drivers
-DriverSelectionProfile=Nothing
+ComputerBackupLocation=NETWORK
+BackupShare=\\$($Node.NodeName)\$($Node.PSDriveShareName)
+BackupDir=Captures
+BackupFile=#left("%TaskSequenceID%", len("%TaskSequenceID%")-3) & year(date) & right("0" & month(date), 2) & right("0" & day(date), 2)#.wim
+DoCapture=YES
 
-;DriverInjectionMode=ALL
-
-FinishAction=RESTART
+;Disable all wizard pages
+SkipAdminPassword=YES
+SkipApplications=YES
+SkipBitLocker=YES
+SkipCapture=YES
+SkipComputerBackup=YES
+SkipComputerName=YES
+SkipDomainMembership=YES
+SkipFinalSummary=YES
+SkipLocaleSelection=YES
+SkipPackageDisplay=YES
+SkipProductKey=YES
+SkipRoles=YES
+SkipSummary=YES
+SkipTimeZone=YES
+SkipUserData=YES
+SkipTaskSequence=YES
 "@
                 }
             }
@@ -573,7 +482,6 @@ UserExit=LoadKVPInWinPE.vbs
 "@
                 }
             }
-
         }
 
         ForEach ($Image in $Node.BootImage)   
