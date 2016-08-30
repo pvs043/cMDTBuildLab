@@ -74,7 +74,6 @@ class cMDTBuildApplication
 [DscResource()]
 class cMDTBuildBootstrapIni
 {
-
     [DscProperty(Mandatory)]
     [Ensure]$Ensure
 
@@ -86,13 +85,10 @@ class cMDTBuildBootstrapIni
 
     [void] Set()
     {
-
-        if ($this.Ensure -eq [Ensure]::Present)
-        {
+        if ($this.Ensure -eq [Ensure]::Present) {
             $this.SetContent()
         }
-        else
-        {
+        else {
             $this.SetDefaultContent()
         }
     }
@@ -101,12 +97,10 @@ class cMDTBuildBootstrapIni
     {
         $present = $this.TestFileContent()
         
-        if ($this.Ensure -eq [Ensure]::Present)
-        {
+        if ($this.Ensure -eq [Ensure]::Present) {
             return $present
         }
-        else
-        {
+        else {
             return -not $present
         }
     }
@@ -121,11 +115,9 @@ class cMDTBuildBootstrapIni
         $present = $false
         $existingConfiguration = Get-Content -Path $this.Path -Raw #-Encoding UTF8
 
-        if ($existingConfiguration -eq $this.Content.Replace("`n","`r`n"))
-        {
+        if ($existingConfiguration -eq $this.Content.Replace("`n","`r`n")) {
             $present = $true   
         }
-
         return $present
     }
 

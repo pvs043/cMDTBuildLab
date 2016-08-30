@@ -4,7 +4,7 @@ cMDTBuildLab is a Powershell Module to help automize deployment Windows Referenc
 cMDTBuildLab is a fork from cMDT module (https://github.com/addlevel/cMDT) by info@addlevel.se (c)
 
 ### Version
-0.0.8
+0.0.9
 
 ### Tech
 
@@ -117,13 +117,13 @@ cMDTBuildApplication WMF5 {
 }
 ```
 
-#### cMDTBootstrapIni
-cMDTBootstrapIni is a DscResource that enables configuration and lifecycle management of the BootStrap.ini in MDT. This file can be updated and managed from a pull server according to Desired State Configuration principles.
+#### cMDTBuildBootstrapIni
+cMDTBootstrapIni is a DscResource that enables configuration and lifecycle management of the BootStrap.ini in MDT.
 
 Available parameters with example:
-* [Ensure] - Present/Absent
-* [Path] - MDT path
-* [Content] - True/False
+* <b>[Ensure]</b> - Present/Absent
+* <b>[Path]</b> - MDT path
+* <b>[Content]</b> - True/False
 
 The DscResource will manage the content of this file according to the following principle:
 * Verify status present or absent
@@ -150,9 +150,6 @@ SkipBDDWelcome=YES
 UserID=$($UserName)
 UserPassword=$($Password)
 UserDomain=$($env:COMPUTERNAME)
-
-;Keyboard Layout
-KeyboardLocalePE=041d:0000041d
 "@
 }
 ```

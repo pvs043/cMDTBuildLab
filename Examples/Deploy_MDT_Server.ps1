@@ -370,7 +370,6 @@ Configuration DeployMDTServerContract
 
         ForEach ($IniFile in $Node.CustomizeIniFiles)   
         {
-
             [string]$Ensure               = ""
             [string]$Name                 = ""
             [string]$Path                 = ""
@@ -567,8 +566,10 @@ UserID=$($Node.MDTLocalAccount)
 UserPassword=$($Node.MDTLocalPassword)
 UserDomain=$($env:COMPUTERNAME)
 
-;Keyboard Layout
-$($KeyboardLocalePE)
+SubSection=ISVM-%IsVM%
+
+[ISVM-True]
+UserExit=LoadKVPInWinPE.vbs
 "@
                 }
             }

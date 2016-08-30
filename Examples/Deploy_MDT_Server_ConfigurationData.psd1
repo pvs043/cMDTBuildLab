@@ -1075,7 +1075,6 @@
                     Name             = "BootstrapIni"
                     Path             = "\Control\Bootstrap.ini"
                     DeployRoot       = "\DeploymentShare$"
-                    KeyboardLocalePE = "0411:E0010411"
                 }
             )
 
