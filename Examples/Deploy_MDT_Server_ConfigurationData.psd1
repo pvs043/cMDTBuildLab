@@ -1025,7 +1025,7 @@
 								   "KVP\vmicres.dll",
 								   "KVP\vmictimeprovider.dll",
 								   "KVP\vmrdvcore.dll",
-								   "KVP\wvmic.dll"
+								   "KVP\wvmic.inf"
 								  )
                 }
                 @{  
