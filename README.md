@@ -161,36 +161,24 @@ cMDTBuildCustomize is a DscResource that enables management of custom settings, 
 
 Available parameters with example:
 * <b>[Ensure]</b> - Present/Absent
-* <b>[Name]</b> - Name
+* <b>[Name]</b> - Name of zip archive
 * <b>[Path]</b> - MDT path
-* <b>[SourcePath]</b> - Web link, SMB or local path
+* <b>[SourcePath]</b> - Folder under $SourcePath
 
 The DscResource will import custom settings files and directories according to the following principle:
 * Verify status present or absent
 * If present:
-    * Verify if the defined folder already exist in MDT
-    * If the folder does not exist the custom files will be copied
+    * Extract custom files from zip archive to MDT folder
 * If absent:
     * The folder will be removed
 
 Desired State Configuration job example:
 ```sh
-cMDTCustomize PEExtraFiles {
+cMDTBuildCustomize PEExtraFiles {
     Ensure = "Present"
-    Version = "1.0.0.0"
     Name = "PEExtraFiles"
     Path = $PSDrivePath
     SourcePath = "$($SourcePath)/PEExtraFiles"
-    TempLocation = $TempLocation
-}
-cMDTCustomize Scripts {
-    Ensure = "Present"
-    Version = "1.0.0.0"
-    Name = "Scripts"
-    Path = $PSDrivePath
-    SourcePath = "$($SourcePath)/Scripts"
-    TempLocation = $TempLocation
-    Protected = $true
 }
 ```
 
