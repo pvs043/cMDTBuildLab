@@ -488,16 +488,12 @@ UserExit=LoadKVPInWinPE.vbs
         {
 
             [string]$Version                  = ""
-            [string]$Path                     = ""
-            [string]$ImageName                = ""
             [string]$ExtraDirectory           = ""
             [string]$BackgroundFile           = ""
             [string]$LiteTouchWIMDescription  = ""
 
             $Image.GetEnumerator() | % {
                 If ($_.key -eq "Version")                  { $Version                  = $_.value }
-                If ($_.key -eq "Path")                     { $Path                     = "$($Node.PSDrivePath)$($_.value)" }
-                If ($_.key -eq "ImageName")                { $ImageName                = $_.value }
                 If ($_.key -eq "ExtraDirectory")           { $ExtraDirectory           = $_.value }
                 If ($_.key -eq "BackgroundFile")           { $BackgroundFile           = $_.value }
                 If ($_.key -eq "LiteTouchWIMDescription")  { $LiteTouchWIMDescription  = $_.value }

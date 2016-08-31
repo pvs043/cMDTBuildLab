@@ -1056,8 +1056,6 @@
             BootImage  = @(
                 @{  
                     Version    = "1.0"
-                    Path       = "\Boot\LiteTouchPE_x86.wim"
-                    ImageName  = "LiteTouchPE x86"
                     ExtraDirectory = "Extra"
                     BackgroundFile = "%INSTALLDIR%\Samples\Background.bmp"
                     LiteTouchWIMDescription = "MDT Build Lab"
