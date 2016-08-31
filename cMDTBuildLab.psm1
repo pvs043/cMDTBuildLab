@@ -1315,6 +1315,8 @@ class cMDTBuildUpdateBootImage
         If ($this.LiteTouchWIMDescription) {
 			Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x64.LiteTouchWIMDescription -Value "$($this.LiteTouchWIMDescription) x64 $($this.Version)"
 			Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x86.LiteTouchWIMDescription -Value "$($this.LiteTouchWIMDescription) x86 $($this.Version)"
+			Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x64.LiteTouchISOName -Value "$($this.LiteTouchWIMDescription)_x64.iso".Replace(' ','_')
+			Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x86.LiteTouchISOName -Value "$($this.LiteTouchWIMDescription)_x86.iso".Replace(' ','_')
 		}
 
         Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x64.GenerateLiteTouchISO -Value $false
@@ -1348,8 +1350,7 @@ class cMDTBuildUpdateBootImage
 
 Function Import-MicrosoftDeploymentToolkitModule
 {
-    If (-Not(Get-Module MicrosoftDeploymentToolkit))
-    {
+    If ( -Not (Get-Module MicrosoftDeploymentToolkit) ) {
         Import-Module "$env:ProgramFiles\Microsoft Deployment Toolkit\Bin\MicrosoftDeploymentToolkit.psd1" -ErrorAction Stop -Global -Verbose:$False
     }
 }
@@ -1368,10 +1369,8 @@ Function Invoke-ExpandArchive
     )
 
     [bool]$Verbosity
-    If($PSBoundParameters.Verbose)
-    { $Verbosity = $True }
-    Else
-    { $Verbosity = $False }
+    If ($PSBoundParameters.Verbose) { $Verbosity = $True }
+    Else { $Verbosity = $False }
 
     Write-Verbose "Expanding archive $($Source) to $($Target)"
     Expand-Archive $Source -DestinationPath $Target -Force -Verbose:$Verbosity
@@ -1392,21 +1391,15 @@ Function Invoke-RemovePath
     )
 
     [bool]$Verbosity
-    If($PSBoundParameters.Verbose)
-    { $Verbosity = $True }
-    Else
-    { $Verbosity = $False }
+    If ($PSBoundParameters.Verbose) { $Verbosity = $True }
+    Else { $Verbosity = $False }
 
-    if (($PSDrivePath) -and ($PSDriveName))
-    {
-
+    if (($PSDrivePath) -and ($PSDriveName)) {
         Import-MicrosoftDeploymentToolkitModule
         New-PSDrive -Name $PSDriveName -PSProvider "MDTProvider" -Root $PSDrivePath -Verbose:$False | `
         Remove-Item -Path $Path -Force -Verbose:$Verbosity
     }
-    else
-    {
-
+    else {
         Remove-Item -Path $Path -Force -Verbose:$Verbosity
     }
 }
@@ -1427,23 +1420,18 @@ Function Invoke-TestPath
 
     [bool]$present = $false
 
-    if (($PSDrivePath) -and ($PSDriveName))
-    {
+    if (($PSDrivePath) -and ($PSDriveName)) {
         Import-MicrosoftDeploymentToolkitModule
         if (New-PSDrive -Name $PSDriveName -PSProvider "MDTProvider" -Root $PSDrivePath -Verbose:$false | `
-            Test-Path -Path $Path -ErrorAction Ignore)
-        {
+            Test-Path -Path $Path -ErrorAction Ignore) {
             $present = $true
         }        
     }
-    else
-    {
-        if (Test-Path -Path $Path -ErrorAction Ignore)
-        {
+    else {
+        if (Test-Path -Path $Path -ErrorAction Ignore) {
             $present = $true
         }
     }
-
     return $present
 }
 
@@ -1461,39 +1449,29 @@ Function Invoke-WebDownload
     )
 
     [bool]$Verbosity
-    If($PSBoundParameters.Verbose)
-    { $Verbosity = $True }
-    Else
-    { $Verbosity = $False }
+    If ($PSBoundParameters.Verbose) { $Verbosity = $True }
+    Else { $Verbosity = $False }
 
-    If ($Source -like "*/*")
-    {
-        If (Get-Service BITS | Where-Object {$_.status -eq "running"})
-        {
-
+    If ($Source -like "*/*") {
+        If ( Get-Service BITS | Where-Object {$_.status -eq "running"} ) {
             If ($Verbosity) { Write-Verbose "Downloading file $($Source) via Background Intelligent Transfer Service" }
             Import-Module BitsTransfer -Verbose:$false
             Start-BitsTransfer -Source $Source -Destination $Target -Verbose:$Verbosity
             Remove-Module BitsTransfer -Verbose:$false
         }
-        else
-        {
-
+        else {
             If ($Verbosity) { Write-Verbose "Downloading file $($Source) via System.Net.WebClient" }
             $WebClient = New-Object System.Net.WebClient
             $WebClient.DownloadFile($Source, $Target)
         }
     }
-    Else
-    {
-        If (Get-Service BITS | Where-Object {$_.status -eq "running"})
-        {
+    Else {
+        If (Get-Service BITS | Where-Object {$_.status -eq "running"}) {
             If ($Verbosity) { Write-Verbose "Downloading file $($Source) via Background Intelligent Transfer Service" }
             Import-Module BitsTransfer -Verbose:$false
             Start-BitsTransfer -Source $Source -Destination $Target -Verbose:$Verbosity
         }
-        Else
-        {
+        Else {
             Copy-Item $Source -Destination $Target -Force -Verbose:$Verbosity
         }
     }
