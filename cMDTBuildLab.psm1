@@ -1279,50 +1279,42 @@ class cMDTBuildUpdateBootImage
     {
         [bool]$match = $false
 
-        if ((Get-Content -Path "$($this.DeploymentSharePath)\Boot\CurrentBootImage.version" -ErrorAction Ignore) -eq $this.Version)
-        {
+        if ((Get-Content -Path "$($this.DeploymentSharePath)\Boot\CurrentBootImage.version" -ErrorAction Ignore) -eq $this.Version) {
             $match = $true
         }
-        
         return $match
     }
 
     [void] UpdateBootImage()
     {
-
         Import-MicrosoftDeploymentToolkitModule
-
         New-PSDrive -Name $this.PSDeploymentShare -PSProvider "MDTProvider" -Root $this.DeploymentSharePath -Verbose:$false
 
-        If ([string]::IsNullOrEmpty($($this.ExtraDirectory)))
-        {
+        If ([string]::IsNullOrEmpty($($this.ExtraDirectory))) {
             Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x64.ExtraDirectory -Value ""
             Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x86.ExtraDirectory -Value ""
         }
-        ElseIf (Invoke-TestPath -Path "$($this.DeploymentSharePath)\$($this.ExtraDirectory)")
-        {
-
+        ElseIf (Invoke-TestPath -Path "$($this.DeploymentSharePath)\$($this.ExtraDirectory)") {
             Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x64.ExtraDirectory -Value "$($this.DeploymentSharePath)\$($this.ExtraDirectory)"                        
             Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x86.ExtraDirectory -Value "$($this.DeploymentSharePath)\$($this.ExtraDirectory)"                       
         }
 
-        If ([string]::IsNullOrEmpty($($this.BackgroundFile)))
-        {
+        If ([string]::IsNullOrEmpty($($this.BackgroundFile))) {
             Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x64.BackgroundFile -Value ""
             Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x86.BackgroundFile -Value ""
         }
-
-        ElseIf(Invoke-TestPath -Path "$($this.DeploymentSharePath)\$($this.BackgroundFile)")
-        {
+        ElseIf (Invoke-TestPath -Path "$($this.DeploymentSharePath)\$($this.BackgroundFile)") {
              Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x64.BackgroundFile -Value "$($this.DeploymentSharePath)\$($this.BackgroundFile)"
              Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x86.BackgroundFile -Value "$($this.DeploymentSharePath)\$($this.BackgroundFile)"
         }
 
-        If($this.LiteTouchWIMDescription) { Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x64.LiteTouchWIMDescription -Value "$($this.LiteTouchWIMDescription) x64 $($this.Version)" }
-        Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x64.GenerateLiteTouchISO -Value $false
+        If ($this.LiteTouchWIMDescription) {
+			Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x64.LiteTouchWIMDescription -Value "$($this.LiteTouchWIMDescription) x64 $($this.Version)"
+			Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x86.LiteTouchWIMDescription -Value "$($this.LiteTouchWIMDescription) x86 $($this.Version)"
+		}
 
-        If($this.LiteTouchWIMDescription) { Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x86.LiteTouchWIMDescription -Value "$($this.LiteTouchWIMDescription) x86 $($this.Version)" }
-        Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x86.GenerateLiteTouchISO -Value $false
+        Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x64.GenerateLiteTouchISO -Value $false
+        Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x86.GenerateLiteTouchISO -Value $true
         
 
         #The Update-MDTDeploymentShare command crashes WMI when run from inside DSC. This section is a work around.
@@ -1341,43 +1333,14 @@ class cMDTBuildUpdateBootImage
         $job | Wait-Job -Timeout 900 
         $timedOutJobs = Get-Job -Name UpdateMDTDeploymentShare | Where-Object {$_.State -eq 'Running'} | Stop-Job -PassThru
 
-        If ($timedOutJobs)
-        {
+        If ($timedOutJobs) {
             Write-Error "Update-MDTDeploymentShare job exceeded timeout limit of 900 seconds and was aborted"
         }
-        Else
-        {
+        Else {
             Set-Content -Path "$($this.DeploymentSharePath)\Boot\CurrentBootImage.version" -Value "$($this.Version)"
         }
     }
-    
-    
 }
-
-<#
-Function Compare-Version
-{
-    [CmdletBinding()]
-    [OutputType([bool])]
-    param(
-        [Parameter(Mandatory=$True)]
-        [ValidateNotNullorEmpty()]
-        [string]$Source,
-        [Parameter(Mandatory=$True)]
-        [ValidateNotNullorEmpty()]
-        [string]$Target
-    )
-
-    [bool]$match = $false
-
-    if ((Get-Content -Path $Source) -eq $Target)
-    {
-        $match = $true
-    }
-
-    return $match
-}
-#>
 
 Function Import-MicrosoftDeploymentToolkitModule
 {
@@ -1531,31 +1494,3 @@ Function Invoke-WebDownload
         }
     }
 }
-
-<#
-Function New-ReferenceFile
-{
-    [CmdletBinding()]
-    param(
-        [Parameter(Mandatory=$True)]
-        [ValidateNotNullorEmpty()]
-        [string]$Path,
-        [Parameter()]
-        [string]$PSDriveName,
-        [Parameter()]
-        [string]$PSDrivePath
-    )
-    if (($PSDrivePath) -and ($PSDriveName))
-    {
-
-        Import-MicrosoftDeploymentToolkitModule
-        New-PSDrive -Name $PSDriveName -PSProvider "MDTProvider" -Root $PSDrivePath -Verbose:$false | `
-        New-Item -Type File -Path $Path -Force -Verbose:$False     
-    }
-    else
-    {
-
-        New-Item -Type File -Path $Path -Force -Verbose:$False  
-    }
-}
-#>

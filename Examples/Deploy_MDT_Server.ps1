@@ -487,8 +487,6 @@ UserExit=LoadKVPInWinPE.vbs
         ForEach ($Image in $Node.BootImage)   
         {
 
-            [string]$Ensure                   = ""
-            [string]$Name                     = ""
             [string]$Version                  = ""
             [string]$Path                     = ""
             [string]$ImageName                = ""
@@ -497,8 +495,6 @@ UserExit=LoadKVPInWinPE.vbs
             [string]$LiteTouchWIMDescription  = ""
 
             $Image.GetEnumerator() | % {
-                If ($_.key -eq "Ensure")                   { $Ensure                   = $_.value }
-                If ($_.key -eq "Name")                     { $Name                     = $_.value }
                 If ($_.key -eq "Version")                  { $Version                  = $_.value }
                 If ($_.key -eq "Path")                     { $Path                     = "$($Node.PSDrivePath)$($_.value)" }
                 If ($_.key -eq "ImageName")                { $ImageName                = $_.value }
@@ -518,9 +514,7 @@ UserExit=LoadKVPInWinPE.vbs
                 LiteTouchWIMDescription = $LiteTouchWIMDescription
                 DependsOn               = "[cMDTBuildDirectory]DeploymentFolder"
             }
-        
         }
-
     }
 }
 

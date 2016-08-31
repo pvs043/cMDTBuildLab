@@ -4,7 +4,7 @@ cMDTBuildLab is a Powershell Module to help automize deployment Windows Referenc
 cMDTBuildLab is a fork from cMDT module (https://github.com/addlevel/cMDT) by info@addlevel.se (c)
 
 ### Version
-0.0.9
+0.1.0
 
 ### Tech
 
@@ -442,15 +442,18 @@ cMDTBuildTaskSequenceCustomize AddFeatures {
 ```
 See more complex example in "/Examples" folder of this project.
 
-#### cMDTUpdateBootImage
-cMDTUpdateBootImage is a DscResource that enables creation and management of boot images with lifecycle management for MDT. Boot images can be defined and managed from a pull server according to Desired State Configuration principles.
+#### cMDTBuildUpdateBootImage
+cMDTBuildUpdateBootImage is a DscResource that enables creation and management of boot images with lifecycle management for MDT.
 
 Available parameters:
-* [Version] - Version number
-* [PSDeploymentShare] - Name of drive
-* [Force] - MDT path
-* [Compress] - MDT path
-* [DeploymentSharePath] - MDT path
+* <b>[Version]</b> - Version number
+* <b>[PSDeploymentShare]</b> - Name of MDT drive
+* <b>[Force]</b> - true/false
+* <b>[Compress]</b> - true/false
+* <b>[DeploymentSharePath]</b> - MDT path
+* <b>[ExtraDirectory]</b> - Extra Directory to add in WinPE
+* <b>[BackgroundFile]</b> - WinPE Background picture
+* <b>[LiteTouchWIMDescription]</b> - WinPE image description
 
 The DscResource will import applications according to the following principle:
 * Verify if the boot image exist in MDT, and if determine version
@@ -458,12 +461,15 @@ The DscResource will import applications according to the following principle:
 
 Desired State Configuration job example:
 ```sh
-cMDTUpdateBootImage updateBootImage {
-    Version = "1.0.0.0"
+cMDTBuildUpdateBootImage updateBootImage {
+    Version = "1.0"
     PSDeploymentShare = $PSDriveName
     Force = $true
     Compress = $true
     DeploymentSharePath = $PSDrivePath
+    ExtraDirectory = "Extra"
+    BackgroundFile = "%INSTALLDIR%\Samples\Background.bmp"
+    LiteTouchWIMDescription = "MDT Build Lab"
 }
 ```
 
