@@ -61,11 +61,8 @@ Configuration DeployMDTServerContract
 
 		WindowsFeature  DataDeduplication {
 			Ensure = "Present"
-			Name   = " FS-Data-Deduplication"
+			Name   = "FS-Data-Deduplication"
 		}
-
-		Enable-DedupVolume -Volume "E:"
-		Set-DedupVolume -Volume "E:" -MinimumFileAgeDays 3
 
         Package ADK {
             Ensure     = "Present"
@@ -541,6 +538,10 @@ Set-DscLocalConfigurationManager -Path "$PSScriptRoot\MDT-Deploy_MDT_Server" -Ve
 
 #Start DSC MOF job
 Start-DscConfiguration -Wait -Force -Verbose -ComputerName "$env:computername" -Path "$PSScriptRoot\MDT-Deploy_MDT_Server"
+
+#Set data deduplication
+Enable-DedupVolume -Volume "E:"
+Set-DedupVolume -Volume "E:" -MinimumFileAgeDays 3
 
 Write-Output ""
 Write-Output "Deploy MDT Server Builder completed!"
