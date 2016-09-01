@@ -19,7 +19,6 @@ Configuration DeployMDTServerContract
         $Credentials
     )
 
-    #NOTE: Every Module must be constant, DSC Bug?!
     Import-Module -Name PSDesiredStateConfiguration, xSmbShare, PowerShellAccessControl, cMDTBuildLab
     Import-DscResource –ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName xSmbShare
@@ -32,10 +31,6 @@ Configuration DeployMDTServerContract
         $SecurePassword = ConvertTo-SecureString $Node.MDTLocalPassword -AsPlainText -Force
         $UserName       = $Node.MDTLocalAccount
         $Credentials    = New-Object System.Management.Automation.PSCredential -ArgumentList $UserName, $SecurePassword
-
-        [string]$separator = ""
-        [bool]$weblink = $false
-        If ($Node.SourcePath -like "*/*") { $weblink = $true }
 
         LocalConfigurationManager  
         {
@@ -64,6 +59,11 @@ Configuration DeployMDTServerContract
             Name   = "Net-Framework-Core"
         }
 
+		WindowsFeature  DataDeduplication {
+			Ensure = "Present"
+			Name   = "FS-Data-Deduplication"
+		}
+
         Package ADK {
             Ensure     = "Present"
             Name       = "Windows Assessment and Deployment Kit - Windows 10"
@@ -81,12 +81,14 @@ Configuration DeployMDTServerContract
             ReturnCode = 0
         }
 
+		<#
         cMDTBuildDirectory TempFolder
         {
             Ensure    = "Present"
             Name      = $Node.TempLocation.Replace("$($Node.TempLocation.Substring(0,2))\","")
             Path      = $Node.TempLocation.Substring(0,2)
         }
+		#>
 
         cMDTBuildDirectory DeploymentFolder
         {
@@ -155,6 +157,17 @@ Configuration DeployMDTServerContract
                 PSDrivePath = $Node.PSDrivePath
                 DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
             }
+        }
+
+		# Task Sequence folder for autobuild
+        cMDTBuildDirectory "TSREF"
+        {
+            Ensure      = $Ensure
+            Name        = "REF"
+            Path        = "$($Node.PSDriveName):\Task Sequences"
+            PSDriveName = $Node.PSDriveName
+            PSDrivePath = $Node.PSDrivePath
+            DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
         }
 
         ForEach ($CurrentApplicationFolder in $Node.ApplicationFolderStructure)
@@ -487,21 +500,13 @@ UserExit=LoadKVPInWinPE.vbs
         ForEach ($Image in $Node.BootImage)   
         {
 
-            [string]$Ensure                   = ""
-            [string]$Name                     = ""
             [string]$Version                  = ""
-            [string]$Path                     = ""
-            [string]$ImageName                = ""
             [string]$ExtraDirectory           = ""
             [string]$BackgroundFile           = ""
             [string]$LiteTouchWIMDescription  = ""
 
             $Image.GetEnumerator() | % {
-                If ($_.key -eq "Ensure")                   { $Ensure                   = $_.value }
-                If ($_.key -eq "Name")                     { $Name                     = $_.value }
                 If ($_.key -eq "Version")                  { $Version                  = $_.value }
-                If ($_.key -eq "Path")                     { $Path                     = "$($Node.PSDrivePath)$($_.value)" }
-                If ($_.key -eq "ImageName")                { $ImageName                = $_.value }
                 If ($_.key -eq "ExtraDirectory")           { $ExtraDirectory           = $_.value }
                 If ($_.key -eq "BackgroundFile")           { $BackgroundFile           = $_.value }
                 If ($_.key -eq "LiteTouchWIMDescription")  { $LiteTouchWIMDescription  = $_.value }
@@ -518,9 +523,7 @@ UserExit=LoadKVPInWinPE.vbs
                 LiteTouchWIMDescription = $LiteTouchWIMDescription
                 DependsOn               = "[cMDTBuildDirectory]DeploymentFolder"
             }
-        
         }
-
     }
 }
 
@@ -535,6 +538,10 @@ Set-DscLocalConfigurationManager -Path "$PSScriptRoot\MDT-Deploy_MDT_Server" -Ve
 
 #Start DSC MOF job
 Start-DscConfiguration -Wait -Force -Verbose -ComputerName "$env:computername" -Path "$PSScriptRoot\MDT-Deploy_MDT_Server"
+
+#Set data deduplication
+Enable-DedupVolume -Volume "E:"
+Set-DedupVolume -Volume "E:" -MinimumFileAgeDays 3
 
 Write-Output ""
 Write-Output "Deploy MDT Server Builder completed!"

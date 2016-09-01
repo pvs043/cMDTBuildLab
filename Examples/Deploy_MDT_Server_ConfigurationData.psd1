@@ -25,7 +25,7 @@
             MDTLocalPassword   = "P@ssw0rd"
 
             #Download and extraction temporary folder
-            TempLocation       = "E:\Temp"
+            #TempLocation       = "E:\Temp"
 
             #MDT deoployment share paths
             PSDriveName        = "MDT001"
@@ -1055,17 +1055,12 @@
             #Boot image creation and management
             BootImage  = @(
                 @{  
-                    Ensure     = "Present"
-                    Name       = "BootImage"
-                    Version    = "1.0.0.0"
-                    Path       = "\Boot\LiteTouchPE_x64.wim"
-                    ImageName  = "LiteTouchTest X64"
-                    #ExtraDirectory = "PEExtraFiles"
-                    #BackgroundFile = "PEExtraFiles\background.bmp"
-                    LiteTouchWIMDescription = "Customer Deployment"
+                    Version    = "1.0"
+                    ExtraDirectory = "Extra"
+                    BackgroundFile = "%INSTALLDIR%\Samples\Background.bmp"
+                    LiteTouchWIMDescription = "MDT Build Lab"
                 }
             )
         }
-
     ); 
 }

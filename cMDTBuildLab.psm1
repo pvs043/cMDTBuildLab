@@ -808,25 +808,9 @@ class cMDTBuildPreReqs
 		Copy-Item -Path $Source -Destination $Target
 	}
 
-    [void] ExtractFile($Source,$Target)
-    {
-        Write-Verbose "      Extracting file to $($Target)"
-        Expand-Archive $Source -DestinationPath $Target -Force
-    }
-
-    [void] CleanTempDirectory($Object)
-    {
-        Remove-Item -Path $Object -Force -Recurse -Verbose:$False
-    }
-
     [void] RemoveDirectory($referencefile = "")
     {
         Remove-Item -Path $this.DownloadPath -Force -Verbose     
-    }
-
-    [void] RemoveReferenceFile($File)
-    {
-        Remove-Item -Path $File -Force -Verbose:$False
     }
 }
 
@@ -1279,50 +1263,48 @@ class cMDTBuildUpdateBootImage
     {
         [bool]$match = $false
 
-        if ((Get-Content -Path "$($this.DeploymentSharePath)\Boot\CurrentBootImage.version" -ErrorAction Ignore) -eq $this.Version)
-        {
+        if ((Get-Content -Path "$($this.DeploymentSharePath)\Boot\CurrentBootImage.version" -ErrorAction Ignore) -eq $this.Version) {
             $match = $true
         }
-        
         return $match
     }
 
     [void] UpdateBootImage()
     {
-
         Import-MicrosoftDeploymentToolkitModule
-
         New-PSDrive -Name $this.PSDeploymentShare -PSProvider "MDTProvider" -Root $this.DeploymentSharePath -Verbose:$false
 
-        If ([string]::IsNullOrEmpty($($this.ExtraDirectory)))
-        {
+        If ([string]::IsNullOrEmpty($($this.ExtraDirectory))) {
             Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x64.ExtraDirectory -Value ""
             Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x86.ExtraDirectory -Value ""
         }
-        ElseIf (Invoke-TestPath -Path "$($this.DeploymentSharePath)\$($this.ExtraDirectory)")
-        {
-
+        ElseIf (Invoke-TestPath -Path "$($this.DeploymentSharePath)\$($this.ExtraDirectory)") {
             Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x64.ExtraDirectory -Value "$($this.DeploymentSharePath)\$($this.ExtraDirectory)"                        
             Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x86.ExtraDirectory -Value "$($this.DeploymentSharePath)\$($this.ExtraDirectory)"                       
         }
 
-        If ([string]::IsNullOrEmpty($($this.BackgroundFile)))
-        {
+        If ([string]::IsNullOrEmpty($($this.BackgroundFile))) {
             Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x64.BackgroundFile -Value ""
             Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x86.BackgroundFile -Value ""
         }
-
-        ElseIf(Invoke-TestPath -Path "$($this.DeploymentSharePath)\$($this.BackgroundFile)")
-        {
+        ElseIf (Invoke-TestPath -Path "$($this.DeploymentSharePath)\$($this.BackgroundFile)") {
              Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x64.BackgroundFile -Value "$($this.DeploymentSharePath)\$($this.BackgroundFile)"
              Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x86.BackgroundFile -Value "$($this.DeploymentSharePath)\$($this.BackgroundFile)"
         }
+		Else {
+             Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x64.BackgroundFile -Value $this.BackgroundFile
+             Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x86.BackgroundFile -Value $this.BackgroundFile
+		}
 
-        If($this.LiteTouchWIMDescription) { Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x64.LiteTouchWIMDescription -Value "$($this.LiteTouchWIMDescription) x64 $($this.Version)" }
+        If ($this.LiteTouchWIMDescription) {
+			Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x64.LiteTouchWIMDescription -Value "$($this.LiteTouchWIMDescription) x64 $($this.Version)"
+			Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x86.LiteTouchWIMDescription -Value "$($this.LiteTouchWIMDescription) x86 $($this.Version)"
+			Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x64.LiteTouchISOName -Value "$($this.LiteTouchWIMDescription)_x64.iso".Replace(' ','_')
+			Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x86.LiteTouchISOName -Value "$($this.LiteTouchWIMDescription)_x86.iso".Replace(' ','_')
+		}
+
         Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x64.GenerateLiteTouchISO -Value $false
-
-        If($this.LiteTouchWIMDescription) { Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x86.LiteTouchWIMDescription -Value "$($this.LiteTouchWIMDescription) x86 $($this.Version)" }
-        Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x86.GenerateLiteTouchISO -Value $false
+        Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x86.GenerateLiteTouchISO -Value $true
         
 
         #The Update-MDTDeploymentShare command crashes WMI when run from inside DSC. This section is a work around.
@@ -1341,48 +1323,18 @@ class cMDTBuildUpdateBootImage
         $job | Wait-Job -Timeout 900 
         $timedOutJobs = Get-Job -Name UpdateMDTDeploymentShare | Where-Object {$_.State -eq 'Running'} | Stop-Job -PassThru
 
-        If ($timedOutJobs)
-        {
+        If ($timedOutJobs) {
             Write-Error "Update-MDTDeploymentShare job exceeded timeout limit of 900 seconds and was aborted"
         }
-        Else
-        {
+        Else {
             Set-Content -Path "$($this.DeploymentSharePath)\Boot\CurrentBootImage.version" -Value "$($this.Version)"
         }
     }
-    
-    
 }
-
-<#
-Function Compare-Version
-{
-    [CmdletBinding()]
-    [OutputType([bool])]
-    param(
-        [Parameter(Mandatory=$True)]
-        [ValidateNotNullorEmpty()]
-        [string]$Source,
-        [Parameter(Mandatory=$True)]
-        [ValidateNotNullorEmpty()]
-        [string]$Target
-    )
-
-    [bool]$match = $false
-
-    if ((Get-Content -Path $Source) -eq $Target)
-    {
-        $match = $true
-    }
-
-    return $match
-}
-#>
 
 Function Import-MicrosoftDeploymentToolkitModule
 {
-    If (-Not(Get-Module MicrosoftDeploymentToolkit))
-    {
+    If ( -Not (Get-Module MicrosoftDeploymentToolkit) ) {
         Import-Module "$env:ProgramFiles\Microsoft Deployment Toolkit\Bin\MicrosoftDeploymentToolkit.psd1" -ErrorAction Stop -Global -Verbose:$False
     }
 }
@@ -1401,10 +1353,8 @@ Function Invoke-ExpandArchive
     )
 
     [bool]$Verbosity
-    If($PSBoundParameters.Verbose)
-    { $Verbosity = $True }
-    Else
-    { $Verbosity = $False }
+    If ($PSBoundParameters.Verbose) { $Verbosity = $True }
+    Else { $Verbosity = $False }
 
     Write-Verbose "Expanding archive $($Source) to $($Target)"
     Expand-Archive $Source -DestinationPath $Target -Force -Verbose:$Verbosity
@@ -1425,21 +1375,15 @@ Function Invoke-RemovePath
     )
 
     [bool]$Verbosity
-    If($PSBoundParameters.Verbose)
-    { $Verbosity = $True }
-    Else
-    { $Verbosity = $False }
+    If ($PSBoundParameters.Verbose) { $Verbosity = $True }
+    Else { $Verbosity = $False }
 
-    if (($PSDrivePath) -and ($PSDriveName))
-    {
-
+    if (($PSDrivePath) -and ($PSDriveName)) {
         Import-MicrosoftDeploymentToolkitModule
         New-PSDrive -Name $PSDriveName -PSProvider "MDTProvider" -Root $PSDrivePath -Verbose:$False | `
         Remove-Item -Path $Path -Force -Verbose:$Verbosity
     }
-    else
-    {
-
+    else {
         Remove-Item -Path $Path -Force -Verbose:$Verbosity
     }
 }
@@ -1460,23 +1404,18 @@ Function Invoke-TestPath
 
     [bool]$present = $false
 
-    if (($PSDrivePath) -and ($PSDriveName))
-    {
+    if (($PSDrivePath) -and ($PSDriveName)) {
         Import-MicrosoftDeploymentToolkitModule
         if (New-PSDrive -Name $PSDriveName -PSProvider "MDTProvider" -Root $PSDrivePath -Verbose:$false | `
-            Test-Path -Path $Path -ErrorAction Ignore)
-        {
+            Test-Path -Path $Path -ErrorAction Ignore) {
             $present = $true
         }        
     }
-    else
-    {
-        if (Test-Path -Path $Path -ErrorAction Ignore)
-        {
+    else {
+        if (Test-Path -Path $Path -ErrorAction Ignore) {
             $present = $true
         }
     }
-
     return $present
 }
 
@@ -1494,68 +1433,30 @@ Function Invoke-WebDownload
     )
 
     [bool]$Verbosity
-    If($PSBoundParameters.Verbose)
-    { $Verbosity = $True }
-    Else
-    { $Verbosity = $False }
+    If ($PSBoundParameters.Verbose) { $Verbosity = $True }
+    Else { $Verbosity = $False }
 
-    If ($Source -like "*/*")
-    {
-        If (Get-Service BITS | Where-Object {$_.status -eq "running"})
-        {
-
+    If ($Source -like "*/*") {
+        If ( Get-Service BITS | Where-Object {$_.status -eq "running"} ) {
             If ($Verbosity) { Write-Verbose "Downloading file $($Source) via Background Intelligent Transfer Service" }
             Import-Module BitsTransfer -Verbose:$false
             Start-BitsTransfer -Source $Source -Destination $Target -Verbose:$Verbosity
             Remove-Module BitsTransfer -Verbose:$false
         }
-        else
-        {
-
+        else {
             If ($Verbosity) { Write-Verbose "Downloading file $($Source) via System.Net.WebClient" }
             $WebClient = New-Object System.Net.WebClient
             $WebClient.DownloadFile($Source, $Target)
         }
     }
-    Else
-    {
-        If (Get-Service BITS | Where-Object {$_.status -eq "running"})
-        {
+    Else {
+        If (Get-Service BITS | Where-Object {$_.status -eq "running"}) {
             If ($Verbosity) { Write-Verbose "Downloading file $($Source) via Background Intelligent Transfer Service" }
             Import-Module BitsTransfer -Verbose:$false
             Start-BitsTransfer -Source $Source -Destination $Target -Verbose:$Verbosity
         }
-        Else
-        {
+        Else {
             Copy-Item $Source -Destination $Target -Force -Verbose:$Verbosity
         }
     }
 }
-
-<#
-Function New-ReferenceFile
-{
-    [CmdletBinding()]
-    param(
-        [Parameter(Mandatory=$True)]
-        [ValidateNotNullorEmpty()]
-        [string]$Path,
-        [Parameter()]
-        [string]$PSDriveName,
-        [Parameter()]
-        [string]$PSDrivePath
-    )
-    if (($PSDrivePath) -and ($PSDriveName))
-    {
-
-        Import-MicrosoftDeploymentToolkitModule
-        New-PSDrive -Name $PSDriveName -PSProvider "MDTProvider" -Root $PSDrivePath -Verbose:$false | `
-        New-Item -Type File -Path $Path -Force -Verbose:$False     
-    }
-    else
-    {
-
-        New-Item -Type File -Path $Path -Force -Verbose:$False  
-    }
-}
-#>
