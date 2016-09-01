@@ -701,6 +701,14 @@ class cMDTBuildPreReqs
             Folder = "Scripts"
             File = "Scripts.zip"
         }
+		<#
+		@{
+			Name = APP-V
+			URI = "Sources\
+			Folder = "APPV51x86x64"
+			File = "appv_client_setup.exe"
+		}
+		#>
     )
     
     [void] Set()
