@@ -25,7 +25,7 @@
             MDTLocalPassword   = "P@ssw0rd"
 
             #Download and extraction temporary folder
-            TempLocation       = "E:\Temp"
+            #TempLocation       = "E:\Temp"
 
             #MDT deoployment share paths
             PSDriveName        = "MDT001"

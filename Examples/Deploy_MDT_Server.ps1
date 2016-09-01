@@ -19,7 +19,6 @@ Configuration DeployMDTServerContract
         $Credentials
     )
 
-    #NOTE: Every Module must be constant, DSC Bug?!
     Import-Module -Name PSDesiredStateConfiguration, xSmbShare, PowerShellAccessControl, cMDTBuildLab
     Import-DscResource –ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName xSmbShare
@@ -32,10 +31,6 @@ Configuration DeployMDTServerContract
         $SecurePassword = ConvertTo-SecureString $Node.MDTLocalPassword -AsPlainText -Force
         $UserName       = $Node.MDTLocalAccount
         $Credentials    = New-Object System.Management.Automation.PSCredential -ArgumentList $UserName, $SecurePassword
-
-        [string]$separator = ""
-        [bool]$weblink = $false
-        If ($Node.SourcePath -like "*/*") { $weblink = $true }
 
         LocalConfigurationManager  
         {
@@ -64,6 +59,14 @@ Configuration DeployMDTServerContract
             Name   = "Net-Framework-Core"
         }
 
+		WindowsFeature  DataDeduplication {
+			Ensure = "Present"
+			Name   = " FS-Data-Deduplication"
+		}
+
+		Enable-DedupVolume -Volume "E:"
+		Set-DedupVolume -Volume "E:" -MinimumFileAgeDays 3
+
         Package ADK {
             Ensure     = "Present"
             Name       = "Windows Assessment and Deployment Kit - Windows 10"
@@ -81,12 +84,14 @@ Configuration DeployMDTServerContract
             ReturnCode = 0
         }
 
+		<#
         cMDTBuildDirectory TempFolder
         {
             Ensure    = "Present"
             Name      = $Node.TempLocation.Replace("$($Node.TempLocation.Substring(0,2))\","")
             Path      = $Node.TempLocation.Substring(0,2)
         }
+		#>
 
         cMDTBuildDirectory DeploymentFolder
         {
@@ -155,6 +160,17 @@ Configuration DeployMDTServerContract
                 PSDrivePath = $Node.PSDrivePath
                 DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
             }
+        }
+
+		# Task Sequence folder for autobuild
+        cMDTBuildDirectory "TSREF"
+        {
+            Ensure      = $Ensure
+            Name        = "REF"
+            Path        = "$($Node.PSDriveName):\Task Sequences"
+            PSDriveName = $Node.PSDriveName
+            PSDrivePath = $Node.PSDrivePath
+            DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
         }
 
         ForEach ($CurrentApplicationFolder in $Node.ApplicationFolderStructure)

@@ -808,25 +808,9 @@ class cMDTBuildPreReqs
 		Copy-Item -Path $Source -Destination $Target
 	}
 
-    [void] ExtractFile($Source,$Target)
-    {
-        Write-Verbose "      Extracting file to $($Target)"
-        Expand-Archive $Source -DestinationPath $Target -Force
-    }
-
-    [void] CleanTempDirectory($Object)
-    {
-        Remove-Item -Path $Object -Force -Recurse -Verbose:$False
-    }
-
     [void] RemoveDirectory($referencefile = "")
     {
         Remove-Item -Path $this.DownloadPath -Force -Verbose     
-    }
-
-    [void] RemoveReferenceFile($File)
-    {
-        Remove-Item -Path $File -Force -Verbose:$False
     }
 }
 
