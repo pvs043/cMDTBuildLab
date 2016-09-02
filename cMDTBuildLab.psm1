@@ -701,6 +701,12 @@ class cMDTBuildPreReqs
             Folder = "Scripts"
             File = "Scripts.zip"
         }
+		@{
+			Name = "APPV51"
+			URI = "Sources\appv_client_setup.exe.txt"
+			Folder = "APPV51x86x64"
+			File = "appv_client_setup.exe.txt"
+		}
     )
     
     [void] Set()
@@ -979,7 +985,12 @@ class cMDTBuildTaskSequenceCustomize
 
 			# Set common attributes
 			$newStep.SetAttribute("name", $this.Name)
-			$newStep.SetAttribute("disable", "false")
+			if ($this.Disable -ne "") {
+				$newStep.SetAttribute("disable", $this.Disable)
+			}
+			else {
+				$newStep.SetAttribute("disable", "false")
+			}
 			$newStep.SetAttribute("continueOnError", "false")
 			$newStep.SetAttribute("description", "")
 

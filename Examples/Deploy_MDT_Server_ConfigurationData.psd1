@@ -202,7 +202,6 @@
                     CommandLine           = "powershell.exe -ExecutionPolicy Bypass -File Customize-DefaultProfile.ps1"
                     ApplicationSourcePath = "Set-Startlayout"
 				}
-				<#
                 @{
                     Ensure                = "Present"
                     Name                  = "Install - APP-V Client 5.1 - x86-x64"
@@ -210,7 +209,6 @@
                     CommandLine           = "appv_client_setup.exe /ACCEPTEULA /q /ENABLEPACKAGESCRIPTS=1"
                     ApplicationSourcePath = "APPV51x86x64"
                 }
-				#>
             )
 
             #Task sqeuences; are dependent on imported Operating system and Applications in MDT
@@ -302,22 +300,30 @@
 							SubGroup   = "Install APP-V 5.1"
 							AddAfter   = "Install - Windows Management Framework 3.0 - x86"
 						}
-						<#
 						@{
 							Name       = "Install - APP-V Client 5.1 - x86-x64"
 							Type       = "Install Application"
 							GroupName  = "State Restore"
 							SubGroup   = "Install APP-V 5.1"
+							Disable    = "true"
 							AddAfter   = "Restart Computer 1"
 						}
 						@{
-							Name       = "Restart Computer"
-							Type       = "Restart Computer 2"
+							Name       = "Restart Computer 2"
+							Type       = "Restart Computer"
 							GroupName  = "State Restore"
 							SubGroup   = "Install APP-V 5.1"
+							Disable    = "true"
 							AddAfter   = "Install - APP-V Client 5.1 - x86-x64"
 						}
-						#>
+						@{
+							Name       = "Suspend"
+							Type       = "Run Command Line"
+							GroupName  = "State Restore"
+							Disable    = "true"
+							Command    = 'cscript.exe "%SCRIPTROOT%\LTISuspend.wsf"'
+							AddAfter   = "Opt In to CEIP and WER"
+						}
 						@{
 							Name       = "Action - CleanupBeforeSysprep"
 							Type       = "Install Application"
@@ -420,12 +426,12 @@
 							SubGroup   = "Install APP-V 5.1"
 							AddAfter   = "Install - Windows Management Framework 3.0 - x64"
 						}
-						<#
 						@{
 							Name       = "Install - APP-V Client 5.1 - x86-x64"
 							Type       = "Install Application"
 							GroupName  = "State Restore"
 							SubGroup   = "Install APP-V 5.1"
+							Disable    = "true"
 							AddAfter   = "Restart Computer 1"
 						}
 						@{
@@ -433,9 +439,17 @@
 							Type       = "Restart Computer"
 							GroupName  = "State Restore"
 							SubGroup   = "Install APP-V 5.1"
+							Disable    = "true"
 							AddAfter   = "Install - APP-V Client 5.1 - x86-x64"
 						}
-						#>
+						@{
+							Name       = "Suspend"
+							Type       = "Run Command Line"
+							GroupName  = "State Restore"
+							Disable    = "true"
+							Command    = 'cscript.exe "%SCRIPTROOT%\LTISuspend.wsf"'
+							AddAfter   = "Opt In to CEIP and WER"
+						}
 						@{
 							Name       = "Action - CleanupBeforeSysprep"
 							Type       = "Install Application"
@@ -527,7 +541,6 @@
 							SubGroup   = "Custom Tasks (Pre-Windows Update)"
 							AddAfter   = "Configure - Set Control+Shift Keyboard Toggle"
 						}
-						<#
 						@{
 							Name       = "Install APP-V 5.1"
 							Type       = "Group"
@@ -539,15 +552,24 @@
 							Type       = "Install Application"
 							GroupName  = "State Restore"
 							SubGroup   = "Install APP-V 5.1"
+							Disable    = "true"
 						}
 						@{
 							Name       = "Restart Computer 1"
 							Type       = "Restart Computer"
 							GroupName  = "State Restore"
 							SubGroup   = "Install APP-V 5.1"
+							Disable    = "true"
 							AddAfter   = "Install - APP-V Client 5.1 - x86-x64"
 						}
-						#>
+						@{
+							Name       = "Suspend"
+							Type       = "Run Command Line"
+							GroupName  = "State Restore"
+							Disable    = "true"
+							Command    = 'cscript.exe "%SCRIPTROOT%\LTISuspend.wsf"'
+							AddAfter   = "Opt In to CEIP and WER"
+						}
 						@{
 							Name       = "Action - CleanupBeforeSysprep"
 							Type       = "Install Application"
@@ -639,7 +661,6 @@
 							SubGroup   = "Custom Tasks (Pre-Windows Update)"
 							AddAfter   = "Configure - Set Control+Shift Keyboard Toggle"
 						}
-						<#
 						@{
 							Name       = "Install APP-V 5.1"
 							Type       = "Group"
@@ -651,15 +672,24 @@
 							Type       = "Install Application"
 							GroupName  = "State Restore"
 							SubGroup   = "Install APP-V 5.1"
+							Disable    = "true"
 						}
 						@{
 							Name       = "Restart Computer 1"
 							Type       = "Restart Computer"
 							GroupName  = "State Restore"
 							SubGroup   = "Install APP-V 5.1"
+							Disable    = "true"
 							AddAfter   = "Install - APP-V Client 5.1 - x86-x64"
 						}
-						#>
+						@{
+							Name       = "Suspend"
+							Type       = "Run Command Line"
+							GroupName  = "State Restore"
+							Disable    = "true"
+							Command    = 'cscript.exe "%SCRIPTROOT%\LTISuspend.wsf"'
+							AddAfter   = "Opt In to CEIP and WER"
+						}
 						@{
 							Name       = "Action - CleanupBeforeSysprep"
 							Type       = "Install Application"
@@ -753,6 +783,14 @@
 							Command    = 'powershell.exe -ExecutionPolicy ByPass -Command "Enable-Appv; Set-AppvClientConfiguration -EnablePackageScripts 1"'
 						}
 						@{
+							Name       = "Suspend"
+							Type       = "Run Command Line"
+							GroupName  = "State Restore"
+							Disable    = "true"
+							Command    = 'cscript.exe "%SCRIPTROOT%\LTISuspend.wsf"'
+							AddAfter   = "Opt In to CEIP and WER"
+						}
+						@{
 							Name       = "Action - CleanupBeforeSysprep"
 							Type       = "Install Application"
 							GroupName  = "State Restore"
@@ -843,6 +881,14 @@
 							SubGroup   = "Custom Tasks (Pre-Windows Update)"
 							AddAfter   = "Configure - Set Control+Shift Keyboard Toggle"
 							Command    = 'powershell.exe -ExecutionPolicy ByPass -Command "Enable-Appv; Set-AppvClientConfiguration -EnablePackageScripts 1"'
+						}
+						@{
+							Name       = "Suspend"
+							Type       = "Run Command Line"
+							GroupName  = "State Restore"
+							Disable    = "true"
+							Command    = 'cscript.exe "%SCRIPTROOT%\LTISuspend.wsf"'
+							AddAfter   = "Opt In to CEIP and WER"
 						}
 						@{
 							Name       = "Action - CleanupBeforeSysprep"
