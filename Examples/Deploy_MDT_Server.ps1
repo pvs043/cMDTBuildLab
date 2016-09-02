@@ -39,9 +39,8 @@ Configuration DeployMDTServerContract
         }
 
         cMDTBuildPreReqs MDTPreReqs {
-            Ensure        = "Present"            
-            DownloadPath  = $Node.SourcePath
-			DownloadFiles = $Node.DownloadFiles
+            Ensure       = "Present"            
+            DownloadPath = $Node.SourcePath
         }
 
         User MDTAccessAccount {
@@ -81,6 +80,15 @@ Configuration DeployMDTServerContract
             ProductId  = "F172B6C7-45DD-4C22-A5BF-1B2C084CADEF"
             ReturnCode = 0
         }
+
+		<#
+        cMDTBuildDirectory TempFolder
+        {
+            Ensure    = "Present"
+            Name      = $Node.TempLocation.Replace("$($Node.TempLocation.Substring(0,2))\","")
+            Path      = $Node.TempLocation.Substring(0,2)
+        }
+		#>
 
         cMDTBuildDirectory DeploymentFolder
         {
