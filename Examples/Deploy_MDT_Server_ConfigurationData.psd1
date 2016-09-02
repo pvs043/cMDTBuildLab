@@ -309,8 +309,8 @@
 							AddAfter   = "Restart Computer 1"
 						}
 						@{
-							Name       = "Restart Computer"
-							Type       = "Restart Computer 2"
+							Name       = "Restart Computer 2"
+							Type       = "Restart Computer"
 							GroupName  = "State Restore"
 							SubGroup   = "Install APP-V 5.1"
 							Disable    = "true"
