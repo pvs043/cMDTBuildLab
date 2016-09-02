@@ -701,6 +701,8 @@ class cMDTBuildPreReqs
             Folder = "Scripts"
             File = "Scripts.zip"
         }
+		# Replace "appv_client_setup.exe.txt" with "appv_client_setup.exe"
+		# after copying original appv_client_setup.exe to \Source folder of project
 		@{
 			Name = "APPV51"
 			URI = "Sources\appv_client_setup.exe.txt"
