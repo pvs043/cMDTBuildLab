@@ -319,6 +319,14 @@
 						}
 						#>
 						@{
+							Name       = "Suspend"
+							Type       = "Run Command Line"
+							GroupName  = "State Restore"
+							Disable    = "true"
+							Command    = 'cscript.exe "%SCRIPTROOT%\LTISuspend.wsf"'
+							AddAfter   = "Opt In to CEIP and WER"
+						}
+						@{
 							Name       = "Action - CleanupBeforeSysprep"
 							Type       = "Install Application"
 							GroupName  = "State Restore"
@@ -437,6 +445,14 @@
 						}
 						#>
 						@{
+							Name       = "Suspend"
+							Type       = "Run Command Line"
+							GroupName  = "State Restore"
+							Disable    = "true"
+							Command    = 'cscript.exe "%SCRIPTROOT%\LTISuspend.wsf"'
+							AddAfter   = "Opt In to CEIP and WER"
+						}
+						@{
 							Name       = "Action - CleanupBeforeSysprep"
 							Type       = "Install Application"
 							GroupName  = "State Restore"
@@ -548,6 +564,14 @@
 							AddAfter   = "Install - APP-V Client 5.1 - x86-x64"
 						}
 						#>
+						@{
+							Name       = "Suspend"
+							Type       = "Run Command Line"
+							GroupName  = "State Restore"
+							Disable    = "true"
+							Command    = 'cscript.exe "%SCRIPTROOT%\LTISuspend.wsf"'
+							AddAfter   = "Opt In to CEIP and WER"
+						}
 						@{
 							Name       = "Action - CleanupBeforeSysprep"
 							Type       = "Install Application"
@@ -661,6 +685,14 @@
 						}
 						#>
 						@{
+							Name       = "Suspend"
+							Type       = "Run Command Line"
+							GroupName  = "State Restore"
+							Disable    = "true"
+							Command    = 'cscript.exe "%SCRIPTROOT%\LTISuspend.wsf"'
+							AddAfter   = "Opt In to CEIP and WER"
+						}
+						@{
 							Name       = "Action - CleanupBeforeSysprep"
 							Type       = "Install Application"
 							GroupName  = "State Restore"
@@ -753,6 +785,14 @@
 							Command    = 'powershell.exe -ExecutionPolicy ByPass -Command "Enable-Appv; Set-AppvClientConfiguration -EnablePackageScripts 1"'
 						}
 						@{
+							Name       = "Suspend"
+							Type       = "Run Command Line"
+							GroupName  = "State Restore"
+							Disable    = "true"
+							Command    = 'cscript.exe "%SCRIPTROOT%\LTISuspend.wsf"'
+							AddAfter   = "Opt In to CEIP and WER"
+						}
+						@{
 							Name       = "Action - CleanupBeforeSysprep"
 							Type       = "Install Application"
 							GroupName  = "State Restore"
@@ -843,6 +883,14 @@
 							SubGroup   = "Custom Tasks (Pre-Windows Update)"
 							AddAfter   = "Configure - Set Control+Shift Keyboard Toggle"
 							Command    = 'powershell.exe -ExecutionPolicy ByPass -Command "Enable-Appv; Set-AppvClientConfiguration -EnablePackageScripts 1"'
+						}
+						@{
+							Name       = "Suspend"
+							Type       = "Run Command Line"
+							GroupName  = "State Restore"
+							Disable    = "true"
+							Command    = 'cscript.exe "%SCRIPTROOT%\LTISuspend.wsf"'
+							AddAfter   = "Opt In to CEIP and WER"
 						}
 						@{
 							Name       = "Action - CleanupBeforeSysprep"

@@ -987,7 +987,12 @@ class cMDTBuildTaskSequenceCustomize
 
 			# Set common attributes
 			$newStep.SetAttribute("name", $this.Name)
-			$newStep.SetAttribute("disable", "false")
+			if ($this.Disable -ne "") {
+				$newStep.SetAttribute("disable", $this.Disable)
+			}
+			else {
+				$newStep.SetAttribute("disable", "false")
+			}
 			$newStep.SetAttribute("continueOnError", "false")
 			$newStep.SetAttribute("description", "")
 
