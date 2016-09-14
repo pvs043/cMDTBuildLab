@@ -1,11 +1,7 @@
-Replace this file with the original client of APP-V 5.1 (appv_client_setup.exe) and change cMdtBuildPreReqs resource at cMDTBuildLab.psm1:
+Replace this file with the original client of APP-V 5.1 (appv_client_setup.exe)
+and change cMdtBuildPreReqs resource at cMDTBuildLab.psm1:
 
-        @{
-            Name = "Scripts"
-            URI = "Sources\Scripts.zip"
-            Folder = "Scripts"
-            File = "Scripts.zip"
-        }
+[...]
 		@{
 			Name = "APPV51"
 			URI = "Sources\appv_client_setup.exe"
@@ -17,4 +13,4 @@ Replace this file with the original client of APP-V 5.1 (appv_client_setup.exe) 
     [void] Set()
     {
         Write-Verbose "Starting Set MDT PreReqs..."
-
+[...]

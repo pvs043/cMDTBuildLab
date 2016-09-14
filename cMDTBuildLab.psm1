@@ -532,16 +532,16 @@ class cMDTBuildPreReqs
             File = "adksetup.exe"
         }
         @{
-            #Version: 5 (Build: 5.1.50428.0)
+            #Version: 5 (Build: 5.1.50709.0)
 		    Name = "Silverlight_x64"
-            URI = "https://download.microsoft.com/download/1/F/6/1F637DB3-8EF9-4D96-A8F1-909DFD7C5E69/50428.00/Silverlight_x64.exe"
+			URI = "https://download.microsoft.com/download/7/7/6/7765A6A5-4B02-41DE-B7AF-067C92C581BD/50709.00/Silverlight_x64.exe"
             Folder = "Silverlight_x64"
             File = "Silverlight_x64.exe"
         }
         @{
-            #Version: 5 (Build: 5.1.50428.0)
+            #Version: 5 (Build: 5.1.50709.0)
 		    Name = "Silverlight_x86"
-            URI = "https://download.microsoft.com/download/1/F/6/1F637DB3-8EF9-4D96-A8F1-909DFD7C5E69/50428.00/Silverlight.exe"
+            URI = "https://download.microsoft.com/download/7/7/6/7765A6A5-4B02-41DE-B7AF-067C92C581BD/50709.00/Silverlight.exe"
             Folder = "Silverlight_x86"
             File = "Silverlight.exe"
         }
@@ -701,6 +701,8 @@ class cMDTBuildPreReqs
             Folder = "Scripts"
             File = "Scripts.zip"
         }
+		# Replace "appv_client_setup.exe.txt" with "appv_client_setup.exe"
+		# after copying original appv_client_setup.exe to \Source folder of project
 		@{
 			Name = "APPV51"
 			URI = "Sources\appv_client_setup.exe.txt"
