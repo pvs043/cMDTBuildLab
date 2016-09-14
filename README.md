@@ -4,7 +4,7 @@ cMDTBuildLab is a Powershell Module to help automize deployment Windows Referenc
 cMDTBuildLab is a fork from cMDT module (https://github.com/addlevel/cMDT) by info@addlevel.se (c)
 
 ### Version
-0.2.0
+0.3.0
 
 ### Tech
 
@@ -28,8 +28,8 @@ cMDTBuildLab uses a number of components and open resource kit modules. The foll
   Copy it to %ProgramFiles%\WindowsPowerShell\Modules\PowerShellAccessControl folder.
 
 The following prerequisites automatically downloaded with the cMDTBuildLab Module:
-* [MicrosoftDeploymentToolkit2013_x64] (https://download.microsoft.com/download/3/0/1/3012B93D-C445-44A9-8BFB-F28EB937B060/MicrosoftDeploymentToolkit2013_x64.msi) - Microsoft Deployment Toolkit (MDT) 2013 Update 2 (6.3.8330.1000)
-* [adksetup] (http://download.microsoft.com/download/9/A/E/9AE69DD5-BA93-44E0-864E-180F5E700AB4/adk/adksetup.exe) - Windows Assessment and Deployment Kit (10.1.14393.0)
+* [MicrosoftDeploymentToolkit2013_x64] (https://www.microsoft.com/en-us/download/details.aspx?id=50407) - Microsoft Deployment Toolkit (MDT) 2013 Update 2 (6.3.8330.1000)
+* [adksetup] (https://developer.microsoft.com/en-us/windows/hardware/windows-assessment-deployment-kit) - Windows Assessment and Deployment Kit 10, v.1607 (10.1.14393.0)
 * [Visual C++ runtimes] (https://support.microsoft.com/en-us/kb/2977003) (2005,2008,2010,2012,2013,2015)
 * [Microsoft Silverlight 5] (https://www.microsoft.com/getsilverlight/Get-Started/Install/Default.aspx)
 * [Windows Management Framewework 3.0] (https://www.microsoft.com/en-us/download/details.aspx?id=34595)
