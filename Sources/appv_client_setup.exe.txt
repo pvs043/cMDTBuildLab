@@ -1,5 +1,6 @@
 Replace this file with the original client of APP-V 5.1 (appv_client_setup.exe)
 and change cMdtBuildPreReqs resource at cMDTBuildLab.psm1:
+
 [...]
 		@{
 			Name = "APPV51"
