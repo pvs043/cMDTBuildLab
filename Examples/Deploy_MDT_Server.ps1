@@ -1,15 +1,12 @@
 ﻿$Modules    = @(
-
     @{
        Name    = "xSmbShare"
        Version = "1.1.0.0"
     },
-    
     @{
-       Name    = "PowerShellAccessControl"
-       Version = "3.0.135.20150413"
+       Name    = "cNtfsAccessControl"
+       Version = "1.3.0"
     }
-
 )
 
 Configuration DeployMDTServerContract
@@ -19,10 +16,10 @@ Configuration DeployMDTServerContract
         $Credentials
     )
 
-    Import-Module -Name PSDesiredStateConfiguration, xSmbShare, PowerShellAccessControl, cMDTBuildLab
+    Import-Module -Name PSDesiredStateConfiguration, xSmbShare, cNtfsAccessControl, cMDTBuildLab
     Import-DscResource –ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName xSmbShare
-    Import-DscResource -ModuleName PowerShellAccessControl
+    Import-DscResource -ModuleName cNtfsAccessControl
     Import-DscResource -ModuleName cMDTBuildLab
 
     node $AllNodes.Where{$_.Role -match "MDT Server"}.NodeName
@@ -81,15 +78,6 @@ Configuration DeployMDTServerContract
             ReturnCode = 0
         }
 
-		<#
-        cMDTBuildDirectory TempFolder
-        {
-            Ensure    = "Present"
-            Name      = $Node.TempLocation.Replace("$($Node.TempLocation.Substring(0,2))\","")
-            Path      = $Node.TempLocation.Substring(0,2)
-        }
-		#>
-
         cMDTBuildDirectory DeploymentFolder
         {
             Ensure    = "Present"
@@ -108,13 +96,35 @@ Configuration DeployMDTServerContract
             DependsOn             = "[cMDTBuildDirectory]DeploymentFolder"
         }
 
-        cAccessControlEntry AssignPermissions
+        cNtfsPermissionEntry AssignPermissionsMDT
         {
-            Path       = $Node.PSDrivePath
-            ObjectType = "Directory"
-            AceType    = "AccessAllowed"
+            Ensure = "Present"
+            Path   = $Node.PSDrivePath
             Principal  = "$env:COMPUTERNAME\$($Node.MDTLocalAccount)"
-            AccessMask = [System.Security.AccessControl.FileSystemRights]::FullControl
+            AccessControlInformation = @(
+                cNtfsAccessControlInformation {
+                    AccessControlType = "Allow"
+                    FileSystemRights = "ReadAndExecute"
+                    Inheritance = "ThisFolderSubfoldersAndFiles"
+                    NoPropagateInherit = $false
+                }
+            )
+            DependsOn  = "[cMDTBuildDirectory]DeploymentFolder"
+        }
+
+        cNtfsPermissionEntry AssignPermissionsCaptures
+        {
+            Ensure = "Present"
+            Path   = "$($Node.PSDrivePath)\Captures"
+            Principal  = "$env:COMPUTERNAME\$($Node.MDTLocalAccount)"
+            AccessControlInformation = @(
+                cNtfsAccessControlInformation {
+                    AccessControlType = "Allow"
+                    FileSystemRights = "Modify"
+                    Inheritance = "ThisFolderSubfoldersAndFiles"
+                    NoPropagateInherit = $false
+                }
+            )
             DependsOn  = "[cMDTBuildDirectory]DeploymentFolder"
         }
 
