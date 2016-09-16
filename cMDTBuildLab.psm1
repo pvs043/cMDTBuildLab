@@ -827,7 +827,7 @@ class cMDTBuildTaskSequence
 {
 
     [DscProperty(Mandatory)]
-    [Ensure] $Ensure
+    [Ensure]$Ensure
 
     [DscProperty(Key)]
     [string]$Name
@@ -884,6 +884,11 @@ class cMDTBuildTaskSequence
         Import-MicrosoftDeploymentToolkitModule
         New-PSDrive -Name $this.PSDriveName -PSProvider "MDTProvider" -Root $this.PSDrivePath -Verbose:$false
         Import-MDTTaskSequence -path $this.Path -Name $this.Name -Template $this.Template -Comments "Build Reference Image" -ID $this.ID -Version "1.0" -OperatingSystemPath $this.OSName -FullName "Windows User" -OrgName $this.OrgName -HomePage "about:blank" -Verbose
+		# Disable Windows autoupdate
+		$UnattendXML = "$($this.PSDrivePath)\control\$($this.ID)\Unattend.xml"
+		$unattend = Get-Content -Path $UnattendXML
+		$unattend = $unattend.Replace('<ProtectYourPC>1','<ProtectYourPC>3')
+		Set-Content -Path $UnattendXML -NoNewline
     }
 }
 
