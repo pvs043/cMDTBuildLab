@@ -38,7 +38,7 @@ The following prerequisites automatically downloaded with the cMDTBuildLab Modul
 * [Windows Management Framewework 5.0] (http://aka.ms/wmf5latest)
 
 This extra files included to module (\Sources\Extra.zip):
-* devcon.exe: tool from [Windows Driver Kit] (https://msdn.microsoft.com/en-us/windows/hardware/hh852365)
+* devcon.exe: tool from [Windows Driver Kit 8.1 Update 1] (https://www.microsoft.com/en-us/download/details.aspx?id=42273). This version of Toolkit must be used with VMs on Windows 2012 R2 Hyper-V host.
 * KVP (Key Value Pair Exchange) driver for WinPE. This extracted from VMGuest.iso image on Hyper-V host (\support\x86\Windows6.x-HyperVIntegrationServices-x86.cab).
 
 ### Installation
