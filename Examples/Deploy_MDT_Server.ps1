@@ -91,7 +91,7 @@ Configuration DeployMDTServerContract
             Ensure                = "Present"
             Name                  = $Node.PSDriveShareName
             Path                  = $Node.PSDrivePath
-            FullAccess            = "$env:COMPUTERNAME\$($Node.MDTLocalAccount)"
+            FullAccess            = "$($Node.NodeName)\$($Node.MDTLocalAccount)"
             FolderEnumerationMode = "AccessBased"
             DependsOn             = "[cMDTBuildDirectory]DeploymentFolder"
         }
@@ -100,7 +100,7 @@ Configuration DeployMDTServerContract
         {
             Ensure = "Present"
             Path   = $Node.PSDrivePath
-            Principal  = "$env:COMPUTERNAME\$($Node.MDTLocalAccount)"
+            Principal  = "$($Node.NodeName)\$($Node.MDTLocalAccount)"
             AccessControlInformation = @(
                 cNtfsAccessControlInformation {
                     AccessControlType = "Allow"
@@ -116,7 +116,7 @@ Configuration DeployMDTServerContract
         {
             Ensure = "Present"
             Path   = "$($Node.PSDrivePath)\Captures"
-            Principal  = "$env:COMPUTERNAME\$($Node.MDTLocalAccount)"
+            Principal  = "$($Node.NodeName)\$($Node.MDTLocalAccount)"
             AccessControlInformation = @(
                 cNtfsAccessControlInformation {
                     AccessControlType = "Allow"
@@ -134,7 +134,7 @@ Configuration DeployMDTServerContract
             Name        = $Node.PSDriveName
             Path        = $Node.PSDrivePath
             Description = $Node.PSDrivePath.Replace("$($Node.PSDrivePath.Substring(0,2))\","")
-            NetworkPath = "\\$($env:COMPUTERNAME)\$($Node.PSDriveShareName)"
+            NetworkPath = "\\$($Node.NodeName)\$($Node.PSDriveShareName)"
             DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
         }
 
@@ -496,7 +496,7 @@ SkipBDDWelcome=YES
 ;MDT Connect Account
 UserID=$($Node.MDTLocalAccount)
 UserPassword=$($Node.MDTLocalPassword)
-UserDomain=$($env:COMPUTERNAME)
+UserDomain=$($NodeNodeName)
 
 SubSection=ISVM-%IsVM%
 
