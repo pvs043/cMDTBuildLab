@@ -888,7 +888,7 @@ class cMDTBuildTaskSequence
 		$UnattendXML = "$($this.PSDrivePath)\control\$($this.ID)\Unattend.xml"
 		$unattend = Get-Content -Path $UnattendXML
 		$unattend = $unattend.Replace('<ProtectYourPC>1','<ProtectYourPC>3')
-		Set-Content -Path $UnattendXML -NoNewline
+		Set-Content -Path $UnattendXML -Value $unattend
     }
 }
 
