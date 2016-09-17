@@ -96,6 +96,16 @@ Configuration DeployMDTServerContract
             DependsOn             = "[cMDTBuildDirectory]DeploymentFolder"
         }
 
+        cMDTBuildPersistentDrive DeploymentPSDrive
+        {
+            Ensure      = "Present"
+            Name        = $Node.PSDriveName
+            Path        = $Node.PSDrivePath
+            Description = $Node.PSDrivePath.Replace("$($Node.PSDrivePath.Substring(0,2))\","")
+            NetworkPath = "\\$($Node.NodeName)\$($Node.PSDriveShareName)"
+            DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
+        }
+
         cNtfsPermissionEntry AssignPermissionsMDT
         {
             Ensure = "Present"
@@ -109,7 +119,7 @@ Configuration DeployMDTServerContract
                     NoPropagateInherit = $false
                 }
             )
-            DependsOn  = "[cMDTBuildDirectory]DeploymentFolder"
+            DependsOn  = "[cMDTBuildPersistentDrive]DeploymentPSDrive"
         }
 
         cNtfsPermissionEntry AssignPermissionsCaptures
@@ -125,17 +135,7 @@ Configuration DeployMDTServerContract
                     NoPropagateInherit = $false
                 }
             )
-            DependsOn  = "[cMDTBuildDirectory]DeploymentFolder"
-        }
-
-        cMDTBuildPersistentDrive DeploymentPSDrive
-        {
-            Ensure      = "Present"
-            Name        = $Node.PSDriveName
-            Path        = $Node.PSDrivePath
-            Description = $Node.PSDrivePath.Replace("$($Node.PSDrivePath.Substring(0,2))\","")
-            NetworkPath = "\\$($Node.NodeName)\$($Node.PSDriveShareName)"
-            DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
+            DependsOn  = "[cMDTBuildPersistentDrive]DeploymentPSDrive"
         }
 
         ForEach ($OSDirectory in $Node.OSDirectories)   
