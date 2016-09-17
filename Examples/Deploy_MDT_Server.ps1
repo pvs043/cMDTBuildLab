@@ -167,6 +167,16 @@ Configuration DeployMDTServerContract
                 PSDrivePath = $Node.PSDrivePath
                 DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
             }
+
+            cMDTBuildDirectory "PKG$($OSVersion.Replace(' ',''))"
+            {
+                Ensure      = $Ensure
+                Name        = $OSVersion
+                Path        = "$($Node.PSDriveName):\Packages"
+                PSDriveName = $Node.PSDriveName
+                PSDrivePath = $Node.PSDrivePath
+                DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
+            }
         }
 
 		# Task Sequence folder for autobuild
