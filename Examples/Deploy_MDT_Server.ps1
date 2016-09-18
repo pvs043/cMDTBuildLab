@@ -507,7 +507,7 @@ SkipBDDWelcome=YES
 ;MDT Connect Account
 UserID=$($Node.MDTLocalAccount)
 UserPassword=$($Node.MDTLocalPassword)
-UserDomain=$($NodeNodeName)
+UserDomain=$($Node.NodeName)
 
 SubSection=ISVM-%IsVM%
 
