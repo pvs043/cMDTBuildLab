@@ -4,7 +4,7 @@ cMDTBuildLab is a Powershell Module to help automize deployment Windows Referenc
 cMDTBuildLab is a fork from cMDT module (https://github.com/addlevel/cMDT) by info@addlevel.se (c)
 
 ### Version
-0.3.0
+0.4.0
 
 ### Tech
 
@@ -24,8 +24,10 @@ cMDTBuildLab uses a number of components and open resource kit modules. The foll
   ```powershell
   Install-Module -Name xSmbShare
   ```
-* [PowerShellAccessControl] (https://gallery.technet.microsoft.com/scriptcenter/PowerShellAccessControl-d3be7b83#content) - DSC Module available from Technet Gallery.<br>
-  Copy it to %ProgramFiles%\WindowsPowerShell\Modules\PowerShellAccessControl folder.
+* [cNtfsAccessControl] (http://www.powershellgallery.com/packages/cNtfsAccessControl/) - DSC Module available from Powershell Gallery.<br>
+  ```powershell
+  Install-Module -Name cNtfsAccessControl
+  ```
 
 The following prerequisites automatically downloaded with the cMDTBuildLab Module:
 * [MicrosoftDeploymentToolkit2013_x64] (https://www.microsoft.com/en-us/download/details.aspx?id=50407) - Microsoft Deployment Toolkit (MDT) 2013 Update 2 (6.3.8330.1000)
@@ -36,7 +38,7 @@ The following prerequisites automatically downloaded with the cMDTBuildLab Modul
 * [Windows Management Framewework 5.0] (http://aka.ms/wmf5latest)
 
 This extra files included to module (\Sources\Extra.zip):
-* devcon.exe: tool from [Windows Driver Kit] (https://msdn.microsoft.com/en-us/windows/hardware/hh852365)
+* devcon.exe: tool from [Windows Driver Kit 8.1 Update 1] (https://www.microsoft.com/en-us/download/details.aspx?id=42273). This version of Toolkit must be used with VMs on Windows 2012 R2 Hyper-V host.
 * KVP (Key Value Pair Exchange) driver for WinPE. This extracted from VMGuest.iso image on Hyper-V host (\support\x86\Windows6.x-HyperVIntegrationServices-x86.cab).
 
 ### Installation

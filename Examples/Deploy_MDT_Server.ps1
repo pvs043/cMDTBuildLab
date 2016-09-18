@@ -1,15 +1,12 @@
 ﻿$Modules    = @(
-
     @{
        Name    = "xSmbShare"
        Version = "1.1.0.0"
     },
-    
     @{
-       Name    = "PowerShellAccessControl"
-       Version = "3.0.135.20150413"
+       Name    = "cNtfsAccessControl"
+       Version = "1.3.0"
     }
-
 )
 
 Configuration DeployMDTServerContract
@@ -19,10 +16,10 @@ Configuration DeployMDTServerContract
         $Credentials
     )
 
-    Import-Module -Name PSDesiredStateConfiguration, xSmbShare, PowerShellAccessControl, cMDTBuildLab
+    Import-Module -Name PSDesiredStateConfiguration, xSmbShare, cNtfsAccessControl, cMDTBuildLab
     Import-DscResource –ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName xSmbShare
-    Import-DscResource -ModuleName PowerShellAccessControl
+    Import-DscResource -ModuleName cNtfsAccessControl
     Import-DscResource -ModuleName cMDTBuildLab
 
     node $AllNodes.Where{$_.Role -match "MDT Server"}.NodeName
@@ -81,15 +78,6 @@ Configuration DeployMDTServerContract
             ReturnCode = 0
         }
 
-		<#
-        cMDTBuildDirectory TempFolder
-        {
-            Ensure    = "Present"
-            Name      = $Node.TempLocation.Replace("$($Node.TempLocation.Substring(0,2))\","")
-            Path      = $Node.TempLocation.Substring(0,2)
-        }
-		#>
-
         cMDTBuildDirectory DeploymentFolder
         {
             Ensure    = "Present"
@@ -103,19 +91,10 @@ Configuration DeployMDTServerContract
             Ensure                = "Present"
             Name                  = $Node.PSDriveShareName
             Path                  = $Node.PSDrivePath
-            FullAccess            = "$env:COMPUTERNAME\$($Node.MDTLocalAccount)"
+            #FullAccess            = "$($Node.NodeName)\$($Node.MDTLocalAccount)"
+			FullAccess            = "Everyone"
             FolderEnumerationMode = "AccessBased"
             DependsOn             = "[cMDTBuildDirectory]DeploymentFolder"
-        }
-
-        cAccessControlEntry AssignPermissions
-        {
-            Path       = $Node.PSDrivePath
-            ObjectType = "Directory"
-            AceType    = "AccessAllowed"
-            Principal  = "$env:COMPUTERNAME\$($Node.MDTLocalAccount)"
-            AccessMask = [System.Security.AccessControl.FileSystemRights]::FullControl
-            DependsOn  = "[cMDTBuildDirectory]DeploymentFolder"
         }
 
         cMDTBuildPersistentDrive DeploymentPSDrive
@@ -124,8 +103,40 @@ Configuration DeployMDTServerContract
             Name        = $Node.PSDriveName
             Path        = $Node.PSDrivePath
             Description = $Node.PSDrivePath.Replace("$($Node.PSDrivePath.Substring(0,2))\","")
-            NetworkPath = "\\$($env:COMPUTERNAME)\$($Node.PSDriveShareName)"
+            NetworkPath = "\\$($Node.NodeName)\$($Node.PSDriveShareName)"
             DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
+        }
+
+        cNtfsPermissionEntry AssignPermissionsMDT
+        {
+            Ensure = "Present"
+            Path   = $Node.PSDrivePath
+            Principal  = "$($Node.NodeName)\$($Node.MDTLocalAccount)"
+            AccessControlInformation = @(
+                cNtfsAccessControlInformation {
+                    AccessControlType = "Allow"
+                    FileSystemRights = "ReadAndExecute"
+                    Inheritance = "ThisFolderSubfoldersAndFiles"
+                    NoPropagateInherit = $false
+                }
+            )
+            DependsOn  = "[cMDTBuildPersistentDrive]DeploymentPSDrive"
+        }
+
+        cNtfsPermissionEntry AssignPermissionsCaptures
+        {
+            Ensure = "Present"
+            Path   = "$($Node.PSDrivePath)\Captures"
+            Principal  = "$($Node.NodeName)\$($Node.MDTLocalAccount)"
+            AccessControlInformation = @(
+                cNtfsAccessControlInformation {
+                    AccessControlType = "Allow"
+                    FileSystemRights = "Modify"
+                    Inheritance = "ThisFolderSubfoldersAndFiles"
+                    NoPropagateInherit = $false
+                }
+            )
+            DependsOn  = "[cMDTBuildPersistentDrive]DeploymentPSDrive"
         }
 
         ForEach ($OSDirectory in $Node.OSDirectories)   
@@ -486,7 +497,7 @@ SkipBDDWelcome=YES
 ;MDT Connect Account
 UserID=$($Node.MDTLocalAccount)
 UserPassword=$($Node.MDTLocalPassword)
-UserDomain=$($env:COMPUTERNAME)
+UserDomain=$($Node.NodeName)
 
 SubSection=ISVM-%IsVM%
 

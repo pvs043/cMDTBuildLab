@@ -827,7 +827,7 @@ class cMDTBuildTaskSequence
 {
 
     [DscProperty(Mandatory)]
-    [Ensure] $Ensure
+    [Ensure]$Ensure
 
     [DscProperty(Key)]
     [string]$Name
@@ -884,6 +884,11 @@ class cMDTBuildTaskSequence
         Import-MicrosoftDeploymentToolkitModule
         New-PSDrive -Name $this.PSDriveName -PSProvider "MDTProvider" -Root $this.PSDrivePath -Verbose:$false
         Import-MDTTaskSequence -path $this.Path -Name $this.Name -Template $this.Template -Comments "Build Reference Image" -ID $this.ID -Version "1.0" -OperatingSystemPath $this.OSName -FullName "Windows User" -OrgName $this.OrgName -HomePage "about:blank" -Verbose
+		# Disable Windows autoupdate
+		$UnattendXML = "$($this.PSDrivePath)\control\$($this.ID)\Unattend.xml"
+		$unattend = Get-Content -Path $UnattendXML
+		$unattend = $unattend.Replace('<ProtectYourPC>1','<ProtectYourPC>3')
+		Set-Content -Path $UnattendXML -Value $unattend
     }
 }
 
@@ -1430,46 +1435,4 @@ Function Invoke-TestPath
         }
     }
     return $present
-}
-
-Function Invoke-WebDownload
-{
-    [CmdletBinding()]
-    [OutputType([bool])]
-    param(
-        [Parameter(Mandatory=$True)]
-        [ValidateNotNullorEmpty()]
-        [string]$Source,
-        [Parameter(Mandatory=$True)]
-        [ValidateNotNullorEmpty()]
-        [string]$Target
-    )
-
-    [bool]$Verbosity
-    If ($PSBoundParameters.Verbose) { $Verbosity = $True }
-    Else { $Verbosity = $False }
-
-    If ($Source -like "*/*") {
-        If ( Get-Service BITS | Where-Object {$_.status -eq "running"} ) {
-            If ($Verbosity) { Write-Verbose "Downloading file $($Source) via Background Intelligent Transfer Service" }
-            Import-Module BitsTransfer -Verbose:$false
-            Start-BitsTransfer -Source $Source -Destination $Target -Verbose:$Verbosity
-            Remove-Module BitsTransfer -Verbose:$false
-        }
-        else {
-            If ($Verbosity) { Write-Verbose "Downloading file $($Source) via System.Net.WebClient" }
-            $WebClient = New-Object System.Net.WebClient
-            $WebClient.DownloadFile($Source, $Target)
-        }
-    }
-    Else {
-        If (Get-Service BITS | Where-Object {$_.status -eq "running"}) {
-            If ($Verbosity) { Write-Verbose "Downloading file $($Source) via Background Intelligent Transfer Service" }
-            Import-Module BitsTransfer -Verbose:$false
-            Start-BitsTransfer -Source $Source -Destination $Target -Verbose:$Verbosity
-        }
-        Else {
-            Copy-Item $Source -Destination $Target -Force -Verbose:$Verbosity
-        }
-    }
 }
