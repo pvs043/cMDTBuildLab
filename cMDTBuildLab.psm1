@@ -408,6 +408,65 @@ class cMDTBuildOperatingSystem
 }
 
 [DscResource()]
+class cMDTBuildPackage
+{
+    [DscProperty(Mandatory)]
+    [Ensure]$Ensure
+
+    [DscProperty(Key)]
+    [string]$Name
+
+    [DscProperty(Key)]
+    [string]$Path
+
+    [DscProperty(Mandatory)]
+    [string]$PackageSourcePath
+    
+    [DscProperty(Mandatory)]
+    [string]$PSDriveName
+
+    [DscProperty(Mandatory)]
+    [string]$PSDrivePath
+
+    [void] Set()
+    {
+        if ($this.ensure -eq [Ensure]::Present) {
+            $present = Invoke-TestPath -Path "$($this.path)\$($this.name)" -PSDriveName $this.PSDriveName -PSDrivePath $this.PSDrivePath
+            if ( !$present ) {
+                $this.ImportPackage()
+            }
+        }
+        else {   
+            Invoke-RemovePath -Path "$($this.path)\$($this.name)" -PSDriveName $this.PSDriveName -PSDrivePath $this.PSDrivePath -Verbose
+        }
+    }
+
+    [bool] Test()
+    {
+        $present = Invoke-TestPath -Path "$($this.path)\$($this.name)" -PSDriveName $this.PSDriveName -PSDrivePath $this.PSDrivePath 
+
+        if ($this.Ensure -eq [Ensure]::Present) {
+            return $present
+        }
+        else {
+            return -not $present
+        }
+    }
+
+    [cMDTBuildPackage] Get()
+    {
+        return $this
+    }
+
+    [void] ImportPackage()
+    {
+        Import-MicrosoftDeploymentToolkitModule
+        New-PSDrive -Name $this.PSDriveName -PSProvider "MDTProvider" -Root $this.PSDrivePath -Verbose:$false
+        Import-MDTPackage-Path $this.Path -SourcePath $this.PackageSourcePath -Verbose
+    }
+}
+
+[DscResource()]
 class cMDTBuildPersistentDrive
 {
 

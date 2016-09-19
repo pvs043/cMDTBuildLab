@@ -292,6 +292,32 @@ Configuration DeployMDTServerContract
             }
         }
 
+        ForEach ($Package in $Node.Packages)
+        {
+            [string]$Ensure            = ""
+			[string]$Name              = ""
+            [string]$Path              = ""
+            [string]$PackageSourcePath = ""
+
+            $Package.GetEnumerator() | % {
+                If ($_.key -eq "Ensure")            { $Ensure            = $_.value }
+                If ($_.key -eq "Name")              { $Name                  = $_.value }
+                If ($_.key -eq "Path")              { $Path              = "$($Node.PSDriveName):$($_.value)" }
+                If ($_.key -eq "PackageSourcePath") { $PackageSourcePath = "$($Node.SourcePath)\$($_.value)" }
+            }
+
+            cMDTBuildPackage $Name.Replace(' ','')
+            {
+                Ensure            = $Ensure
+                Name              = $Name
+				Path              = $Path
+                PackageSourcePath = $PackageSourcePath
+                PSDriveName       = $Node.PSDriveName
+                PSDrivePath       = $Node.PSDrivePath
+                DependsOn         = "[cMDTBuildDirectory]DeploymentFolder"
+            }
+        }
+
         ForEach ($TaskSequence in $Node.TaskSequences)   
         {
             [string]$Ensure   = ""

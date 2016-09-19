@@ -4,7 +4,7 @@ cMDTBuildLab is a Powershell Module to help automize deployment Windows Referenc
 cMDTBuildLab is a fork from cMDT module (https://github.com/addlevel/cMDT) by info@addlevel.se (c)
 
 ### Version
-0.4.0
+0.5.0
 
 ### Tech
 
@@ -40,7 +40,7 @@ The following prerequisites automatically downloaded with the cMDTBuildLab Modul
 * [Windows Management Framewework 5.0] (http://aka.ms/wmf5latest)
 
 This extra files included to module (\Sources\Extra.zip):
-* devcon.exe: tool from [Windows Driver Kit 8.1 Update 1] (https://www.microsoft.com/en-us/download/details.aspx?id=42273). This version of Toolkit must be used with VMs on Windows 2012 R2 Hyper-V host.
+* devcon.exe: tool from [Windows Driver Kit] (https://msdn.microsoft.com/en-us/library/windows/hardware/ff544707(v=vs.85).aspx).
 * KVP (Key Value Pair Exchange) driver for WinPE. This extracted from VMGuest.iso image on Hyper-V host (\support\x86\Windows6.x-HyperVIntegrationServices-x86.cab).
 
 ### Installation
@@ -316,6 +316,37 @@ cMDTBuildOperatingSystem Win10x64 {
     Name = "Windows 10 x64"
     Path = "Windows 10"
     SourcePath = "$SourcePath\Windows10x64"
+    PSDriveName = $PSDriveName
+    PSDrivePath = $PSDrivePath
+}
+```
+
+#### cMDTBuildPackage
+cMDTBuildPackage is a DscResource that enables import packages in MDT. Packages must be placed into source directory.
+
+Available parameters:
+* <b>[Ensure]</b> - Present/Absent
+* <b>[Name]</b> - Package name
+* <b>[Path]</b> - MDT path
+* <b>[PackageSourcePath]</b> - Folder under $SourcePath
+* <b>[PSDriveName]</b> - The PSDrive name for the MDT deployment share
+* <b>[PSDrivePath]</b> - The physical path to the MDT deployment share
+
+The DscResource will import applications according to the following principle:
+* Verify status present or absent
+* If present:
+    * Verify if the package already exist in MDT
+    * If the package does not exist the package will be imported
+* If absent:
+    * If package exist it will be removed
+
+Desired State Configuration job example:
+```sh
+cMDTBuildPackage KB3125574_x64 {
+    Ensure = "Present"
+    Name = "Package_for_KB3125574 neutral amd64 6.1.4.4"
+    Path = "Packages\Windows 7"
+    PackageSourcePath = "Update for Windows 7 for x64-based Systems (KB3125574)"
     PSDriveName = $PSDriveName
     PSDrivePath = $PSDrivePath
 }
