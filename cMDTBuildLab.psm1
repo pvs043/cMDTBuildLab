@@ -462,7 +462,7 @@ class cMDTBuildPackage
     {
         Import-MicrosoftDeploymentToolkitModule
         New-PSDrive -Name $this.PSDriveName -PSProvider "MDTProvider" -Root $this.PSDrivePath -Verbose:$false
-        Import-MDTPackage-Path $this.Path -SourcePath $this.PackageSourcePath -Verbose
+        Import-MDTPackage -Path $this.Path -SourcePath $this.PackageSourcePath -Verbose
     }
 }
 
