@@ -213,37 +213,37 @@
 				@{
 					Ensure            = "Present"
 					Name              = "Package_for_KB3020369 neutral x86 6.1.1.1"
-					Path              = "Packages\Windows 7"
+					Path              = "\Packages\Windows 7"
 					PackageSourcePath = "Update for Windows 7 (KB3020369)"
 				}
 				@{
 					Ensure            = "Present"
 					Name              = "Package_for_KB3125574 neutral x86 6.1.4.4"
-					Path              = "Packages\Windows 7"
+					Path              = "\Packages\Windows 7"
 					PackageSourcePath = "Update for Windows 7 (KB3125574)"
 				}
 				@{
 					Ensure            = "Present"
 					Name              = "Package_for_KB3020369 neutral amd64 6.1.1.1"
-					Path              = "Packages\Windows 7"
+					Path              = "\Packages\Windows 7"
 					PackageSourcePath = "Update for Windows 7 for x64-based Systems (KB3020369)"
 				}
 				@{
 					Ensure            = "Present"
 					Name              = "Package_for_KB3125574 neutral amd64 6.1.4.4"
-					Path              = "Packages\Windows 7"
+					Path              = "\Packages\Windows 7"
 					PackageSourcePath = "Update for Windows 7 for x64-based Systems (KB3125574)"
 				}
 				@{
 					Ensure            = "Present"
 					Name              = "Package_for_RollupFix neutral x86 14393.187.1.2"
-					Path              = "Packages\Windows 10"
+					Path              = "\Packages\Windows 10"
 					PackageSourcePath = "Cumulative Update for Windows 10 Version 1607 (KB3189866)"
 				}
 				@{
 					Ensure            = "Present"
 					Name              = "Package_for_RollupFix neutral amd64 14393.187.1.2"
-					Path              = "Packages\Windows 10"
+					Path              = "\Packages\Windows 10"
 					PackageSourcePath = "Cumulative Update for Windows 10 Version 1607 for x64-based Systems (KB3189866)"
 				}
 			)

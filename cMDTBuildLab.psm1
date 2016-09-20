@@ -460,9 +460,35 @@ class cMDTBuildPackage
 
     [void] ImportPackage()
     {
+		<#
+		This is the test code for workaround Bug with DSC 5.0 and MDT 2013 Update 2: prevent crash for WMI (see cMDTBuildUpdateBootImage class).
+	    It's not worked for now: DSC process done without errors, but Packages is broken/invisible at MDT console.
+
+        #The Import-MDTPackage command crashes WMI when run from inside DSC. This section is a work around.
+        $aPSDriveName = $this.PSDriveName
+        $aPSDrivePath = $this.PSDrivePath
+        $aPath = $this.Path
+        $aPackageSourcePath = $this.PackageSourcePath
+        $jobArgs = @($aPSDriveName,$aPSDrivePath,$aPath,$aPackageSourcePath)
+
+        $job = Start-Job -Name ImportMDTPackage -Scriptblock {
+            Import-Module "$env:ProgramFiles\Microsoft Deployment Toolkit\Bin\MicrosoftDeploymentToolkit.psd1" -ErrorAction Stop -Verbose:$false
+            New-PSDrive -Name $args[0] -PSProvider "MDTProvider" -Root $args[1] -Verbose:$false
+            Import-MDTPackage -Path $args[2] -SourcePath $args[3] -Verbose
+        } -ArgumentList $jobArgs
+
+        $job | Wait-Job -Timeout 900 
+        $timedOutJobs = Get-Job -Name ImportMDTPackage | Where-Object {$_.State -eq 'Running'} | Stop-Job -PassThru
+
+        If ($timedOutJobs) {
+            Write-Error "Update-MDTDeploymentShare job exceeded timeout limit of 900 seconds and was aborted"
+        }
+		#>
+
+		# This code is work: crash WMI after the 1nd pass DSC, but after the 2d pass (DSC test) everything works fine
         Import-MicrosoftDeploymentToolkitModule
         New-PSDrive -Name $this.PSDriveName -PSProvider "MDTProvider" -Root $this.PSDrivePath -Verbose:$false
-        Import-MDTPackage -Path $this.Path -SourcePath $this.PackageSourcePath -Verbose
+        Import-MDTPackage -Path "$($this.Path)" -SourcePath "$($this.PackageSourcePath)" -Verbose
     }
 }
 
@@ -1458,10 +1484,10 @@ Function Invoke-RemovePath
     if (($PSDrivePath) -and ($PSDriveName)) {
         Import-MicrosoftDeploymentToolkitModule
         New-PSDrive -Name $PSDriveName -PSProvider "MDTProvider" -Root $PSDrivePath -Verbose:$False | `
-        Remove-Item -Path $Path -Force -Verbose:$Verbosity
+        Remove-Item -Path "$($Path)" -Force -Verbose:$Verbosity
     }
     else {
-        Remove-Item -Path $Path -Force -Verbose:$Verbosity
+        Remove-Item -Path "$($Path)" -Force -Verbose:$Verbosity
     }
 }
 
@@ -1484,12 +1510,12 @@ Function Invoke-TestPath
     if (($PSDrivePath) -and ($PSDriveName)) {
         Import-MicrosoftDeploymentToolkitModule
         if (New-PSDrive -Name $PSDriveName -PSProvider "MDTProvider" -Root $PSDrivePath -Verbose:$false | `
-            Test-Path -Path $Path -ErrorAction Ignore) {
+            Test-Path -Path "$($Path)" -ErrorAction Ignore) {
             $present = $true
         }        
     }
     else {
-        if (Test-Path -Path $Path -ErrorAction Ignore) {
+        if (Test-Path -Path "$($Path)" -ErrorAction Ignore) {
             $present = $true
         }
     }
