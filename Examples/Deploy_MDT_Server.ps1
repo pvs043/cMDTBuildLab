@@ -181,26 +181,26 @@ Configuration DeployMDTServerContract
             DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
         }
 
-		foreach ($PackageFolder in $Node.PackagesFolderStructure)
+		foreach ($PkgFolder in $Node.PackagesFolderStructure)
 		{
-            [string]$EnsurePackageFolder = ""
-            [string]$PackageFolder       = ""
-            $PackageFolder.GetEnumerator() | % {
-                If ($_.key -eq "Ensure") { $EnsurePackageFolder = $_.value }
-                If ($_.key -eq "Folder") { $PackageFolder       = $_.value }
+            [string]$Ensure = ""
+            [string]$Folder = ""
+            $PkgFolder.GetEnumerator() | % {
+                If ($_.key -eq "Ensure") { $Ensure = $_.value }
+                If ($_.key -eq "Folder") { $Folder = $_.value }
             }
 
-            cMDTBuildDirectory "PKG$($PackageFolder.Replace(' ',''))"
+            cMDTBuildDirectory "PKG$($Folder.Replace(' ',''))"
             {
-                Ensure      = $EnsurePackageFolder
-                Name        = $PackageFolder
+                Ensure      = $Ensure
+                Name        = $Folder
                 Path        = "$($Node.PSDriveName):\Packages"
                 PSDriveName = $Node.PSDriveName
                 PSDrivePath = $Node.PSDrivePath
                 DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
             }
-
 		}
+
         ForEach ($CurrentApplicationFolder in $Node.ApplicationFolderStructure)
         {
             [string]$EnsureApplicationFolder = ""
