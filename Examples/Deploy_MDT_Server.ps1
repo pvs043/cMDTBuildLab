@@ -168,16 +168,6 @@ Configuration DeployMDTServerContract
                 PSDrivePath = $Node.PSDrivePath
                 DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
             }
-
-            cMDTBuildDirectory "PKG$($OSVersion.Replace(' ',''))"
-            {
-                Ensure      = $Ensure
-                Name        = $OSVersion
-                Path        = "$($Node.PSDriveName):\Packages"
-                PSDriveName = $Node.PSDriveName
-                PSDrivePath = $Node.PSDrivePath
-                DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
-            }
         }
 
 		# Task Sequence folder for autobuild
@@ -191,6 +181,26 @@ Configuration DeployMDTServerContract
             DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
         }
 
+		foreach ($PackageFolder in $Node.PackagesFolderStructure)
+		{
+            [string]$EnsurePackageFolder = ""
+            [string]$PackageFolder       = ""
+            $PackageFolder.GetEnumerator() | % {
+                If ($_.key -eq "Ensure") { $EnsurePackageFolder = $_.value }
+                If ($_.key -eq "Folder") { $PackageFolder       = $_.value }
+            }
+
+            cMDTBuildDirectory "PKG$($PackageFolder.Replace(' ',''))"
+            {
+                Ensure      = $EnsurePackageFolder
+                Name        = $PackageFolder
+                Path        = "$($Node.PSDriveName):\Packages"
+                PSDriveName = $Node.PSDriveName
+                PSDrivePath = $Node.PSDrivePath
+                DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
+            }
+
+		}
         ForEach ($CurrentApplicationFolder in $Node.ApplicationFolderStructure)
         {
             [string]$EnsureApplicationFolder = ""
