@@ -1,7 +1,7 @@
 ﻿$Modules    = @(
     @{
        Name    = "xSmbShare"
-       Version = "1.1.0.0"
+       Version = "2.0.0.0"
     },
     @{
        Name    = "cNtfsAccessControl"
@@ -173,7 +173,7 @@ Configuration DeployMDTServerContract
 		# Task Sequence folder for autobuild
         cMDTBuildDirectory "TSREF"
         {
-            Ensure      = $Ensure
+            Ensure      = "Present"
             Name        = "REF"
             Path        = "$($Node.PSDriveName):\Task Sequences"
             PSDriveName = $Node.PSDriveName
