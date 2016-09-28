@@ -49,7 +49,7 @@
                 }
                 @{  
                     Ensure = "Present"
-                    OperatingSystem = "Windows 2016 TP5"
+                    OperatingSystem = "Windows 2016"
                 }
             )
 
@@ -140,9 +140,9 @@
                 }
                 @{
                     Ensure     = "Present"
-                    Name       = "Windows 2016 TP5"
-                    Path       = "Windows 2016 TP5"
-                    SourcePath = "$SourcePath\Windows2016TP5"
+                    Name       = "Windows 2016"
+                    Path       = "Windows 2016"
+                    SourcePath = "$SourcePath\Windows2016"
                 }
             )
 
@@ -1045,12 +1045,12 @@
                 }
                 @{  
                     Ensure   = "Present"
-                    Name     = "Windows 2016 TP5"
-                    Path     = "Windows 2016 TP5"
-					OSName   = "Windows 2016 TP5\Windows Server 2016 Technical Preview 5 SERVERDATACENTER in Windows 2016 TP5 install.wim"
+                    Name     = "Windows 2016"
+                    Path     = "Windows 2016"
+					OSName   = "Windows 2016\Windows Server 2016 SERVERDATACENTER in Windows 2016 install.wim"
                     OrgName  = "BuildLab"
 					Template = "Server.xml"
-                    ID       = "REFW2016TP5-001"
+                    ID       = "REFW2016-001"
 					Customize = @(
 						@{
 							Name       = "Windows Update (Pre-Application Installation)"
