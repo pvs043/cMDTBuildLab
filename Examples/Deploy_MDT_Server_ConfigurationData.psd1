@@ -267,6 +267,9 @@
 				}
 			)
 
+            #Selection profile creation
+            SelectionProfiles  = @("Windows 7 x86","Windows7 x64", "Windows 10 x86","Windows10 x64")
+
             #Task sqeuences; are dependent on imported Operating system and Applications in MDT
             TaskSequences   = @(
                 @{  
