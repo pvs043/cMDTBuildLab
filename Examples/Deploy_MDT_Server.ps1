@@ -249,7 +249,7 @@ Configuration DeployMDTServerContract
             }
         }
 
-        ForEach ($SelectionProfile in $Node.SelectionProfiles)   
+        ForEach ($SelectionProfile in $Node.SelectionProfiles)
         {
             cMDTBuildDirectory "SP$($SelectionProfile.Replace(' ',''))"
             {
