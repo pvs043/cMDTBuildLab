@@ -251,11 +251,18 @@ Configuration DeployMDTServerContract
 
         ForEach ($SelectionProfile in $Node.SelectionProfiles)
         {
-            cMDTBuildDirectory "SP$($SelectionProfile.Replace(' ',''))"
-            {
-                Ensure      = "Present"
-                Name        = $SelectionProfile
-                Path        = "$($Node.PSDriveName):\Selection Profiles"
+            [string]$Ensure = ""
+            [string]$Name = ""
+            $SelectionProfile.GetEnumerator() | % {
+                If ($_.key -eq "Ensure")      { $Ensure = $_.value }
+                If ($_.key -eq "Name")        { $Name = $_.value }
+				If ($_.key -eq "IncludePath") { $IncludePath = $_.value }
+            }
+
+            cMDTBuildSelectionProfile {
+                Ensure      = $Present
+                Name        = $Name
+				IncludePath = $IncludePath
                 PSDriveName = $Node.PSDriveName
                 PSDrivePath = $Node.PSDrivePath
                 DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"

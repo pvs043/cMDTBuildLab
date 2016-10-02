@@ -423,10 +423,10 @@ Note: The Operating System must exist in the OSName path for the Task Sequence t
 
 Desired State Configuration job example:
 ```sh
-cMDTBuildSelectionProfile Win7x86 {
+cMDTBuildSelectionProfile Win10x64 {
     Ensure      = "Present"
-    Name        = "Windows 7 x86"
-    OSName      = "Packages\Windows 7 x86"
+    Name        = "Windows 10 x64"
+	IncludePath = "Packages\Windows 10 x64"
     PSDriveName = $PSDriveName
     PSDrivePath = $PSDrivePath
 }

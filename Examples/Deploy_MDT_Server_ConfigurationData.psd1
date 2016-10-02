@@ -268,7 +268,28 @@
 			)
 
             #Selection profile creation
-            SelectionProfiles  = @("Windows 7 x86", "Windows 7 x64", "Windows 10 x86", "Windows 10 x64")
+            SelectionProfiles  = @(
+				@{
+					Ensure = "Present"
+					Name = "Windows 7 x86"
+					IncludePath = "Packages\Windows 7 x86"
+				}
+				@{
+					Ensure = "Present"
+					Name = "Windows 7 x64"
+					IncludePath = "Packages\Windows 7 x64"
+				}
+				@{
+					Ensure = "Present"
+					Name = "Windows 10 x86"
+					IncludePath = "Packages\Windows 10 x86"
+				}
+				@{
+					Ensure = "Present"
+					Name = "Windows 10 x64"
+					IncludePath = "Packages\Windows 10 x64"
+				}
+			)
 
             #Task sqeuences; are dependent on imported Operating system and Applications in MDT
             TaskSequences   = @(
