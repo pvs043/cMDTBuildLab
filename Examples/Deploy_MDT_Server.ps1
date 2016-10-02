@@ -259,8 +259,9 @@ Configuration DeployMDTServerContract
 				If ($_.key -eq "IncludePath") { $IncludePath = $_.value }
             }
 
-            cMDTBuildSelectionProfile {
-                Ensure      = $Present
+            cMDTBuildSelectionProfile $Name.Replace(' ','')
+			{
+                Ensure      = $Ensure
                 Name        = $Name
 				IncludePath = $IncludePath
                 PSDriveName = $Node.PSDriveName
