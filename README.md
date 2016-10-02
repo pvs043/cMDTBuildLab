@@ -82,6 +82,7 @@ The cMDTBuildLab Module contain the following DscResources:
 * <b>cMDTBuildOperatingSystem</b>
 * <b>cMDTBuildPersistentDrive</b>
 * <b>cMDTBuildPreReqs</b>
+* <b>cMDTBuildSelectionProfile</b>
 * <b>cMDTBuildTaskSequence</b>
 * <b>cMDTBuildTaskSequenceCustomize</b>
 * <b>cMDTBuildUpdateBootImage</b>
@@ -397,6 +398,37 @@ Desired State Configuration job example:
 cMDTBuildPreReqs MDTPreReqs {
     Ensure = "Present"            
     DownloadPath = "$SourcePath"
+}
+```
+
+#### cMDTBuildSelectionProfile
+cMDTBuildTaskSequence is a DscResource that enables management of Selection Profiles with lifecycle management for MDT.
+
+Available parameters:
+* <b>[Ensure]</b> - Present/Absent
+* <b>[Name]</b> - Name of Selection Profile
+* <b>[IncludePath]</b> - Path to include imported OS Packages
+* <b>[PSDriveName]</b> - The PSDrive name for the MDT deployment share
+* <b>[PSDrivePath]</b> - The physical path to the MDT deployment share
+
+The DscResource will create Selection Profile according to the following principle:
+* Verify status present or absent
+* If present:
+    * Check if Selection Profile exist in the MDT path
+    * If it does not exist the Selection Profile will be created
+* If absent:
+    * The Selection Profile will be removed
+
+Note: The Operating System must exist in the OSName path for the Task Sequence to be created correctly.
+
+Desired State Configuration job example:
+```sh
+cMDTBuildSelectionProfile Win7x86 {
+    Ensure      = "Present"
+    Name        = "Windows 7 x86"
+    OSName      = "Packages\Windows 7 x86"
+    PSDriveName = $PSDriveName
+    PSDrivePath = $PSDrivePath
 }
 ```
 
