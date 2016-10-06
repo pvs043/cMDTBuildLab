@@ -92,6 +92,10 @@
 					Ensure = "Present"
 					Folder = "Windows 10 x64"
 				}
+				@{
+					Ensure = "Present"
+					Folder = "Windows 2016"
+				}
 			)
 
             #Operating systems to import to MDT
@@ -257,37 +261,47 @@
 					Ensure            = "Present"
 					Name              = "Package_for_RollupFix neutral x86 14393.187.1.0"
 					Path              = "\Packages\Windows 10 x86"
-					PackageSourcePath = "Cumulative Update for Windows 10 Version 1607 (KB3193494)"
+					PackageSourcePath = "Cumulative Update for Windows 10 Version 1607 (KB3197356)"
 				}
 				@{
 					Ensure            = "Present"
 					Name              = "Package_for_RollupFix neutral amd64 14393.187.1.0"
 					Path              = "\Packages\Windows 10 x64"
-					PackageSourcePath = "Cumulative Update for Windows 10 Version 1607 for x64-based Systems (KB3193494)"
+					PackageSourcePath = "Cumulative Update for Windows 10 Version 1607 for x64-based Systems (KB3197356)"
 				}
 			)
 
             #Selection profile creation
             SelectionProfiles  = @(
 				@{
-					Ensure = "Present"
-					Name = "Windows 7 x86"
+					Ensure      = "Present"
+					Name        = "Windows 7 x86"
+					Comments    = "Packages for Windows 7 x86"
 					IncludePath = "Packages\Windows 7 x86"
 				}
 				@{
-					Ensure = "Present"
-					Name = "Windows 7 x64"
+					Ensure      = "Present"
+					Name        = "Windows 7 x64"
+					Comments    = "Packages for Windows 7 x64"
 					IncludePath = "Packages\Windows 7 x64"
 				}
 				@{
-					Ensure = "Present"
-					Name = "Windows 10 x86"
+					Ensure      = "Present"
+					Name        = "Windows 10 x86"
+					Comments    = "Packages for Windows 10 x86"
 					IncludePath = "Packages\Windows 10 x86"
 				}
 				@{
-					Ensure = "Present"
-					Name = "Windows 10 x64"
+					Ensure      = "Present"
+					Name        = "Windows 10 x64"
+					Comments    = "Packages for Windows 10 x64"
 					IncludePath = "Packages\Windows 10 x64"
+				}
+				@{
+					Ensure      = "Present"
+					Name        = "Windows 2016"
+					Comments    = "Packages for Windows 2016"
+					IncludePath = "Packages\Windows 2016"
 				}
 			)
 

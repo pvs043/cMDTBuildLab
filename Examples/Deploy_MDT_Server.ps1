@@ -251,11 +251,14 @@ Configuration DeployMDTServerContract
 
         ForEach ($SelectionProfile in $Node.SelectionProfiles)
         {
-            [string]$Ensure = ""
-            [string]$Name = ""
+            [string]$Ensure      = ""
+            [string]$Name        = ""
+			[string]$Comments    = ""
+			[string]$IncludePath = ""
             $SelectionProfile.GetEnumerator() | % {
-                If ($_.key -eq "Ensure")      { $Ensure = $_.value }
-                If ($_.key -eq "Name")        { $Name = $_.value }
+                If ($_.key -eq "Ensure")      { $Ensure      = $_.value }
+                If ($_.key -eq "Name")        { $Name        = $_.value }
+                If ($_.key -eq "Comments")    { $Comments    = $_.value }
 				If ($_.key -eq "IncludePath") { $IncludePath = $_.value }
             }
 
@@ -263,6 +266,7 @@ Configuration DeployMDTServerContract
 			{
                 Ensure      = $Ensure
                 Name        = $Name
+				Comments    = $Comments
 				IncludePath = $IncludePath
                 PSDriveName = $Node.PSDriveName
                 PSDrivePath = $Node.PSDrivePath

@@ -415,6 +415,7 @@ cMDTBuildTaskSequence is a DscResource that enables management of Selection Prof
 Available parameters:
 * <b>[Ensure]</b> - Present/Absent
 * <b>[Name]</b> - Name of Selection Profile
+* <b>[Comments]</b> - Selection Profile comments
 * <b>[IncludePath]</b> - Path to include imported OS Packages
 * <b>[PSDriveName]</b> - The PSDrive name for the MDT deployment share
 * <b>[PSDrivePath]</b> - The physical path to the MDT deployment share

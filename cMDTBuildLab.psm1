@@ -916,6 +916,9 @@ class cMDTBuildSelectionProfile
     [DscProperty(Key)]
     [string]$Name
 
+    [DscProperty()]
+    [string]$Comments
+
 	[DscProperty(Mandatory)]
 	[string]$IncludePath
 
@@ -955,7 +958,7 @@ class cMDTBuildSelectionProfile
     {
         Import-MicrosoftDeploymentToolkitModule
         New-PSDrive -Name $this.PSDriveName -PSProvider "MDTProvider" -Root $this.PSDrivePath -Verbose:$false
-        New-Item -Path "$($this.PSDriveName):\Selection Profiles" -enable "True" -Name $this.Name -Comments "" -Definition "<SelectionProfile><Include path=`$($this.IncludePath)`" /></SelectionProfile>" -ReadOnly "False" -Verbose
+        New-Item -Path "$($this.PSDriveName):\Selection Profiles" -enable "True" -Name $this.Name -Comments $this.Comments -Definition "<SelectionProfile><Include path=`"$($this.IncludePath)`" /></SelectionProfile>" -ReadOnly "False" -Verbose
 	}
 }
 
