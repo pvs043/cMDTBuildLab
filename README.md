@@ -29,7 +29,7 @@ cMDTBuildLab uses a number of components and open resource kit modules. The foll
   Install-Module -Name cNtfsAccessControl
   ```
 * [Windows 7 SP1 convenience rollup] (https://blogs.technet.microsoft.com/windowsitpro/2016/05/17/simplifying-updates-for-windows-7-and-8-1/) - Download x64/x86 [KB3020369] (http://catalog.update.microsoft.com/v7/site/Search.aspx?q=3020369) and [KB3125574] (http://catalog.update.microsoft.com/v7/site/Search.aspx?q=3125574) from Microsoft Update Catalog website.
-* [Cumulative update for Windows 10 Version 1607: September 20, 2016] (https://support.microsoft.com/en-us/kb/3193494) - Download x64/x86 [KB3193494] (http://catalog.update.microsoft.com/v7/site/Search.aspx?q=KB3193494) from Microsoft Update Catalog website.
+* [Cumulative update for Windows 10 Version 1607: October 6, 2016] (https://support.microsoft.com/en-us/kb/3197356) - Download x64/x86 [KB3197356] (http://catalog.update.microsoft.com/v7/site/Search.aspx?q=KB3197356) from Microsoft Update Catalog website.
 
 The following prerequisites automatically downloaded with the cMDTBuildLab Module (if MDT01 host does not direct connection to Internet, download it manually to $SourcePath folder):
 * [MicrosoftDeploymentToolkit2013_x64] (https://www.microsoft.com/en-us/download/details.aspx?id=50407) - Microsoft Deployment Toolkit (MDT) 2013 Update 2 (6.3.8330.1000)
@@ -66,9 +66,17 @@ You can use this module with a pull server, an SMB share or a local file reposit
    * Windows10x64
    * Windows2012R2
    * Windows2016TP5
-5. Run Powershell ISE as Administrator and open the file:<br>
+5. Copy updates to subfolders under E:\Source:
+   * Update for Windows 7 (KB3020369)
+   * Update for Windows 7 (KB3125574)
+   * Update for Windows 7 for x64-based Systems (KB3020369)
+   * Update for Windows 7 for x64-based Systems (KB3125574)
+   * Cumulative Update for Windows 10 Version 1607 (KB3197356)
+   * Cumulative Update for Windows 10 Version 1607 for x64-based Systems (KB3197356)
+   * Cumulative Update for Windows Server 2016 for x64-based Systems (KB3197356)
+6. Run Powershell ISE as Administrator and open the file:<br>
    C:\Program Files\WindowsPowerShell\Modules\cMDTBuldLab\1.0.0\Examples\Deploy_MDT_Server.ps1
-6. Press F5 to run the script. It will take approximately 30 min (Depending on internet capacity and virtualization hardware). The server will reboot ones during this process.
+7. Press F5 to run the script. It will take approximately 30 min (Depending on internet capacity and virtualization hardware). The server will reboot ones during this process.
 
 ### DscResources
 
