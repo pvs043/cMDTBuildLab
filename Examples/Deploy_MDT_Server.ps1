@@ -345,7 +345,7 @@ Configuration DeployMDTServerContract
                 If ($_.key -eq "PackageSourcePath") { $PackageSourcePath = "$($Node.SourcePath)\$($_.value)" }
             }
 
-            cMDTBuildPackage $Name.Replace(' ','')
+            cMDTBuildPackage $PackageSourcePath.Replace(' ','')
             {
                 Ensure            = $Ensure
                 Name              = $Name
