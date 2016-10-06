@@ -1079,6 +1079,10 @@ class cMDTBuildTaskSequenceCustomize
 	[DscProperty()]
 	[string]$Command
 
+	# Selection profile for 'Apply Patches' step
+	[DscProperty()]
+	[string]$SelectionProfile
+
     [DscProperty(Mandatory)]
     [string]$PSDriveName
 
@@ -1118,6 +1122,9 @@ class cMDTBuildTaskSequenceCustomize
 			}
 			if ($this.NewName -ne "") {
 				$step.Name = $this.NewName
+			}
+			if ($this.SelectionProfile -ne "") {
+				$step.defaultVarList.variable.'#text' = $this.SelectionProfile
 			}
 		}
 		else {
@@ -1186,6 +1193,9 @@ class cMDTBuildTaskSequenceCustomize
 			if ($step) {
 				if ($this.Disable -ne "") {
 					$present = ($step.disable -eq $this.Disable)
+				}
+				if ($this.SelectionProfile -ne "") {
+					$present = ($step.defaultVarList.variable.'#text' -eq $this.SelectionProfile)
 				}
 			}
 			else {

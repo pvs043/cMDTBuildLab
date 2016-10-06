@@ -395,28 +395,30 @@ Configuration DeployMDTServerContract
 			# Customize Task Sequence for one OS image
             ForEach ($TSCustomize in $TaskSequence.Customize)
             {
-				[string]$Name       = ""
-				[string]$NewName    = ""
-				[string]$Type       = ""
-				[string]$GroupName  = ""
-				[string]$SubGroup   = ""
-				[string]$Disable    = ""
-				[string]$AddAfter   = ""
-				[string]$OSName     = ""    # for OS features only
-				[string]$OSFeatures = ""
-				[string]$Command    = ""    # for Run Command line only
+				[string]$Name             = ""
+				[string]$NewName          = ""
+				[string]$Type             = ""
+				[string]$GroupName        = ""
+				[string]$SubGroup         = ""
+				[string]$Disable          = ""
+				[string]$AddAfter         = ""
+				[string]$OSName           = ""    # for OS features only
+				[string]$OSFeatures       = ""    # for OS features only
+				[string]$Command          = ""    # for Run Command line only
+				[string]$SelectionProfile = ""    # for Install Updates Offline only
 
 				$TSCustomize.GetEnumerator() | % {
-	                If ($_.key -eq "Name")       { $Name       = $_.value }
-					If ($_.key -eq "NewName")    { $NewName    = $_.value }
-					If ($_.key -eq "Type")       { $Type       = $_.value }
-					If ($_.key -eq "GroupName")  { $GroupName  = $_.value }
-					If ($_.key -eq "SubGroup")   { $SubGroup   = $_.value }
-					If ($_.key -eq "Disable")    { $Disable    = $_.value }
-					If ($_.key -eq "AddAfter")   { $AddAfter   = $_.value }
-					If ($_.key -eq "OSName")     { $OSName     = $_.value }
-					If ($_.key -eq "OSFeatures") { $OSFeatures = $_.value }
-					If ($_.key -eq "Command")    { $Command    = $_.value }
+	                If ($_.key -eq "Name")             { $Name             = $_.value }
+					If ($_.key -eq "NewName")          { $NewName          = $_.value }
+					If ($_.key -eq "Type")             { $Type             = $_.value }
+					If ($_.key -eq "GroupName")        { $GroupName        = $_.value }
+					If ($_.key -eq "SubGroup")         { $SubGroup         = $_.value }
+					If ($_.key -eq "Disable")          { $Disable          = $_.value }
+					If ($_.key -eq "AddAfter")         { $AddAfter         = $_.value }
+					If ($_.key -eq "OSName")           { $OSName           = $_.value }
+					If ($_.key -eq "OSFeatures")       { $OSFeatures       = $_.value }
+					If ($_.key -eq "Command")          { $Command          = $_.value }
+					If ($_.key -eq "SelectionProfile") { $SelectionProfile = $_.value }
 				}
 
 				# Current TS XML file name
@@ -425,19 +427,20 @@ Configuration DeployMDTServerContract
                 $CustomResource = $ID + '-' + $Name.Replace(' ','')
 	            cMDTBuildTaskSequenceCustomize $CustomResource
 				{
-					TSFile      = $TSFile
-					Name        = $Name
-					NewName     = $NewName
-					Type        = $Type
-					GroupName   = $GroupName
-					SubGroup    = $SubGroup
-					Disable     = $Disable
-					AddAfter    = $AddAfter
-					OSName      = $OSName
-					OSFeatures  = $OSFeatures
-					Command     = $Command
-	                PSDriveName = $Node.PSDriveName
-		            PSDrivePath = $Node.PSDrivePath
+					TSFile           = $TSFile
+					Name             = $Name
+					NewName          = $NewName
+					Type             = $Type
+					GroupName        = $GroupName
+					SubGroup         = $SubGroup
+					Disable          = $Disable
+					AddAfter         = $AddAfter
+					OSName           = $OSName
+					OSFeatures       = $OSFeatures
+					Command          = $Command
+					SelectionProfile = $SelectionProfile
+	                PSDriveName      = $Node.PSDriveName
+		            PSDrivePath      = $Node.PSDrivePath
 				}
 			}
         }

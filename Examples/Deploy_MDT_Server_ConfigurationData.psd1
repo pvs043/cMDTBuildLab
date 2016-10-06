@@ -323,6 +323,12 @@
                     ID       = "REFW7X86-001"
 					Customize = @(
 						@{
+							Name             = "Apply Patches"
+							Type             = "Install Updates Offline"
+							GroupName        = "Preinstall"
+							SelectionProfile = "Windows 7 x86"
+						}
+						@{
 							Name       = "Windows Update (Pre-Application Installation)"
 							Type       = "Run Command Line"
 							GroupName  = "State Restore"
@@ -448,6 +454,12 @@
 					Template = "Client.xml"
                     ID       = "REFW7X64-001"
 					Customize = @(
+						@{
+							Name             = "Apply Patches"
+							Type             = "Install Updates Offline"
+							GroupName        = "Preinstall"
+							SelectionProfile = "Windows 7 x64"
+						}
 						@{
 							Name       = "Windows Update (Pre-Application Installation)"
 							Type       = "Run Command Line"
@@ -575,6 +587,12 @@
                     ID       = "REFW81X86-001"
 					Customize = @(
 						@{
+							Name             = "Apply Patches"
+							Type             = "Install Updates Offline"
+							GroupName        = "Preinstall"
+							SelectionProfile = "Nothing"
+						}
+						@{
 							Name       = "Windows Update (Pre-Application Installation)"
 							Type       = "Run Command Line"
 							GroupName  = "State Restore"
@@ -694,6 +712,12 @@
 					Template = "Client.xml"
                     ID       = "REFW81X64-001"
 					Customize = @(
+						@{
+							Name             = "Apply Patches"
+							Type             = "Install Updates Offline"
+							GroupName        = "Preinstall"
+							SelectionProfile = "Nothing"
+						}
 						@{
 							Name       = "Windows Update (Pre-Application Installation)"
 							Type       = "Run Command Line"
@@ -815,6 +839,12 @@
                     ID       = "REFW10X86-001"
 					Customize = @(
 						@{
+							Name             = "Apply Patches"
+							Type             = "Install Updates Offline"
+							GroupName        = "Preinstall"
+							SelectionProfile = "Windows 10 x86"
+						}
+						@{
 							Name       = "Windows Update (Pre-Application Installation)"
 							Type       = "Run Command Line"
 							GroupName  = "State Restore"
@@ -914,6 +944,12 @@
 					Template = "Client.xml"
                     ID       = "REFW10X64-001"
 					Customize = @(
+						@{
+							Name             = "Apply Patches"
+							Type             = "Install Updates Offline"
+							GroupName        = "Preinstall"
+							SelectionProfile = "Windows 10 x64"
+						}
 						@{
 							Name       = "Windows Update (Pre-Application Installation)"
 							Type       = "Run Command Line"
@@ -1015,6 +1051,12 @@
                     ID       = "REFW2012R2-001"
 					Customize = @(
 						@{
+							Name             = "Apply Patches"
+							Type             = "Install Updates Offline"
+							GroupName        = "Preinstall"
+							SelectionProfile = "Nothing"
+						}
+						@{
 							Name       = "Windows Update (Pre-Application Installation)"
 							Type       = "Run Command Line"
 							GroupName  = "State Restore"
@@ -1096,6 +1138,12 @@
 					Template = "Server.xml"
                     ID       = "REFW2016-001"
 					Customize = @(
+						@{
+							Name             = "Apply Patches"
+							Type             = "Install Updates Offline"
+							GroupName        = "Preinstall"
+							SelectionProfile = "Windows 2016"
+						}
 						@{
 							Name       = "Windows Update (Pre-Application Installation)"
 							Type       = "Run Command Line"
