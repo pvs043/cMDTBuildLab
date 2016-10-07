@@ -181,7 +181,6 @@ Configuration DeployMDTServerContract
             DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
         }
 
-		$PkgDepend = "[cMDTBuildDirectory]DeploymentFolder"
 		foreach ($PkgFolder in $Node.PackagesFolderStructure)
 		{
             [string]$Ensure = ""
@@ -198,11 +197,8 @@ Configuration DeployMDTServerContract
                 Path        = "$($Node.PSDriveName):\Packages"
                 PSDriveName = $Node.PSDriveName
                 PSDrivePath = $Node.PSDrivePath
-                DependsOn   = $PkgDepend
+                DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
             }
-	
-			# Workaround for import packages with Powershell DSC 5.0 and MDT 2013 Update 2
-			$PkgDepend = "[cMDTBuildDirectory]PKG$($Folder.Replace(' ',''))"
 		}
 
         ForEach ($CurrentApplicationFolder in $Node.ApplicationFolderStructure)
@@ -331,6 +327,7 @@ Configuration DeployMDTServerContract
             }
         }
 
+		$PkgDepend = "[cMDTBuildDirectory]DeploymentFolder"
         ForEach ($Package in $Node.Packages)
         {
             [string]$Ensure            = ""
@@ -345,7 +342,8 @@ Configuration DeployMDTServerContract
                 If ($_.key -eq "PackageSourcePath") { $PackageSourcePath = "$($Node.SourcePath)\$($_.value)" }
             }
 
-            cMDTBuildPackage $PackageSourcePath.Replace(' ','')
+			$PkgDsc = ((($PackageSourcePath.Replace(' ','')).Replace(':','')).Replace('(','')).Replace(')','')
+            cMDTBuildPackage $PkgDsc
             {
                 Ensure            = $Ensure
                 Name              = $Name
@@ -353,8 +351,11 @@ Configuration DeployMDTServerContract
                 PackageSourcePath = $PackageSourcePath
                 PSDriveName       = $Node.PSDriveName
                 PSDrivePath       = $Node.PSDrivePath
-                DependsOn         = "[cMDTBuildDirectory]DeploymentFolder"
+                DependsOn         = $PkgDepend
             }
+
+			# Workaround for import packages with Powershell DSC 5.0 and MDT 2013 Update 2
+			$PkgDepend = "[cMDTBuildPackage]$($PkgDsc)"
         }
 
         ForEach ($TaskSequence in $Node.TaskSequences)   
