@@ -269,12 +269,6 @@
 					Path              = "\Packages\Windows 10 x64"
 					PackageSourcePath = "Cumulative Update for Windows 10 Version 1607 for x64-based Systems (KB3197356)"
 				}
-				@{
-					Ensure            = "Present"
-					Name              = "Package_for_RollupFix neutral amd64 14393.223.1.0"
-					Path              = "\Packages\Windows 2016"
-					PackageSourcePath = "Cumulative Update for Windows Server 2016 for x64-based Systems (KB3197356)"
-				}
 			)
 
             #Selection profile creation
@@ -302,12 +296,6 @@
 					Name        = "Windows 10 x64"
 					Comments    = "Packages for Windows 10 x64"
 					IncludePath = "Packages\Windows 10 x64"
-				}
-				@{
-					Ensure      = "Present"
-					Name        = "Windows 2016"
-					Comments    = "Packages for Windows 2016"
-					IncludePath = "Packages\Windows 2016"
 				}
 			)
 
@@ -1142,7 +1130,7 @@
 							Name             = "Apply Patches"
 							Type             = "Install Updates Offline"
 							GroupName        = "Preinstall"
-							SelectionProfile = "Windows 2016"
+							SelectionProfile = "Windows 10 x64"
 						}
 						@{
 							Name       = "Windows Update (Pre-Application Installation)"
