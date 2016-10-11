@@ -65,7 +65,7 @@ You can use this module with a pull server, an SMB share or a local file reposit
    * Windows10x86
    * Windows10x64
    * Windows2012R2
-   * Windows2016TP5
+   * Windows2016
 5. Copy updates to subfolders under E:\Source:
    * Update for Windows 7 (KB3020369)
    * Update for Windows 7 (KB3125574)
@@ -73,7 +73,6 @@ You can use this module with a pull server, an SMB share or a local file reposit
    * Update for Windows 7 for x64-based Systems (KB3125574)
    * Cumulative Update for Windows 10 Version 1607 (KB3197356)
    * Cumulative Update for Windows 10 Version 1607 for x64-based Systems (KB3197356)
-   * Cumulative Update for Windows Server 2016 for x64-based Systems (KB3197356)
 6. Run Powershell ISE as Administrator and open the file:<br>
    C:\Program Files\WindowsPowerShell\Modules\cMDTBuldLab\1.0.0\Examples\Deploy_MDT_Server.ps1
 7. Press F5 to run the script. It will take approximately 30 min (Depending on internet capacity and virtualization hardware). The server will reboot ones during this process.
