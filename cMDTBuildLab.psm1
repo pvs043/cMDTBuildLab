@@ -460,35 +460,22 @@ class cMDTBuildPackage
 
     [void] ImportPackage()
     {
-		<#
-		This is the test code for workaround Bug with DSC 5.0 and MDT 2013 Update 2: prevent crash for WMI (see cMDTBuildUpdateBootImage class).
-	    It's not worked for now: DSC process done without errors, but Packages is broken/invisible at MDT console.
-
-        #The Import-MDTPackage command crashes WMI when run from inside DSC. This section is a work around.
-        $aPSDriveName = $this.PSDriveName
-        $aPSDrivePath = $this.PSDrivePath
-        $aPath = $this.Path
-        $aPackageSourcePath = $this.PackageSourcePath
-        $jobArgs = @($aPSDriveName,$aPSDrivePath,$aPath,$aPackageSourcePath)
-
-        $job = Start-Job -Name ImportMDTPackage -Scriptblock {
-            Import-Module "$env:ProgramFiles\Microsoft Deployment Toolkit\Bin\MicrosoftDeploymentToolkit.psd1" -ErrorAction Stop -Verbose:$false
-            New-PSDrive -Name $args[0] -PSProvider "MDTProvider" -Root $args[1] -Verbose:$false
-            Import-MDTPackage -Path $args[2] -SourcePath $args[3] -Verbose
-        } -ArgumentList $jobArgs
-
-        $job | Wait-Job -Timeout 900 
-        $timedOutJobs = Get-Job -Name ImportMDTPackage | Where-Object {$_.State -eq 'Running'} | Stop-Job -PassThru
-
-        If ($timedOutJobs) {
-            Write-Error "Update-MDTDeploymentShare job exceeded timeout limit of 900 seconds and was aborted"
+		# The Import-MDTPackage command crashes WMI when run from inside DSC. Using workflow is a work around.
+        workflow Import-Pkg {
+            [CmdletBinding()]
+            param(
+                [string]$PSDriveName,
+                [string]$PSDrivePath,
+                [string]$Path,
+                [string]$Source
+            )
+			InlineScript {
+				Import-MicrosoftDeploymentToolkitModule
+				New-PSDrive -Name $Using:PSDriveName -PSProvider "MDTProvider" -Root $Using:PSDrivePath -Verbose:$false
+				Import-MDTPackage -Path $Using:Path -SourcePath $Using:Source -Verbose
+			}
         }
-		#>
-
-		# This code is work: crash WMI after the 1nd pass DSC, but after the 2d pass (DSC test) everything works fine
-        Import-MicrosoftDeploymentToolkitModule
-        New-PSDrive -Name $this.PSDriveName -PSProvider "MDTProvider" -Root $this.PSDrivePath -Verbose:$false
-        Import-MDTPackage -Path "$($this.Path)" -SourcePath "$($this.PackageSourcePath)" -Verbose
+        Import-Pkg $this.PSDriveName $this.PSDrivePath $this.Path $this.PackageSourcePath
     }
 }
 
