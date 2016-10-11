@@ -92,10 +92,6 @@
 					Ensure = "Present"
 					Folder = "Windows 10 x64"
 				}
-				@{
-					Ensure = "Present"
-					Folder = "Windows 2016"
-				}
 			)
 
             #Operating systems to import to MDT
