@@ -327,7 +327,7 @@ Configuration DeployMDTServerContract
             }
         }
 
-		$PkgDepend = "[cMDTBuildDirectory]DeploymentFolder"
+		#$PkgDepend = "[cMDTBuildDirectory]DeploymentFolder"
         ForEach ($Package in $Node.Packages)
         {
             [string]$Ensure            = ""
@@ -342,8 +342,8 @@ Configuration DeployMDTServerContract
                 If ($_.key -eq "PackageSourcePath") { $PackageSourcePath = "$($Node.SourcePath)\$($_.value)" }
             }
 
-			$PkgDsc = $PackageSourcePath -Replace(' ','') -Replace(':','') -Replace('\(','') -Replace('\)','')
-            cMDTBuildPackage $PkgDsc
+			#$PkgDsc = $PackageSourcePath -Replace(' ','') -Replace(':','') -Replace('\(','') -Replace('\)','')
+            cMDTBuildPackage $Name.Replace(' ','')
             {
                 Ensure            = $Ensure
                 Name              = $Name
@@ -351,11 +351,11 @@ Configuration DeployMDTServerContract
                 PackageSourcePath = $PackageSourcePath
                 PSDriveName       = $Node.PSDriveName
                 PSDrivePath       = $Node.PSDrivePath
-                DependsOn         = $PkgDepend
+                DependsOn         = "[cMDTBuildDirectory]DeploymentFolder"
             }
 
 			# Workaround for import packages with Powershell DSC 5.0 and MDT 2013 Update 2
-			$PkgDepend = "[cMDTBuildPackage]$($PkgDsc)"
+			#$PkgDepend = "[cMDTBuildPackage]$($PkgDsc)"
         }
 
         ForEach ($TaskSequence in $Node.TaskSequences)   
