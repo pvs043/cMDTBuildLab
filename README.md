@@ -526,9 +526,7 @@ cMDTBuildUpdateBootImage is a DscResource that enables creation and management o
 Available parameters:
 * <b>[Version]</b> - Version number
 * <b>[PSDeploymentShare]</b> - Name of MDT drive
-* <b>[Force]</b> - true/false
-* <b>[Compress]</b> - true/false
-* <b>[DeploymentSharePath]</b> - MDT path
+* <b>[PSDrivePath]</b> - MDT path
 * <b>[ExtraDirectory]</b> - Extra Directory to add in WinPE
 * <b>[BackgroundFile]</b> - WinPE Background picture
 * <b>[LiteTouchWIMDescription]</b> - WinPE image description
@@ -542,9 +540,7 @@ Desired State Configuration job example:
 cMDTBuildUpdateBootImage updateBootImage {
     Version = "1.0"
     PSDeploymentShare = $PSDriveName
-    Force = $true
-    Compress = $true
-    DeploymentSharePath = $PSDrivePath
+    PsDrivePath = $PSDrivePath
     ExtraDirectory = "Extra"
     BackgroundFile = "%INSTALLDIR%\Samples\Background.bmp"
     LiteTouchWIMDescription = "MDT Build Lab"

@@ -605,9 +605,7 @@ UserExit=LoadKVPInWinPE.vbs
             cMDTBuildUpdateBootImage updateBootImage {
                 Version                 = $Version
                 PSDeploymentShare       = $Node.PSDriveName
-                Force                   = $true
-                Compress                = $true
-                DeploymentSharePath     = $Node.PSDrivePath
+                PSDrivePath             = $Node.PSDrivePath
                 ExtraDirectory          = $ExtraDirectory
                 BackgroundFile          = $BackgroundFile
                 LiteTouchWIMDescription = $LiteTouchWIMDescription

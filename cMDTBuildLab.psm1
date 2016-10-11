@@ -1382,13 +1382,7 @@ class cMDTBuildUpdateBootImage
     [string]$PSDeploymentShare
 
     [DscProperty(Mandatory)]
-    [bool]$Force
-
-    [DscProperty(Mandatory)]
-    [bool]$Compress
-
-    [DscProperty(Mandatory)]
-    [string]$DeploymentSharePath
+    [string]$PSDrivePath
 
     [DscProperty()]
     [string]$ExtraDirectory
@@ -1418,7 +1412,7 @@ class cMDTBuildUpdateBootImage
     {
         [bool]$match = $false
 
-        if ((Get-Content -Path "$($this.DeploymentSharePath)\Boot\CurrentBootImage.version" -ErrorAction Ignore) -eq $this.Version) {
+        if ((Get-Content -Path "$($this.PSDDrivePath)\Boot\CurrentBootImage.version" -ErrorAction Ignore) -eq $this.Version) {
             $match = $true
         }
         return $match
@@ -1427,15 +1421,15 @@ class cMDTBuildUpdateBootImage
     [void] UpdateBootImage()
     {
         Import-MicrosoftDeploymentToolkitModule
-        New-PSDrive -Name $this.PSDeploymentShare -PSProvider "MDTProvider" -Root $this.DeploymentSharePath -Verbose:$false
+        New-PSDrive -Name $this.PSDeploymentShare -PSProvider "MDTProvider" -Root $this.PSDrivePath -Verbose:$false
 
         If ([string]::IsNullOrEmpty($($this.ExtraDirectory))) {
             Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x64.ExtraDirectory -Value ""
             Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x86.ExtraDirectory -Value ""
         }
         ElseIf (Invoke-TestPath -Path "$($this.DeploymentSharePath)\$($this.ExtraDirectory)") {
-            Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x64.ExtraDirectory -Value "$($this.DeploymentSharePath)\$($this.ExtraDirectory)"                        
-            Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x86.ExtraDirectory -Value "$($this.DeploymentSharePath)\$($this.ExtraDirectory)"                       
+            Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x64.ExtraDirectory -Value "$($this.PSDrivePath)\$($this.ExtraDirectory)"                        
+            Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x86.ExtraDirectory -Value "$($this.PSDrivePath)\$($this.ExtraDirectory)"                       
         }
 
         If ([string]::IsNullOrEmpty($($this.BackgroundFile))) {
@@ -1443,8 +1437,8 @@ class cMDTBuildUpdateBootImage
             Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x86.BackgroundFile -Value ""
         }
         ElseIf (Invoke-TestPath -Path "$($this.DeploymentSharePath)\$($this.BackgroundFile)") {
-             Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x64.BackgroundFile -Value "$($this.DeploymentSharePath)\$($this.BackgroundFile)"
-             Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x86.BackgroundFile -Value "$($this.DeploymentSharePath)\$($this.BackgroundFile)"
+             Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x64.BackgroundFile -Value "$($this.PSDrivePath)\$($this.BackgroundFile)"
+             Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x86.BackgroundFile -Value "$($this.PSDrivePath)\$($this.BackgroundFile)"
         }
 		Else {
              Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x64.BackgroundFile -Value $this.BackgroundFile
@@ -1458,12 +1452,16 @@ class cMDTBuildUpdateBootImage
 			Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x86.LiteTouchISOName -Value "$($this.LiteTouchWIMDescription)_x86.iso".Replace(' ','_')
 		}
 
+        Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x64.SelectionProfile -Value "Nothing"
+        Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x86.SelectionProfile -Value "Nothing"
+
         Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x64.GenerateLiteTouchISO -Value $false
         Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x86.GenerateLiteTouchISO -Value $true
-        
 
         #The Update-MDTDeploymentShare command crashes WMI when run from inside DSC. This section is a work around.
-        $aPSDeploymentShare = $this.PSDeploymentShare
+
+        <# Old style is hard
+		$aPSDeploymentShare = $this.PSDeploymentShare
         $aDeploymentSharePath = $this.DeploymentSharePath
         $aForce = $this.Force
         $aCompress = $this.Compress
@@ -1484,6 +1482,22 @@ class cMDTBuildUpdateBootImage
         Else {
             Set-Content -Path "$($this.DeploymentSharePath)\Boot\CurrentBootImage.version" -Value "$($this.Version)"
         }
+		#>
+
+		workflow Update-DeploymentShare {
+			[CmdletBinding()]
+			param (
+				[string]$PSDeploymentShare,
+				[string]$PSDrivePath
+			)
+			InlineScript {
+				Import-MicrosoftDeploymentToolkitModule
+				New-PSDrive -Name $Using:PSDeploymentShare -PSProvider "MDTProvider" -Root $Using:PSDrivePath -Verbose:$false
+				Update-MDTDeploymentShare -Path "$($Using:PSDeploymentShare):" -Force:$true -Compress:$true
+			}
+		}
+		Update-DeploymentShare $this.PSDeploymentShare $this.PSDrivePath
+        Set-Content -Path "$($this.PSDrivePath)\Boot\CurrentBootImage.version" -Value "$($this.Version)"
     }
 }
 
