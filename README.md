@@ -6,7 +6,7 @@ cMDTBuildLab is a fork from cMDT module (https://github.com/addlevel/cMDT) by in
 ### Version
 0.5.0
 
-See version history at [Project Wiki] (https://github.com/pvs043/cMDTBuildLab/wiki)
+See version history at [Project Wiki] (https://github.com/pvs043/cMDTBuildLab/wiki/Version-History)
 
 ### Tech
 
