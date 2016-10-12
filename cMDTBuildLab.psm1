@@ -1427,7 +1427,7 @@ class cMDTBuildUpdateBootImage
             Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x64.ExtraDirectory -Value ""
             Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x86.ExtraDirectory -Value ""
         }
-        ElseIf (Invoke-TestPath -Path "$($this.DeploymentSharePath)\$($this.ExtraDirectory)") {
+        ElseIf (Invoke-TestPath -Path "$($this.PSDrivePath)\$($this.ExtraDirectory)") {
             Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x64.ExtraDirectory -Value "$($this.PSDrivePath)\$($this.ExtraDirectory)"                        
             Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x86.ExtraDirectory -Value "$($this.PSDrivePath)\$($this.ExtraDirectory)"                       
         }
@@ -1436,7 +1436,7 @@ class cMDTBuildUpdateBootImage
             Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x64.BackgroundFile -Value ""
             Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x86.BackgroundFile -Value ""
         }
-        ElseIf (Invoke-TestPath -Path "$($this.DeploymentSharePath)\$($this.BackgroundFile)") {
+        ElseIf (Invoke-TestPath -Path "$($this.PSDrivePath)\$($this.BackgroundFile)") {
              Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x64.BackgroundFile -Value "$($this.PSDrivePath)\$($this.BackgroundFile)"
              Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x86.BackgroundFile -Value "$($this.PSDrivePath)\$($this.BackgroundFile)"
         }
