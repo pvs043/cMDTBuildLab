@@ -31,7 +31,7 @@ cMDTBuildLab uses a number of components and open resource kit modules. The foll
   Install-Module -Name cNtfsAccessControl
   ```
 * [Windows 7 SP1 convenience rollup] (https://blogs.technet.microsoft.com/windowsitpro/2016/05/17/simplifying-updates-for-windows-7-and-8-1/) - Download x64/x86 [KB3020369] (http://catalog.update.microsoft.com/v7/site/Search.aspx?q=3020369) and [KB3125574] (http://catalog.update.microsoft.com/v7/site/Search.aspx?q=3125574) from Microsoft Update Catalog website.
-* [Cumulative update for Windows 10 Version 1607: October 6, 2016] (https://support.microsoft.com/en-us/kb/3197356) - Download x64/x86 [KB3197356] (http://catalog.update.microsoft.com/v7/site/Search.aspx?q=KB3197356) from Microsoft Update Catalog website.
+* [Cumulative update for Windows 10 Version 1607 and Windows Server 2016: October 11, 2016] (https://support.microsoft.com/en-us/kb/3194798) - Download x64/x86 [KB3194798] (http://catalog.update.microsoft.com/v7/site/Search.aspx?q=KB3194798) from Microsoft Update Catalog website.
 
 The following prerequisites automatically downloaded with the cMDTBuildLab Module (if MDT01 host does not direct connection to Internet, download it manually to $SourcePath folder):
 * [MicrosoftDeploymentToolkit2013_x64] (https://www.microsoft.com/en-us/download/details.aspx?id=50407) - Microsoft Deployment Toolkit (MDT) 2013 Update 2 (6.3.8330.1000)

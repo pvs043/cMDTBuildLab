@@ -604,16 +604,16 @@ class cMDTBuildPreReqs
             File = "adksetup.exe"
         }
         @{
-            #Version: 5 (Build: 5.1.50709.0)
+            #Version: 5 (Build: 5.1.50901.0)
 		    Name = "Silverlight_x64"
-			URI = "https://download.microsoft.com/download/7/7/6/7765A6A5-4B02-41DE-B7AF-067C92C581BD/50709.00/Silverlight_x64.exe"
+			URI = "http://download.microsoft.com/download/0/3/E/03EB1393-4F4E-4191-8364-C641FAB20344/50901.00/Silverlight_x64.exe"
             Folder = "Silverlight_x64"
             File = "Silverlight_x64.exe"
         }
         @{
-            #Version: 5 (Build: 5.1.50709.0)
+            #Version: 5 (Build: 5.1.50901.0)
 		    Name = "Silverlight_x86"
-            URI = "https://download.microsoft.com/download/7/7/6/7765A6A5-4B02-41DE-B7AF-067C92C581BD/50709.00/Silverlight.exe"
+            URI = "http://download.microsoft.com/download/0/3/E/03EB1393-4F4E-4191-8364-C641FAB20344/50901.00/Silverlight.exe"
             Folder = "Silverlight_x86"
             File = "Silverlight.exe"
         }
