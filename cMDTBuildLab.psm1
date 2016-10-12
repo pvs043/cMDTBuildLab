@@ -1412,7 +1412,7 @@ class cMDTBuildUpdateBootImage
     {
         [bool]$match = $false
 
-        if ((Get-Content -Path "$($this.PSDDrivePath)\Boot\CurrentBootImage.version" -ErrorAction Ignore) -eq $this.Version) {
+        if ((Get-Content -Path "$($this.PSDrivePath)\Boot\CurrentBootImage.version" -ErrorAction Ignore) -eq $this.Version) {
             $match = $true
         }
         return $match
