@@ -255,15 +255,15 @@
 				}
 				@{
 					Ensure            = "Present"
-					Name              = "Package_for_RollupFix neutral x86 14393.223.1.0"
+					Name              = "Package_for_RollupFix neutral x86 14393.321.1.5"
 					Path              = "\Packages\Windows 10 x86"
-					PackageSourcePath = "Cumulative Update for Windows 10 Version 1607 (KB3197356)"
+					PackageSourcePath = "Cumulative Update for Windows 10 Version 1607 (KB3194798)"
 				}
 				@{
 					Ensure            = "Present"
-					Name              = "Package_for_RollupFix neutral amd64 14393.223.1.0"
+					Name              = "Package_for_RollupFix neutral amd64 14393.321.1.5"
 					Path              = "\Packages\Windows 10 x64"
-					PackageSourcePath = "Cumulative Update for Windows 10 Version 1607 for x64-based Systems (KB3197356)"
+					PackageSourcePath = "Cumulative Update for Windows 10 Version 1607 for x64-based Systems (KB3194798)"
 				}
 			)
 
