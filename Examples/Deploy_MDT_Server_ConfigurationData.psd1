@@ -1117,7 +1117,7 @@
                     Ensure   = "Present"
                     Name     = "Windows 2016"
                     Path     = "Windows 2016"
-					OSName   = "Windows 2016\Windows Server 2016 SERVERDATACENTER in Windows 2016 install.wim"
+					OSName   = "Windows 2016\Windows Server 2016 SERVERSTANDARD in Windows 2016 install.wim"
                     OrgName  = "BuildLab"
 					Template = "Server.xml"
                     ID       = "REFW2016-001"
