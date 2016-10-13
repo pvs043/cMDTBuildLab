@@ -24,9 +24,6 @@
             MDTLocalAccount    = "SVCMDTConnect001"
             MDTLocalPassword   = "P@ssw0rd"
 
-            #Download and extraction temporary folder
-            #TempLocation       = "E:\Temp"
-
             #MDT deoployment share paths
             PSDriveName        = "MDT001"
             PSDrivePath        = "E:\MDTBuildLab"
@@ -52,7 +49,7 @@
                 }
                 @{  
                     Ensure = "Present"
-                    OperatingSystem = "Windows 2016 TP5"
+                    OperatingSystem = "Windows 2016"
                 }
             )
 
@@ -77,6 +74,25 @@
                     Folder = "Common Applications"
                 }
             )
+
+			PackagesFolderStructure = @(
+				@{
+					Ensure = "Present"
+					Folder = "Windows 7 x86"
+				}
+				@{
+					Ensure = "Present"
+					Folder = "Windows 7 x64"
+				}
+				@{
+					Ensure = "Present"
+					Folder = "Windows 10 x86"
+				}
+				@{
+					Ensure = "Present"
+					Folder = "Windows 10 x64"
+				}
+			)
 
             #Operating systems to import to MDT
             OperatingSystems   = @(
@@ -124,9 +140,9 @@
                 }
                 @{
                     Ensure     = "Present"
-                    Name       = "Windows 2016 TP5"
-                    Path       = "Windows 2016 TP5"
-                    SourcePath = "$SourcePath\Windows2016TP5"
+                    Name       = "Windows 2016"
+                    Path       = "Windows 2016"
+                    SourcePath = "$SourcePath\Windows2016"
                 }
             )
 
@@ -211,6 +227,74 @@
                 }
             )
 
+			#Packages
+			Packages = @(
+				@{
+					Ensure            = "Present"
+					Name              = "Package_for_KB3020369 neutral x86 6.1.1.1"
+					Path              = "\Packages\Windows 7 x86"
+					PackageSourcePath = "Update for Windows 7 (KB3020369)"
+				}
+				@{
+					Ensure            = "Present"
+					Name              = "Package_for_KB3125574 neutral x86 6.1.4.4"
+					Path              = "\Packages\Windows 7 x86"
+					PackageSourcePath = "Update for Windows 7 (KB3125574)"
+				}
+				@{
+					Ensure            = "Present"
+					Name              = "Package_for_KB3020369 neutral amd64 6.1.1.1"
+					Path              = "\Packages\Windows 7 x64"
+					PackageSourcePath = "Update for Windows 7 for x64-based Systems (KB3020369)"
+				}
+				@{
+					Ensure            = "Present"
+					Name              = "Package_for_KB3125574 neutral amd64 6.1.4.4"
+					Path              = "\Packages\Windows 7 x64"
+					PackageSourcePath = "Update for Windows 7 for x64-based Systems (KB3125574)"
+				}
+				@{
+					Ensure            = "Present"
+					Name              = "Package_for_RollupFix neutral x86 14393.321.1.5"
+					Path              = "\Packages\Windows 10 x86"
+					PackageSourcePath = "Cumulative Update for Windows 10 Version 1607 (KB3194798)"
+				}
+				@{
+					Ensure            = "Present"
+					Name              = "Package_for_RollupFix neutral amd64 14393.321.1.5"
+					Path              = "\Packages\Windows 10 x64"
+					PackageSourcePath = "Cumulative Update for Windows 10 Version 1607 for x64-based Systems (KB3194798)"
+				}
+			)
+
+            #Selection profile creation
+            SelectionProfiles  = @(
+				@{
+					Ensure      = "Present"
+					Name        = "Windows 7 x86"
+					Comments    = "Packages for Windows 7 x86"
+					IncludePath = "Packages\Windows 7 x86"
+				}
+				@{
+					Ensure      = "Present"
+					Name        = "Windows 7 x64"
+					Comments    = "Packages for Windows 7 x64"
+					IncludePath = "Packages\Windows 7 x64"
+				}
+				@{
+					Ensure      = "Present"
+					Name        = "Windows 10 x86"
+					Comments    = "Packages for Windows 10 x86"
+					IncludePath = "Packages\Windows 10 x86"
+				}
+				@{
+					Ensure      = "Present"
+					Name        = "Windows 10 x64"
+					Comments    = "Packages for Windows 10 x64"
+					IncludePath = "Packages\Windows 10 x64"
+				}
+			)
+
             #Task sqeuences; are dependent on imported Operating system and Applications in MDT
             TaskSequences   = @(
                 @{  
@@ -222,6 +306,12 @@
 					Template = "Client.xml"
                     ID       = "REFW7X86-001"
 					Customize = @(
+						@{
+							Name             = "Apply Patches"
+							Type             = "Install Updates Offline"
+							GroupName        = "Preinstall"
+							SelectionProfile = "Windows 7 x86"
+						}
 						@{
 							Name       = "Windows Update (Pre-Application Installation)"
 							Type       = "Run Command Line"
@@ -349,6 +439,12 @@
                     ID       = "REFW7X64-001"
 					Customize = @(
 						@{
+							Name             = "Apply Patches"
+							Type             = "Install Updates Offline"
+							GroupName        = "Preinstall"
+							SelectionProfile = "Windows 7 x64"
+						}
+						@{
 							Name       = "Windows Update (Pre-Application Installation)"
 							Type       = "Run Command Line"
 							GroupName  = "State Restore"
@@ -475,6 +571,12 @@
                     ID       = "REFW81X86-001"
 					Customize = @(
 						@{
+							Name             = "Apply Patches"
+							Type             = "Install Updates Offline"
+							GroupName        = "Preinstall"
+							SelectionProfile = "Nothing"
+						}
+						@{
 							Name       = "Windows Update (Pre-Application Installation)"
 							Type       = "Run Command Line"
 							GroupName  = "State Restore"
@@ -594,6 +696,12 @@
 					Template = "Client.xml"
                     ID       = "REFW81X64-001"
 					Customize = @(
+						@{
+							Name             = "Apply Patches"
+							Type             = "Install Updates Offline"
+							GroupName        = "Preinstall"
+							SelectionProfile = "Nothing"
+						}
 						@{
 							Name       = "Windows Update (Pre-Application Installation)"
 							Type       = "Run Command Line"
@@ -715,6 +823,12 @@
                     ID       = "REFW10X86-001"
 					Customize = @(
 						@{
+							Name             = "Apply Patches"
+							Type             = "Install Updates Offline"
+							GroupName        = "Preinstall"
+							SelectionProfile = "Windows 10 x86"
+						}
+						@{
 							Name       = "Windows Update (Pre-Application Installation)"
 							Type       = "Run Command Line"
 							GroupName  = "State Restore"
@@ -814,6 +928,12 @@
 					Template = "Client.xml"
                     ID       = "REFW10X64-001"
 					Customize = @(
+						@{
+							Name             = "Apply Patches"
+							Type             = "Install Updates Offline"
+							GroupName        = "Preinstall"
+							SelectionProfile = "Windows 10 x64"
+						}
 						@{
 							Name       = "Windows Update (Pre-Application Installation)"
 							Type       = "Run Command Line"
@@ -915,6 +1035,12 @@
                     ID       = "REFW2012R2-001"
 					Customize = @(
 						@{
+							Name             = "Apply Patches"
+							Type             = "Install Updates Offline"
+							GroupName        = "Preinstall"
+							SelectionProfile = "Nothing"
+						}
+						@{
 							Name       = "Windows Update (Pre-Application Installation)"
 							Type       = "Run Command Line"
 							GroupName  = "State Restore"
@@ -989,13 +1115,19 @@
                 }
                 @{  
                     Ensure   = "Present"
-                    Name     = "Windows 2016 TP5"
-                    Path     = "Windows 2016 TP5"
-					OSName   = "Windows 2016 TP5\Windows Server 2016 Technical Preview 5 SERVERDATACENTER in Windows 2016 TP5 install.wim"
+                    Name     = "Windows 2016"
+                    Path     = "Windows 2016"
+					OSName   = "Windows 2016\Windows Server 2016 SERVERSTANDARD in Windows 2016 install.wim"
                     OrgName  = "BuildLab"
 					Template = "Server.xml"
-                    ID       = "REFW2016TP5-001"
+                    ID       = "REFW2016-001"
 					Customize = @(
+						@{
+							Name             = "Apply Patches"
+							Type             = "Install Updates Offline"
+							GroupName        = "Preinstall"
+							SelectionProfile = "Windows 10 x64"
+						}
 						@{
 							Name       = "Windows Update (Pre-Application Installation)"
 							Type       = "Run Command Line"

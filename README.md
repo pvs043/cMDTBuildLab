@@ -4,7 +4,9 @@ cMDTBuildLab is a Powershell Module to help automize deployment Windows Referenc
 cMDTBuildLab is a fork from cMDT module (https://github.com/addlevel/cMDT) by info@addlevel.se (c)
 
 ### Version
-0.4.0
+0.5.0
+
+See version history at [Project Wiki] (https://github.com/pvs043/cMDTBuildLab/wiki/Version-History)
 
 ### Tech
 
@@ -28,8 +30,10 @@ cMDTBuildLab uses a number of components and open resource kit modules. The foll
   ```powershell
   Install-Module -Name cNtfsAccessControl
   ```
+* [Windows 7 SP1 convenience rollup] (https://blogs.technet.microsoft.com/windowsitpro/2016/05/17/simplifying-updates-for-windows-7-and-8-1/) - Download x64/x86 [KB3020369] (http://catalog.update.microsoft.com/v7/site/Search.aspx?q=3020369) and [KB3125574] (http://catalog.update.microsoft.com/v7/site/Search.aspx?q=3125574) from Microsoft Update Catalog website.
+* [Cumulative update for Windows 10 Version 1607 and Windows Server 2016: October 11, 2016] (https://support.microsoft.com/en-us/kb/3194798) - Download x64/x86 [KB3194798] (http://catalog.update.microsoft.com/v7/site/Search.aspx?q=KB3194798) from Microsoft Update Catalog website.
 
-The following prerequisites automatically downloaded with the cMDTBuildLab Module:
+The following prerequisites automatically downloaded with the cMDTBuildLab Module (if MDT01 host does not direct connection to Internet, download it manually to $SourcePath folder):
 * [MicrosoftDeploymentToolkit2013_x64] (https://www.microsoft.com/en-us/download/details.aspx?id=50407) - Microsoft Deployment Toolkit (MDT) 2013 Update 2 (6.3.8330.1000)
 * [adksetup] (https://developer.microsoft.com/en-us/windows/hardware/windows-assessment-deployment-kit) - Windows Assessment and Deployment Kit 10, v.1607 (10.1.14393.0)
 * [Visual C++ runtimes] (https://support.microsoft.com/en-us/kb/2977003) (2005,2008,2010,2012,2013,2015)
@@ -38,7 +42,7 @@ The following prerequisites automatically downloaded with the cMDTBuildLab Modul
 * [Windows Management Framewework 5.0] (http://aka.ms/wmf5latest)
 
 This extra files included to module (\Sources\Extra.zip):
-* devcon.exe: tool from [Windows Driver Kit 8.1 Update 1] (https://www.microsoft.com/en-us/download/details.aspx?id=42273). This version of Toolkit must be used with VMs on Windows 2012 R2 Hyper-V host.
+* devcon.exe: tool from [Windows Driver Kit] (https://msdn.microsoft.com/en-us/library/windows/hardware/ff544707(v=vs.85).aspx).
 * KVP (Key Value Pair Exchange) driver for WinPE. This extracted from VMGuest.iso image on Hyper-V host (\support\x86\Windows6.x-HyperVIntegrationServices-x86.cab).
 
 ### Installation
@@ -63,10 +67,17 @@ You can use this module with a pull server, an SMB share or a local file reposit
    * Windows10x86
    * Windows10x64
    * Windows2012R2
-   * Windows2016TP5
-5. Run Powershell ISE as Administrator and open the file:<br>
+   * Windows2016
+5. Copy updates to subfolders under E:\Source:
+   * Update for Windows 7 (KB3020369)
+   * Update for Windows 7 (KB3125574)
+   * Update for Windows 7 for x64-based Systems (KB3020369)
+   * Update for Windows 7 for x64-based Systems (KB3125574)
+   * Cumulative Update for Windows 10 Version 1607 (KB3197356)
+   * Cumulative Update for Windows 10 Version 1607 for x64-based Systems (KB3197356)
+6. Run Powershell ISE as Administrator and open the file:<br>
    C:\Program Files\WindowsPowerShell\Modules\cMDTBuldLab\1.0.0\Examples\Deploy_MDT_Server.ps1
-6. Press F5 to run the script. It will take approximately 30 min (Depending on internet capacity and virtualization hardware). The server will reboot ones during this process.
+7. Press F5 to run the script. It will take approximately 30 min (Depending on internet capacity and virtualization hardware). The server will reboot ones during this process.
 
 ### DscResources
 
@@ -80,6 +91,7 @@ The cMDTBuildLab Module contain the following DscResources:
 * <b>cMDTBuildOperatingSystem</b>
 * <b>cMDTBuildPersistentDrive</b>
 * <b>cMDTBuildPreReqs</b>
+* <b>cMDTBuildSelectionProfile</b>
 * <b>cMDTBuildTaskSequence</b>
 * <b>cMDTBuildTaskSequenceCustomize</b>
 * <b>cMDTBuildUpdateBootImage</b>
@@ -319,6 +331,37 @@ cMDTBuildOperatingSystem Win10x64 {
 }
 ```
 
+#### cMDTBuildPackage
+cMDTBuildPackage is a DscResource that enables import packages in MDT. Packages must be placed into source directory.
+
+Available parameters:
+* <b>[Ensure]</b> - Present/Absent
+* <b>[Name]</b> - Package name
+* <b>[Path]</b> - MDT path
+* <b>[PackageSourcePath]</b> - Folder under $SourcePath
+* <b>[PSDriveName]</b> - The PSDrive name for the MDT deployment share
+* <b>[PSDrivePath]</b> - The physical path to the MDT deployment share
+
+The DscResource will import applications according to the following principle:
+* Verify status present or absent
+* If present:
+    * Verify if the package already exist in MDT
+    * If the package does not exist the package will be imported
+* If absent:
+    * If package exist it will be removed
+
+Desired State Configuration job example:
+```sh
+cMDTBuildPackage KB3125574_x64 {
+    Ensure = "Present"
+    Name = "Package_for_KB3125574 neutral amd64 6.1.4.4"
+    Path = "Packages\Windows 7"
+    PackageSourcePath = "Update for Windows 7 for x64-based Systems (KB3125574)"
+    PSDriveName = $PSDriveName
+    PSDrivePath = $PSDrivePath
+}
+```
+
 #### cMDTBuildPersistentDrive
 cMDTBuildPersistentDrive is a DscResource that enables management of MDT persistent drives with lifecycle management for MDT. These folders can be managed from a pull server according to Desired State Configuration principles.
 
@@ -364,6 +407,39 @@ Desired State Configuration job example:
 cMDTBuildPreReqs MDTPreReqs {
     Ensure = "Present"            
     DownloadPath = "$SourcePath"
+}
+```
+
+#### cMDTBuildSelectionProfile
+cMDTBuildTaskSequence is a DscResource that enables management of Selection Profiles with lifecycle management for MDT.
+
+Available parameters:
+* <b>[Ensure]</b> - Present/Absent
+* <b>[Name]</b> - Name of Selection Profile
+* <b>[Comments]</b> - Selection Profile comments
+* <b>[IncludePath]</b> - Path to include imported OS Packages
+* <b>[PSDriveName]</b> - The PSDrive name for the MDT deployment share
+* <b>[PSDrivePath]</b> - The physical path to the MDT deployment share
+
+The DscResource will create Selection Profile according to the following principle:
+* Verify status present or absent
+* If present:
+    * Check if Selection Profile exist in the MDT path
+    * If it does not exist the Selection Profile will be created
+* If absent:
+    * The Selection Profile will be removed
+
+Note: The Operating System must exist in the OSName path for the Task Sequence to be created correctly.
+
+Desired State Configuration job example:
+```sh
+cMDTBuildSelectionProfile Win10x64 {
+    Ensure      = "Present"
+    Name        = "Windows 10 x64"
+	Comments    = "Packages for Windows 10 x64"
+	IncludePath = "Packages\Windows 10 x64"
+    PSDriveName = $PSDriveName
+    PSDrivePath = $PSDrivePath
 }
 ```
 
@@ -421,6 +497,7 @@ Available parameters:
 * <b>[OSName]</b> - "Windows 7" / "Windows 8.1" / "Windows 10" / "Windows 2012 R2"
 * <b>[OSFeatures]</b> - OS Features
 * <b>[Command]</b> - Command line for 'Run Command line' step
+* <b>[SelectionProfile]</b> - Selection profile for 'Apply Patches' step
 * <b>[PSDriveName]</b> - The PSDrive name for the MDT deployment share
 * <b>[PSDrivePath]</b> - The physical path to the MDT deployment share
 
@@ -450,9 +527,7 @@ cMDTBuildUpdateBootImage is a DscResource that enables creation and management o
 Available parameters:
 * <b>[Version]</b> - Version number
 * <b>[PSDeploymentShare]</b> - Name of MDT drive
-* <b>[Force]</b> - true/false
-* <b>[Compress]</b> - true/false
-* <b>[DeploymentSharePath]</b> - MDT path
+* <b>[PSDrivePath]</b> - MDT path
 * <b>[ExtraDirectory]</b> - Extra Directory to add in WinPE
 * <b>[BackgroundFile]</b> - WinPE Background picture
 * <b>[LiteTouchWIMDescription]</b> - WinPE image description
@@ -466,9 +541,7 @@ Desired State Configuration job example:
 cMDTBuildUpdateBootImage updateBootImage {
     Version = "1.0"
     PSDeploymentShare = $PSDriveName
-    Force = $true
-    Compress = $true
-    DeploymentSharePath = $PSDrivePath
+    PsDrivePath = $PSDrivePath
     ExtraDirectory = "Extra"
     BackgroundFile = "%INSTALLDIR%\Samples\Background.bmp"
     LiteTouchWIMDescription = "MDT Build Lab"

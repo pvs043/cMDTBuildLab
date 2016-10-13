@@ -408,6 +408,78 @@ class cMDTBuildOperatingSystem
 }
 
 [DscResource()]
+class cMDTBuildPackage
+{
+    [DscProperty(Mandatory)]
+    [Ensure]$Ensure
+
+    [DscProperty(Key)]
+    [string]$Name
+
+    [DscProperty(Key)]
+    [string]$Path
+
+    [DscProperty(Mandatory)]
+    [string]$PackageSourcePath
+    
+    [DscProperty(Mandatory)]
+    [string]$PSDriveName
+
+    [DscProperty(Mandatory)]
+    [string]$PSDrivePath
+
+    [void] Set()
+    {
+        if ($this.ensure -eq [Ensure]::Present) {
+            $present = Invoke-TestPath -Path "$($this.path)\$($this.name)" -PSDriveName $this.PSDriveName -PSDrivePath $this.PSDrivePath
+            if ( !$present ) {
+                $this.ImportPackage()
+            }
+        }
+        else {   
+            Invoke-RemovePath -Path "$($this.path)\$($this.name)" -PSDriveName $this.PSDriveName -PSDrivePath $this.PSDrivePath -Verbose
+        }
+    }
+
+    [bool] Test()
+    {
+        $present = Invoke-TestPath -Path "$($this.path)\$($this.name)" -PSDriveName $this.PSDriveName -PSDrivePath $this.PSDrivePath 
+
+        if ($this.Ensure -eq [Ensure]::Present) {
+            return $present
+        }
+        else {
+            return -not $present
+        }
+    }
+
+    [cMDTBuildPackage] Get()
+    {
+        return $this
+    }
+
+    [void] ImportPackage()
+    {
+		# The Import-MDTPackage command crashes WMI when run from inside DSC. Using workflow is a work around.
+        workflow Import-Pkg {
+            [CmdletBinding()]
+            param(
+                [string]$PSDriveName,
+                [string]$PSDrivePath,
+                [string]$Path,
+                [string]$Source
+            )
+			InlineScript {
+				Import-MicrosoftDeploymentToolkitModule
+				New-PSDrive -Name $Using:PSDriveName -PSProvider "MDTProvider" -Root $Using:PSDrivePath -Verbose:$false
+				Import-MDTPackage -Path $Using:Path -SourcePath $Using:Source -Verbose
+			}
+        }
+        Import-Pkg $this.PSDriveName $this.PSDrivePath $this.Path $this.PackageSourcePath
+    }
+}
+
+[DscResource()]
 class cMDTBuildPersistentDrive
 {
 
@@ -532,16 +604,16 @@ class cMDTBuildPreReqs
             File = "adksetup.exe"
         }
         @{
-            #Version: 5 (Build: 5.1.50709.0)
+            #Version: 5 (Build: 5.1.50901.0)
 		    Name = "Silverlight_x64"
-			URI = "https://download.microsoft.com/download/7/7/6/7765A6A5-4B02-41DE-B7AF-067C92C581BD/50709.00/Silverlight_x64.exe"
+			URI = "http://download.microsoft.com/download/0/3/E/03EB1393-4F4E-4191-8364-C641FAB20344/50901.00/Silverlight_x64.exe"
             Folder = "Silverlight_x64"
             File = "Silverlight_x64.exe"
         }
         @{
-            #Version: 5 (Build: 5.1.50709.0)
+            #Version: 5 (Build: 5.1.50901.0)
 		    Name = "Silverlight_x86"
-            URI = "https://download.microsoft.com/download/7/7/6/7765A6A5-4B02-41DE-B7AF-067C92C581BD/50709.00/Silverlight.exe"
+            URI = "http://download.microsoft.com/download/0/3/E/03EB1393-4F4E-4191-8364-C641FAB20344/50901.00/Silverlight.exe"
             Folder = "Silverlight_x86"
             File = "Silverlight.exe"
         }
@@ -823,6 +895,61 @@ class cMDTBuildPreReqs
 }
 
 [DscResource()]
+class cMDTBuildSelectionProfile
+{
+	[DscProperty(Mandatory)]
+	[Ensure]$Ensure
+
+    [DscProperty(Key)]
+    [string]$Name
+
+    [DscProperty()]
+    [string]$Comments
+
+	[DscProperty(Mandatory)]
+	[string]$IncludePath
+
+    [DscProperty(Mandatory)]
+    [string]$PSDriveName
+
+    [DscProperty(Mandatory)]
+    [string]$PSDrivePath
+
+	[void] Set()
+    {
+        if ($this.ensure -eq [Ensure]::Present) {
+            $this.ImportSelectionProfile()
+        }
+        else {
+            Invoke-RemovePath -Path "$($this.PSDriveName):\Selection Profiles\$($this.name)" -PSDriveName $this.PSDriveName -PSDrivePath $this.PSDrivePath -Verbose
+        }
+    }
+
+    [bool] Test()
+    {
+	    $present = Invoke-TestPath -Path "$($this.PSDriveName):\Selection Profiles\$($this.name)" -PSDriveName $this.PSDriveName -PSDrivePath $this.PSDrivePath
+        if ($this.Ensure -eq [Ensure]::Present) {
+            return $present
+        }
+        else {
+            return -not $present
+        }
+    }
+
+    [cMDTBuildSelectionProfile] Get()
+    {
+        return $this
+    }
+
+    [void] ImportSelectionProfile()
+    {
+        Import-MicrosoftDeploymentToolkitModule
+        New-PSDrive -Name $this.PSDriveName -PSProvider "MDTProvider" -Root $this.PSDrivePath -Verbose:$false
+        New-Item -Path "$($this.PSDriveName):\Selection Profiles" -enable "True" -Name $this.Name -Comments $this.Comments -Definition "<SelectionProfile><Include path=`"$($this.IncludePath)`" /></SelectionProfile>" -ReadOnly "False" -Verbose
+	}
+}
+
+[DscResource()]
 class cMDTBuildTaskSequence
 {
 
@@ -939,6 +1066,10 @@ class cMDTBuildTaskSequenceCustomize
 	[DscProperty()]
 	[string]$Command
 
+	# Selection profile for 'Apply Patches' step
+	[DscProperty()]
+	[string]$SelectionProfile
+
     [DscProperty(Mandatory)]
     [string]$PSDriveName
 
@@ -978,6 +1109,9 @@ class cMDTBuildTaskSequenceCustomize
 			}
 			if ($this.NewName -ne "") {
 				$step.Name = $this.NewName
+			}
+			if ($this.SelectionProfile -ne "") {
+				$step.defaultVarList.variable.'#text' = $this.SelectionProfile
 			}
 		}
 		else {
@@ -1046,6 +1180,9 @@ class cMDTBuildTaskSequenceCustomize
 			if ($step) {
 				if ($this.Disable -ne "") {
 					$present = ($step.disable -eq $this.Disable)
+				}
+				if ($this.SelectionProfile -ne "") {
+					$present = ($step.defaultVarList.variable.'#text' -eq $this.SelectionProfile)
 				}
 			}
 			else {
@@ -1245,13 +1382,7 @@ class cMDTBuildUpdateBootImage
     [string]$PSDeploymentShare
 
     [DscProperty(Mandatory)]
-    [bool]$Force
-
-    [DscProperty(Mandatory)]
-    [bool]$Compress
-
-    [DscProperty(Mandatory)]
-    [string]$DeploymentSharePath
+    [string]$PSDrivePath
 
     [DscProperty()]
     [string]$ExtraDirectory
@@ -1281,7 +1412,7 @@ class cMDTBuildUpdateBootImage
     {
         [bool]$match = $false
 
-        if ((Get-Content -Path "$($this.DeploymentSharePath)\Boot\CurrentBootImage.version" -ErrorAction Ignore) -eq $this.Version) {
+        if ((Get-Content -Path "$($this.PSDrivePath)\Boot\CurrentBootImage.version" -ErrorAction Ignore) -eq $this.Version) {
             $match = $true
         }
         return $match
@@ -1290,24 +1421,24 @@ class cMDTBuildUpdateBootImage
     [void] UpdateBootImage()
     {
         Import-MicrosoftDeploymentToolkitModule
-        New-PSDrive -Name $this.PSDeploymentShare -PSProvider "MDTProvider" -Root $this.DeploymentSharePath -Verbose:$false
+        New-PSDrive -Name $this.PSDeploymentShare -PSProvider "MDTProvider" -Root $this.PSDrivePath -Verbose:$false
 
         If ([string]::IsNullOrEmpty($($this.ExtraDirectory))) {
             Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x64.ExtraDirectory -Value ""
             Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x86.ExtraDirectory -Value ""
         }
-        ElseIf (Invoke-TestPath -Path "$($this.DeploymentSharePath)\$($this.ExtraDirectory)") {
-            Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x64.ExtraDirectory -Value "$($this.DeploymentSharePath)\$($this.ExtraDirectory)"                        
-            Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x86.ExtraDirectory -Value "$($this.DeploymentSharePath)\$($this.ExtraDirectory)"                       
+        ElseIf (Invoke-TestPath -Path "$($this.PSDrivePath)\$($this.ExtraDirectory)") {
+            Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x64.ExtraDirectory -Value "$($this.PSDrivePath)\$($this.ExtraDirectory)"                        
+            Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x86.ExtraDirectory -Value "$($this.PSDrivePath)\$($this.ExtraDirectory)"                       
         }
 
         If ([string]::IsNullOrEmpty($($this.BackgroundFile))) {
             Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x64.BackgroundFile -Value ""
             Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x86.BackgroundFile -Value ""
         }
-        ElseIf (Invoke-TestPath -Path "$($this.DeploymentSharePath)\$($this.BackgroundFile)") {
-             Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x64.BackgroundFile -Value "$($this.DeploymentSharePath)\$($this.BackgroundFile)"
-             Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x86.BackgroundFile -Value "$($this.DeploymentSharePath)\$($this.BackgroundFile)"
+        ElseIf (Invoke-TestPath -Path "$($this.PSDrivePath)\$($this.BackgroundFile)") {
+             Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x64.BackgroundFile -Value "$($this.PSDrivePath)\$($this.BackgroundFile)"
+             Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x86.BackgroundFile -Value "$($this.PSDrivePath)\$($this.BackgroundFile)"
         }
 		Else {
              Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x64.BackgroundFile -Value $this.BackgroundFile
@@ -1321,12 +1452,16 @@ class cMDTBuildUpdateBootImage
 			Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x86.LiteTouchISOName -Value "$($this.LiteTouchWIMDescription)_x86.iso".Replace(' ','_')
 		}
 
+        Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x64.SelectionProfile -Value "Nothing"
+        Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x86.SelectionProfile -Value "Nothing"
+
         Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x64.GenerateLiteTouchISO -Value $false
         Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x86.GenerateLiteTouchISO -Value $true
-        
 
         #The Update-MDTDeploymentShare command crashes WMI when run from inside DSC. This section is a work around.
-        $aPSDeploymentShare = $this.PSDeploymentShare
+
+        <# Old style is hard
+		$aPSDeploymentShare = $this.PSDeploymentShare
         $aDeploymentSharePath = $this.DeploymentSharePath
         $aForce = $this.Force
         $aCompress = $this.Compress
@@ -1347,6 +1482,22 @@ class cMDTBuildUpdateBootImage
         Else {
             Set-Content -Path "$($this.DeploymentSharePath)\Boot\CurrentBootImage.version" -Value "$($this.Version)"
         }
+		#>
+
+		workflow Update-DeploymentShare {
+			[CmdletBinding()]
+			param (
+				[string]$PSDeploymentShare,
+				[string]$PSDrivePath
+			)
+			InlineScript {
+				Import-MicrosoftDeploymentToolkitModule
+				New-PSDrive -Name $Using:PSDeploymentShare -PSProvider "MDTProvider" -Root $Using:PSDrivePath -Verbose:$false
+				Update-MDTDeploymentShare -Path "$($Using:PSDeploymentShare):" -Force:$true -Compress:$true
+			}
+		}
+		Update-DeploymentShare $this.PSDeploymentShare $this.PSDrivePath
+        Set-Content -Path "$($this.PSDrivePath)\Boot\CurrentBootImage.version" -Value "$($this.Version)"
     }
 }
 
@@ -1399,10 +1550,10 @@ Function Invoke-RemovePath
     if (($PSDrivePath) -and ($PSDriveName)) {
         Import-MicrosoftDeploymentToolkitModule
         New-PSDrive -Name $PSDriveName -PSProvider "MDTProvider" -Root $PSDrivePath -Verbose:$False | `
-        Remove-Item -Path $Path -Force -Verbose:$Verbosity
+        Remove-Item -Path "$($Path)" -Force -Verbose:$Verbosity
     }
     else {
-        Remove-Item -Path $Path -Force -Verbose:$Verbosity
+        Remove-Item -Path "$($Path)" -Force -Verbose:$Verbosity
     }
 }
 
@@ -1425,12 +1576,12 @@ Function Invoke-TestPath
     if (($PSDrivePath) -and ($PSDriveName)) {
         Import-MicrosoftDeploymentToolkitModule
         if (New-PSDrive -Name $PSDriveName -PSProvider "MDTProvider" -Root $PSDrivePath -Verbose:$false | `
-            Test-Path -Path $Path -ErrorAction Ignore) {
+            Test-Path -Path "$($Path)" -ErrorAction Ignore) {
             $present = $true
         }        
     }
     else {
-        if (Test-Path -Path $Path -ErrorAction Ignore) {
+        if (Test-Path -Path "$($Path)" -ErrorAction Ignore) {
             $present = $true
         }
     }
