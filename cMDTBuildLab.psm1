@@ -773,13 +773,11 @@ class cMDTBuildPreReqs
             Folder = "Scripts"
             File = "Scripts.zip"
         }
-		# Replace "appv_client_setup.exe.txt" with "appv_client_setup.exe"
-		# after copying original appv_client_setup.exe to \Source folder of project
 		@{
 			Name = "APPV51"
-			URI = "Sources\appv_client_setup.exe.txt"
+			URI = "Sources\appv_client_setup.zip"
 			Folder = "APPV51x86x64"
-			File = "appv_client_setup.exe.txt"
+			File = "appv_client_setup.zip"
 		}
     )
     
@@ -801,17 +799,21 @@ class cMDTBuildPreReqs
             #Set all files:               
             ForEach ($file in $this.downloadFiles)
             {
-                if(Test-Path -Path "$($this.DownloadPath)\$($file.Folder)\$($file.File)") {
+                if (Test-Path -Path "$($this.DownloadPath)\$($file.Folder)\$($file.File)") {
                     Write-Verbose "   $($file.Name) already present!"
                 }
                 else {
                     Write-Verbose "   Creating $($file.Name) folder..."
                     New-Item -Path "$($this.DownloadPath)\$($file.Folder)" -ItemType Directory -Force
-					If ($file.URI -like "*/*") {
+					if ($file.URI -like "*/*") {
 						$this.WebClientDownload($file.URI, "$($this.DownloadPath)\$($file.Folder)\$($file.File)")
 					}
 					else {
 						$this.CopyFromSource("$($PSScriptRoot)\$($file.URI)", "$($this.DownloadPath)\$($file.Folder)\$($file.File)")
+						# Unpack APP-V client
+						if ($file.Name -eq "APPV51") {
+							Invoke-ExpandArchive -Source "$($this.DownloadPath)\$($file.Folder)\$($file.File)" -Target "$($this.DownloadPath)\$($file.Folder)"
+						}
 					}
                 }
             }
