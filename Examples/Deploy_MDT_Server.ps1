@@ -51,11 +51,6 @@ Configuration DeployMDTServerContract
             Disabled               = $false
         }
 
-        WindowsFeature NET35 {
-            Ensure = "Present"
-            Name   = "Net-Framework-Core"
-        }
-
 		WindowsFeature  DataDeduplication {
 			Ensure = "Present"
 			Name   = "FS-Data-Deduplication"

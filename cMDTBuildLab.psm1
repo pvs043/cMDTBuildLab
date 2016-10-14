@@ -1461,31 +1461,6 @@ class cMDTBuildUpdateBootImage
         Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x86.GenerateLiteTouchISO -Value $true
 
         #The Update-MDTDeploymentShare command crashes WMI when run from inside DSC. This section is a work around.
-
-        <# Old style is hard
-		$aPSDeploymentShare = $this.PSDeploymentShare
-        $aDeploymentSharePath = $this.DeploymentSharePath
-        $aForce = $this.Force
-        $aCompress = $this.Compress
-        $jobArgs = @($aPSDeploymentShare,$aDeploymentSharePath,$aForce,$aCompress)
-
-        $job = Start-Job -Name UpdateMDTDeploymentShare -Scriptblock {
-            Import-Module "$env:ProgramFiles\Microsoft Deployment Toolkit\Bin\MicrosoftDeploymentToolkit.psd1" -ErrorAction Stop -Verbose:$false
-            New-PSDrive -Name $args[0] -PSProvider "MDTProvider" -Root $args[1] -Verbose:$false
-            Update-MDTDeploymentShare -Path "$($args[0]):" -Force:$args[2] -Compress:$args[3]
-        } -ArgumentList $jobArgs
-
-        $job | Wait-Job -Timeout 900 
-        $timedOutJobs = Get-Job -Name UpdateMDTDeploymentShare | Where-Object {$_.State -eq 'Running'} | Stop-Job -PassThru
-
-        If ($timedOutJobs) {
-            Write-Error "Update-MDTDeploymentShare job exceeded timeout limit of 900 seconds and was aborted"
-        }
-        Else {
-            Set-Content -Path "$($this.DeploymentSharePath)\Boot\CurrentBootImage.version" -Value "$($this.Version)"
-        }
-		#>
-
 		workflow Update-DeploymentShare {
 			[CmdletBinding()]
 			param (

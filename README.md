@@ -20,8 +20,7 @@ Prerequisites for infrastructure:
 * Hyper-V Host: HV01 (Windows 2012 R2/Windows 8.1)
 
 cMDTBuildLab uses a number of components and open resource kit modules. The following are prerequisites for the module and need to be installed to the inteded deployment server (MDT01):
-* [.NET3.5] - .NET Framewework 3.5
-* [WMF5] (http://aka.ms/wmf5latest) - Windows Management Framework 5.0
+* [WMF5] (http://aka.ms/wmf5latest) - Windows Management Framework 5.0: for windows 2012 R2/Windows 8.1 host only.
 * [xSmbShare] (http://www.powershellgallery.com/packages/xSmbShare/) - DSC Module available from Powershell Gallery<br>
   ```powershell
   Install-Module -Name xSmbShare
@@ -73,9 +72,12 @@ You can use this module with a pull server, an SMB share or a local file reposit
    * Update for Windows 7 (KB3125574)
    * Update for Windows 7 for x64-based Systems (KB3020369)
    * Update for Windows 7 for x64-based Systems (KB3125574)
-   * Cumulative Update for Windows 10 Version 1607 (KB3197356)
-   * Cumulative Update for Windows 10 Version 1607 for x64-based Systems (KB3197356)
-6. Run Powershell ISE as Administrator and open the file:<br>
+   * Cumulative Update for Windows 10 Version 1607 (KB3194798)
+   * Cumulative Update for Windows 10 Version 1607 for x64-based Systems (KB3194798)
+6. Run Powershell ISE as Administrator and open the files:<br>
+   C:\Program Files\WindowsPowerShell\Modules\cMDTBuldLab\1.0.0\Examples\Deploy_MDT_Server_ConfigurationData.pd1<b>
+   Edit Deploy_MDT_Server_ConfigurationData.pd1: change section CustomizeIniFiles for your WSUS server (WSUSServer = "http://fqdn:port")
+
    C:\Program Files\WindowsPowerShell\Modules\cMDTBuldLab\1.0.0\Examples\Deploy_MDT_Server.ps1
 7. Press F5 to run the script. It will take approximately 30 min (Depending on internet capacity and virtualization hardware). The server will reboot ones during this process.
 
