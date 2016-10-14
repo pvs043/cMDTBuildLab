@@ -1,7 +1,7 @@
 # cMDTBuildLab
 
 cMDTBuildLab is a Powershell Module to help automize deployment Windows Reference Images on MDT Server with Desired State Configuration.<p>
-cMDTBuildLab is a fork from cMDT module (https://github.com/addlevel/cMDT) by info@addlevel.se (c)
+cMDTBuildLab is a fork from cMDT module (https://github.com/servicedudes/cmdt).
 
 ### Version
 0.5.0
