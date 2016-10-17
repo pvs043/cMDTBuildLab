@@ -580,7 +580,7 @@
 							Name       = "Configure - Remove Windows Default Applications"
 							Type       = "Run Command Line"
 							GroupName  = "Postinstall"
-							Command    = "powershell.exe -ExecutionPolicy Bypass -File '%ScriptRoot%\RemoveApps.ps1'"
+							Command    = "powershell.exe -ExecutionPolicy Bypass -File '%DeployRoot%\Applications\Core\Configure\Configure - Remove Windows Default Applications\RemoveApps.ps1'"
 							AddAfter   = "Inject Drivers"
 						}
 						@{
