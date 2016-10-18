@@ -499,6 +499,7 @@ Available parameters:
 * <b>[OSName]</b> - "Windows 7" / "Windows 8.1" / "Windows 10" / "Windows 2012 R2"
 * <b>[OSFeatures]</b> - OS Features
 * <b>[Command]</b> - Command line for 'Run Command line' step
+* <b>[StartIn]</b> - Start directory for 'Run Command line' step
 * <b>[SelectionProfile]</b> - Selection profile for 'Apply Patches' step
 * <b>[PSDriveName]</b> - The PSDrive name for the MDT deployment share
 * <b>[PSDrivePath]</b> - The physical path to the MDT deployment share

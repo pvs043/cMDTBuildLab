@@ -580,7 +580,8 @@
 							Name       = "Configure - Remove Windows Default Applications"
 							Type       = "Run Command Line"
 							GroupName  = "Postinstall"
-							Command    = "powershell.exe -ExecutionPolicy Bypass -File '%DeployRoot%\Applications\Configure - Remove Windows Default Applications\RemoveApps.ps1'"
+							Command    = 'powershell.exe -ExecutionPolicy Bypass -File "%SCRIPTROOT%\RemoveApps.ps1"'
+							StartIn    = "%SCRIPTROOT%"
 							AddAfter   = "Inject Drivers"
 						}
 						@{
@@ -620,7 +621,7 @@
 							Type       = "Install Application"
 							GroupName  = "State Restore"
 							SubGroup   = "Custom Tasks (Pre-Windows Update)"
-							AddAfter   = "Configure - Remove Windows Default Applications"
+							AddAfter   = "Install - Microsoft NET Framework 3.5.1"
 						}
 						@{
 							Name       = "Install - Microsoft Silverlight - x86"
@@ -1152,22 +1153,11 @@
 							GroupName  = "State Restore"
 							AddAfter   = "Apply Local GPO Package"
 						}
-						<# Not released in MDT 2013 Update 2
-						@{
-							Name       = "Install - Microsoft NET Framework 3.5.1"
-							Type       = "Install Roles and Features"
-							GroupName  = "State Restore"
-							SubGroup   = "Custom Tasks (Pre-Windows Update)"
-							OSName     = "Windows 2012 R2"
-							OSFeatures = "NET-Framework-Features,Telnet-Client"
-						}
-						#>
 						@{
 							Name       = "Configure - Set Control+Shift Keyboard Toggle"
 							Type       = "Install Application"
 							GroupName  = "State Restore"
 							SubGroup   = "Custom Tasks (Pre-Windows Update)"
-							AddAfter   = "Install - Microsoft NET Framework 3.5.1"
 						}
 						@{
 							Name       = "Action - CleanupBeforeSysprep"
@@ -1207,7 +1197,11 @@
                     Ensure     = "Present"
                     Name       = "Scripts"
                     SourcePath = "Scripts"
-					TestFiles  = "ReadKVPData.vbs"
+					TestFiles  = @("ReadKVPData.vbs",
+								   "RemoveApps.ps1",
+								   "RemoveApps81.xml",
+								   "RemoveApps10.xml"
+								  )
                 }
             )
 

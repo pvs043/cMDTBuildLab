@@ -1068,6 +1068,10 @@ class cMDTBuildTaskSequenceCustomize
 	[DscProperty()]
 	[string]$Command
 
+	# Start directory for 'Run Command line' step
+	[DscProperty()]
+	[string]$StartIn
+
 	# Selection profile for 'Apply Patches' step
 	[DscProperty()]
 	[string]$SelectionProfile
@@ -1303,7 +1307,7 @@ class cMDTBuildTaskSequenceCustomize
 
 	[void] RunCommandLine($TS, $Step)
 	{
-		$Step.SetAttribute("startIn", "")
+		$Step.SetAttribute("startIn", $this.StartIn)
 		$Step.SetAttribute("successCodeList", "0 3010")
 		$Step.SetAttribute("type", "SMS_TaskSequence_RunCommandLineAction")
 		$Step.SetAttribute("runIn", "WinPEandFullOS")
