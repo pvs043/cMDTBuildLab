@@ -726,24 +726,6 @@ class cMDTBuildPreReqs
             File = "Action-CleanupBeforeSysprep.wsf"
         }
         @{
-            Name = "RemoveAppsScript"
-            URI = "Sources\RemoveApps.ps1"
-            Folder = "RemoveApps"
-            File = "RemoveApps.ps1"
-        }
-        @{
-            Name = "RemoveApps8.1"
-            URI = "Sources\RemoveApps81.xml"
-            Folder = "RemoveApps"
-            File = "RemoveApps81.xml"
-        }
-        @{
-            Name = "RemoveApps10"
-            URI = "Sources\RemoveApps10.xml"
-            Folder = "RemoveApps"
-            File = "RemoveApps10.xml"
-        }
-        @{
             Name = "CustomizeDefaultProfile"
             URI = "Sources\Customize-DefaultProfile.ps1"
             Folder = "Set-Startlayout"

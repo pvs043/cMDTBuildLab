@@ -431,8 +431,8 @@ Configuration DeployMDTServerContract
 					OSName           = $OSName
 					OSFeatures       = $OSFeatures
 					Command          = $Command
-					SelectionProfile = $SelectionProfile
 					StartIn          = $StartIn
+					SelectionProfile = $SelectionProfile
 	                PSDriveName      = $Node.PSDriveName
 		            PSDrivePath      = $Node.PSDrivePath
 				}

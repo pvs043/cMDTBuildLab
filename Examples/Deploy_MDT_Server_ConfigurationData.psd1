@@ -206,13 +206,6 @@
 				}
 				@{
                     Ensure                = "Present"
-                    Name                  = "Configure - Remove Windows Default Applications"
-                    Path                  = "\Applications\Core\Configure"
-                    CommandLine           = "powershell.exe -ExecutionPolicy Bypass -File RemoveApps.ps1"
-                    ApplicationSourcePath = "RemoveApps"
-				}
-				@{
-                    Ensure                = "Present"
                     Name                  = "Configure - Set Start Layout"
                     Path                  = "\Applications\Core\Configure"
                     CommandLine           = "powershell.exe -ExecutionPolicy Bypass -File Customize-DefaultProfile.ps1"
@@ -704,6 +697,14 @@
 							SelectionProfile = "Nothing"
 						}
 						@{
+							Name       = "Configure - Remove Windows Default Applications"
+							Type       = "Run Command Line"
+							GroupName  = "Postinstall"
+							Command    = 'powershell.exe -ExecutionPolicy Bypass -File "%SCRIPTROOT%\RemoveApps.ps1"'
+							StartIn    = "%SCRIPTROOT%"
+							AddAfter   = "Inject Drivers"
+						}
+						@{
 							Name       = "Windows Update (Pre-Application Installation)"
 							Type       = "Run Command Line"
 							GroupName  = "State Restore"
@@ -736,18 +737,11 @@
 							OSFeatures = "NetFx3,TelnetClient"
 						}
 						@{
-							Name       = "Configure - Remove Windows Default Applications"
-							Type       = "Install Application"
-							GroupName  = "State Restore"
-							SubGroup   = "Custom Tasks (Pre-Windows Update)"
-							AddAfter   = "Install - Microsoft NET Framework 3.5.1"
-						}
-						@{
 							Name       = "Install - Microsoft Visual C++"
 							Type       = "Install Application"
 							GroupName  = "State Restore"
 							SubGroup   = "Custom Tasks (Pre-Windows Update)"
-							AddAfter   = "Configure - Remove Windows Default Applications"
+							AddAfter   = "Install - Microsoft NET Framework 3.5.1"
 						}
 						@{
 							Name       = "Install - Microsoft Silverlight - x64"
@@ -836,6 +830,14 @@
 							Disable    = "false"
 						}
 						@{
+							Name       = "Configure - Remove Windows Default Applications"
+							Type       = "Run Command Line"
+							GroupName  = "Postinstall"
+							Command    = 'powershell.exe -ExecutionPolicy Bypass -File "%SCRIPTROOT%\RemoveApps.ps1"'
+							StartIn    = "%SCRIPTROOT%"
+							AddAfter   = "Inject Drivers"
+						}
+						@{
 							Name       = "Custom Tasks (Pre-Windows Update)"
 							Type       = "Group"
 							GroupName  = "State Restore"
@@ -862,18 +864,11 @@
 							OSFeatures = "NetFx3,TelnetClient"
 						}
 						@{
-							Name       = "Configure - Remove Windows Default Applications"
-							Type       = "Install Application"
-							GroupName  = "State Restore"
-							SubGroup   = "Custom Tasks (Pre-Windows Update)"
-							AddAfter   = "Install - Microsoft NET Framework 3.5.1"
-						}
-						@{
 							Name       = "Install - Microsoft Visual C++"
 							Type       = "Install Application"
 							GroupName  = "State Restore"
 							SubGroup   = "Custom Tasks (Pre-Windows Update)"
-							AddAfter   = "Configure - Remove Windows Default Applications"
+							AddAfter   = "Install - Microsoft NET Framework 3.5.1"
 						}
 						@{
 							Name       = "Install - Microsoft Silverlight - x86"
@@ -936,6 +931,14 @@
 							SelectionProfile = "Windows 10 x64"
 						}
 						@{
+							Name       = "Configure - Remove Windows Default Applications"
+							Type       = "Run Command Line"
+							GroupName  = "Postinstall"
+							Command    = 'powershell.exe -ExecutionPolicy Bypass -File "%SCRIPTROOT%\RemoveApps.ps1"'
+							StartIn    = "%SCRIPTROOT%"
+							AddAfter   = "Inject Drivers"
+						}
+						@{
 							Name       = "Windows Update (Pre-Application Installation)"
 							Type       = "Run Command Line"
 							GroupName  = "State Restore"
@@ -968,18 +971,11 @@
 							OSFeatures = "NetFx3,TelnetClient"
 						}
 						@{
-							Name       = "Configure - Remove Windows Default Applications"
-							Type       = "Install Application"
-							GroupName  = "State Restore"
-							SubGroup   = "Custom Tasks (Pre-Windows Update)"
-							AddAfter   = "Install - Microsoft NET Framework 3.5.1"
-						}
-						@{
 							Name       = "Install - Microsoft Visual C++"
 							Type       = "Install Application"
 							GroupName  = "State Restore"
 							SubGroup   = "Custom Tasks (Pre-Windows Update)"
-							AddAfter   = "Configure - Remove Windows Default Applications"
+							AddAfter   = "Install - Microsoft NET Framework 3.5.1"
 						}
 						@{
 							Name       = "Install - Microsoft Silverlight - x64"
