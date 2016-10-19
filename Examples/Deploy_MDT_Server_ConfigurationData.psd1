@@ -194,7 +194,7 @@
                     Ensure                = "Present"
                     Name                  = "Configure - Set Control+Shift Keyboard Toggle"
                     Path                  = "\Applications\Core\Configure"
-                    CommandLine           = "cmd /c reg import Toggle.reg"
+                    CommandLine           = "reg import Toggle.reg"
                     ApplicationSourcePath = "KeyboardToggle"
 				}
 				@{
