@@ -11,9 +11,9 @@
 
 Configuration DeployMDTServerContract
 {
-    Param(
-        [PSCredential]
-        $Credentials
+    Param (
+		[Parameter(Mandatory=$true, HelpMessage = "Enter Password for MDT Local Account")]
+        [string]$MDTLocalPassword
     )
 
     Import-Module -Name PSDesiredStateConfiguration, xSmbShare, cNtfsAccessControl, cMDTBuildLab
@@ -25,7 +25,7 @@ Configuration DeployMDTServerContract
     node $AllNodes.Where{$_.Role -match "MDT Server"}.NodeName
     {
 
-        $SecurePassword = ConvertTo-SecureString $Node.MDTLocalPassword -AsPlainText -Force
+        $SecurePassword = ConvertTo-SecureString $MDTLocalPassword -AsPlainText -Force
         $UserName       = $Node.MDTLocalAccount
         $Credentials    = New-Object System.Management.Automation.PSCredential -ArgumentList $UserName, $SecurePassword
 

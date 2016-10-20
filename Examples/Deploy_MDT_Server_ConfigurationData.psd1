@@ -5,7 +5,7 @@
 
             #Global Settings for the configuration of Desired State Local Configuration Manager:
             NodeName                    = "*"
-            PSDscAllowPlainTextPassword = $true
+            #PSDscAllowPlainTextPassword = $true
             PSDscAllowDomainUser        = $true
             RebootNodeIfNeeded          = $true
             ConfigurationMode           = "ApplyAndAutoCorrect"      
@@ -22,7 +22,6 @@
 
             #Local account to create for MDT
             MDTLocalAccount    = "SVCMDTConnect001"
-            MDTLocalPassword   = "P@ssw0rd"
 
             #MDT deoployment share paths
             PSDriveName        = "MDT001"
