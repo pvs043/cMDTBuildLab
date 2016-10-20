@@ -725,6 +725,12 @@ class cMDTBuildPreReqs
             Folder = "CleanupBeforeSysprep"
             File = "Action-CleanupBeforeSysprep.wsf"
         }
+		@{
+			Name = "ConfigureFirewall"
+			URI = "Sources\Config-NetFwRules.ps1"
+			Folder = "ConfigureFirewall"
+			File = "Config-NetFwRules.ps1"
+		}
         @{
             Name = "CustomizeDefaultProfile"
             URI = "Sources\Customize-DefaultProfile.ps1"

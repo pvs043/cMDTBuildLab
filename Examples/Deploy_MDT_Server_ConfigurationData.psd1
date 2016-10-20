@@ -206,9 +206,16 @@
 				}
 				@{
                     Ensure                = "Present"
+                    Name                  = "Configure - Firewall rules"
+                    Path                  = "\Applications\Core\Configure"
+                    CommandLine           = "powershell.exe -ExecutionPolicy Bypass -File .\Config-NetFwRules.ps1"
+                    ApplicationSourcePath = "ConfigureFirewall"
+				}
+				@{
+                    Ensure                = "Present"
                     Name                  = "Configure - Set Start Layout"
                     Path                  = "\Applications\Core\Configure"
-                    CommandLine           = "powershell.exe -ExecutionPolicy Bypass -File Customize-DefaultProfile.ps1"
+                    CommandLine           = "powershell.exe -ExecutionPolicy Bypass -File .\Customize-DefaultProfile.ps1"
                     ApplicationSourcePath = "Set-Startlayout"
 				}
                 @{
@@ -1150,10 +1157,25 @@
 							AddAfter   = "Apply Local GPO Package"
 						}
 						@{
+							Name       = "Install - Telnet client"
+							Type       = "Run Command Line"
+							GroupName  = "State Restore"
+							SubGroup   = "Custom Tasks (Pre-Windows Update)"
+							Command    = 'powershell.exe -Command "Add-WindowsFeature Telnet-Client"'
+						}
+						@{
+							Name       = "Configure - Firewall rules"
+							Type       = "Install Application"
+							GroupName  = "State Restore"
+							SubGroup   = "Custom Tasks (Pre-Windows Update)"
+							AddAfter   = "Install - Telnet client"
+						}
+						@{
 							Name       = "Configure - Set Control+Shift Keyboard Toggle"
 							Type       = "Install Application"
 							GroupName  = "State Restore"
 							SubGroup   = "Custom Tasks (Pre-Windows Update)"
+							AddAfter   = "Configure - Firewall rules"
 						}
 						@{
 							Name       = "Action - CleanupBeforeSysprep"
