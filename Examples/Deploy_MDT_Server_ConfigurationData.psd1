@@ -5,7 +5,7 @@
 
             #Global Settings for the configuration of Desired State Local Configuration Manager:
             NodeName                    = "*"
-            #PSDscAllowPlainTextPassword = $true
+            PSDscAllowPlainTextPassword = $true
             PSDscAllowDomainUser        = $true
             RebootNodeIfNeeded          = $true
             ConfigurationMode           = "ApplyAndAutoCorrect"      
