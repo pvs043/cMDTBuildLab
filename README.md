@@ -19,7 +19,7 @@ Prerequisites for infrastructure:
     (Disk D: is used for Temp in Azure or Virtual DVD for on-premise deploy)
 * Hyper-V Host: HV01 (Windows 2012 R2 or above)
 
-This module is tested on Windows 2016 server, but will worked on Windows 10 or Windows 2012 R2/Windows 8.1 with Windows Management Framewework 5.0.
+This module is tested on Windows 2016 server, but it will be worked on Windows 10 or Windows 2012 R2/Windows 8.1 with Windows Management Framewework 5.0.
 
 cMDTBuildLab uses a number of components and open resource kit modules. The following are prerequisites for the module and need to be installed to the inteded deployment server (MDT01):
 * [WMF5] (http://aka.ms/wmf5latest) - Windows Management Framework 5.0 (for windows 2012 R2/Windows 8.1 host only).
