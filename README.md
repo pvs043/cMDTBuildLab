@@ -42,7 +42,7 @@ The following prerequisites automatically downloaded with the cMDTBuildPreReqs D
 * [Windows 7 SP1 convenience rollup] (https://blogs.technet.microsoft.com/windowsitpro/2016/05/17/simplifying-updates-for-windows-7-and-8-1/)
 * [Cumulative Update for Windows 10 Version 1607: October 27, 2016] (https://support.microsoft.com/en-us/kb/3197954)
 
-If your MDT01 host does not have direct connection to Internet, download prerequisites at Windows machine with DSC configuration Examples\Download-MDT-Prereqs.ps1 and copy it to E:\Source to production server.
+If your MDT01 host does not have direct connection to Internet, run DSC configuration from Examples\Download_MDT_Prereqs.ps1 at Windows machine connected to Internet and copy files to production server.
 
 This extra files included to module (\Sources\Extra.zip):
 * devcon.exe: tool from [Windows Driver Kit] (https://msdn.microsoft.com/en-us/library/windows/hardware/ff544707(v=vs.85).aspx).
