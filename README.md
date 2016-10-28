@@ -6,21 +6,23 @@ cMDTBuildLab is a fork from cMDT module (https://github.com/servicedudes/cmdt).
 ### Version
 0.7.0
 
-See version history at [Project Wiki] (https://github.com/pvs043/cMDTBuildLab/wiki/Version-History)
+See version history at [Project Site] (https://github.com/pvs043/cMDTBuildLab/wiki/Version-History)
 
 ### Tech
 
 Prerequisites for infrastructure:
-* Domain Controller: DC01 (Windows 2012 R2)
-* Windows Update Server (WSUS): WU01 (Windows 2012 R2)
-* Deployment server: MDT01 (Windows 2012 R2/Windows 8.1)<br>
+* Domain Controller: DC01 (Windows 2012 R2 or above)
+* Windows Update Server (WSUS): WU01 (Windows 2012 R2 or above)
+* Deployment server: MDT01 (Windows 2012 R2 + WMF 5.0 or Windows 2016)<br>
     Disk C: - System<br>
     Disk E: - DATA<br>
     (Disk D: is used for Temp in Azure or Virtual DVD for on-premise deploy)
-* Hyper-V Host: HV01 (Windows 2012 R2/Windows 8.1)
+* Hyper-V Host: HV01 (Windows 2012 R2 or above)
+
+This module is tested on Windows 2016 server, but will worked on Windows 10 or Windows 2012 R2/Windows 8.1 with Windows Management Framewework 5.0.
 
 cMDTBuildLab uses a number of components and open resource kit modules. The following are prerequisites for the module and need to be installed to the inteded deployment server (MDT01):
-* [WMF5] (http://aka.ms/wmf5latest) - Windows Management Framework 5.0: for windows 2012 R2/Windows 8.1 host only.
+* [WMF5] (http://aka.ms/wmf5latest) - Windows Management Framework 5.0 (for windows 2012 R2/Windows 8.1 host only).
 * [xSmbShare] (http://www.powershellgallery.com/packages/xSmbShare/) - DSC Module available from Powershell Gallery<br>
   ```powershell
   Install-Module -Name xSmbShare
@@ -29,57 +31,34 @@ cMDTBuildLab uses a number of components and open resource kit modules. The foll
   ```powershell
   Install-Module -Name cNtfsAccessControl
   ```
-* [Windows 7 SP1 convenience rollup] (https://blogs.technet.microsoft.com/windowsitpro/2016/05/17/simplifying-updates-for-windows-7-and-8-1/) - Download x64/x86 [KB3020369] (http://catalog.update.microsoft.com/v7/site/Search.aspx?q=3020369) and [KB3125574] (http://catalog.update.microsoft.com/v7/site/Search.aspx?q=3125574) from Microsoft Update Catalog website.
-* [Cumulative update for Windows 10 Version 1607 and Windows Server 2016: October 11, 2016] (https://support.microsoft.com/en-us/kb/3194798) - Download x64/x86 [KB3194798] (http://catalog.update.microsoft.com/v7/site/Search.aspx?q=KB3194798) from Microsoft Update Catalog website.
 
-The following prerequisites automatically downloaded with the cMDTBuildLab Module (if MDT01 host does not direct connection to Internet, download it manually to $SourcePath folder):
+The following prerequisites automatically downloaded with the cMDTBuildPreReqs DSC resource:
 * [MicrosoftDeploymentToolkit2013_x64] (https://www.microsoft.com/en-us/download/details.aspx?id=50407) - Microsoft Deployment Toolkit (MDT) 2013 Update 2 (6.3.8330.1000)
 * [adksetup] (https://developer.microsoft.com/en-us/windows/hardware/windows-assessment-deployment-kit) - Windows Assessment and Deployment Kit 10, v.1607 (10.1.14393.0)
-* [Visual C++ runtimes] (https://support.microsoft.com/en-us/kb/2977003) (2005,2008,2010,2012,2013,2015)
+* [Visual C++ runtimes] (https://support.microsoft.com/en-us/kb/2977003) - 2005,2008,2010,2012,2013,2015
 * [Microsoft Silverlight 5] (https://www.microsoft.com/getsilverlight/Get-Started/Install/Default.aspx)
 * [Windows Management Framewework 3.0] (https://www.microsoft.com/en-us/download/details.aspx?id=34595)
 * [Windows Management Framewework 5.0] (http://aka.ms/wmf5latest)
+* [Windows 7 SP1 convenience rollup] (https://blogs.technet.microsoft.com/windowsitpro/2016/05/17/simplifying-updates-for-windows-7-and-8-1/)
+* [Cumulative Update for Windows 10 Version 1607: October 27, 2016] (https://support.microsoft.com/en-us/kb/3197954)
+
+If your MDT01 host does not have direct connection to Internet, download this prerequisites at Windows machine with DSC configuration Examples\Download-MDT-Prereqs.ps1 and copy it to E:\Source to production server.
 
 This extra files included to module (\Sources\Extra.zip):
 * devcon.exe: tool from [Windows Driver Kit] (https://msdn.microsoft.com/en-us/library/windows/hardware/ff544707(v=vs.85).aspx).
 * KVP (Key Value Pair Exchange) driver for WinPE. This extracted from VMGuest.iso image on Hyper-V host (\support\x86\Windows6.x-HyperVIntegrationServices-x86.cab).
 
-### Installation
+Note for APP-V 5.1 client:
 
-To install the cMDTBuildLab Module from the Powershell Gallery:
+This modele include *fake* archive Sources\appv_client_setup.zip.
 
-```powershell
-Install-Module cMDTBuildLab
-```
+If you have Microsoft Software Assurance subscription, take original client of APP-V 5.1 (appv_client_setup.exe)
+from MDOP 2015 and place into this ZIP file.
+
+This archive will be unpack to source folder with cMDTBuildPreReqs DSC resource.
 
 ### Quick start
-You can use this module with a pull server, an SMB share or a local file repository. The following quick start example use a local file repository. We recommend that you create a Checkpoint/Snapshot of the test deployment server after the initial prerequisites and sourcefiles have been installed/copied.
-
-1. Make sure you have installed all prerequisites.
-2. Install the cMDTBuildLab module on the test deployment server.
-3. Create a source directory (E:\Source). If you use another driveletter and patch you need to edit the configuration file (Deploy_MDT_Server_ConfigurationData.psd1)
-4. Create subfolders under E:\Source and copy content from official Windows ISO to it:
-   * Windows7x86
-   * Windows7x64
-   * Windows81x86
-   * Windows81x64
-   * Windows10x86
-   * Windows10x64
-   * Windows2012R2
-   * Windows2016
-5. Copy updates to subfolders under E:\Source:
-   * Update for Windows 7 (KB3020369)
-   * Update for Windows 7 (KB3125574)
-   * Update for Windows 7 for x64-based Systems (KB3020369)
-   * Update for Windows 7 for x64-based Systems (KB3125574)
-   * Cumulative Update for Windows 10 Version 1607 (KB3194798)
-   * Cumulative Update for Windows 10 Version 1607 for x64-based Systems (KB3194798)
-6. Run Powershell ISE as Administrator and open the files:<br>
-   C:\Program Files\WindowsPowerShell\Modules\cMDTBuldLab\1.0.0\Examples\Deploy_MDT_Server_ConfigurationData.pd1<b>
-   Edit Deploy_MDT_Server_ConfigurationData.pd1: change section CustomizeIniFiles for your WSUS server (WSUSServer = "http://fqdn:port")
-
-   C:\Program Files\WindowsPowerShell\Modules\cMDTBuldLab\1.0.0\Examples\Deploy_MDT_Server.ps1
-7. Press F5 to run the script. It will take approximately 30 min (Depending on internet capacity and virtualization hardware). The server will reboot ones during this process.
+See [Project Documentation] (https://github.com/pvs043/cMDTBuildLab/wiki/Quick-Start).
 
 ### DscResources
 

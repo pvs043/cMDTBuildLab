@@ -5,7 +5,7 @@
 
             #Global Settings for the configuration of Desired State Local Configuration Manager:
             NodeName                    = "*"
-            #PSDscAllowPlainTextPassword = $true
+            PSDscAllowPlainTextPassword = $true
             PSDscAllowDomainUser        = $true
             RebootNodeIfNeeded          = $true
             ConfigurationMode           = "ApplyAndAutoCorrect"      
@@ -229,37 +229,37 @@
 					Ensure            = "Present"
 					Name              = "Package_for_KB3020369 neutral x86 6.1.1.1"
 					Path              = "\Packages\Windows 7 x86"
-					PackageSourcePath = "Update for Windows 7 (KB3020369)"
+					PackageSourcePath = "KB3020369-x86"
 				}
 				@{
 					Ensure            = "Present"
 					Name              = "Package_for_KB3125574 neutral x86 6.1.4.4"
 					Path              = "\Packages\Windows 7 x86"
-					PackageSourcePath = "Update for Windows 7 (KB3125574)"
+					PackageSourcePath = "KB3125574-x86"
 				}
 				@{
 					Ensure            = "Present"
 					Name              = "Package_for_KB3020369 neutral amd64 6.1.1.1"
 					Path              = "\Packages\Windows 7 x64"
-					PackageSourcePath = "Update for Windows 7 for x64-based Systems (KB3020369)"
+					PackageSourcePath = "KB3020369-x64"
 				}
 				@{
 					Ensure            = "Present"
 					Name              = "Package_for_KB3125574 neutral amd64 6.1.4.4"
 					Path              = "\Packages\Windows 7 x64"
-					PackageSourcePath = "Update for Windows 7 for x64-based Systems (KB3125574)"
+					PackageSourcePath = "KB3125574-x64"
 				}
 				@{
 					Ensure            = "Present"
-					Name              = "Package_for_RollupFix neutral x86 14393.321.1.5"
+					Name              = "Package_for_RollupFix neutral x86 14393.351.1.5"
 					Path              = "\Packages\Windows 10 x86"
-					PackageSourcePath = "Cumulative Update for Windows 10 Version 1607 (KB3194798)"
+					PackageSourcePath = "KB3197954-x86"
 				}
 				@{
 					Ensure            = "Present"
-					Name              = "Package_for_RollupFix neutral amd64 14393.321.1.5"
+					Name              = "Package_for_RollupFix neutral amd64 14393.351.1.5"
 					Path              = "\Packages\Windows 10 x64"
-					PackageSourcePath = "Cumulative Update for Windows 10 Version 1607 for x64-based Systems (KB3194798)"
+					PackageSourcePath = "KB3197954-x64"
 				}
 			)
 

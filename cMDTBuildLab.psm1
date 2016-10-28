@@ -713,6 +713,42 @@ class cMDTBuildPreReqs
 			Folder = "WMF50x64"
 			File = "Win8.1AndW2K12R2-KB3134758-x64.msu"
 		}
+		@{
+			Name = "KB3020369-x86"
+			URI = "http://download.windowsupdate.com/d/msdownload/update/software/updt/2015/04/windows6.1-kb3020369-x86_82e168117c23f7c479a97ee96c82af788d07452e.msu"
+			Folder = "KB3020369-x86"
+			File = "windows6.1-kb3020369-x86_82e168117c23f7c479a97ee96c82af788d07452e.msu"
+		}
+		@{
+			Name = "KB3020369-x64"
+			URI = "http://download.windowsupdate.com/d/msdownload/update/software/updt/2015/04/windows6.1-kb3020369-x64_5393066469758e619f21731fc31ff2d109595445.msu"
+			Folder = "KB3020369-x64"
+			File = "windows6.1-kb3020369-x64_5393066469758e619f21731fc31ff2d109595445.msu"
+		}
+		@{
+			Name = "KB3125574-x86"
+			URI = "http://download.windowsupdate.com/d/msdownload/update/software/updt/2016/05/windows6.1-kb3125574-v4-x86_ba1ff5537312561795cc04db0b02fbb0a74b2cbd.msu"
+			Folder = "KB3125574-x86"
+			File = "windows6.1-kb3125574-v4-x86_ba1ff5537312561795cc04db0b02fbb0a74b2cbd.msu"
+		}
+		@{
+			Name = "KB3125574-x64"
+			URI = "http://download.windowsupdate.com/d/msdownload/update/software/updt/2016/05/windows6.1-kb3125574-v4-x64_2dafb1d203c8964239af3048b5dd4b1264cd93b9.msu"
+			Folder = "KB3125574-x64"
+			File = "windows6.1-kb3125574-v4-x64_2dafb1d203c8964239af3048b5dd4b1264cd93b9.msu"
+		}
+		@{
+			Name = "KB3197954-x86"
+			URI = "http://download.windowsupdate.com/d/msdownload/update/software/crup/2016/10/windows10.0-kb3197954-x86_71319a1cc17dc9c90b0f2f6fe17074535c6f715d.msu"
+			Folder = "KB3197954-x86"
+			File = "windows10.0-kb3197954-x86_71319a1cc17dc9c90b0f2f6fe17074535c6f715d.msu"
+		}
+		@{
+			Name = "KB3197954-x64"
+			URI = "http://download.windowsupdate.com/d/msdownload/update/software/crup/2016/10/windows10.0-kb3197954-x64_74819c01705e7a4d0f978cc0fbd7bed6240642b0.msu"
+			Folder = "KB3197954-x64"
+			File = "windows10.0-kb3197954-x64_74819c01705e7a4d0f978cc0fbd7bed6240642b0.msu"
+		}
         @{
             Name = "KeyboardToggle"
             URI = "Sources\Toggle.reg"
