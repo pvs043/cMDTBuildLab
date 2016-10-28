@@ -11,9 +11,9 @@
 
 Configuration DeployMDTServerContract
 {
-    Param (
-		[Parameter(Mandatory=$true, HelpMessage = "Enter Password for MDT Local Account")]
-        [string]$MDTLocalPassword
+    Param(
+		[Parameter(Mandatory=$true, HelpMessage = "Enter password for MDT Local Account")]
+        [PSCredential]$Credentials
     )
 
     Import-Module -Name PSDesiredStateConfiguration, xSmbShare, cNtfsAccessControl, cMDTBuildLab
@@ -24,11 +24,6 @@ Configuration DeployMDTServerContract
 
     node $AllNodes.Where{$_.Role -match "MDT Server"}.NodeName
     {
-
-        $SecurePassword = ConvertTo-SecureString $MDTLocalPassword -AsPlainText -Force
-        $UserName       = $Node.MDTLocalAccount
-        $Credentials    = New-Object System.Management.Automation.PSCredential -ArgumentList $UserName, $SecurePassword
-
         LocalConfigurationManager  
         {
             RebootNodeIfNeeded = $AllNodes.RebootNodeIfNeeded
@@ -42,8 +37,8 @@ Configuration DeployMDTServerContract
 
         User MDTAccessAccount {
             Ensure                 = "Present"
-            UserName               = $Node.MDTLocalAccount
-            FullName               = $Node.MDTLocalAccount
+            UserName               = $Credentials.UserName
+            FullName               = $Credentials.UserName
             Password               = $Credentials
             PasswordChangeRequired = $false
             PasswordNeverExpires   = $true
@@ -567,8 +562,8 @@ DeployRoot=\\$($Node.NodeName)\$($Node.PSDriveShareName)
 SkipBDDWelcome=YES
 
 ;MDT Connect Account
-UserID=$($Node.MDTLocalAccount)
-UserPassword=$MDTLocalPassword
+UserID=$($Credentials.UserName)
+UserPassword=$($Credentials.GetNetworkCredential().password)
 UserDomain=$($Node.NodeName)
 
 SubSection=ISVM-%IsVM%
@@ -608,11 +603,14 @@ UserExit=LoadKVPInWinPE.vbs
     }
 }
 
+#Get password for MDT Local Account
+$Cred = Get-Credential -UserName SVCMDTConnect001 -Message "Enter password for Local MDT Account"
+
 #Get configuration data
 $ConfigurationData = Invoke-Expression (Get-Content -Path "$PSScriptRoot\Deploy_MDT_Server_ConfigurationData.psd1" -Raw)
 
 #Create DSC MOF job
-DeployMDTServerContract -OutputPath "$PSScriptRoot\MDT-Deploy_MDT_Server" -ConfigurationData $ConfigurationData
+DeployMDTServerContract -OutputPath "$PSScriptRoot\MDT-Deploy_MDT_Server" -ConfigurationData $ConfigurationData -Credentials $Cred
 
 #Set DSC LocalConfigurationManager
 Set-DscLocalConfigurationManager -Path "$PSScriptRoot\MDT-Deploy_MDT_Server" -Verbose
