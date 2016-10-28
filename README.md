@@ -42,19 +42,15 @@ The following prerequisites automatically downloaded with the cMDTBuildPreReqs D
 * [Windows 7 SP1 convenience rollup] (https://blogs.technet.microsoft.com/windowsitpro/2016/05/17/simplifying-updates-for-windows-7-and-8-1/)
 * [Cumulative Update for Windows 10 Version 1607: October 27, 2016] (https://support.microsoft.com/en-us/kb/3197954)
 
-If your MDT01 host does not have direct connection to Internet, download this prerequisites at Windows machine with DSC configuration Examples\Download-MDT-Prereqs.ps1 and copy it to E:\Source to production server.
+If your MDT01 host does not have direct connection to Internet, download prerequisites at Windows machine with DSC configuration Examples\Download-MDT-Prereqs.ps1 and copy it to E:\Source to production server.
 
 This extra files included to module (\Sources\Extra.zip):
 * devcon.exe: tool from [Windows Driver Kit] (https://msdn.microsoft.com/en-us/library/windows/hardware/ff544707(v=vs.85).aspx).
 * KVP (Key Value Pair Exchange) driver for WinPE. This extracted from VMGuest.iso image on Hyper-V host (\support\x86\Windows6.x-HyperVIntegrationServices-x86.cab).
 
-Note for APP-V 5.1 client:
-
-This modele include *fake* archive Sources\appv_client_setup.zip.
-
-If you have Microsoft Software Assurance subscription, take original client of APP-V 5.1 (appv_client_setup.exe)
-from MDOP 2015 and place into this ZIP file.
-
+Note for APP-V 5.1 client:<p>
+This modele include *fake* archive Sources\appv_client_setup.zip.<p>
+If you have Microsoft Software Assurance subscription, take original client of APP-V 5.1 (appv_client_setup.exe) from MDOP 2015 and place into this ZIP file.<p>
 This archive will be unpack to source folder with cMDTBuildPreReqs DSC resource.
 
 ### Quick start
