@@ -117,7 +117,7 @@ Configuration DeployMDTServerContract
         {
             Ensure = "Present"
             Path   = "$($Node.PSDrivePath)\Captures"
-            Principal  = "$($Node.NodeName)\$($Node.MDTLocalAccount)"
+            Principal  = "$($Node.NodeName)\$($Credentials.UserName)"
             AccessControlInformation = @(
                 cNtfsAccessControlInformation {
                     AccessControlType = "Allow"
