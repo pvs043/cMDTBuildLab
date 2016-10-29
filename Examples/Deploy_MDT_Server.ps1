@@ -81,7 +81,7 @@ Configuration DeployMDTServerContract
             Ensure                = "Present"
             Name                  = $Node.PSDriveShareName
             Path                  = $Node.PSDrivePath
-            #FullAccess            = "$($Node.NodeName)\$($Node.MDTLocalAccount)"
+            #FullAccess            = "$($Node.NodeName)\$($Credentials.UserName)"
 			FullAccess            = "Everyone"
             FolderEnumerationMode = "AccessBased"
             DependsOn             = "[cMDTBuildDirectory]DeploymentFolder"
@@ -101,7 +101,7 @@ Configuration DeployMDTServerContract
         {
             Ensure = "Present"
             Path   = $Node.PSDrivePath
-            Principal  = "$($Node.NodeName)\$($Node.MDTLocalAccount)"
+            Principal  = "$($Node.NodeName)\$($Credentials.UserName)"
             AccessControlInformation = @(
                 cNtfsAccessControlInformation {
                     AccessControlType = "Allow"
