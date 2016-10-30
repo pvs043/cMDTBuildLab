@@ -132,7 +132,7 @@
 	@{
 		Name = "KB3138612-x64"
 		URI = "https://download.microsoft.com/download/B/7/C/B7CD3A70-1EA7-486A-9585-F6814663F1A9/Windows6.1-KB3138612-x64.msu"
-		Folder = "KB3138612-64"
+		Folder = "KB3138612-x64"
 		File = "Windows6.1-KB3138612-x64.msu"
 	}
 	@{
