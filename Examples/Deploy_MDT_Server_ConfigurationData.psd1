@@ -227,27 +227,15 @@
 			Packages = @(
 				@{
 					Ensure            = "Present"
-					Name              = "Package_for_KB3020369 neutral x86 6.1.1.1"
+					Name              = "Package_for_KB3138612 neutral x86 6.1.1.1"
 					Path              = "\Packages\Windows 7 x86"
-					PackageSourcePath = "KB3020369-x86"
+					PackageSourcePath = "KB3138612-x86"
 				}
 				@{
 					Ensure            = "Present"
-					Name              = "Package_for_KB3125574 neutral x86 6.1.4.4"
-					Path              = "\Packages\Windows 7 x86"
-					PackageSourcePath = "KB3125574-x86"
-				}
-				@{
-					Ensure            = "Present"
-					Name              = "Package_for_KB3020369 neutral amd64 6.1.1.1"
+					Name              = "Package_for_KB3138612 neutral amd64 6.1.1.1"
 					Path              = "\Packages\Windows 7 x64"
-					PackageSourcePath = "KB3020369-x64"
-				}
-				@{
-					Ensure            = "Present"
-					Name              = "Package_for_KB3125574 neutral amd64 6.1.4.4"
-					Path              = "\Packages\Windows 7 x64"
-					PackageSourcePath = "KB3125574-x64"
+					PackageSourcePath = "KB3138612-x64"
 				}
 				@{
 					Ensure            = "Present"

@@ -39,7 +39,7 @@ The following prerequisites automatically downloaded with the cMDTBuildPreReqs D
 * [Microsoft Silverlight 5] (https://www.microsoft.com/getsilverlight/Get-Started/Install/Default.aspx)
 * [Windows Management Framewework 3.0] (https://www.microsoft.com/en-us/download/details.aspx?id=34595)
 * [Windows Management Framewework 5.0] (http://aka.ms/wmf5latest)
-* [Windows 7 SP1 convenience rollup] (https://blogs.technet.microsoft.com/windowsitpro/2016/05/17/simplifying-updates-for-windows-7-and-8-1/)
+* [Windows Update Client for Windows 7 and Windows Server 2008 R2: March 2016] (https://support.microsoft.com/en-us/kb/3138612)
 * [Cumulative Update for Windows 10 Version 1607: October 27, 2016] (https://support.microsoft.com/en-us/kb/3197954)
 
 If your MDT01 host does not have direct connection to Internet, run DSC configuration from Examples\Download_MDT_Prereqs.ps1 at Windows machine connected to Internet and copy files to production server.

@@ -124,6 +124,18 @@
 		File = "Win8.1AndW2K12R2-KB3134758-x64.msu"
 	}
 	@{
+		Name = "KB3138612-x86"
+		URI = "https://download.microsoft.com/download/E/4/7/E47FB37E-7443-4047-91F7-16DDDCF2955C/Windows6.1-KB3138612-x86.msu"
+		Folder = "KB3138612-x86"
+		File = "Windows6.1-KB3138612-x86.msu"
+	}
+	@{
+		Name = "KB3138612-x64"
+		URI = "https://download.microsoft.com/download/B/7/C/B7CD3A70-1EA7-486A-9585-F6814663F1A9/Windows6.1-KB3138612-x64.msu"
+		Folder = "KB3138612-64"
+		File = "Windows6.1-KB3138612-x64.msu"
+	}
+	@{
 		Name = "KB3197954-x86"
 		URI = "http://download.windowsupdate.com/d/msdownload/update/software/crup/2016/10/windows10.0-kb3197954-x86_71319a1cc17dc9c90b0f2f6fe17074535c6f715d.msu"
 		Folder = "KB3197954-x86"
