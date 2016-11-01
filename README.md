@@ -4,7 +4,7 @@ cMDTBuildLab is a Powershell Module to help automize deployment Windows Referenc
 cMDTBuildLab is a fork from cMDT module (https://github.com/servicedudes/cmdt).
 
 ### Version
-0.7.0
+0.7.1
 
 See version history at [Project Site] (https://github.com/pvs043/cMDTBuildLab/wiki/Version-History)
 
@@ -49,7 +49,7 @@ This extra files included to module (\Sources\Extra.zip):
 * KVP (Key Value Pair Exchange) driver for WinPE. This extracted from VMGuest.iso image on Hyper-V host (\support\x86\Windows6.x-HyperVIntegrationServices-x86.cab).
 
 Note for APP-V 5.1 client:<p>
-This modele include *fake* archive Sources\appv_client_setup.zip.<p>
+This module include *fake* archive Sources\appv_client_setup.zip.<p>
 If you have Microsoft Software Assurance subscription, take original client of APP-V 5.1 (appv_client_setup.exe) from MDOP 2015 and place into this ZIP file.<p>
 This archive will be unpack to source folder with cMDTBuildPreReqs DSC resource.
 

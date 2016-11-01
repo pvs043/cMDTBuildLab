@@ -1,4 +1,4 @@
-﻿Configuration Download-MDTPrereqs
+﻿Configuration DownloadMDTPrereqs
 {
     Import-Module -Name PSDesiredStateConfiguration, cMDTBuildLab
     Import-DscResource –ModuleName PSDesiredStateConfiguration
@@ -64,13 +64,13 @@ $ConfigurationData = @{
 }
 
 #Create DSC MOF job
-Download-MDTPrereqs -OutputPath "$PSScriptRoot\Download-MDTPrereqs" -ConfigurationData $ConfigurationData
+DownloadMDTPrereqs -OutputPath "$PSScriptRoot\DownloadMDTPrereqs" -ConfigurationData $ConfigurationData
 
 #Set DSC LocalConfigurationManager
-Set-DscLocalConfigurationManager -Path "$PSScriptRoot\Download-MDTPrereqs" -Verbose
+Set-DscLocalConfigurationManager -Path "$PSScriptRoot\DownloadMDTPrereqs" -Verbose
 
 #Start DSC MOF job
-Start-DscConfiguration -Wait -Force -Verbose -ComputerName "$env:computername" -Path "$PSScriptRoot\Download-MDTPrereqs"
+Start-DscConfiguration -Wait -Force -Verbose -ComputerName "$env:computername" -Path "$PSScriptRoot\DownloadMDTPrereqs"
 
 #Set data deduplication
 Enable-DedupVolume -Volume "E:"
