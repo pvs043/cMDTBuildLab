@@ -72,7 +72,7 @@ The cMDTBuildLab Module contain the following DscResources:
 * [cMDTBuildSelectionProfile](https://github.com/pvs043/cMDTBuildLab/wiki/cMDTBuildSelectionProfile)
 * [cMDTBuildTaskSequence](https://github.com/pvs043/cMDTBuildLab/wiki/cMDTBuildTaskSequence)
 * [cMDTBuildTaskSequenceCustomize](https://github.com/pvs043/cMDTBuildLab/wiki/cMDTBuildTaskSequenceCustomize)
-* [cMDTBuildUpdateBootImage](https://github.com/pvs043/cMDTBuildLab/)
+* [cMDTBuildUpdateBootImage](https://github.com/pvs043/cMDTBuildLab/wiki/cMDTBuildUpdateBootImage)
 
 ### Development
 
