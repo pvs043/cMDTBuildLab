@@ -123,6 +123,7 @@
 		Folder = "WMF50x64"
 		File = "Win8.1AndW2K12R2-KB3134758-x64.msu"
 	}
+	<#
 	@{
 		Name = "KB3138612-x86"
 		URI = "https://download.microsoft.com/download/E/4/7/E47FB37E-7443-4047-91F7-16DDDCF2955C/Windows6.1-KB3138612-x86.msu"
@@ -135,17 +136,34 @@
 		Folder = "KB3138612-x64"
 		File = "Windows6.1-KB3138612-x64.msu"
 	}
-	@{
-		Name = "KB3197954-x86"
-		URI = "http://download.windowsupdate.com/d/msdownload/update/software/crup/2016/10/windows10.0-kb3197954-x86_71319a1cc17dc9c90b0f2f6fe17074535c6f715d.msu"
-		Folder = "KB3197954-x86"
-		File = "windows10.0-kb3197954-x86_71319a1cc17dc9c90b0f2f6fe17074535c6f715d.msu"
+	#>
+	{
+		# Convenience rollup update for Windows 7 SP1 x86
+		Name = "KB3125574-x86"
+		URI = "http://download.windowsupdate.com/d/msdownload/update/software/updt/2016/05/windows6.1-kb3125574-v4-x86_ba1ff5537312561795cc04db0b02fbb0a74b2cbd.msu"
+		Folder = "KB3138612-x86"
+		File = "windows6.1-kb3125574-v4-x86_ba1ff5537312561795cc04db0b02fbb0a74b2cbd.msu"
 	}
 	@{
-		Name = "KB3197954-x64"
-		URI = "http://download.windowsupdate.com/d/msdownload/update/software/crup/2016/10/windows10.0-kb3197954-x64_74819c01705e7a4d0f978cc0fbd7bed6240642b0.msu"
-		Folder = "KB3197954-x64"
-		File = "windows10.0-kb3197954-x64_74819c01705e7a4d0f978cc0fbd7bed6240642b0.msu"
+		# Convenience rollup update for Windows 7 SP1 x64
+		Name = "KB3125574-x64"
+		URI = "http://download.windowsupdate.com/d/msdownload/update/software/updt/2016/05/windows6.1-kb3125574-v4-x64_2dafb1d203c8964239af3048b5dd4b1264cd93b9.msu"
+		Folder = "KB3138612-x64"
+		File = "windows6.1-kb3125574-v4-x64_2dafb1d203c8964239af3048b5dd4b1264cd93b9.msu"
+	}
+	@{
+		# Cumulative update for Windows 10 Version 1607 x86
+		Name = "KB3200970-x86"
+		URI = "http://download.windowsupdate.com/c/msdownload/update/software/secu/2016/11/windows10.0-kb3200970-x86_336e7bb4052bff8fcad9de50bb1755afbd91b82b.msu"
+		Folder = "KB3200970-x86"
+		File = "windows10.0-kb3200970-x86_336e7bb4052bff8fcad9de50bb1755afbd91b82b.msu"
+	}
+	@{
+		# Cumulative update for Windows 10 x64 Version 1607 and Windows Server 2016
+		Name = "KB3200970-x64"
+		URI = "http://download.windowsupdate.com/d/msdownload/update/software/secu/2016/11/windows10.0-kb3200970-x64_3fa1daafc46a83ed5d0ecbd0a811e1421b7fad5a.msu"
+		Folder = "KB3200970-x64"
+		File = "windows10.0-kb3200970-x64_3fa1daafc46a83ed5d0ecbd0a811e1421b7fad5a.msu"
 	}
     @{
         Name = "KeyboardToggle"

@@ -225,30 +225,36 @@
 
 			#Packages
 			Packages = @(
+				# Convenience rollup update for Windows 7 SP1 x86
 				@{
 					Ensure            = "Present"
-					Name              = "Package_for_KB3138612 neutral x86 6.1.1.1"
+					Name              = "Package_for_KB3125574 neutral x86 6.1.4.4"
 					Path              = "\Packages\Windows 7 x86"
-					PackageSourcePath = "KB3138612-x86"
+					PackageSourcePath = "KB3125574-x86"
 				}
+				# Convenience rollup update for Windows 7 SP1 x64
 				@{
 					Ensure            = "Present"
-					Name              = "Package_for_KB3138612 neutral amd64 6.1.1.1"
+					Name              = "Package_for_KB3125574 neutral amd64 6.1.4.4"
 					Path              = "\Packages\Windows 7 x64"
-					PackageSourcePath = "KB3138612-x64"
+					PackageSourcePath = "KB3125574-x64"
 				}
+			<#
+				# Cumulative update for Windows 10 Version 1607 x86
 				@{
 					Ensure            = "Present"
 					Name              = "Package_for_RollupFix neutral x86 14393.351.1.5"
 					Path              = "\Packages\Windows 10 x86"
-					PackageSourcePath = "KB3197954-x86"
+					PackageSourcePath = "KB3200970-x86"
 				}
+				# Cumulative update for Windows 10 Version 1607 x64 and Windows Server 2016
 				@{
 					Ensure            = "Present"
 					Name              = "Package_for_RollupFix neutral amd64 14393.351.1.5"
 					Path              = "\Packages\Windows 10 x64"
-					PackageSourcePath = "KB3197954-x64"
+					PackageSourcePath = "KB3200970-x64"
 				}
+			#>
 			)
 
             #Selection profile creation
