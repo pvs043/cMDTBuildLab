@@ -141,14 +141,14 @@
 		# Convenience rollup update for Windows 7 SP1 x86
 		Name = "KB3125574-x86"
 		URI = "http://download.windowsupdate.com/d/msdownload/update/software/updt/2016/05/windows6.1-kb3125574-v4-x86_ba1ff5537312561795cc04db0b02fbb0a74b2cbd.msu"
-		Folder = "KB3138612-x86"
+		Folder = "KB3125574-x86"
 		File = "windows6.1-kb3125574-v4-x86_ba1ff5537312561795cc04db0b02fbb0a74b2cbd.msu"
 	}
 	@{
 		# Convenience rollup update for Windows 7 SP1 x64
 		Name = "KB3125574-x64"
 		URI = "http://download.windowsupdate.com/d/msdownload/update/software/updt/2016/05/windows6.1-kb3125574-v4-x64_2dafb1d203c8964239af3048b5dd4b1264cd93b9.msu"
-		Folder = "KB3138612-x64"
+		Folder = "KB3125574-x64"
 		File = "windows6.1-kb3125574-v4-x64_2dafb1d203c8964239af3048b5dd4b1264cd93b9.msu"
 	}
 	@{

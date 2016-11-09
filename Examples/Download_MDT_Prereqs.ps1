@@ -74,7 +74,7 @@ Start-DscConfiguration -Wait -Force -Verbose -ComputerName "$env:computername" -
 
 #Set data deduplication
 Enable-DedupVolume -Volume "E:"
-Set-DedupVolume -Volume "E:" -MinimumFileAgeDays 3
+Set-DedupVolume -Volume "E:" -MinimumFileAgeDays 1
 
 Write-Output ""
 Write-Output "Download MDT Prereqs is completed!"
