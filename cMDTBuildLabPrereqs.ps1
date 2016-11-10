@@ -123,20 +123,20 @@
 		Folder = "WMF50x64"
 		File = "Win8.1AndW2K12R2-KB3134758-x64.msu"
 	}
-	<#
 	@{
-		Name = "KB3138612-x86"
-		URI = "https://download.microsoft.com/download/E/4/7/E47FB37E-7443-4047-91F7-16DDDCF2955C/Windows6.1-KB3138612-x86.msu"
-		Folder = "KB3138612-x86"
-		File = "Windows6.1-KB3138612-x86.msu"
+		# Servicing stack update for Windows 7 SP1 x86
+		Name = "KB3177467-x86"
+		URI = "http://download.windowsupdate.com/d/msdownload/update/software/crup/2016/08/windows6.1-kb3177467-x86_7fa40e58f6a8e56eb78b09502e5c8c6c1acf0158.msu"
+		Folder = "KB3177467-x86"
+		File = "windows6.1-kb3177467-x86_7fa40e58f6a8e56eb78b09502e5c8c6c1acf0158.msu"
 	}
 	@{
-		Name = "KB3138612-x64"
-		URI = "https://download.microsoft.com/download/B/7/C/B7CD3A70-1EA7-486A-9585-F6814663F1A9/Windows6.1-KB3138612-x64.msu"
-		Folder = "KB3138612-x64"
-		File = "Windows6.1-KB3138612-x64.msu"
+		# Servicing stack update for Windows 7 SP1 x64
+		Name = "KB3177467-x64"
+		URI = "http://download.windowsupdate.com/d/msdownload/update/software/crup/2016/08/windows6.1-kb3177467-x64_42467e48b4cfeb44112d819f50b0557d4f9bbb2f.msu"
+		Folder = "KB3177467-x64"
+		File = "windows6.1-kb3177467-x64_42467e48b4cfeb44112d819f50b0557d4f9bbb2f.msu"
 	}
-	#>
 	@{
 		# Convenience rollup update for Windows 7 SP1 x86
 		Name = "KB3125574-x86"

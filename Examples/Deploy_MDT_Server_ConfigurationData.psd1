@@ -225,19 +225,19 @@
 
 			#Packages
 			Packages = @(
-				# Convenience rollup update for Windows 7 SP1 x86
+				# Servicing stack update for Windows 7 SP1 x86
 				@{
 					Ensure            = "Present"
-					Name              = "Package_for_KB3125574 neutral x86 6.1.4.4"
+					Name              = "Package_for_KB3177467 neutral x86 6.1.1.1"
 					Path              = "\Packages\Windows 7 x86"
-					PackageSourcePath = "KB3125574-x86"
+					PackageSourcePath = "KB3177467-x86"
 				}
-				# Convenience rollup update for Windows 7 SP1 x64
+				# Servicing stack update for Windows 7 SP1 x86
 				@{
 					Ensure            = "Present"
-					Name              = "Package_for_KB3125574 neutral amd64 6.1.4.4"
+					Name              = "Package_for_KB3177467 neutral amd64 6.1.1.1"
 					Path              = "\Packages\Windows 7 x64"
-					PackageSourcePath = "KB3125574-x64"
+					PackageSourcePath = "KB3177467-x64"
 				}
 				# Cumulative update for Windows 10 Version 1607 x86
 				@{
@@ -819,18 +819,18 @@
 							SelectionProfile = "Windows 10 x86"
 						}
 						@{
-							Name       = "Windows Update (Pre-Application Installation)"
-							Type       = "Run Command Line"
-							GroupName  = "State Restore"
-							Disable    = "false"
-						}
-						@{
 							Name       = "Configure - Remove Windows Default Applications"
 							Type       = "Run Command Line"
 							GroupName  = "Postinstall"
 							Command    = 'powershell.exe -ExecutionPolicy Bypass -File "%SCRIPTROOT%\RemoveApps.ps1"'
 							StartIn    = "%SCRIPTROOT%"
 							AddAfter   = "Inject Drivers"
+						}
+						@{
+							Name       = "Windows Update (Pre-Application Installation)"
+							Type       = "Run Command Line"
+							GroupName  = "State Restore"
+							Disable    = "false"
 						}
 						@{
 							Name       = "Custom Tasks (Pre-Windows Update)"
