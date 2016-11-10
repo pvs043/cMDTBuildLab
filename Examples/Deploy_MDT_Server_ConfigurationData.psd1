@@ -167,6 +167,20 @@
 				}
 				@{
                     Ensure                = "Present"
+                    Name                  = "Install - Convenience rollup update for Windows 7 SP1 - x86"
+                    Path                  = "\Applications\Core\Microsoft"
+                    CommandLine           = "wusa.exe windows6.1-kb3125574-v4-x86_ba1ff5537312561795cc04db0b02fbb0a74b2cbd.msu /quiet /norestart"
+                    ApplicationSourcePath = "KB3125574-x86"
+				}
+				@{
+                    Ensure                = "Present"
+                    Name                  = "Install - Convenience rollup update for Windows 7 SP1 - x64"
+                    Path                  = "\Applications\Core\Microsoft"
+                    CommandLine           = "wusa.exe windows6.1-kb3125574-v4-x64_2dafb1d203c8964239af3048b5dd4b1264cd93b9.msu /quiet /norestart"
+                    ApplicationSourcePath = "KB3125574-x64"
+				}
+				@{
+                    Ensure                = "Present"
                     Name                  = "Install - Windows Management Framework 3.0 - x86"
                     Path                  = "\Applications\Core\Microsoft"
                     CommandLine           = "wusa.exe Windows6.1-KB2506143-x86.msu /quiet /norestart"
@@ -360,6 +374,20 @@
 							AddAfter   = "Install - Microsoft Silverlight - x86"
 						}
 						@{
+							Name       = "Install - Convenience rollup update for Windows 7 SP1 - x86"
+							Type       = "Install Application"
+							GroupName  = "State Restore"
+							SubGroup   = "Custom Tasks (Pre-Windows Update)"
+							AddAfter   = "Configure - Set Control+Shift Keyboard Toggle"
+						}
+						@{
+							Name       = "Restart Computer 1"
+							Type       = "Restart Computer"
+							GroupName  = "State Restore"
+							SubGroup   = "Custom Tasks (Pre-Windows Update)"
+							AddAfter   = "Install - Convenience rollup update for Windows 7 SP1 - x86"
+						}
+						@{
 							Name       = "Install APP-V 5.1"
 							Type       = "Group"
 							GroupName  = "State Restore"
@@ -372,7 +400,7 @@
 							SubGroup   = "Install APP-V 5.1"
 						}
 						@{
-							Name       = "Restart Computer 1"
+							Name       = "Restart Computer 2"
 							Type       = "Restart Computer"
 							GroupName  = "State Restore"
 							SubGroup   = "Install APP-V 5.1"
@@ -384,10 +412,10 @@
 							GroupName  = "State Restore"
 							SubGroup   = "Install APP-V 5.1"
 							Disable    = "true"
-							AddAfter   = "Restart Computer 1"
+							AddAfter   = "Restart Computer 2"
 						}
 						@{
-							Name       = "Restart Computer 2"
+							Name       = "Restart Computer 3"
 							Type       = "Restart Computer"
 							GroupName  = "State Restore"
 							SubGroup   = "Install APP-V 5.1"
@@ -492,6 +520,20 @@
 							AddAfter   = "Install - Microsoft Silverlight - x64"
 						}
 						@{
+							Name       = "Install - Convenience rollup update for Windows 7 SP1 - x64"
+							Type       = "Install Application"
+							GroupName  = "State Restore"
+							SubGroup   = "Custom Tasks (Pre-Windows Update)"
+							AddAfter   = "Configure - Set Control+Shift Keyboard Toggle"
+						}
+						@{
+							Name       = "Restart Computer 1"
+							Type       = "Restart Computer"
+							GroupName  = "State Restore"
+							SubGroup   = "Custom Tasks (Pre-Windows Update)"
+							AddAfter   = "Install - Convenience rollup update for Windows 7 SP1 - x64"
+						}
+						@{
 							Name       = "Install APP-V 5.1"
 							Type       = "Group"
 							GroupName  = "State Restore"
@@ -504,7 +546,7 @@
 							SubGroup   = "Install APP-V 5.1"
 						}
 						@{
-							Name       = "Restart Computer 1"
+							Name       = "Restart Computer 2"
 							Type       = "Restart Computer"
 							GroupName  = "State Restore"
 							SubGroup   = "Install APP-V 5.1"
@@ -516,10 +558,10 @@
 							GroupName  = "State Restore"
 							SubGroup   = "Install APP-V 5.1"
 							Disable    = "true"
-							AddAfter   = "Restart Computer 1"
+							AddAfter   = "Restart Computer 2"
 						}
 						@{
-							Name       = "Restart Computer 2"
+							Name       = "Restart Computer 3"
 							Type       = "Restart Computer"
 							GroupName  = "State Restore"
 							SubGroup   = "Install APP-V 5.1"
