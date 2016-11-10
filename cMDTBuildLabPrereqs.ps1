@@ -137,7 +137,7 @@
 		File = "Windows6.1-KB3138612-x64.msu"
 	}
 	#>
-	{
+	@{
 		# Convenience rollup update for Windows 7 SP1 x86
 		Name = "KB3125574-x86"
 		URI = "http://download.windowsupdate.com/d/msdownload/update/software/updt/2016/05/windows6.1-kb3125574-v4-x86_ba1ff5537312561795cc04db0b02fbb0a74b2cbd.msu"
