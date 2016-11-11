@@ -39,10 +39,11 @@ The following prerequisites automatically downloaded with the cMDTBuildPreReqs D
 * [Microsoft Silverlight 5] (https://www.microsoft.com/getsilverlight/Get-Started/Install/Default.aspx)
 * [Windows Management Framewework 3.0] (https://www.microsoft.com/en-us/download/details.aspx?id=34595)
 * [Windows Management Framewework 5.0] (http://aka.ms/wmf5latest)
+* [Servicing stack update for Windows 7 SP1] (https://support.microsoft.com/en-us/kb/3177467)
 * [Convenience rollup update for Windows 7 SP1] (https://support.microsoft.com/en-us/kb/3125574)
 * [Cumulative update for Windows 10 Version 1607 and Windows Server 2016: November 8, 2016] (https://support.microsoft.com/en-us/kb/3200970)
 
-If your MDT01 host does not have direct connection to Internet, run DSC configuration from Examples\Download_MDT_Prereqs.ps1 at Windows machine connected to Internet and copy files to production server.
+If your MDT01 host does not have direct connection to Internet, run DSC configuration from Examples\Download_MDT_Prereqs.ps1 at Windows machine connected to Internet. After completion of downloading run E:\Source\Windows Assessment and Deployment Kit\adksetup.exe for download ADK. Then copy E:\Source to production server.
 
 This extra files included to module (\Sources\Extra.zip):
 * devcon.exe: tool from [Windows Driver Kit] (https://msdn.microsoft.com/en-us/library/windows/hardware/ff544707(v=vs.85).aspx).
@@ -92,11 +93,3 @@ License
 [Jason Helmick] (https://twitter.com/theJasonHelmick), [Jeffrey Snover] (https://twitter.com/@jsnover):<br>
 [1. Getting Started with PowerShell Desired State Configuration (DSC)] (https://mva.microsoft.com/en-US/training-courses/getting-started-with-powershell-desired-state-configuration-dsc--8672?l=ZwHuclG1_2504984382). ([Rus] (https://mva.microsoft.com/ru/training-courses/-powershell-dsc--8672?l=dlwgB3wFB_1704984382))<br>
 [2. Advanced PowerShell Desired State Configuration (DSC) and Custom Resources] (https://mva.microsoft.com/en-US/training-courses/advanced-powershell-desired-state-configuration-dsc-and-custom-resources-8702?l=3DnsS2H1_1504984382)
- 
-### Reference
-
-[Create a Windows 10 reference image] (https://technet.microsoft.com/itpro/windows/deploy/create-a-windows-10-reference-image)<br>
-[Back to Basics - Building a Windows 7 SP1 Reference Image using MDT 2013 Update 2] (http://deploymentresearch.com/Research/Post/521/Back-to-Basics-Building-a-Windows-7-SP1-Reference-Image-using-MDT-2013-Update-2/)<br>
-[Building reference images like a boss] (http://deploymentresearch.com/Research/Post/357/Building-reference-images-like-a-boss/)<br>
-[PowerShell is King: Building a Reference Image Factory] (https://deploymentbunny.com/2014/01/06/powershell-is-king-building-a-reference-image-factory/)<br>
-[The battle begins - Building the perfect reference image for ConfigMgr 2012] (http://deploymentresearch.com/Research/Post/431/The-battle-begins-Building-the-perfect-reference-image-for-ConfigMgr-2012)
