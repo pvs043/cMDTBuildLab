@@ -4,7 +4,7 @@ cMDTBuildLab is a Powershell Module to help automize deployment Windows Referenc
 cMDTBuildLab is a fork from cMDT module (https://github.com/servicedudes/cmdt).
 
 ### Version
-0.7.3
+0.7.4
 
 See version history at [Project Site] (https://github.com/pvs043/cMDTBuildLab/wiki/Version-History)
 
@@ -33,7 +33,7 @@ cMDTBuildLab uses a number of components and open resource kit modules. The foll
   ```
 
 The following prerequisites automatically downloaded with the cMDTBuildPreReqs DSC resource:
-* [MicrosoftDeploymentToolkit2013_x64] (https://www.microsoft.com/en-us/download/details.aspx?id=50407) - Microsoft Deployment Toolkit (MDT) 2013 Update 2 (6.3.8330.1000)
+* [MicrosoftDeploymentToolkit_x64] (https://www.microsoft.com/en-us/download/details.aspx?id=54259) - Microsoft Deployment Toolkit (MDT) (Build 6.3.8443.1000)
 * [adksetup] (https://developer.microsoft.com/en-us/windows/hardware/windows-assessment-deployment-kit) - Windows Assessment and Deployment Kit 10, v.1607 (10.1.14393.0)
 * [Visual C++ runtimes] (https://support.microsoft.com/en-us/kb/2977003) - 2005,2008,2010,2012,2013,2015
 * [Microsoft Silverlight 5] (https://www.microsoft.com/getsilverlight/Get-Started/Install/Default.aspx)

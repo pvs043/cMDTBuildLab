@@ -1,10 +1,10 @@
 ﻿@(
     @{
-        #Version: MDT 2013 Update 2 (Build: 6.3.8330.1000)
+        #Version: MDT (Build: 6.3.8443.1000)
         Name = "MDT"
-        URI = "https://download.microsoft.com/download/3/0/1/3012B93D-C445-44A9-8BFB-F28EB937B060/MicrosoftDeploymentToolkit2013_x64.msi"
+        URI = "https://download.microsoft.com/download/3/3/9/339BE62D-B4B8-4956-B58D-73C4685FC492/MicrosoftDeploymentToolkit_x64.msi"
         Folder = "Microsoft Deployment Toolkit"
-        File = "MicrosoftDeploymentToolkit2013_x64.msi"
+        File = "MicrosoftDeploymentToolkit_x64.msi"
     }
     @{
         #Version: Windows 10 v1607 (Build: 10.1.14393.0)
