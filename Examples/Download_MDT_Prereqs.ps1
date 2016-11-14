@@ -34,9 +34,9 @@
 
         Package MDT {
             Ensure     = "Present"
-            Name       = "Microsoft Deployment Toolkit 2013 Update 2 (6.3.8330.1000)"
+            Name       = "Microsoft Deployment Toolkit (6.3.8443.1000)"
             Path       = "$($Node.SourcePath)\Microsoft Deployment Toolkit\MicrosoftDeploymentToolkit2013_x64.msi"
-            ProductId  = "F172B6C7-45DD-4C22-A5BF-1B2C084CADEF"
+            ProductId  = "9547DE37-4A70-4194-97EA-ACC3E747254B"
             ReturnCode = 0
         }
 #>
