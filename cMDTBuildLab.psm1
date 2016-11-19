@@ -1001,24 +1001,24 @@ class cMDTBuildTaskSequenceCustomize
 			else {
 				if ($this.NewName -ne "") {
 					# For rename "Custom Tasks" group only
-					$present = ( ($group.group | ?{$_.Name -eq $this.NewName}) -ne $null )
+					$present = ( ($group.group | ?{$_.Name -eq $this.NewName}) )
 				}
 				elseif ($this.SubGroup) {
 					$addGroup = $group.group | ?{$_.name -eq $this.SubGroup}
-					$present = ( ($addGroup.step | ?{$_.Name -eq $this.Name}) -ne $null )
+					$present = ( ($addGroup.step | ?{$_.Name -eq $this.Name}) )
 				}
 			}
 		}
 		else {
 			if ($this.Type -eq "Group") {
-				$present = ( ($group.group | ?{$_.Name -eq $this.Name}) -ne $null )
+				$present = ( ($group.group | ?{$_.Name -eq $this.Name}) )
 			}
 			else {
 				$AddGroup = $group
 				if ($this.SubGroup) {
 					$AddGroup = $group.group | ?{$_.name -eq $this.SubGroup}
 				}
-				$present = ( ($addGroup.step | ?{$_.Name -eq $this.Name}) -ne $null )
+				$present = ( ($addGroup.step | ?{$_.Name -eq $this.Name}) )
 			}
 		}
 
@@ -1276,7 +1276,7 @@ class cMDTBuildUpdateBootImage
 
         #The Update-MDTDeploymentShare command crashes WMI when run from inside DSC. This section is a work around.
 		workflow Update-DeploymentShare {
-			[CmdletBinding()]
+		    #[Cmdletbinding()]
 			param (
 				[string]$PSDeploymentShare,
 				[string]$PSDrivePath
@@ -1301,8 +1301,8 @@ Function Import-MicrosoftDeploymentToolkitModule
 
 Function Invoke-ExpandArchive
 {
-    [CmdletBinding()]
-    [OutputType([bool])]
+    [cmdletbinding(SupportsShouldProcess=$True,ConfirmImpact="Low")]
+	[OutputType([bool])]
     param(
         [Parameter(Mandatory=$True)]
         [ValidateNotNullorEmpty()]
@@ -1322,7 +1322,7 @@ Function Invoke-ExpandArchive
 
 Function Invoke-RemovePath
 {
-    [CmdletBinding()]
+    [cmdletbinding(SupportsShouldProcess=$True,ConfirmImpact="Low")]
     [OutputType([bool])]
     param(
         [Parameter(Mandatory=$True)]
@@ -1350,7 +1350,7 @@ Function Invoke-RemovePath
 
 Function Invoke-TestPath
 {
-    [CmdletBinding()]
+    [cmdletbinding(SupportsShouldProcess=$True,ConfirmImpact="Low")]
     [OutputType([bool])]
     param(
         [Parameter(Mandatory=$True)]
