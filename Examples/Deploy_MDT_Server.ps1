@@ -126,7 +126,7 @@ Configuration DeployMDTServerContract
                     NoPropagateInherit = $false
                 }
             )
-            DependsOn  = "[cMDTBuildPersistentDrive]DeploymentPSDrive"
+            DependsOn  = "[cMDTBuildPersistentDrive]AssignPermissionsMDT"
         }
 
         ForEach ($OSDirectory in $Node.OSDirectories)   
