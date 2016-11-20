@@ -4,7 +4,7 @@ cMDTBuildLab is a Powershell Module to help automize deployment Windows Referenc
 cMDTBuildLab is a fork from cMDT module (https://github.com/servicedudes/cmdt).
 
 ### Version
-0.7.5
+0.7.4
 
 See version history at [Project Site] (https://github.com/pvs043/cMDTBuildLab/wiki/Version-History)
 
