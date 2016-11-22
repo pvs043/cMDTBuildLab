@@ -97,38 +97,6 @@ Configuration DeployMDTServerContract
             DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
         }
 
-        cNtfsPermissionEntry AssignPermissionsMDT
-        {
-            Ensure = "Present"
-            Path   = $Node.PSDrivePath
-            Principal  = "$($Node.NodeName)\$($Credentials.UserName)"
-            AccessControlInformation = @(
-                cNtfsAccessControlInformation {
-                    AccessControlType = "Allow"
-                    FileSystemRights = "ReadAndExecute"
-                    Inheritance = "ThisFolderSubfoldersAndFiles"
-                    NoPropagateInherit = $false
-                }
-            )
-            DependsOn  = "[cMDTBuildPersistentDrive]DeploymentPSDrive"
-        }
-
-        cNtfsPermissionEntry AssignPermissionsCaptures
-        {
-            Ensure = "Present"
-            Path   = "$($Node.PSDrivePath)\Captures"
-            Principal  = "$($Node.NodeName)\$($Credentials.UserName)"
-            AccessControlInformation = @(
-                cNtfsAccessControlInformation {
-                    AccessControlType = "Allow"
-                    FileSystemRights = "Modify"
-                    Inheritance = "ThisFolderSubfoldersAndFiles"
-                    NoPropagateInherit = $false
-                }
-            )
-            DependsOn  = "[cMDTBuildPersistentDrive]DeploymentPSDrive"
-        }
-
         ForEach ($OSDirectory in $Node.OSDirectories)   
         {
 
@@ -599,6 +567,38 @@ UserExit=LoadKVPInWinPE.vbs
                 LiteTouchWIMDescription = $LiteTouchWIMDescription
                 DependsOn               = "[cMDTBuildDirectory]DeploymentFolder"
             }
+        }
+
+        cNtfsPermissionEntry AssignPermissionsMDT
+        {
+            Ensure = "Present"
+            Path   = $Node.PSDrivePath
+            Principal  = "$($Node.NodeName)\$($Credentials.UserName)"
+            AccessControlInformation = @(
+                cNtfsAccessControlInformation {
+                    AccessControlType = "Allow"
+                    FileSystemRights = "ReadAndExecute"
+                    Inheritance = "ThisFolderSubfoldersAndFiles"
+                    NoPropagateInherit = $false
+                }
+            )
+            DependsOn  = "[cMDTBuildPersistentDrive]DeploymentPSDrive"
+        }
+
+        cNtfsPermissionEntry AssignPermissionsCaptures
+        {
+            Ensure = "Present"
+            Path   = "$($Node.PSDrivePath)\Captures"
+            Principal  = "$($Node.NodeName)\$($Credentials.UserName)"
+            AccessControlInformation = @(
+                cNtfsAccessControlInformation {
+                    AccessControlType = "Allow"
+                    FileSystemRights = "Modify"
+                    Inheritance = "ThisFolderSubfoldersAndFiles"
+                    NoPropagateInherit = $false
+                }
+            )
+            DependsOn  = "[cMDTBuildPersistentDrive]DeploymentPSDrive"
         }
     }
 }
