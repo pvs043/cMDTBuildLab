@@ -1,0 +1,19 @@
+<Settings>
+    <ReportFrom>AutoBuild@build.lab</ReportFrom>
+    <ReportTo>AutoBuild@build.lab</ReportTo>
+    <ReportSmtp>smtp.build.lab</ReportSmtp>
+    <MDT>
+      <DeploymentShare>E:\MDTBuildLab</DeploymentShare>
+      <RefTaskSequenceFolderName>REF</RefTaskSequenceFolderName>
+    </MDT>
+    <HyperV>
+      <StartUpRAM>4</StartUpRAM>
+      <VLANID>0</VLANID>
+      <Computername>HV01</Computername>
+      <SwitchName>Network Switch</SwitchName>
+      <VMLocation>E:\Build</VMLocation>
+      <ISOLocation>E:\Build\ISO</ISOLocation>
+      <VHDSize>60</VHDSize>
+      <NoCPU>2</NoCPU>
+    </HyperV>
+</Settings>
