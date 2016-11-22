@@ -15,4 +15,3 @@ Configuration MDTServer
 		NetworkPath = "\\$ComputerName\DeploymentShare$"
 	}
 }
-

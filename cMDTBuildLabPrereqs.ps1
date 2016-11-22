@@ -29,9 +29,9 @@
     }
     @{
         Name = "VS++Application"
-        URI = "Sources\Install-MicrosoftVisualC++x86x64.wsf"
+        URI = "Sources\Install-MicrosoftVisualCx86x64.wsf"
         Folder = "VC++"
-        File = "Install-MicrosoftVisualC++x86x64.wsf"
+        File = "Install-MicrosoftVisualCx86x64.wsf"
     }
     @{
         Name = "VS2005SP1x86"

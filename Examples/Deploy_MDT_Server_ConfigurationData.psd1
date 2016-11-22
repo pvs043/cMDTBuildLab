@@ -148,7 +148,7 @@
                     Ensure                = "Present"
                     Name                  = "Install - Microsoft Visual C++"
                     Path                  = "\Applications\Core\Microsoft"
-                    CommandLine           = "cscript.exe Install-MicrosoftVisualC++x86x64.wsf"
+                    CommandLine           = "cscript.exe Install-MicrosoftVisualCx86x64.wsf"
                     ApplicationSourcePath = "VC++"
 				}
 				@{

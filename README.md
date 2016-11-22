@@ -4,7 +4,7 @@ cMDTBuildLab is a Powershell Module to help automize deployment Windows Referenc
 cMDTBuildLab is a fork from cMDT module (https://github.com/servicedudes/cmdt).
 
 ### Version
-0.7.4
+0.8.0
 
 See version history at [Project Site] (https://github.com/pvs043/cMDTBuildLab/wiki/Version-History)
 
@@ -24,21 +24,15 @@ This module is tested on Windows 2016 server, but it will be worked on Windows 1
 cMDTBuildLab uses a number of components and open resource kit modules. The following are prerequisites for the module and need to be installed to the inteded deployment server (MDT01):
 * [WMF5] (http://aka.ms/wmf5latest) - Windows Management Framework 5.0 (for windows 2012 R2/Windows 8.1 host only).
 * [xSmbShare] (http://www.powershellgallery.com/packages/xSmbShare/) - DSC Module available from Powershell Gallery<br>
-  ```powershell
-  Install-Module -Name xSmbShare
-  ```
 * [cNtfsAccessControl] (http://www.powershellgallery.com/packages/cNtfsAccessControl/) - DSC Module available from Powershell Gallery.<br>
-  ```powershell
-  Install-Module -Name cNtfsAccessControl
-  ```
 
 The following prerequisites automatically downloaded with the cMDTBuildPreReqs DSC resource:
 * [MicrosoftDeploymentToolkit_x64] (https://www.microsoft.com/en-us/download/details.aspx?id=54259) - Microsoft Deployment Toolkit (MDT) (Build 6.3.8443.1000)
 * [adksetup] (https://developer.microsoft.com/en-us/windows/hardware/windows-assessment-deployment-kit) - Windows Assessment and Deployment Kit 10, v.1607 (10.1.14393.0)
 * [Visual C++ runtimes] (https://support.microsoft.com/en-us/kb/2977003) - 2005,2008,2010,2012,2013,2015
 * [Microsoft Silverlight 5] (https://www.microsoft.com/getsilverlight/Get-Started/Install/Default.aspx)
-* [Windows Management Framewework 3.0] (https://www.microsoft.com/en-us/download/details.aspx?id=34595)
-* [Windows Management Framewework 5.0] (http://aka.ms/wmf5latest)
+* [Windows Management Framewework 3.0 for Windows 7 SP1] (https://www.microsoft.com/en-us/download/details.aspx?id=34595)
+* [Windows Management Framewework 5.0 for Windows 8.1 and Windows 2012 R2] (http://aka.ms/wmf5latest)
 * [Servicing stack update for Windows 7 SP1] (https://support.microsoft.com/en-us/kb/3177467)
 * [Convenience rollup update for Windows 7 SP1] (https://support.microsoft.com/en-us/kb/3125574)
 * [Cumulative update for Windows 10 Version 1607 and Windows Server 2016: November 8, 2016] (https://support.microsoft.com/en-us/kb/3200970)
