@@ -250,20 +250,21 @@ Foreach ($Ref in $RefTaskSequences) {
         $VM = Get-VM -Name $VMName
 		$StartTime = Get-Date
 		while ($VM.State -eq "Running") {
-		   Start-Sleep "120"
+		   Start-Sleep "90"
            $VM = Get-VM -Name $VMName
 		}
 		$EndTime = Get-Date
 		$ElapsedTime = $EndTime - $StartTime
+        $hours = [math]::floor($ElapsedTime.TotalHours)
+        $mins = [int]$ElapsedTime.TotalMinutes - $hours*60
+        $report = "Image [$ImageName] was builded at $hours h. $mins min."
+        Write-Output $report
 
         # Send Report
 		If ($ReportFrom -and $ReportTo -and $ReportSmtp) {
             $subject = "Image $ImageName"
             $encoding = [System.Text.Encoding]::UTF8
-            $hours = [math]::floor($ElapsedTime.TotalHours)
-            $mins = [int]$ElapsedTime.TotalMinutes - $hours*60
-            $body = "Image [$ImageName] was builded at $hours h. $mins min."
-            Send-MailMessage -From $ReportFrom -To $ReportTo -Subject $subject -SmtpServer $ReportSmtp -Encoding $encoding -BodyAsHtml $body
+            Send-MailMessage -From $ReportFrom -To $ReportTo -Subject $subject -SmtpServer $ReportSmtp -Encoding $encoding -BodyAsHtml $report
 		}
 
    	    # Remove reference VM
