@@ -166,6 +166,20 @@
 		File = "windows6.1-kb3138612-x64_f7b1de8ea7cf8faf57b0138c4068d2e899e2b266.msu"
 	}
 	@{
+		# July 2016 update rollup for Windows 8.1 x86
+		Name = "KB3172614-x86"
+		URI = "http://download.windowsupdate.com/c/msdownload/update/software/updt/2016/07/windows8.1-kb3172614-x86_d11c233c8598b734de72665e0d0a3f2ef007b91f.msu"
+		Folder = "KB3172614-x86"
+		File = "windows8.1-kb3172614-x86_d11c233c8598b734de72665e0d0a3f2ef007b91f.msu"
+	}
+	@{
+		# July 2016 update rollup for Windows 8.1 x64 and Windows Server 2012 R2
+		Name = "KB3172614-x64"
+		URI = "http://download.windowsupdate.com/c/msdownload/update/software/updt/2016/07/windows8.1-kb3172614-x64_e41365e643b98ab745c21dba17d1d3b6bb73cfcc.msu"
+		Folder = "KB3172614-x64"
+		File = "windows8.1-kb3172614-x64_e41365e643b98ab745c21dba17d1d3b6bb73cfcc.msu"
+	}
+	@{
 		# Cumulative update for Windows 10 Version 1607 x86
 		Name = "KB3200970-x86"
 		URI = "http://download.windowsupdate.com/c/msdownload/update/software/secu/2016/11/windows10.0-kb3200970-x86_336e7bb4052bff8fcad9de50bb1755afbd91b82b.msu"
@@ -173,7 +187,7 @@
 		File = "windows10.0-kb3200970-x86_336e7bb4052bff8fcad9de50bb1755afbd91b82b.msu"
 	}
 	@{
-		# Cumulative update for Windows 10 x64 Version 1607 and Windows Server 2016
+		# Cumulative update for Windows 10 Version 1607 x64 and Windows Server 2016
 		Name = "KB3200970-x64"
 		URI = "http://download.windowsupdate.com/d/msdownload/update/software/secu/2016/11/windows10.0-kb3200970-x64_3fa1daafc46a83ed5d0ecbd0a811e1421b7fad5a.msu"
 		Folder = "KB3200970-x64"

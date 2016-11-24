@@ -35,6 +35,8 @@ The following prerequisites automatically downloaded with the cMDTBuildPreReqs D
 * [Windows Management Framewework 5.0 for Windows 8.1 and Windows 2012 R2] (http://aka.ms/wmf5latest)
 * [Servicing stack update for Windows 7 SP1] (https://support.microsoft.com/en-us/kb/3177467)
 * [Convenience rollup update for Windows 7 SP1] (https://support.microsoft.com/en-us/kb/3125574)
+* [Windows Update Client for Windows 7: March 2016] (https://support.microsoft.com/en-us/kb/3138612)
+* [July 2016 update rollup for Windows 8.1 and Windows Server 2012 R2] (https://support.microsoft.com/en-us/kb/3172614) - this include fixes for Windows Update Client
 * [Cumulative update for Windows 10 Version 1607 and Windows Server 2016: November 8, 2016] (https://support.microsoft.com/en-us/kb/3200970)
 
 If your MDT01 host does not have direct connection to Internet, run DSC configuration from Examples\Download_MDT_Prereqs.ps1 at Windows machine connected to Internet. After completion of downloading run E:\Source\Windows Assessment and Deployment Kit\adksetup.exe for download ADK. Then copy E:\Source to production server.

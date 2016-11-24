@@ -82,6 +82,14 @@
 				}
 				@{
 					Ensure = "Present"
+					Folder = "Windows 8.1 x86"
+				}
+				@{
+					Ensure = "Present"
+					Folder = "Windows 8.1 x64"
+				}
+				@{
+					Ensure = "Present"
 					Folder = "Windows 10 x86"
 				}
 				@{
@@ -194,6 +202,20 @@
                     ApplicationSourcePath = "KB3138612-x64"
 				}
 				@{
+					Ensure                = "Present"
+					Name                  = "Install - July 2016 update rollup for Windows 8.1 - x86"
+					Path                  = "\Applications\Core\Microsoft"
+                    CommandLine           = "wusa.exe windows8.1-kb3172614-x86_d11c233c8598b734de72665e0d0a3f2ef007b91f.msu /quiet /norestart"
+					ApplicationSourcePath = "KB3172614-x86"
+				}
+				@{
+					Ensure                = "Present"
+					Name                  = "July 2016 update rollup for Windows 8.1 and Windows Server 2012 R2 - x64"
+					Path                  = "\Applications\Core\Microsoft"
+                    CommandLine           = "wusa.exe windows8.1-kb3172614-x64_e41365e643b98ab745c21dba17d1d3b6bb73cfcc.msu /quiet /norestart"
+					ApplicationSourcePath = "KB3172614-x64"
+				}
+				@{
                     Ensure                = "Present"
                     Name                  = "Install - Windows Management Framework 3.0 - x86"
                     Path                  = "\Applications\Core\Microsoft"
@@ -296,6 +318,18 @@
 					Name        = "Windows 7 x64"
 					Comments    = "Packages for Windows 7 x64"
 					IncludePath = "Packages\Windows 7 x64"
+				}
+				@{
+					Ensure      = "Present"
+					Name        = "Windows 8.1 x86"
+					Comments    = "Packages for Windows 8.1 x86"
+					IncludePath = "Packages\Windows 8.1 x86"
+				}
+				@{
+					Ensure      = "Present"
+					Name        = "Windows 8.1 x64"
+					Comments    = "Packages for Windows 8.1 x64"
+					IncludePath = "Packages\Windows 8.1 x64"
 				}
 				@{
 					Ensure      = "Present"
@@ -634,7 +668,7 @@
 							Name             = "Apply Patches"
 							Type             = "Install Updates Offline"
 							GroupName        = "Preinstall"
-							SelectionProfile = "Nothing"
+							SelectionProfile = "Windows 8.1 x86"
 						}
 						@{
 							Name       = "Configure - Remove Windows Default Applications"
@@ -705,6 +739,20 @@
 							AddAfter   = "Configure - Set Control+Shift Keyboard Toggle"
 						}
 						@{
+							Name       = "Install - July 2016 update rollup for Windows 8.1 - x86"
+							Type       = "Install Application"
+							GroupName  = "State Restore"
+							SubGroup   = "Custom Tasks (Pre-Windows Update)"
+							AddAfter   = "Configure - Set Start Layout"
+						}
+						@{
+							Name       = "Restart Computer"
+							Type       = "Restart Computer"
+							GroupName  = "State Restore"
+							SubGroup   = "Custom Tasks (Pre-Windows Update)"
+							AddAfter   = "Install - July 2016 update rollup for Windows 8.1 - x86"
+						}
+						@{
 							Name       = "Install APP-V 5.1"
 							Type       = "Group"
 							GroupName  = "State Restore"
@@ -740,7 +788,7 @@
 							SubGroup   = "Cleanup before Sysprep"
 						}
 						@{
-							Name       = "Restart Computer"
+							Name       = "Restart Computer 2"
 							Type       = "Restart Computer"
 							GroupName  = "State Restore"
 							SubGroup   = "Cleanup before Sysprep"
@@ -761,7 +809,7 @@
 							Name             = "Apply Patches"
 							Type             = "Install Updates Offline"
 							GroupName        = "Preinstall"
-							SelectionProfile = "Nothing"
+							SelectionProfile = "Windows 8.1 x64"
 						}
 						@{
 							Name       = "Configure - Remove Windows Default Applications"
@@ -832,6 +880,20 @@
 							AddAfter   = "Configure - Set Control+Shift Keyboard Toggle"
 						}
 						@{
+							Name       = "July 2016 update rollup for Windows 8.1 and Windows Server 2012 R2 - x64"
+							Type       = "Install Application"
+							GroupName  = "State Restore"
+							SubGroup   = "Custom Tasks (Pre-Windows Update)"
+							AddAfter   = "Configure - Set Start Layout"
+						}
+						@{
+							Name       = "Restart Computer"
+							Type       = "Restart Computer"
+							GroupName  = "State Restore"
+							SubGroup   = "Custom Tasks (Pre-Windows Update)"
+							AddAfter   = "July 2016 update rollup for Windows 8.1 and Windows Server 2012 R2 - x64"
+						}
+						@{
 							Name       = "Install APP-V 5.1"
 							Type       = "Group"
 							GroupName  = "State Restore"
@@ -867,7 +929,7 @@
 							SubGroup   = "Cleanup before Sysprep"
 						}
 						@{
-							Name       = "Restart Computer"
+							Name       = "Restart Computer 2"
 							Type       = "Restart Computer"
 							GroupName  = "State Restore"
 							SubGroup   = "Cleanup before Sysprep"
@@ -1102,7 +1164,7 @@
 							Name             = "Apply Patches"
 							Type             = "Install Updates Offline"
 							GroupName        = "Preinstall"
-							SelectionProfile = "Nothing"
+							SelectionProfile = "Windows 8.1 x64"
 						}
 						@{
 							Name       = "Windows Update (Pre-Application Installation)"
@@ -1150,6 +1212,20 @@
 							AddAfter   = "Install - Microsoft NET Framework 3.5.1"
 						}
 						@{
+							Name       = "July 2016 update rollup for Windows 8.1 and Windows Server 2012 R2 - x64"
+							Type       = "Install Application"
+							GroupName  = "State Restore"
+							SubGroup   = "Custom Tasks (Pre-Windows Update)"
+							AddAfter   = "Configure - Set Control+Shift Keyboard Toggle"
+						}
+						@{
+							Name       = "Restart Computer"
+							Type       = "Restart Computer"
+							GroupName  = "State Restore"
+							SubGroup   = "Custom Tasks (Pre-Windows Update)"
+							AddAfter   = "July 2016 update rollup for Windows 8.1 and Windows Server 2012 R2 - x64"
+						}
+						@{
 							Name       = "Install - Windows Management Framework 5.0 - x64"
 							Type       = "Install Application"
 							GroupName  = "State Restore"
@@ -1169,7 +1245,7 @@
 							SubGroup   = "Cleanup before Sysprep"
 						}
 						@{
-							Name       = "Restart Computer"
+							Name       = "Restart Computer 2"
 							Type       = "Restart Computer"
 							GroupName  = "State Restore"
 							SubGroup   = "Cleanup before Sysprep"
