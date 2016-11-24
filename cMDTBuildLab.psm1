@@ -1044,6 +1044,7 @@ class cMDTBuildTaskSequenceCustomize
 			"Windows 8.1"     = 10
 			"Windows 2012 R2" = 11
 			"Windows 10"      = 13
+			"Windows 2016"    = 14
 		}
 
 		$Step.SetAttribute("successCodeList", "0 3010")
