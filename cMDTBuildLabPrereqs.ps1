@@ -152,6 +152,20 @@
 		File = "windows6.1-kb3125574-v4-x64_2dafb1d203c8964239af3048b5dd4b1264cd93b9.msu"
 	}
 	@{
+		# Windows Update Client for Windows 7 x86
+		Name = "KB3138612-x86"
+		URI = "http://download.windowsupdate.com/d/msdownload/update/software/updt/2016/02/windows6.1-kb3138612-x86_6e90531daffc13bc4e92ecea890e501e807c621f.msu"
+		Folder = "KB3138612-x86"
+		File = "windows6.1-kb3138612-x86_6e90531daffc13bc4e92ecea890e501e807c621f.msu"
+	}
+	@{
+		# Windows Update Client for Windows 7 x64
+		Name = "KB3138612-x64"
+		URI = "http://download.windowsupdate.com/d/msdownload/update/software/updt/2016/02/windows6.1-kb3138612-x64_f7b1de8ea7cf8faf57b0138c4068d2e899e2b266.msu"
+		Folder = "KB3138612-x64"
+		File = "windows6.1-kb3138612-x64_f7b1de8ea7cf8faf57b0138c4068d2e899e2b266.msu"
+	}
+	@{
 		# Cumulative update for Windows 10 Version 1607 x86
 		Name = "KB3200970-x86"
 		URI = "http://download.windowsupdate.com/c/msdownload/update/software/secu/2016/11/windows10.0-kb3200970-x86_336e7bb4052bff8fcad9de50bb1755afbd91b82b.msu"
