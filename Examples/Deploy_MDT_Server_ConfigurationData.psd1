@@ -210,7 +210,7 @@
 				}
 				@{
 					Ensure                = "Present"
-					Name                  = "July 2016 update rollup for Windows 8.1 and Windows Server 2012 R2 - x64"
+					Name                  = "Install - July 2016 update rollup for Windows 8.1 and Windows Server 2012 R2 - x64"
 					Path                  = "\Applications\Core\Microsoft"
                     CommandLine           = "wusa.exe windows8.1-kb3172614-x64_e41365e643b98ab745c21dba17d1d3b6bb73cfcc.msu /quiet /norestart"
 					ApplicationSourcePath = "KB3172614-x64"
@@ -880,7 +880,7 @@
 							AddAfter   = "Configure - Set Control+Shift Keyboard Toggle"
 						}
 						@{
-							Name       = "July 2016 update rollup for Windows 8.1 and Windows Server 2012 R2 - x64"
+							Name       = "Install - July 2016 update rollup for Windows 8.1 and Windows Server 2012 R2 - x64"
 							Type       = "Install Application"
 							GroupName  = "State Restore"
 							SubGroup   = "Custom Tasks (Pre-Windows Update)"
@@ -891,7 +891,7 @@
 							Type       = "Restart Computer"
 							GroupName  = "State Restore"
 							SubGroup   = "Custom Tasks (Pre-Windows Update)"
-							AddAfter   = "July 2016 update rollup for Windows 8.1 and Windows Server 2012 R2 - x64"
+							AddAfter   = "Install - July 2016 update rollup for Windows 8.1 and Windows Server 2012 R2 - x64"
 						}
 						@{
 							Name       = "Install APP-V 5.1"
@@ -1212,7 +1212,7 @@
 							AddAfter   = "Install - Microsoft NET Framework 3.5.1"
 						}
 						@{
-							Name       = "July 2016 update rollup for Windows 8.1 and Windows Server 2012 R2 - x64"
+							Name       = "Install - July 2016 update rollup for Windows 8.1 and Windows Server 2012 R2 - x64"
 							Type       = "Install Application"
 							GroupName  = "State Restore"
 							SubGroup   = "Custom Tasks (Pre-Windows Update)"
@@ -1223,7 +1223,7 @@
 							Type       = "Restart Computer"
 							GroupName  = "State Restore"
 							SubGroup   = "Custom Tasks (Pre-Windows Update)"
-							AddAfter   = "July 2016 update rollup for Windows 8.1 and Windows Server 2012 R2 - x64"
+							AddAfter   = "Install - July 2016 update rollup for Windows 8.1 and Windows Server 2012 R2 - x64"
 						}
 						@{
 							Name       = "Install - Windows Management Framework 5.0 - x64"
