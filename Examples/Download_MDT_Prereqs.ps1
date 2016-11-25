@@ -1,13 +1,12 @@
-﻿Configuration DownloadMDTPrereqs
+Configuration DownloadMDTPrereqs
 {
     Import-Module -Name PSDesiredStateConfiguration, cMDTBuildLab
-    Import-DscResource –ModuleName PSDesiredStateConfiguration
+    Import-DscResource �ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName cMDTBuildLab
 
     node $AllNodes.Where{$_.Role -match "MDT Server"}.NodeName
     {
-        LocalConfigurationManager  
-        {
+        LocalConfigurationManager {
             RebootNodeIfNeeded = $AllNodes.RebootNodeIfNeeded
             ConfigurationMode  = $AllNodes.ConfigurationMode   
         }
@@ -17,10 +16,10 @@
             DownloadPath = $Node.SourcePath
         }
 
-		WindowsFeature  DataDeduplication {
-			Ensure = "Present"
-			Name   = "FS-Data-Deduplication"
-		}
+        WindowsFeature  DataDeduplication {
+            Ensure = "Present"
+            Name   = "FS-Data-Deduplication"
+        }
 
 <#
         Package ADK {

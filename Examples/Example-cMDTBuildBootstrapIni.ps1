@@ -5,10 +5,10 @@ $PSDrivePath = "E:\MDTBuildLab"
 
 Configuration MDTServer
 {
-	cMDTBuildBootstrapIni ini {
-		Ensure = "Present"
-		Path = "$($PSDrivePath)\Control\Bootstrap.ini"
-		Content = @"
+        cMDTBuildBootstrapIni ini {
+        Ensure = "Present"
+        Path = "$($PSDrivePath)\Control\Bootstrap.ini"
+        Content = @"
 [Settings]
 Priority=Default
 
@@ -21,5 +21,5 @@ UserID=$($UserName)
 UserPassword=$($Password)
 UserDomain=$($env:COMPUTERNAME)
 "@
-	}
+        }
 }

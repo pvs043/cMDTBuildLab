@@ -11,10 +11,10 @@ $KeyboardLocale = "en-US;ru-RU"
 
 Configuration MDTServer
 {
-	cMDTBuildCustomSettingsIni ini {
-		Ensure = "Present"
-		Path = "$($PSDrivePath)\Control\CustomSettings.ini"
-		Content = @"
+    cMDTBuildCustomSettingsIni ini {
+    Ensure = "Present"
+    Path = "$($PSDrivePath)\Control\CustomSettings.ini"
+    Content = @"
 [Settings]
 Priority=Init,Default
 Properties=VMNameAlias
@@ -65,5 +65,5 @@ SkipTimeZone=YES
 SkipUserData=YES
 SkipTaskSequence=YES
 "@
-	}
+    }
 }

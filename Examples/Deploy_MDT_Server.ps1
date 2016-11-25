@@ -1,4 +1,4 @@
-﻿$Modules    = @(
+$Modules    = @(
     @{
        Name    = "xSmbShare"
        Version = "2.0.0.0"
@@ -12,20 +12,19 @@
 Configuration DeployMDTServerContract
 {
     Param(
-		[Parameter(Mandatory=$true, HelpMessage = "Enter password for MDT Local Account")]
+        [Parameter(Mandatory=$true, HelpMessage = "Enter password for MDT Local Account")]
         [PSCredential]$Credentials
     )
 
     Import-Module -Name PSDesiredStateConfiguration, xSmbShare, cNtfsAccessControl, cMDTBuildLab
-    Import-DscResource –ModuleName PSDesiredStateConfiguration
+    Import-DscResource �ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName xSmbShare
     Import-DscResource -ModuleName cNtfsAccessControl
     Import-DscResource -ModuleName cMDTBuildLab
 
     node $AllNodes.Where{$_.Role -match "MDT Server"}.NodeName
     {
-        LocalConfigurationManager  
-        {
+        LocalConfigurationManager {
             RebootNodeIfNeeded = $AllNodes.RebootNodeIfNeeded
             ConfigurationMode  = $AllNodes.ConfigurationMode   
         }
@@ -46,10 +45,10 @@ Configuration DeployMDTServerContract
             Disabled               = $false
         }
 
-		WindowsFeature  DataDeduplication {
-			Ensure = "Present"
-			Name   = "FS-Data-Deduplication"
-		}
+        WindowsFeature  DataDeduplication {
+            Ensure = "Present"
+            Name   = "FS-Data-Deduplication"
+        }
 
         Package ADK {
             Ensure     = "Present"
@@ -68,27 +67,24 @@ Configuration DeployMDTServerContract
             ReturnCode = 0
         }
 
-        cMDTBuildDirectory DeploymentFolder
-        {
+        cMDTBuildDirectory DeploymentFolder {
             Ensure    = "Present"
             Name      = $Node.PSDrivePath.Replace("$($Node.PSDrivePath.Substring(0,2))\","")
             Path      = $Node.PSDrivePath.Substring(0,2)
             DependsOn = "[Package]MDT"
         }
 
-        xSmbShare FolderDeploymentShare
-        {
+        xSmbShare FolderDeploymentShare {
             Ensure                = "Present"
             Name                  = $Node.PSDriveShareName
             Path                  = $Node.PSDrivePath
             #FullAccess            = "$($Node.NodeName)\$($Credentials.UserName)"
-			FullAccess            = "Everyone"
+            FullAccess            = "Everyone"
             FolderEnumerationMode = "AccessBased"
             DependsOn             = "[cMDTBuildDirectory]DeploymentFolder"
         }
 
-        cMDTBuildPersistentDrive DeploymentPSDrive
-        {
+        cMDTBuildPersistentDrive DeploymentPSDrive {
             Ensure      = "Present"
             Name        = $Node.PSDriveName
             Path        = $Node.PSDrivePath
@@ -97,9 +93,7 @@ Configuration DeployMDTServerContract
             DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
         }
 
-        ForEach ($OSDirectory in $Node.OSDirectories)   
-        {
-
+        ForEach ($OSDirectory in $Node.OSDirectories) {
             [string]$Ensure    = ""
             [string]$OSVersion = ""
             $OSDirectory.GetEnumerator() | % {
@@ -107,8 +101,7 @@ Configuration DeployMDTServerContract
                 If ($_.key -eq "OperatingSystem") { $OSVersion = $_.value }
             }
 
-            cMDTBuildDirectory $OSVersion.Replace(' ','')
-            {
+            cMDTBuildDirectory $OSVersion.Replace(' ','') {
                 Ensure      = $Ensure
                 Name        = $OSVersion
                 Path        = "$($Node.PSDriveName):\Operating Systems"
@@ -117,8 +110,7 @@ Configuration DeployMDTServerContract
                 DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
             }
 
-            cMDTBuildDirectory "TS$($OSVersion.Replace(' ',''))"
-            {
+            cMDTBuildDirectory "TS$($OSVersion.Replace(' ',''))" {
                 Ensure      = $Ensure
                 Name        = $OSVersion
                 Path        = "$($Node.PSDriveName):\Task Sequences"
@@ -128,9 +120,8 @@ Configuration DeployMDTServerContract
             }
         }
 
-		# Task Sequence folder for autobuild
-        cMDTBuildDirectory "TSREF"
-        {
+        # Task Sequence folder for autobuild
+        cMDTBuildDirectory "TSREF" {
             Ensure      = "Present"
             Name        = "REF"
             Path        = "$($Node.PSDriveName):\Task Sequences"
@@ -139,8 +130,7 @@ Configuration DeployMDTServerContract
             DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
         }
 
-		foreach ($PkgFolder in $Node.PackagesFolderStructure)
-		{
+        ForEach ($PkgFolder in $Node.PackagesFolderStructure) {
             [string]$Ensure = ""
             [string]$Folder = ""
             $PkgFolder.GetEnumerator() | % {
@@ -148,8 +138,7 @@ Configuration DeployMDTServerContract
                 If ($_.key -eq "Folder") { $Folder = $_.value }
             }
 
-            cMDTBuildDirectory "PKG$($Folder.Replace(' ',''))"
-            {
+            cMDTBuildDirectory "PKG$($Folder.Replace(' ',''))" {
                 Ensure      = $Ensure
                 Name        = $Folder
                 Path        = "$($Node.PSDriveName):\Packages"
@@ -157,10 +146,9 @@ Configuration DeployMDTServerContract
                 PSDrivePath = $Node.PSDrivePath
                 DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
             }
-		}
+        }
 
-        ForEach ($CurrentApplicationFolder in $Node.ApplicationFolderStructure)
-        {
+        ForEach ($CurrentApplicationFolder in $Node.ApplicationFolderStructure) {
             [string]$EnsureApplicationFolder = ""
             [string]$ApplicationFolder       = ""
             $CurrentApplicationFolder.GetEnumerator() | % {
@@ -168,10 +156,7 @@ Configuration DeployMDTServerContract
                 If ($_.key -eq "Folder") { $ApplicationFolder       = $_.value }
             }
 
-            If ($Ensure -eq "Absent")    { $EnsureApplicationFolder = "Absent" }
-
-            cMDTBuildDirectory "AF$($ApplicationFolder.Replace(' ',''))"
-            {
+            cMDTBuildDirectory "AF$($ApplicationFolder.Replace(' ',''))" {
                 Ensure      = $EnsureApplicationFolder
                 Name        = $ApplicationFolder
                 Path        = "$($Node.PSDriveName):\Applications"
@@ -180,19 +165,15 @@ Configuration DeployMDTServerContract
                 DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
             }
 
-            ForEach ($CurrentApplicationSubFolder in $CurrentApplicationFolder.SubFolders)
-            {
+            ForEach ($CurrentApplicationSubFolder in $CurrentApplicationFolder.SubFolders) {
                 [string]$EnsureApplicationSubFolder = ""
                 [string]$ApplicationSubFolder       = ""
                 $CurrentApplicationSubFolder.GetEnumerator() | % {
-                    If ($_.key -eq "Ensure") {    $EnsureApplicationSubFolder = $_.value }
+                    If ($_.key -eq "Ensure")    { $EnsureApplicationSubFolder = $_.value }
                     If ($_.key -eq "SubFolder") { $ApplicationSubFolder       = $_.value }
                 }
 
-                If ($Ensure -eq "Absent")    { $EnsureApplicationSubFolder = "Absent" }
-
-                cMDTBuildDirectory "ASF$($ApplicationSubFolder.Replace(' ',''))"
-                {
+                cMDTBuildDirectory "ASF$($ApplicationSubFolder.Replace(' ',''))" {
                     Ensure      = $EnsureApplicationSubFolder
                     Name        = $ApplicationSubFolder
                     Path        = "$($Node.PSDriveName):\Applications\$ApplicationFolder"
@@ -203,34 +184,30 @@ Configuration DeployMDTServerContract
             }
         }
 
-        ForEach ($SelectionProfile in $Node.SelectionProfiles)
-        {
+        ForEach ($SelectionProfile in $Node.SelectionProfiles) {
             [string]$Ensure      = ""
             [string]$Name        = ""
-			[string]$Comments    = ""
-			[string]$IncludePath = ""
+            [string]$Comments    = ""
+            [string]$IncludePath = ""
             $SelectionProfile.GetEnumerator() | % {
                 If ($_.key -eq "Ensure")      { $Ensure      = $_.value }
                 If ($_.key -eq "Name")        { $Name        = $_.value }
                 If ($_.key -eq "Comments")    { $Comments    = $_.value }
-				If ($_.key -eq "IncludePath") { $IncludePath = $_.value }
+                If ($_.key -eq "IncludePath") { $IncludePath = $_.value }
             }
 
-            cMDTBuildSelectionProfile $Name.Replace(' ','')
-			{
+            cMDTBuildSelectionProfile $Name.Replace(' ','') {
                 Ensure      = $Ensure
                 Name        = $Name
-				Comments    = $Comments
-				IncludePath = $IncludePath
+                Comments    = $Comments
+                IncludePath = $IncludePath
                 PSDriveName = $Node.PSDriveName
                 PSDrivePath = $Node.PSDrivePath
                 DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
             }
         }
 
-        ForEach ($OperatingSystem in $Node.OperatingSystems)   
-        {
-
+        ForEach ($OperatingSystem in $Node.OperatingSystems) {
             [string]$Ensure     = ""
             [string]$Name       = ""
             [string]$Path       = ""
@@ -243,8 +220,7 @@ Configuration DeployMDTServerContract
                 If ($_.key -eq "SourcePath") { $SourcePath = "$($Node.SourcePath)$($_.value)" }
             }
 
-            cMDTBuildOperatingSystem $Name.Replace(' ','')
-            {
+            cMDTBuildOperatingSystem $Name.Replace(' ','') {
                 Ensure      = $Ensure
                 Name        = $Name
                 Path        = $Path
@@ -255,8 +231,7 @@ Configuration DeployMDTServerContract
             }
         }
 
-        ForEach ($Application in $Node.Applications)
-        {
+        ForEach ($Application in $Node.Applications) {
             [string]$Ensure                = ""
             [string]$Name                  = ""
             [string]$Path                  = ""
@@ -271,8 +246,7 @@ Configuration DeployMDTServerContract
                 If ($_.key -eq "ApplicationSourcePath") { $ApplicationSourcePath = "$($Node.SourcePath)\$($_.value)" }
             }
 
-            cMDTBuildApplication $Name.Replace(' ','')
-            {
+            cMDTBuildApplication $Name.Replace(' ','') {
                 Ensure                = $Ensure
                 Name                  = $Name
                 Path                  = $Path
@@ -285,10 +259,9 @@ Configuration DeployMDTServerContract
             }
         }
 
-        ForEach ($Package in $Node.Packages)
-        {
+        ForEach ($Package in $Node.Packages) {
             [string]$Ensure            = ""
-			[string]$Name              = ""
+            [string]$Name              = ""
             [string]$Path              = ""
             [string]$PackageSourcePath = ""
 
@@ -299,11 +272,10 @@ Configuration DeployMDTServerContract
                 If ($_.key -eq "PackageSourcePath") { $PackageSourcePath = "$($Node.SourcePath)\$($_.value)" }
             }
 
-            cMDTBuildPackage $Name.Replace(' ','')
-            {
+            cMDTBuildPackage $Name.Replace(' ','') {
                 Ensure            = $Ensure
                 Name              = $Name
-				Path              = $Path
+                Path              = $Path
                 PackageSourcePath = $PackageSourcePath
                 PSDriveName       = $Node.PSDriveName
                 PSDrivePath       = $Node.PSDrivePath
@@ -311,13 +283,12 @@ Configuration DeployMDTServerContract
             }
         }
 
-        ForEach ($TaskSequence in $Node.TaskSequences)   
-        {
+        ForEach ($TaskSequence in $Node.TaskSequences) {
             [string]$Ensure   = ""
             [string]$Name     = ""
             [string]$Path     = ""
             [string]$OSName   = ""
-			[string]$Template = ""
+            [string]$Template = ""
             [string]$ID       = ""
             [string]$OrgName  = ""
 
@@ -331,132 +302,125 @@ Configuration DeployMDTServerContract
                 If ($_.key -eq "OrgName")  { $OrgName  = $_.value }
             }
 
-			# Create Task Sequence for one OS image
-            cMDTBuildTaskSequence $Name.Replace(' ','')
-            {
+            # Create Task Sequence for one OS image
+            cMDTBuildTaskSequence $Name.Replace(' ','') {
                 Ensure      = $Ensure
                 Name        = $Name
                 Path        = $Path
-				OSName      = $OSName
+                OSName      = $OSName
                 Template    = $Template
                 ID          = $ID
-				OrgName     = $OrgName
+                OrgName     = $OrgName
                 PSDriveName = $Node.PSDriveName
                 PSDrivePath = $Node.PSDrivePath
                 DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
             }
 
-			# Customize Task Sequence for one OS image
-            ForEach ($TSCustomize in $TaskSequence.Customize)
-            {
-				[string]$Name             = ""
-				[string]$NewName          = ""
-				[string]$Type             = ""
-				[string]$GroupName        = ""
-				[string]$SubGroup         = ""
-				[string]$Disable          = ""
-				[string]$AddAfter         = ""
-				[string]$OSName           = ""    # for OS features only
-				[string]$OSFeatures       = ""    # for OS features only
-				[string]$Command          = ""    # for Run Command line only
+            # Customize Task Sequence for one OS image
+            ForEach ($TSCustomize in $TaskSequence.Customize) {
+                [string]$Name             = ""
+                [string]$NewName          = ""
+                [string]$Type             = ""
+                [string]$GroupName        = ""
+                [string]$SubGroup         = ""
+                [string]$Disable          = ""
+                [string]$AddAfter         = ""
+                [string]$OSName           = ""    # for OS features only
+                [string]$OSFeatures       = ""    # for OS features only
+                [string]$Command          = ""    # for Run Command line only
                 [string]$StartIn          = ""    # for Run Command line only
-				[string]$SelectionProfile = ""    # for Install Updates Offline only
+                [string]$SelectionProfile = ""    # for Install Updates Offline only
 
-				$TSCustomize.GetEnumerator() | % {
-	                If ($_.key -eq "Name")             { $Name             = $_.value }
-					If ($_.key -eq "NewName")          { $NewName          = $_.value }
-					If ($_.key -eq "Type")             { $Type             = $_.value }
-					If ($_.key -eq "GroupName")        { $GroupName        = $_.value }
-					If ($_.key -eq "SubGroup")         { $SubGroup         = $_.value }
-					If ($_.key -eq "Disable")          { $Disable          = $_.value }
-					If ($_.key -eq "AddAfter")         { $AddAfter         = $_.value }
-					If ($_.key -eq "OSName")           { $OSName           = $_.value }
-					If ($_.key -eq "OSFeatures")       { $OSFeatures       = $_.value }
-					If ($_.key -eq "Command")          { $Command          = $_.value }
-					If ($_.key -eq "StartIn")          { $StartIn          = $_.value }
-					If ($_.key -eq "SelectionProfile") { $SelectionProfile = $_.value }
-				}
+                $TSCustomize.GetEnumerator() | % {
+                    If ($_.key -eq "Name")             { $Name             = $_.value }
+                    If ($_.key -eq "NewName")          { $NewName          = $_.value }
+                    If ($_.key -eq "Type")             { $Type             = $_.value }
+                    If ($_.key -eq "GroupName")        { $GroupName        = $_.value }
+                    If ($_.key -eq "SubGroup")         { $SubGroup         = $_.value }
+                    If ($_.key -eq "Disable")          { $Disable          = $_.value }
+                    If ($_.key -eq "AddAfter")         { $AddAfter         = $_.value }
+                    If ($_.key -eq "OSName")           { $OSName           = $_.value }
+                    If ($_.key -eq "OSFeatures")       { $OSFeatures       = $_.value }
+                    If ($_.key -eq "Command")          { $Command          = $_.value }
+                    If ($_.key -eq "StartIn")          { $StartIn          = $_.value }
+                    If ($_.key -eq "SelectionProfile") { $SelectionProfile = $_.value }
+                }
 
-				# Current TS XML file name
-				$TSFile = "$($Node.PSDrivePath)\Control\$($ID)\ts.xml"
+                # Current TS XML file name
+                $TSFile = "$($Node.PSDrivePath)\Control\$($ID)\ts.xml"
 
                 $CustomResource = $ID + '-' + $Name.Replace(' ','')
-	            cMDTBuildTaskSequenceCustomize $CustomResource
-				{
-					TSFile           = $TSFile
-					Name             = $Name
-					NewName          = $NewName
-					Type             = $Type
-					GroupName        = $GroupName
-					SubGroup         = $SubGroup
-					Disable          = $Disable
-					AddAfter         = $AddAfter
-					OSName           = $OSName
-					OSFeatures       = $OSFeatures
-					Command          = $Command
-					StartIn          = $StartIn
-					SelectionProfile = $SelectionProfile
-	                PSDriveName      = $Node.PSDriveName
-		            PSDrivePath      = $Node.PSDrivePath
-				}
-			}
+                cMDTBuildTaskSequenceCustomize $CustomResource {
+                    TSFile           = $TSFile
+                    Name             = $Name
+                    NewName          = $NewName
+                    Type             = $Type
+                    GroupName        = $GroupName
+                    SubGroup         = $SubGroup
+                    Disable          = $Disable
+                    AddAfter         = $AddAfter
+                    OSName           = $OSName
+                    OSFeatures       = $OSFeatures
+                    Command          = $Command
+                    StartIn          = $StartIn
+                    SelectionProfile = $SelectionProfile
+                    PSDriveName      = $Node.PSDriveName
+                    PSDrivePath      = $Node.PSDrivePath
+                }
+            }
         }
 
-        ForEach ($CustomSetting in $Node.CustomSettings)   
-        {
+        ForEach ($CustomSetting in $Node.CustomSettings) {
             [string]$Ensure      = ""
             [string]$Name        = ""
             [string]$SourcePath  = ""
-			[string[]]$TestFiles = ""
+            [string[]]$TestFiles = ""
 
             $CustomSetting.GetEnumerator() | % {
                 If ($_.key -eq "Ensure")     { $Ensure     = $_.value }
                 If ($_.key -eq "Name")       { $Name       = $_.value }
                 If ($_.key -eq "SourcePath") { $SourcePath = "$($Node.SourcePath)\$($_.value)" }
-				If ($_.key -eq "TestFiles")  { $TestFiles  = $_.value }
+                If ($_.key -eq "TestFiles")  { $TestFiles  = $_.value }
             }
 
-            cMDTBuildCustomize $Name.Replace(' ','')
-            {
+            cMDTBuildCustomize $Name.Replace(' ','') {
                 Ensure       = $Ensure
                 Name         = $Name
                 SourcePath   = $SourcePath
                 Path         = $Node.PSDrivePath
-				TestFiles    = $TestFiles
+                TestFiles    = $TestFiles
                 DependsOn    = "[cMDTBuildDirectory]DeploymentFolder"
             }
         }
 
-        ForEach ($IniFile in $Node.CustomizeIniFiles)   
-        {
-            [string]$Ensure               = ""
-            [string]$Name                 = ""
-            [string]$Path                 = ""
-            [string]$Company              = ""
-			[string]$TimeZomeName         = ""
-            [string]$WSUSServer           = ""
-            [string]$UserLocale           = ""
-            [string]$KeyboardLocale       = ""
+        ForEach ($IniFile in $Node.CustomizeIniFiles) {
+            [string]$Ensure         = ""
+            [string]$Name           = ""
+            [string]$Path           = ""
+            [string]$Company        = ""
+            [string]$TimeZomeName   = ""
+            [string]$WSUSServer     = ""
+            [string]$UserLocale     = ""
+            [string]$KeyboardLocale = ""
 
             $IniFile.GetEnumerator() | % {
-                If ($_.key -eq "Ensure")               { $Ensure               = $_.value }
-                If ($_.key -eq "Name")                 { $Name                 = $_.value }
-                If ($_.key -eq "Path")                 { $Path                 = "$($Node.PSDrivePath)$($_.value)" }                                                
-                If ($_.key -eq "Company")              { $Company              = $_.value }
-                If ($_.key -eq "TimeZoneName")         { $TimeZoneName         = $_.value }
-                If ($_.key -eq "WSUSServer")           { $WSUSServer           = $_.value }
-                If ($_.key -eq "UserLocale")           { $UserLocale           = $_.value }
-                If ($_.key -eq "KeyboardLocale")       { $KeyboardLocale       = $_.value }
+                If ($_.key -eq "Ensure")         { $Ensure         = $_.value }
+                If ($_.key -eq "Name")           { $Name           = $_.value }
+                If ($_.key -eq "Path")           { $Path           = "$($Node.PSDrivePath)$($_.value)" }                                                
+                If ($_.key -eq "Company")        { $Company        = $_.value }
+                If ($_.key -eq "TimeZoneName")   { $TimeZoneName   = $_.value }
+                If ($_.key -eq "WSUSServer")     { $WSUSServer     = $_.value }
+                If ($_.key -eq "UserLocale")     { $UserLocale     = $_.value }
+                If ($_.key -eq "KeyboardLocale") { $KeyboardLocale = $_.value }
             }
 
-            If ($Company)              { $Company              = "_SMSTSORGNAME=$($Company)" }                     Else { $Company              = ";_SMSTSORGNAME=" }
-            If ($TimeZoneName)         { $TimeZoneName         = "TimeZoneName=$($TimeZoneName)" }                 Else { $TimeZoneName         = ";TimeZoneName=" }
-            If ($WSUSServer)           { $WSUSServer           = "WSUSServer=$($WSUSServer)" }                     Else { $WSUSServer           = ";WSUSServer=" }
-            If ($UserLocale)           { $UserLocale           = "UserLocale=$($UserLocale)" }                     Else { $UserLocale           = ";UserLocale=" }
-            If ($KeyboardLocale)       { $KeyboardLocale       = "KeyboardLocale=$($KeyboardLocale)" }             Else { $KeyboardLocale       = ";KeyboardLocale=" }
+            If ($Company)        { $Company        = "_SMSTSORGNAME=$($Company)" }         Else { $Company        = ";_SMSTSORGNAME=" }
+            If ($TimeZoneName)   { $TimeZoneName   = "TimeZoneName=$($TimeZoneName)" }     Else { $TimeZoneName   = ";TimeZoneName=" }
+            If ($WSUSServer)     { $WSUSServer     = "WSUSServer=$($WSUSServer)" }         Else { $WSUSServer     = ";WSUSServer=" }
+            If ($UserLocale)     { $UserLocale     = "UserLocale=$($UserLocale)" }         Else { $UserLocale     = ";UserLocale=" }
+            If ($KeyboardLocale) { $KeyboardLocale = "KeyboardLocale=$($KeyboardLocale)" } Else { $KeyboardLocale = ";KeyboardLocale=" }
 
-            If ($Name -eq "CustomSettingsIni")
-            {
+            If ($Name -eq "CustomSettingsIni") {
                 cMDTBuildCustomSettingsIni ini {
                     Ensure    = $Ensure
                     Path      = $Path
@@ -515,8 +479,7 @@ SkipTaskSequence=YES
                 }
             }
 
-            If ($Name -eq "BootstrapIni")
-            {
+            If ($Name -eq "BootstrapIni") {
                 cMDTBuildBootstrapIni ini {
                     Ensure    = $Ensure
                     Path      = $Path
@@ -543,9 +506,7 @@ UserExit=LoadKVPInWinPE.vbs
             }
         }
 
-        ForEach ($Image in $Node.BootImage)   
-        {
-
+        ForEach ($Image in $Node.BootImage) {
             [string]$Version                  = ""
             [string]$ExtraDirectory           = ""
             [string]$BackgroundFile           = ""
@@ -569,8 +530,7 @@ UserExit=LoadKVPInWinPE.vbs
             }
         }
 
-        cNtfsPermissionEntry AssignPermissionsMDT
-        {
+        cNtfsPermissionEntry AssignPermissionsMDT {
             Ensure = "Present"
             Path   = $Node.PSDrivePath
             Principal  = "$($Node.NodeName)\$($Credentials.UserName)"
@@ -585,8 +545,7 @@ UserExit=LoadKVPInWinPE.vbs
             DependsOn  = "[cMDTBuildPersistentDrive]DeploymentPSDrive"
         }
 
-        cNtfsPermissionEntry AssignPermissionsCaptures
-        {
+        cNtfsPermissionEntry AssignPermissionsCaptures {
             Ensure = "Present"
             Path   = "$($Node.PSDrivePath)\Captures"
             Principal  = "$($Node.NodeName)\$($Credentials.UserName)"

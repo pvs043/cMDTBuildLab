@@ -4,33 +4,33 @@
 .DESCRIPTION
     Run this script for build Windows Reference Images on remote Hyper-V host
 .EXAMPLE
-	Edit config ImageFactoryV3.xml with your settings:
+    Edit config ImageFactoryV3.xml with your settings:
 
-	<Settings>
-		<ReportFrom>AutoBuild@build.lab</ReportFrom>
-		<ReportTo>AutoBuild@build.lab</ReportTo>
-		<ReportSmtp>smtp.build.lab</ReportSmtp>
-		<MDT>
-			<DeploymentShare>E:\MDTBuildLab</DeploymentShare>
-			<RefTaskSequenceFolderName>REF</RefTaskSequenceFolderName>
-		</MDT>
-		<HyperV>
-			<StartUpRAM>4</StartUpRAM>
-			<VLANID>0</VLANID>
-			<Computername>HV01</Computername>
-			<SwitchName>Network Switch</SwitchName>
-			<VMLocation>E:\Build</VMLocation>
-			<ISOLocation>E:\Build\ISO</ISOLocation>
-			<VHDSize>60</VHDSize>
-			<NoCPU>2</NoCPU>
-		</HyperV>
-	</Settings>
+    <Settings>
+        <ReportFrom>AutoBuild@build.lab</ReportFrom>
+        <ReportTo>AutoBuild@build.lab</ReportTo>
+        <ReportSmtp>smtp.build.lab</ReportSmtp>
+        <MDT>
+            <DeploymentShare>E:\MDTBuildLab</DeploymentShare>
+            <RefTaskSequenceFolderName>REF</RefTaskSequenceFolderName>
+        </MDT>
+        <HyperV>
+            <StartUpRAM>4</StartUpRAM>
+            <VLANID>0</VLANID>
+            <Computername>HV01</Computername>
+            <SwitchName>Network Switch</SwitchName>
+            <VMLocation>E:\Build</VMLocation>
+            <ISOLocation>E:\Build\ISO</ISOLocation>
+            <VHDSize>60</VHDSize>
+            <NoCPU>2</NoCPU>
+        </HyperV>
+    </Settings>
 
     Run ImageFactoryV3-Build.ps1 at MDT host
 .AUTHOR
     Mikael Nystrom (c) 2016
 .MODIFY
-	Pavel Andreev (c) 2016
+    Pavel Andreev (c) 2016
 #>
 
 Function Get-VIARefTaskSequence
@@ -245,29 +245,29 @@ Foreach ($Ref in $RefTaskSequences) {
         )
 
         Write-Output "Starting VM: $($VmName)"
-	    Start-VM -Name $VMName
-		Start-Sleep 60
+        Start-VM -Name $VMName
+        Start-Sleep 60
         $VM = Get-VM -Name $VMName
-		$StartTime = Get-Date
-		while ($VM.State -eq "Running") {
-		   Start-Sleep "90"
+        $StartTime = Get-Date
+        while ($VM.State -eq "Running") {
+           Start-Sleep "90"
            $VM = Get-VM -Name $VMName
-		}
-		$EndTime = Get-Date
-		$ElapsedTime = $EndTime - $StartTime
+        }
+        $EndTime = Get-Date
+        $ElapsedTime = $EndTime - $StartTime
         $hours = [math]::floor($ElapsedTime.TotalHours)
         $mins = [int]$ElapsedTime.TotalMinutes - $hours*60
         $report = "Image [$ImageName] was builded at $hours h. $mins min."
         Write-Output $report
 
         # Send Report
-		If ($ReportFrom -and $ReportTo -and $ReportSmtp) {
+            If ($ReportFrom -and $ReportTo -and $ReportSmtp) {
             $subject = "Image $ImageName"
             $encoding = [System.Text.Encoding]::UTF8
             Send-MailMessage -From $ReportFrom -To $ReportTo -Subject $subject -SmtpServer $ReportSmtp -Encoding $encoding -BodyAsHtml $report
-		}
+        }
 
-   	    # Remove reference VM
+        # Remove reference VM
         Write-Output "Deleting $($VM.Name) on $($VM.Computername) at $($VM.ConfigurationLocation)"
         Remove-VM -VM $VM -Force
         Remove-Item -Path $VM.ConfigurationLocation -Recurse -Force
