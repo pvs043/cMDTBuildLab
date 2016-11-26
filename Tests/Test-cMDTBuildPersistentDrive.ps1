@@ -7,11 +7,11 @@ $ComputerName = "$env:computername"
 
 Configuration MDTServer
 {
-	cMDTBuildPersistentDrive DeploymentPSDrive {
-		Ensure = "Present"
-		Name = $PSDriveName
-		Path = $PSDrivePath
-		Description = "MDT Build Share"
-		NetworkPath = "\\$ComputerName\DeploymentShare$"
-	}
+    cMDTBuildPersistentDrive DeploymentPSDrive {
+        Ensure = "Present"
+        Name = $PSDriveName
+        Path = $PSDrivePath
+        Description = "MDT Build Share"
+        NetworkPath = "\\$ComputerName\DeploymentShare$"
+    }
 }
