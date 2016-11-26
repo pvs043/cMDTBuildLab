@@ -1,4 +1,4 @@
-﻿@(
+@(
     @{
         #Version: MDT (Build: 6.3.8443.1000)
         Name = "MDT"
@@ -15,14 +15,14 @@
     }
     @{
         #Version: 5 (Build: 5.1.50901.0)
-	    Name = "Silverlight_x64"
-		URI = "http://download.microsoft.com/download/0/3/E/03EB1393-4F4E-4191-8364-C641FAB20344/50901.00/Silverlight_x64.exe"
+        Name = "Silverlight_x64"
+        URI = "http://download.microsoft.com/download/0/3/E/03EB1393-4F4E-4191-8364-C641FAB20344/50901.00/Silverlight_x64.exe"
         Folder = "Silverlight_x64"
         File = "Silverlight_x64.exe"
     }
     @{
         #Version: 5 (Build: 5.1.50901.0)
-	    Name = "Silverlight_x86"
+        Name = "Silverlight_x86"
         URI = "http://download.microsoft.com/download/0/3/E/03EB1393-4F4E-4191-8364-C641FAB20344/50901.00/Silverlight.exe"
         Folder = "Silverlight_x86"
         File = "Silverlight.exe"
@@ -105,94 +105,94 @@
         Folder = "VC++\Source\VS2015"
         File = "vc_redist.x64.exe"
     }
-	@{
-		Name = "WMF30x86"
-		URI = "https://download.microsoft.com/download/E/7/6/E76850B8-DA6E-4FF5-8CCE-A24FC513FD16/Windows6.1-KB2506143-x86.msu"
-		Folder = "WMF30x86"
-		File = "Windows6.1-KB2506143-x86.msu"
-	}
-	@{
-		Name = "WMF30x64"
-		URI = "https://download.microsoft.com/download/E/7/6/E76850B8-DA6E-4FF5-8CCE-A24FC513FD16/Windows6.1-KB2506143-x64.msu"
-		Folder = "WMF30x64"
-		File = "Windows6.1-KB2506143-x64.msu"
-	}
-	@{
-		Name = "WMF50x64"
-		URI = "https://download.microsoft.com/download/2/C/6/2C6E1B4A-EBE5-48A6-B225-2D2058A9CEFB/Win8.1AndW2K12R2-KB3134758-x64.msu"
-		Folder = "WMF50x64"
-		File = "Win8.1AndW2K12R2-KB3134758-x64.msu"
-	}
-	@{
-		# Servicing stack update for Windows 7 SP1 x86
-		Name = "KB3177467-x86"
-		URI = "http://download.windowsupdate.com/d/msdownload/update/software/crup/2016/08/windows6.1-kb3177467-x86_7fa40e58f6a8e56eb78b09502e5c8c6c1acf0158.msu"
-		Folder = "KB3177467-x86"
-		File = "windows6.1-kb3177467-x86_7fa40e58f6a8e56eb78b09502e5c8c6c1acf0158.msu"
-	}
-	@{
-		# Servicing stack update for Windows 7 SP1 x64
-		Name = "KB3177467-x64"
-		URI = "http://download.windowsupdate.com/d/msdownload/update/software/crup/2016/08/windows6.1-kb3177467-x64_42467e48b4cfeb44112d819f50b0557d4f9bbb2f.msu"
-		Folder = "KB3177467-x64"
-		File = "windows6.1-kb3177467-x64_42467e48b4cfeb44112d819f50b0557d4f9bbb2f.msu"
-	}
-	@{
-		# Convenience rollup update for Windows 7 SP1 x86
-		Name = "KB3125574-x86"
-		URI = "http://download.windowsupdate.com/d/msdownload/update/software/updt/2016/05/windows6.1-kb3125574-v4-x86_ba1ff5537312561795cc04db0b02fbb0a74b2cbd.msu"
-		Folder = "KB3125574-x86"
-		File = "windows6.1-kb3125574-v4-x86_ba1ff5537312561795cc04db0b02fbb0a74b2cbd.msu"
-	}
-	@{
-		# Convenience rollup update for Windows 7 SP1 x64
-		Name = "KB3125574-x64"
-		URI = "http://download.windowsupdate.com/d/msdownload/update/software/updt/2016/05/windows6.1-kb3125574-v4-x64_2dafb1d203c8964239af3048b5dd4b1264cd93b9.msu"
-		Folder = "KB3125574-x64"
-		File = "windows6.1-kb3125574-v4-x64_2dafb1d203c8964239af3048b5dd4b1264cd93b9.msu"
-	}
-	@{
-		# Windows Update Client for Windows 7 x86
-		Name = "KB3138612-x86"
-		URI = "http://download.windowsupdate.com/d/msdownload/update/software/updt/2016/02/windows6.1-kb3138612-x86_6e90531daffc13bc4e92ecea890e501e807c621f.msu"
-		Folder = "KB3138612-x86"
-		File = "windows6.1-kb3138612-x86_6e90531daffc13bc4e92ecea890e501e807c621f.msu"
-	}
-	@{
-		# Windows Update Client for Windows 7 x64
-		Name = "KB3138612-x64"
-		URI = "http://download.windowsupdate.com/d/msdownload/update/software/updt/2016/02/windows6.1-kb3138612-x64_f7b1de8ea7cf8faf57b0138c4068d2e899e2b266.msu"
-		Folder = "KB3138612-x64"
-		File = "windows6.1-kb3138612-x64_f7b1de8ea7cf8faf57b0138c4068d2e899e2b266.msu"
-	}
-	@{
-		# July 2016 update rollup for Windows 8.1 x86
-		Name = "KB3172614-x86"
-		URI = "http://download.windowsupdate.com/c/msdownload/update/software/updt/2016/07/windows8.1-kb3172614-x86_d11c233c8598b734de72665e0d0a3f2ef007b91f.msu"
-		Folder = "KB3172614-x86"
-		File = "windows8.1-kb3172614-x86_d11c233c8598b734de72665e0d0a3f2ef007b91f.msu"
-	}
-	@{
-		# July 2016 update rollup for Windows 8.1 x64 and Windows Server 2012 R2
-		Name = "KB3172614-x64"
-		URI = "http://download.windowsupdate.com/c/msdownload/update/software/updt/2016/07/windows8.1-kb3172614-x64_e41365e643b98ab745c21dba17d1d3b6bb73cfcc.msu"
-		Folder = "KB3172614-x64"
-		File = "windows8.1-kb3172614-x64_e41365e643b98ab745c21dba17d1d3b6bb73cfcc.msu"
-	}
-	@{
-		# Cumulative update for Windows 10 Version 1607 x86
-		Name = "KB3200970-x86"
-		URI = "http://download.windowsupdate.com/c/msdownload/update/software/secu/2016/11/windows10.0-kb3200970-x86_336e7bb4052bff8fcad9de50bb1755afbd91b82b.msu"
-		Folder = "KB3200970-x86"
-		File = "windows10.0-kb3200970-x86_336e7bb4052bff8fcad9de50bb1755afbd91b82b.msu"
-	}
-	@{
-		# Cumulative update for Windows 10 Version 1607 x64 and Windows Server 2016
-		Name = "KB3200970-x64"
-		URI = "http://download.windowsupdate.com/d/msdownload/update/software/secu/2016/11/windows10.0-kb3200970-x64_3fa1daafc46a83ed5d0ecbd0a811e1421b7fad5a.msu"
-		Folder = "KB3200970-x64"
-		File = "windows10.0-kb3200970-x64_3fa1daafc46a83ed5d0ecbd0a811e1421b7fad5a.msu"
-	}
+    @{
+        Name = "WMF30x86"
+        URI = "https://download.microsoft.com/download/E/7/6/E76850B8-DA6E-4FF5-8CCE-A24FC513FD16/Windows6.1-KB2506143-x86.msu"
+        Folder = "WMF30x86"
+        File = "Windows6.1-KB2506143-x86.msu"
+    }
+    @{
+        Name = "WMF30x64"
+        URI = "https://download.microsoft.com/download/E/7/6/E76850B8-DA6E-4FF5-8CCE-A24FC513FD16/Windows6.1-KB2506143-x64.msu"
+        Folder = "WMF30x64"
+        File = "Windows6.1-KB2506143-x64.msu"
+    }
+    @{
+        Name = "WMF50x64"
+        URI = "https://download.microsoft.com/download/2/C/6/2C6E1B4A-EBE5-48A6-B225-2D2058A9CEFB/Win8.1AndW2K12R2-KB3134758-x64.msu"
+        Folder = "WMF50x64"
+        File = "Win8.1AndW2K12R2-KB3134758-x64.msu"
+    }
+    @{
+        # Servicing stack update for Windows 7 SP1 x86
+        Name = "KB3177467-x86"
+        URI = "http://download.windowsupdate.com/d/msdownload/update/software/crup/2016/08/windows6.1-kb3177467-x86_7fa40e58f6a8e56eb78b09502e5c8c6c1acf0158.msu"
+        Folder = "KB3177467-x86"
+        File = "windows6.1-kb3177467-x86_7fa40e58f6a8e56eb78b09502e5c8c6c1acf0158.msu"
+    }
+    @{
+        # Servicing stack update for Windows 7 SP1 x64
+        Name = "KB3177467-x64"
+        URI = "http://download.windowsupdate.com/d/msdownload/update/software/crup/2016/08/windows6.1-kb3177467-x64_42467e48b4cfeb44112d819f50b0557d4f9bbb2f.msu"
+        Folder = "KB3177467-x64"
+        File = "windows6.1-kb3177467-x64_42467e48b4cfeb44112d819f50b0557d4f9bbb2f.msu"
+    }
+    @{
+        # Convenience rollup update for Windows 7 SP1 x86
+        Name = "KB3125574-x86"
+        URI = "http://download.windowsupdate.com/d/msdownload/update/software/updt/2016/05/windows6.1-kb3125574-v4-x86_ba1ff5537312561795cc04db0b02fbb0a74b2cbd.msu"
+        Folder = "KB3125574-x86"
+        File = "windows6.1-kb3125574-v4-x86_ba1ff5537312561795cc04db0b02fbb0a74b2cbd.msu"
+    }
+    @{
+        # Convenience rollup update for Windows 7 SP1 x64
+        Name = "KB3125574-x64"
+        URI = "http://download.windowsupdate.com/d/msdownload/update/software/updt/2016/05/windows6.1-kb3125574-v4-x64_2dafb1d203c8964239af3048b5dd4b1264cd93b9.msu"
+        Folder = "KB3125574-x64"
+        File = "windows6.1-kb3125574-v4-x64_2dafb1d203c8964239af3048b5dd4b1264cd93b9.msu"
+    }
+    @{
+        # Windows Update Client for Windows 7 x86
+        Name = "KB3138612-x86"
+        URI = "http://download.windowsupdate.com/d/msdownload/update/software/updt/2016/02/windows6.1-kb3138612-x86_6e90531daffc13bc4e92ecea890e501e807c621f.msu"
+        Folder = "KB3138612-x86"
+        File = "windows6.1-kb3138612-x86_6e90531daffc13bc4e92ecea890e501e807c621f.msu"
+    }
+    @{
+        # Windows Update Client for Windows 7 x64
+        Name = "KB3138612-x64"
+        URI = "http://download.windowsupdate.com/d/msdownload/update/software/updt/2016/02/windows6.1-kb3138612-x64_f7b1de8ea7cf8faf57b0138c4068d2e899e2b266.msu"
+        Folder = "KB3138612-x64"
+        File = "windows6.1-kb3138612-x64_f7b1de8ea7cf8faf57b0138c4068d2e899e2b266.msu"
+    }
+    @{
+        # July 2016 update rollup for Windows 8.1 x86
+        Name = "KB3172614-x86"
+        URI = "http://download.windowsupdate.com/c/msdownload/update/software/updt/2016/07/windows8.1-kb3172614-x86_d11c233c8598b734de72665e0d0a3f2ef007b91f.msu"
+        Folder = "KB3172614-x86"
+        File = "windows8.1-kb3172614-x86_d11c233c8598b734de72665e0d0a3f2ef007b91f.msu"
+    }
+    @{
+        # July 2016 update rollup for Windows 8.1 x64 and Windows Server 2012 R2
+        Name = "KB3172614-x64"
+        URI = "http://download.windowsupdate.com/c/msdownload/update/software/updt/2016/07/windows8.1-kb3172614-x64_e41365e643b98ab745c21dba17d1d3b6bb73cfcc.msu"
+        Folder = "KB3172614-x64"
+        File = "windows8.1-kb3172614-x64_e41365e643b98ab745c21dba17d1d3b6bb73cfcc.msu"
+    }
+    @{
+        # Cumulative update for Windows 10 Version 1607 x86
+        Name = "KB3200970-x86"
+        URI = "http://download.windowsupdate.com/c/msdownload/update/software/secu/2016/11/windows10.0-kb3200970-x86_336e7bb4052bff8fcad9de50bb1755afbd91b82b.msu"
+        Folder = "KB3200970-x86"
+        File = "windows10.0-kb3200970-x86_336e7bb4052bff8fcad9de50bb1755afbd91b82b.msu"
+    }
+    @{
+        # Cumulative update for Windows 10 Version 1607 x64 and Windows Server 2016
+        Name = "KB3200970-x64"
+        URI = "http://download.windowsupdate.com/d/msdownload/update/software/secu/2016/11/windows10.0-kb3200970-x64_3fa1daafc46a83ed5d0ecbd0a811e1421b7fad5a.msu"
+        Folder = "KB3200970-x64"
+        File = "windows10.0-kb3200970-x64_3fa1daafc46a83ed5d0ecbd0a811e1421b7fad5a.msu"
+    }
     @{
         Name = "KeyboardToggle"
         URI = "Sources\Toggle.reg"
@@ -206,11 +206,11 @@
         File = "Action-CleanupBeforeSysprep.wsf"
     }
     @{
-		Name = "ConfigureFirewall"
-		URI = "Sources\Config-NetFwRules.ps1"
-		Folder = "ConfigureFirewall"
-		File = "Config-NetFwRules.ps1"
-	}
+        Name = "ConfigureFirewall"
+        URI = "Sources\Config-NetFwRules.ps1"
+        Folder = "ConfigureFirewall"
+        File = "Config-NetFwRules.ps1"
+    }
     @{
         Name = "CustomizeDefaultProfile"
         URI = "Sources\Customize-DefaultProfile.ps1"
@@ -241,10 +241,10 @@
         Folder = "Scripts"
         File = "Scripts.zip"
     }
-	@{
-		Name = "APPV51"
-		URI = "Sources\appv_client_setup.zip"
-		Folder = "APPV51x86x64"
-		File = "appv_client_setup.zip"
-	}
+    @{
+        Name = "APPV51"
+        URI = "Sources\appv_client_setup.zip"
+        Folder = "APPV51x86x64"
+        File = "appv_client_setup.zip"
+    }
 )
