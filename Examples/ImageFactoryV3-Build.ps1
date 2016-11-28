@@ -1,6 +1,6 @@
 <#
 .Synopsis
-    Build Windows Reference Images
+    ImageFactory 3.1
 .DESCRIPTION
     Run this script for build Windows Reference Images on remote Hyper-V host
 .EXAMPLE
@@ -27,11 +27,36 @@
     </Settings>
 
     Run ImageFactoryV3-Build.ps1 at MDT host
-.AUTHOR
-    Mikael Nystrom (c) 2016
-.MODIFY
-    Pavel Andreev (c) 2016
+.NOTES
+    Created:	 2016-11-24
+    Version:	 3.1
+
+    Author - Mikael Nystrom
+    Twitter: @mikael_nystrom
+    Blog   : http://deploymentbunny.com
+
+    Disclaimer:
+    This script is provided 'AS IS' with no warranties, confers no rights and 
+    is not supported by the authors or Deployment Artist.
+
+    This script uses the PsIni module:
+    Blog		: http://oliver.lipkau.net/blog/ 
+	Source		: https://github.com/lipkau/PsIni
+	http://gallery.technet.microsoft.com/scriptcenter/ea40c1ef-c856-434b-b8fb-ebd7a76e8d91
+
+    This script is modify for cMDTBuildLab project by Pavel Andreev:
+    - Run Reference VMs as Job at Hyper-V host
+    - Send build results to E-mail
+
+.LINK
+    http://www.deploymentbunny.com
+    https://github.com/pvs043/cMDTBuildLab/wiki
 #>
+
+[cmdletbinding(SupportsShouldProcess=$True)]
+
+Param(
+)
 
 Function Get-VIARefTaskSequence
 {
