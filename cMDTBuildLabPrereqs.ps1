@@ -230,12 +230,6 @@
         File = "Theme01.deskthemepack"
     }
     @{
-        Name = "Extra"
-        URI = "Sources\Extra.zip"
-        Folder = "Extra"
-        File = "Extra.zip"
-    }
-    @{
         Name = "Scripts"
         URI = "Sources\Scripts.zip"
         Folder = "Scripts"

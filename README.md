@@ -4,7 +4,7 @@ cMDTBuildLab is a Powershell Module to help automize deployment Windows Referenc
 cMDTBuildLab is a fork from cMDT module (https://github.com/servicedudes/cmdt).
 
 ### Version
-0.8.1
+0.9.0
 
 See version history at [Project Site] (https://github.com/pvs043/cMDTBuildLab/wiki/Version-History)
 
@@ -40,10 +40,6 @@ The following prerequisites automatically downloaded with the cMDTBuildPreReqs D
 * [Cumulative update for Windows 10 Version 1607 and Windows Server 2016: November 8, 2016] (https://support.microsoft.com/en-us/kb/3200970)
 
 If your MDT01 host does not have direct connection to Internet, run DSC configuration from Examples\Download_MDT_Prereqs.ps1 at Windows machine connected to Internet. After completion of downloading run E:\Source\Windows Assessment and Deployment Kit\adksetup.exe for download ADK. Then copy E:\Source to production server.
-
-This extra files included to module (\Sources\Extra.zip):
-* devcon.exe: tool from [Windows Driver Kit] (https://msdn.microsoft.com/en-us/library/windows/hardware/ff544707(v=vs.85).aspx).
-* KVP (Key Value Pair Exchange) driver for WinPE. This extracted from VMGuest.iso image on Hyper-V host (\support\x86\Windows6.x-HyperVIntegrationServices-x86.cab).
 
 Note for APP-V 5.1 client:<p>
 This module include *fake* archive Sources\appv_client_setup.zip.<p>

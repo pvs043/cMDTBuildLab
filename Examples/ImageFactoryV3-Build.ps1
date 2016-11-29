@@ -31,7 +31,7 @@
     Created:	 2016-11-24
     Version:	 3.1
 
-    Author - Mikael Nystrom
+    Author : Mikael Nystrom
     Twitter: @mikael_nystrom
     Blog   : http://deploymentbunny.com
 
@@ -39,14 +39,20 @@
     This script is provided 'AS IS' with no warranties, confers no rights and 
     is not supported by the authors or Deployment Artist.
 
-    This script uses the PsIni module:
-    Blog		: http://oliver.lipkau.net/blog/ 
-	Source		: https://github.com/lipkau/PsIni
-	http://gallery.technet.microsoft.com/scriptcenter/ea40c1ef-c856-434b-b8fb-ebd7a76e8d91
+    Modyfy : Pavel Andreev
+    E-mail : pvs043@outlook.com
+    Date   : 2016-11-29
+    Project: cMDTBuildLab (https://github.com/pvs043/cMDTBuildLab/wiki)
 
-    This script is modify for cMDTBuildLab project by Pavel Andreev:
-    - Run Reference VMs as Job at Hyper-V host
-    - Send build results to E-mail
+    Changes:
+      - Remove dependency for PsIni module
+      - Remove cleaning of MDT Captures folder: each new captured WIM is builded with timestamp date at file name for history tracking,
+        you can delete or move old images from external scripts
+      - Run Reference VMs as Job at Hyper-V host: it's faster
+      - Remove "ConcurrentRunningVMs" param from config: cMDTBuildLab is builded maximum to 8 concurrent VMs -
+        tune need count with count of reference TSs in REF folder
+      - Remove cleaning of CusomSettings.ini after build: this a job for DSC configuration
+      - Possibility of sending build results to E-mail
 
 .LINK
     http://www.deploymentbunny.com
@@ -147,7 +153,7 @@ Import-Module 'C:\Program Files\Microsoft Deployment Toolkit\Bin\MicrosoftDeploy
 
 # Read Settings from XML
 Write-Verbose "Reading from $XMLFile"
-[xml]$Settings = Get-Content $XMLFile
+[xml]$Settings = Get-Content $XMLFile -ErrorAction Stop -WarningAction Stop
 
 #Verify Connection to DeploymentRoot
 $Result = Test-Path -Path $Settings.Settings.MDT.DeploymentShare
@@ -168,11 +174,17 @@ $MDTImage = $($Settings.Settings.MDT.DeploymentShare) + "\boot\" + $($MDTSetting
 if ((Test-Path -Path $MDTImage) -eq $true) {Write-Verbose "Access to $MDTImage is ok"}
 
 #Get TaskSequences
-$RefTaskSequenceIDs = (Get-VIARefTaskSequence -RefTaskSequenceFolder "MDTBuild:\Task Sequences\$($Settings.Settings.MDT.RefTaskSequenceFolderName)" | where Enabled -EQ $true).TasksequenceID
+$RefTaskSequences = Get-VIARefTaskSequence -RefTaskSequenceFolder "MDTBuild:\Task Sequences\$($Settings.Settings.MDT.RefTaskSequenceFolderName)" | where Enabled -EQ $true
+
+#Get TaskSequencesIDs
+$RefTaskSequenceIDs = $RefTaskSequences.TasksequenceID
 Write-Output "Found $($RefTaskSequenceIDs.count) TaskSequences to work on"
 
 #check task sequence count
 if ($RefTaskSequenceIDs.count -eq 0) {Write-Warning "Sorry, could not find any TaskSequences to work with"; BREAK}
+
+#Get detailed info
+$RefTaskSequences
 
 #Verify Connection to Hyper-V host
 $Result = Test-VIAHypervConnection -Computername $Settings.Settings.HyperV.Computername -ISOFolder $Settings.Settings.HyperV.ISOLocation -VMFolder $Settings.Settings.HyperV.VMLocation -VMSwitchName $Settings.Settings.HyperV.SwitchName
@@ -249,8 +261,35 @@ Foreach ($Ref in $RefTaskSequenceIDs) {
     } -ArgumentList $VMName,$VMMemory,$VMPath,$VMBootimage,$VMVHDSize,$VMVlanID,$VMVCPU,$VMSwitch
 }
 
-#Get TaskSequences
-$RefTaskSequences = Get-VIARefTaskSequence -RefTaskSequenceFolder "MDTBuild:\Task Sequences\$($Settings.Settings.MDT.RefTaskSequenceFolderName)" | where Enabled -EQ $true
+#Get BIOS Serialnumber from each VM and update the customsettings.ini file
+$IniFile = "$($Settings.settings.MDT.DeploymentShare)\Control\CustomSettings.ini"
+
+Foreach($Ref in $RefTaskSequenceIDs) {
+    #Get BIOS Serailnumber from the VM
+    $BIOSSerialNumber = Invoke-Command -ComputerName $($Settings.Settings.HyperV.Computername) -ScriptBlock {
+        Param(
+            $VMName
+        )
+        $VMObject = Get-WmiObject -Namespace root\virtualization\v2 -Class Msvm_ComputerSystem -Filter "ElementName = '$VMName'"
+        $VMObject.GetRelated('Msvm_VirtualSystemSettingData').BIOSSerialNumber
+    } -ArgumentList $Ref
+    
+    #Update CustomSettings.ini
+    $CustomSettings = Get-Content -Path $IniFile
+
+    $CustomSettings += "
+[$BIOSSerialNumber]
+OSDComputerName=$Ref
+TaskSequenceID=$Ref
+BackupFile=#left(""$Ref"", len(""$Ref"")-3) & year(date) & right(""0"" & month(date), 2) & right(""0"" & day(date), 2)#.wim
+DoCapture=YES
+SkipTaskSequence=YES
+SkipCapture=YES"
+    Set-Content -Path $IniFile -Value $CustomSettings
+}
+
+#Test for CustomSettings.ini changes
+#Read-Host -Prompt "Waiting"
 
 #Start VM's on Host
 Foreach ($Ref in $RefTaskSequences) {
