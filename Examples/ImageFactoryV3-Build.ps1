@@ -45,14 +45,17 @@
     Project: cMDTBuildLab (https://github.com/pvs043/cMDTBuildLab/wiki)
 
     Changes:
-      - Remove dependency for PsIni module
-      - Remove cleaning of MDT Captures folder: each new captured WIM is builded with timestamp date at file name for history tracking,
+      * Remove dependency for PsIni module
+      * Remove cleaning of MDT Captures folder: each new captured WIM is builded with timestamp date at file name for history tracking,
         you can delete or move old images from external scripts
-      - Run Reference VMs as Job at Hyper-V host: it's faster
-      - Remove "ConcurrentRunningVMs" param from config: cMDTBuildLab is builded maximum to 8 concurrent VMs -
-        tune need count with count of reference TSs in REF folder
-      - Remove cleaning of CusomSettings.ini after build: this a job for DSC configuration
-      - Possibility of sending build results to E-mail
+      * Run Reference VMs as Job at Hyper-V host: it's faster
+      * Remove "ConcurrentRunningVMs" param from config: cMDTBuildLab build maximum to 8 concurrent VMs.
+        Tune need count with count of reference Task Sequences in REF folder
+      * Remove cleaning of CusomSettings.ini after build: this is a job for DSC configuration.
+        Configure DSCLocalConfigurationManager on MDT server with
+            ConfigurationMode = "ApplyAndAutoCorrect"
+            ConfigurationModeFrequencyMins = 60
+      * Possibility of sending build results to E-mail
 
 .LINK
     http://www.deploymentbunny.com
