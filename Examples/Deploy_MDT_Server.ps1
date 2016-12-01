@@ -25,8 +25,10 @@ Configuration DeployMDTServerContract
     node $AllNodes.Where{$_.Role -match "MDT Server"}.NodeName
     {
         LocalConfigurationManager {
-            RebootNodeIfNeeded = $AllNodes.RebootNodeIfNeeded
-            ConfigurationMode  = $AllNodes.ConfigurationMode   
+            RebootNodeIfNeeded             = $AllNodes.RebootNodeIfNeeded
+            ConfigurationMode              = $AllNodes.ConfigurationMode   
+            ConfigurationModeFrequencyMins = $AllNodes.ConfigurationModeFrequencyMins
+            RefreshFrequencyMins           = $AllNodes.RefreshFrequencyMins
         }
 
         cMDTBuildPreReqs MDTPreReqs {

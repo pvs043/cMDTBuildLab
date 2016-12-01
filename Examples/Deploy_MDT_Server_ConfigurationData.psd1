@@ -4,11 +4,12 @@
         @{
 
             #Global Settings for the configuration of Desired State Local Configuration Manager:
-            NodeName                    = "*"
-            PSDscAllowPlainTextPassword = $true
-            PSDscAllowDomainUser        = $true
-            RebootNodeIfNeeded          = $true
-            ConfigurationMode           = "ApplyAndAutoCorrect"      
+            NodeName                       = "*"
+            PSDscAllowPlainTextPassword    = $true
+            RebootNodeIfNeeded             = $true
+            ConfigurationMode              = "ApplyAndAutoCorrect"      
+            ConfigurationModeFrequencyMins = 120
+            RefreshFrequencyMins           = 120
         },
 
         @{
