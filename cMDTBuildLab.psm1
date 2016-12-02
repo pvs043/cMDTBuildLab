@@ -589,10 +589,17 @@ class cMDTBuildPreReqs
                     }
                     else {
                         $this.CopyFromSource("$($PSScriptRoot)\$($file.URI)", "$($this.DownloadPath)\$($file.Folder)\$($file.File)")
-                        # Unpack APP-V client
-                        if ($file.Name -eq "APPV51") {
-                                Invoke-ExpandArchive -Source "$($this.DownloadPath)\$($file.Folder)\$($file.File)" -Target "$($this.DownloadPath)\$($file.Folder)"
-                        }
+                    }
+
+                    # Workaround for external source script(s) from GitHub - change EOL
+                    if ($file.Name -eq "CleanupBeforeSysprep") {
+                        $script = Get-Content -Path "$($this.DownloadPath)\$($file.Folder)\$($file.File)"
+                        $script.Replace('`n','`r`n')
+                        Set-Content -Path "$($this.DownloadPath)\$($file.Folder)\$($file.File)" -Value $script
+                    }
+                    # Unpack ZIP sources
+                    if ($file.Name -eq "APPV51") {
+                        Invoke-ExpandArchive -Source "$($this.DownloadPath)\$($file.Folder)\$($file.File)" -Target "$($this.DownloadPath)\$($file.Folder)"
                     }
                 }
             }

@@ -198,18 +198,18 @@
         File   = "windows10.0-kb3200970-x64_3fa1daafc46a83ed5d0ecbd0a811e1421b7fad5a.msu"
     }
     @{
+        # Action - CleanupBeforeSysprep
+        Name   = "CleanupBeforeSysprep"
+        URI    = "https://raw.githubusercontent.com/DeploymentBunny/Files/master/Tools/Action-CleanupBeforeSysprep/Action-CleanupBeforeSysprep.wsf"
+        Folder = "CleanupBeforeSysprep"
+        File   = "Action-CleanupBeforeSysprep.wsf"
+    }
+    @{
         # Configure - Set Control+Shift Keyboard Toggle
         Name   = "KeyboardToggle"
         URI    = "Sources\Toggle.reg"
         Folder = "KeyboardToggle"
         File   = "Toggle.reg"
-    }
-    @{
-        # Action - CleanupBeforeSysprep
-        Name   = "CleanupBeforeSysprep"
-        URI    = "Sources\Action-CleanupBeforeSysprep.wsf"
-        Folder = "CleanupBeforeSysprep"
-        File   = "Action-CleanupBeforeSysprep.wsf"
     }
     @{
         # Configure - Firewall rules
