@@ -1014,11 +1014,18 @@
                             AddAfter   = "Install - Microsoft Silverlight - x86"
                         }
                         @{
+                            Name       = "Configure - Set Start Layout"
+                            Type       = "Install Application"
+                            GroupName  = "State Restore"
+                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
+                            AddAfter   = "Configure - Set Control+Shift Keyboard Toggle"
+                        }
+                        @{
                             Name       = "Configure - Enable App-V Client"
                             Type       = "Run Command Line"
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            AddAfter   = "Configure - Set Control+Shift Keyboard Toggle"
+                            AddAfter   = "Configure - Set Start Layout"
                             Command    = 'powershell.exe -ExecutionPolicy ByPass -Command "Enable-Appv; Set-AppvClientConfiguration -EnablePackageScripts 1"'
                         }
                         @{
@@ -1121,11 +1128,18 @@
                             AddAfter   = "Install - Microsoft Silverlight - x64"
                         }
                         @{
+                            Name       = "Configure - Set Start Layout"
+                            Type       = "Install Application"
+                            GroupName  = "State Restore"
+                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
+                            AddAfter   = "Configure - Set Control+Shift Keyboard Toggle"
+                        }
+                        @{
                             Name       = "Configure - Enable App-V Client"
                             Type       = "Run Command Line"
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            AddAfter   = "Configure - Set Control+Shift Keyboard Toggle"
+                            AddAfter   = "Configure - Set Start Layout"
                             Command    = 'powershell.exe -ExecutionPolicy ByPass -Command "Enable-Appv; Set-AppvClientConfiguration -EnablePackageScripts 1"'
                         }
                         @{
