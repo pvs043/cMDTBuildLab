@@ -1219,11 +1219,18 @@
                             OSFeatures = "NET-Framework-Features,Telnet-Client"
                         }
                         @{
-                            Name       = "Configure - Set Control+Shift Keyboard Toggle"
+                            Name       = "Configure - Firewall rules"
                             Type       = "Install Application"
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
                             AddAfter   = "Install - Microsoft NET Framework 3.5.1"
+                        }
+                        @{
+                            Name       = "Configure - Set Control+Shift Keyboard Toggle"
+                            Type       = "Install Application"
+                            GroupName  = "State Restore"
+                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
+                            AddAfter   = "Configure - Firewall rules"
                         }
                         @{
                             Name       = "Install - July 2016 update rollup for Windows 8.1 and Windows Server 2012 R2 - x64"

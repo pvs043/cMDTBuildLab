@@ -185,17 +185,17 @@
     }
     @{
         # Cumulative update for Windows 10 Version 1607 x86
-        Name   = "KB3200970-x86"
-        URI    = "http://download.windowsupdate.com/c/msdownload/update/software/secu/2016/11/windows10.0-kb3200970-x86_336e7bb4052bff8fcad9de50bb1755afbd91b82b.msu"
-        Folder = "KB3200970-x86"
-        File   = "windows10.0-kb3200970-x86_336e7bb4052bff8fcad9de50bb1755afbd91b82b.msu"
+        Name   = "KB3201845-x86"
+        URI    = "http://download.windowsupdate.com/c/msdownload/update/software/crup/2016/11/windows10.0-kb3201845-x86_5561f8fa58a6c59c86be7941aa600b1cffe33a2e.msu"
+        Folder = "KB3201845-x86"
+        File   = "windows10.0-kb3201845-x86_5561f8fa58a6c59c86be7941aa600b1cffe33a2e.msu"
     }
     @{
         # Cumulative update for Windows 10 Version 1607 x64 and Windows Server 2016
-        Name   = "KB3200970-x64"
-        URI    = "http://download.windowsupdate.com/d/msdownload/update/software/secu/2016/11/windows10.0-kb3200970-x64_3fa1daafc46a83ed5d0ecbd0a811e1421b7fad5a.msu"
-        Folder = "KB3200970-x64"
-        File   = "windows10.0-kb3200970-x64_3fa1daafc46a83ed5d0ecbd0a811e1421b7fad5a.msu"
+        Name   = "KB3201845-x64"
+        URI    = "http://download.windowsupdate.com/d/msdownload/update/software/crup/2016/11/windows10.0-kb3201845-x64_95e1e765344e1388fee3f7c0c143499e0b617d9f.msu"
+        Folder = "KB3201845-x64"
+        File   = "windows10.0-kb3201845-x64_95e1e765344e1388fee3f7c0c143499e0b617d9f.msu"
     }
     @{
         # Action - CleanupBeforeSysprep
