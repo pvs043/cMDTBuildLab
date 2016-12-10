@@ -292,16 +292,16 @@
                 # Cumulative update for Windows 10 Version 1607 x86
                 @{
                     Ensure            = "Present"
-                    Name              = "Package_for_RollupFix neutral x86 14393.447.1.5"
+                    Name              = "Package_for_RollupFix neutral x86 14393.479.1.2"
                     Path              = "\Packages\Windows 10 x86"
-                    PackageSourcePath = "KB3200970-x86"
+                    PackageSourcePath = "KB3201845-x86"
                 }
                 # Cumulative update for Windows 10 Version 1607 x64 and Windows Server 2016
                 @{
                     Ensure            = "Present"
-                    Name              = "Package_for_RollupFix neutral amd64 14393.447.1.5"
+                    Name              = "Package_for_RollupFix neutral amd64 14393.479.1.2"
                     Path              = "\Packages\Windows 10 x64"
-                    PackageSourcePath = "KB3200970-x64"
+                    PackageSourcePath = "KB3201845-x64"
                 }
             )
 
