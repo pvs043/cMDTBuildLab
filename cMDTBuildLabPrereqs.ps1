@@ -184,18 +184,32 @@
         File   = "windows8.1-kb3172614-x64_e41365e643b98ab745c21dba17d1d3b6bb73cfcc.msu"
     }
     @{
+        # Servicing stack update for Windows 10 Version 1607 x86
+        Name   = "KB3199986-x86"
+        URI    = "http://download.windowsupdate.com/c/msdownload/update/software/crup/2016/10/windows10.0-kb3199986-x86_bf0ba5d3aba65e64d16c3bbe309e2ef67831c26f.msu"
+        Folder = "KB3199986-x86"
+        File   = "windows10.0-kb3199986-x86_bf0ba5d3aba65e64d16c3bbe309e2ef67831c26f.msu"
+    }
+    @{
+        # Servicing stack update for Windows 10 Version 1607 x64
+        Name   = "KB3199986-x64"
+        URI    = "http://download.windowsupdate.com/c/msdownload/update/software/crup/2016/10/windows10.0-kb3199986-x64_5d4678c30de2de2bd7475073b061d0b3b2e5c3be.msu"
+        Folder = "KB3199986-x64"
+        File   = "windows10.0-kb3199986-x64_5d4678c30de2de2bd7475073b061d0b3b2e5c3be.msu"
+    }
+    @{
         # Cumulative update for Windows 10 Version 1607 x86
-        Name   = "KB3201845-x86"
-        URI    = "http://download.windowsupdate.com/c/msdownload/update/software/crup/2016/11/windows10.0-kb3201845-x86_5561f8fa58a6c59c86be7941aa600b1cffe33a2e.msu"
-        Folder = "KB3201845-x86"
-        File   = "windows10.0-kb3201845-x86_5561f8fa58a6c59c86be7941aa600b1cffe33a2e.msu"
+        Name   = "KB3206632-x86"
+        URI    = "http://download.windowsupdate.com/c/msdownload/update/software/secu/2016/12/windows10.0-kb3206632-x86_e7aaa968cae82cf0f798c16cda60994a9682d297.msu"
+        Folder = "KB3206632-x86"
+        File   = "windows10.0-kb3206632-x86_e7aaa968cae82cf0f798c16cda60994a9682d297.msu"
     }
     @{
         # Cumulative update for Windows 10 Version 1607 x64 and Windows Server 2016
-        Name   = "KB3201845-x64"
-        URI    = "http://download.windowsupdate.com/d/msdownload/update/software/crup/2016/11/windows10.0-kb3201845-x64_95e1e765344e1388fee3f7c0c143499e0b617d9f.msu"
-        Folder = "KB3201845-x64"
-        File   = "windows10.0-kb3201845-x64_95e1e765344e1388fee3f7c0c143499e0b617d9f.msu"
+        Name   = "KB3206632-x64"
+        URI    = "http://download.windowsupdate.com/d/msdownload/update/software/secu/2016/12/windows10.0-kb3206632-x64_b2e20b7e1aa65288007de21e88cd21c3ffb05110.msu"
+        Folder = "KB3206632-x64"
+        File   = "windows10.0-kb3206632-x64_b2e20b7e1aa65288007de21e88cd21c3ffb05110.msu"
     }
     @{
         # Action - CleanupBeforeSysprep

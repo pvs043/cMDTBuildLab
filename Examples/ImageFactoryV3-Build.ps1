@@ -50,8 +50,8 @@
         you can delete or move old images from external scripts
       * Run Reference VMs as Job at Hyper-V host: it's faster
       * Remove "ConcurrentRunningVMs" param from config: cMDTBuildLab build maximum to 8 concurrent VMs.
-        Tune need count with count of reference Task Sequences in REF folder
-      * Remove cleaning of CusomSettings.ini after build: this is a job for DSC configuration.
+        Tune need count with count of reference Task Sequences in the REF folder
+      * Remove cleaning of CustomSettings.ini after build: this is a job for DSC configuration.
         Configure DSCLocalConfigurationManager on MDT server with
             ConfigurationMode = "ApplyAndAutoCorrect"
             ConfigurationModeFrequencyMins = 60
