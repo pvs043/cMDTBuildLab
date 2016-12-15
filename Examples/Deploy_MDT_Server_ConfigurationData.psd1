@@ -382,6 +382,12 @@
                             GroupName  = "State Restore"
                             Disable    = "false"
                         }
+						@{
+							Name       = "Windows Update (Post-Application Installation)"
+							Type       = "Run Command Line"
+							GroupName  = "State Restore"
+							Disable    = "false"
+						}
                         @{
                             Name       = "Custom Tasks (Pre-Windows Update)"
                             Type       = "Group"
@@ -536,6 +542,12 @@
                             GroupName  = "State Restore"
                             Disable    = "false"
                         }
+						@{
+							Name       = "Windows Update (Post-Application Installation)"
+							Type       = "Run Command Line"
+							GroupName  = "State Restore"
+							Disable    = "false"
+						}
                         @{
                             Name       = "Custom Tasks (Pre-Windows Update)"
                             Type       = "Group"
