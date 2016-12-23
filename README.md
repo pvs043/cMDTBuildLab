@@ -35,7 +35,7 @@ The following prerequisites automatically downloaded with the cMDTBuildPreReqs D
 * [Windows Management Framewework 5.0 for Windows 8.1 and Windows 2012 R2] (http://aka.ms/wmf5latest)
 * [Servicing stack update for Windows 7 SP1] (https://support.microsoft.com/en-us/kb/3177467)
 * [Convenience rollup update for Windows 7 SP1] (https://support.microsoft.com/en-us/kb/3125574)
-* [Windows Update Client for Windows 7: March 2016] (https://support.microsoft.com/en-us/kb/3138612)
+* [July 2016 update rollup for Windows 7 SP1] (https://support.microsoft.com/en-us/kb/3172605) - this include fixes the Windows Update Client
 * [July 2016 update rollup for Windows 8.1 and Windows Server 2012 R2] (https://support.microsoft.com/en-us/kb/3172614) - this include fixes the Windows Update Client
 * [Servicing stack update for Windows 10 Version 1607: October 27, 2016] (https://support.microsoft.com/en-us/kb/3199986)
 * [Cumulative update for Windows 10 Version 1607 and Windows Server 2016: December 13, 2016] (https://support.microsoft.com/en-us/kb/3206632)
