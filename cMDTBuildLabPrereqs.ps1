@@ -156,18 +156,18 @@
         File   = "windows6.1-kb3125574-v4-x64_2dafb1d203c8964239af3048b5dd4b1264cd93b9.msu"
     }
     @{
-        # Windows Update Client for Windows 7 x86
-        Name   = "KB3138612-x86"
-        URI    = "http://download.windowsupdate.com/d/msdownload/update/software/updt/2016/02/windows6.1-kb3138612-x86_6e90531daffc13bc4e92ecea890e501e807c621f.msu"
-        Folder = "KB3138612-x86"
-        File   = "windows6.1-kb3138612-x86_6e90531daffc13bc4e92ecea890e501e807c621f.msu"
+        # July 2016 update rollup for Windows 7 SP1 x86
+        Name   = "KB3172605-x86"
+        URI    = "http://download.windowsupdate.com/d/msdownload/update/software/updt/2016/09/windows6.1-kb3172605-x86_ae03ccbd299e434ea2239f1ad86f164e5f4deeda.msu"
+        Folder = "KB3172605-x86"
+        File   = "windows6.1-kb3172605-x86_ae03ccbd299e434ea2239f1ad86f164e5f4deeda.msu"
     }
     @{
-        # Windows Update Client for Windows 7 x64
-        Name   = "KB3138612-x64"
-        URI    = "http://download.windowsupdate.com/d/msdownload/update/software/updt/2016/02/windows6.1-kb3138612-x64_f7b1de8ea7cf8faf57b0138c4068d2e899e2b266.msu"
-        Folder = "KB3138612-x64"
-        File   = "windows6.1-kb3138612-x64_f7b1de8ea7cf8faf57b0138c4068d2e899e2b266.msu"
+        # July 2016 update rollup for Windows 7 SP1 x64
+        Name   = "KB3172605-x64"
+        URI    = "http://download.windowsupdate.com/d/msdownload/update/software/updt/2016/09/windows6.1-kb3172605-x64_2bb9bc55f347eee34b1454b50c436eb6fd9301fc.msu"
+        Folder = "KB3172605-x64"
+        File   = "windows6.1-kb3172605-x64_2bb9bc55f347eee34b1454b50c436eb6fd9301fc.msu"
     }
     @{
         # July 2016 update rollup for Windows 8.1 x86

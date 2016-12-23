@@ -189,17 +189,17 @@
                 }
                 @{
                     Ensure                = "Present"
-                    Name                  = "Install - Windows Update Client for Windows 7 - x86"
+                    Name                  = "Install - July 2016 update rollup for Windows 7 SP1 - x86"
                     Path                  = "\Applications\Core\Microsoft"
-                    CommandLine           = "wusa.exe windows6.1-kb3138612-x86_6e90531daffc13bc4e92ecea890e501e807c621f.msu /quiet /norestart"
-                    ApplicationSourcePath = "KB3138612-x86"
+                    CommandLine           = "wusa.exe windows6.1-kb3172605-x86_ae03ccbd299e434ea2239f1ad86f164e5f4deeda.msu /quiet /norestart"
+                    ApplicationSourcePath = "KB3172605-x86"
                 }
                 @{
                     Ensure                = "Present"
-                    Name                  = "Install - Windows Update Client for Windows 7 - x64"
+                    Name                  = "Install - July 2016 update rollup for Windows 7 SP1 - x64"
                     Path                  = "\Applications\Core\Microsoft"
-                    CommandLine           = "wusa.exe windows6.1-kb3138612-x64_f7b1de8ea7cf8faf57b0138c4068d2e899e2b266.msu /quiet /norestart"
-                    ApplicationSourcePath = "KB3138612-x64"
+                    CommandLine           = "wusa.exe windows6.1-kb3172605-x64_2bb9bc55f347eee34b1454b50c436eb6fd9301fc.msu /quiet /norestart"
+                    ApplicationSourcePath = "KB3172605-x64"
                 }
                 @{
                     Ensure                = "Present"
@@ -436,7 +436,7 @@
                             AddAfter   = "Install - Microsoft Silverlight - x86"
                         }
                         @{
-                            Name       = "Install - Windows Update Client for Windows 7 - x86"
+                            Name       = "Install - Convenience rollup update for Windows 7 SP1 - x86"
                             Type       = "Install Application"
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
@@ -447,10 +447,10 @@
                             Type       = "Restart Computer"
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            AddAfter   = "Install - Windows Update Client for Windows 7 - x86"
+                            AddAfter   = "Install - Convenience rollup update for Windows 7 SP1 - x86"
                         }
                         @{
-                            Name       = "Install - Convenience rollup update for Windows 7 SP1 - x86"
+                            Name       = "Install - July 2016 update rollup for Windows 7 SP1 - x86"
                             Type       = "Install Application"
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
@@ -461,7 +461,7 @@
                             Type       = "Restart Computer"
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            AddAfter   = "Install - Convenience rollup update for Windows 7 SP1 - x86"
+                            AddAfter   = "Install - July 2016 update rollup for Windows 7 SP1 - x86"
                         }
                         @{
                             Name       = "Install APP-V 5.1"
@@ -596,7 +596,7 @@
                             AddAfter   = "Install - Microsoft Silverlight - x64"
                         }
                         @{
-                            Name       = "Install - Windows Update Client for Windows 7 - x64"
+                            Name       = "Install - Convenience rollup update for Windows 7 SP1 - x64"
                             Type       = "Install Application"
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
@@ -607,10 +607,10 @@
                             Type       = "Restart Computer"
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            AddAfter   = "Install - Windows Update Client for Windows 7 - x64"
+                            AddAfter   = "Install - Convenience rollup update for Windows 7 SP1 - x64"
                         }
                         @{
-                            Name       = "Install - Convenience rollup update for Windows 7 SP1 - x64"
+                            Name       = "Install - July 2016 update rollup for Windows 7 SP1 - x64"
                             Type       = "Install Application"
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
@@ -621,7 +621,7 @@
                             Type       = "Restart Computer"
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            AddAfter   = "Install - Convenience rollup update for Windows 7 SP1 - x64"
+                            AddAfter   = "Install - July 2016 update rollup for Windows 7 SP1 - x64"
                         }
                         @{
                             Name       = "Install APP-V 5.1"
