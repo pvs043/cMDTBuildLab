@@ -199,17 +199,17 @@
     }
     @{
         # Cumulative update for Windows 10 Version 1607 x86
-        Name   = "KB3206632-x86"
-        URI    = "http://download.windowsupdate.com/c/msdownload/update/software/secu/2016/12/windows10.0-kb3206632-x86_e7aaa968cae82cf0f798c16cda60994a9682d297.msu"
-        Folder = "KB3206632-x86"
-        File   = "windows10.0-kb3206632-x86_e7aaa968cae82cf0f798c16cda60994a9682d297.msu"
+        Name   = "KB3213986-x86"
+        URI    = "http://download.windowsupdate.com/c/msdownload/update/software/secu/2016/12/windows10.0-kb3213986-x86_317506223682f535a8d4832c40cea468fe3e639d.msu"
+        Folder = "KB3213986-x86"
+        File   = "windows10.0-kb3213986-x86_317506223682f535a8d4832c40cea468fe3e639d.msu"
     }
     @{
         # Cumulative update for Windows 10 Version 1607 x64 and Windows Server 2016
-        Name   = "KB3206632-x64"
-        URI    = "http://download.windowsupdate.com/d/msdownload/update/software/secu/2016/12/windows10.0-kb3206632-x64_b2e20b7e1aa65288007de21e88cd21c3ffb05110.msu"
-        Folder = "KB3206632-x64"
-        File   = "windows10.0-kb3206632-x64_b2e20b7e1aa65288007de21e88cd21c3ffb05110.msu"
+        Name   = "KB3213986-x64"
+        URI    = "http://download.windowsupdate.com/d/msdownload/update/software/secu/2016/12/windows10.0-kb3213986-x64_a1f5adacc28b56d7728c92e318d6596d9072aec4.msu"
+        Folder = "KB3213986-x64"
+        File   = "windows10.0-kb3213986-x64_a1f5adacc28b56d7728c92e318d6596d9072aec4.msu"
     }
     @{
         # Action - CleanupBeforeSysprep
