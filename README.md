@@ -4,7 +4,7 @@ cMDTBuildLab is a Powershell Module to help automize deployment Windows Referenc
 cMDTBuildLab is a fork from cMDT module (https://github.com/servicedudes/cmdt).
 
 ### Version
-0.9.2
+0.9.3
 
 See version history at [Project Site] (https://github.com/pvs043/cMDTBuildLab/wiki/Version-History)
 
@@ -37,7 +37,6 @@ The following prerequisites automatically downloaded with the cMDTBuildPreReqs D
 * [Convenience rollup update for Windows 7 SP1] (https://support.microsoft.com/en-us/kb/3125574)
 * [July 2016 update rollup for Windows 7 SP1] (https://support.microsoft.com/en-us/kb/3172605) - this include fixes the Windows Update Client
 * [July 2016 update rollup for Windows 8.1 and Windows Server 2012 R2] (https://support.microsoft.com/en-us/kb/3172614) - this include fixes the Windows Update Client
-* [Servicing stack update for Windows 10 Version 1607: October 27, 2016] (https://support.microsoft.com/en-us/kb/3199986)
 * [Cumulative update for Windows 10 Version 1607 and Windows Server 2016: January 10, 2017] (https://support.microsoft.com/en-us/kb/3213986)
 
 If your MDT01 host does not have direct connection to Internet, run DSC configuration from Examples\Download_MDT_Prereqs.ps1 at Windows machine connected to Internet. After completion of downloading run E:\Source\Windows Assessment and Deployment Kit\adksetup.exe for download ADK. Then copy E:\Source to production server.

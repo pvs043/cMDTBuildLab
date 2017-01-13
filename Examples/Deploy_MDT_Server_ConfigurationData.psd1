@@ -289,6 +289,7 @@
                     Path              = "\Packages\Windows 7 x64"
                     PackageSourcePath = "KB3177467-x64"
                 }
+                <#
                 # Servicing stack update for Windows 10 Version 1607 x86
                 @{
                     Ensure            = "Present"
@@ -303,6 +304,7 @@
                     Path              = "\Packages\Windows 10 x64"
                     PackageSourcePath = "KB3199986-x64"
                 }
+                #>
                 # Cumulative update for Windows 10 Version 1607 x86
                 @{
                     Ensure            = "Present"

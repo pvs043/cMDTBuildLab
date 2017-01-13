@@ -183,6 +183,7 @@
         Folder = "KB3172614-x64"
         File   = "windows8.1-kb3172614-x64_e41365e643b98ab745c21dba17d1d3b6bb73cfcc.msu"
     }
+    <#
     @{
         # Servicing stack update for Windows 10 Version 1607 x86
         Name   = "KB3199986-x86"
@@ -197,6 +198,7 @@
         Folder = "KB3199986-x64"
         File   = "windows10.0-kb3199986-x64_5d4678c30de2de2bd7475073b061d0b3b2e5c3be.msu"
     }
+    #>
     @{
         # Cumulative update for Windows 10 Version 1607 x86
         Name   = "KB3213986-x86"
