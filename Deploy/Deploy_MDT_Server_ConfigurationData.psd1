@@ -784,7 +784,7 @@
                             Name       = "Install - Windows Management Framework 5.1 - x86"
                             Type       = "Install Application"
                             GroupName  = "State Restore"
-                            SubGroup   = "Install APP-V 5.1"
+                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
                             AddAfter   = "Install - July 2016 update rollup for Windows 8.1 - x86"
                         }
                         @{
