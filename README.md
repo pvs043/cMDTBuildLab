@@ -4,7 +4,7 @@ cMDTBuildLab is a Powershell Module to help automize deployment Windows Referenc
 cMDTBuildLab is a fork from cMDT module (https://github.com/servicedudes/cmdt).
 
 ### Version
-0.9.3
+0.9.4
 
 See version history at [Project Site] (https://github.com/pvs043/cMDTBuildLab/wiki/Version-History)
 
@@ -32,7 +32,7 @@ The following prerequisites automatically downloaded with the cMDTBuildPreReqs D
 * [Visual C++ runtimes] (https://support.microsoft.com/en-us/kb/2977003) - 2005,2008,2010,2012,2013,2015
 * [Microsoft Silverlight 5] (https://www.microsoft.com/getsilverlight/Get-Started/Install/Default.aspx)
 * [Windows Management Framewework 3.0 for Windows 7 SP1] (https://www.microsoft.com/en-us/download/details.aspx?id=34595)
-* [Windows Management Framewework 5.0 for Windows 8.1 and Windows 2012 R2] (http://aka.ms/wmf5latest)
+* [Windows Management Framewework 5.1 for Windows 8.1 and Windows 2012 R2] (http://aka.ms/wmf5latest)
 * [Servicing stack update for Windows 7 SP1] (https://support.microsoft.com/en-us/kb/3177467)
 * [Convenience rollup update for Windows 7 SP1] (https://support.microsoft.com/en-us/kb/3125574)
 * [July 2016 update rollup for Windows 7 SP1] (https://support.microsoft.com/en-us/kb/3172605) - this include fixes the Windows Update Client

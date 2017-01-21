@@ -231,10 +231,17 @@
                 }
                 @{
                     Ensure                = "Present"
-                    Name                  = "Install - Windows Management Framework 5.0 - x64"
+                    Name                  = "Install - Windows Management Framework 5.1 - x86"
                     Path                  = "\Applications\Core\Microsoft"
-                    CommandLine           = "wusa.exe Win8.1AndW2K12R2-KB3134758-x64.msu /quiet /norestart"
-                    ApplicationSourcePath = "WMF50x64"
+                    CommandLine           = "wusa.exe Win8.1-KB3191564-x86.msu /quiet /norestart"
+                    ApplicationSourcePath = "WMF51w81x86"
+                }
+                @{
+                    Ensure                = "Present"
+                    Name                  = "Install - Windows Management Framework 5.1 - x64"
+                    Path                  = "\Applications\Core\Microsoft"
+                    CommandLine           = "wusa.exe Win8.1AndW2K12R2-KB3191564-x64.msu /quiet /norestart"
+                    ApplicationSourcePath = "WMF51w81x64"
                 }
                 @{
                     Ensure                = "Present"
@@ -787,14 +794,28 @@
                             AddAfter   = "Install Applications"
                         }
                         @{
+                            Name       = "Install - Windows Management Framework 5.1 - x86"
+                            Type       = "Install Application"
+                            GroupName  = "State Restore"
+                            SubGroup   = "Install APP-V 5.1"
+                        }
+                        @{
+                            Name       = "Restart Computer 1"
+                            Type       = "Restart Computer"
+                            GroupName  = "State Restore"
+                            SubGroup   = "Install APP-V 5.1"
+                            AddAfter   = "Install - Windows Management Framework 5.1 - x86"
+                        }
+                        @{
                             Name       = "Install - APP-V Client 5.1 - x86-x64"
                             Type       = "Install Application"
                             GroupName  = "State Restore"
                             SubGroup   = "Install APP-V 5.1"
+                            AddAfter   = "Install - Windows Management Framework 5.1 - x86"
                             Disable    = "true"
                         }
                         @{
-                            Name       = "Restart Computer 1"
+                            Name       = "Restart Computer 2"
                             Type       = "Restart Computer"
                             GroupName  = "State Restore"
                             SubGroup   = "Install APP-V 5.1"
@@ -816,7 +837,7 @@
                             SubGroup   = "Cleanup before Sysprep"
                         }
                         @{
-                            Name       = "Restart Computer 2"
+                            Name       = "Restart Computer 3"
                             Type       = "Restart Computer"
                             GroupName  = "State Restore"
                             SubGroup   = "Cleanup before Sysprep"
@@ -928,14 +949,28 @@
                             AddAfter   = "Install Applications"
                         }
                         @{
+                            Name       = "Install - Windows Management Framework 5.1 - x64"
+                            Type       = "Install Application"
+                            GroupName  = "State Restore"
+                            SubGroup   = "Install APP-V 5.1"
+                        }
+                        @{
+                            Name       = "Restart Computer 1"
+                            Type       = "Restart Computer"
+                            GroupName  = "State Restore"
+                            SubGroup   = "Install APP-V 5.1"
+                            AddAfter   = "Install - Windows Management Framework 5.1 - x64"
+                        }
+                        @{
                             Name       = "Install - APP-V Client 5.1 - x86-x64"
                             Type       = "Install Application"
                             GroupName  = "State Restore"
                             SubGroup   = "Install APP-V 5.1"
+                            AddAfter   = "Restart Computer 1"
                             Disable    = "true"
                         }
                         @{
-                            Name       = "Restart Computer 1"
+                            Name       = "Restart Computer 2"
                             Type       = "Restart Computer"
                             GroupName  = "State Restore"
                             SubGroup   = "Install APP-V 5.1"
@@ -957,7 +992,7 @@
                             SubGroup   = "Cleanup before Sysprep"
                         }
                         @{
-                            Name       = "Restart Computer 2"
+                            Name       = "Restart Computer 3"
                             Type       = "Restart Computer"
                             GroupName  = "State Restore"
                             SubGroup   = "Cleanup before Sysprep"
@@ -1275,17 +1310,17 @@
                             AddAfter   = "Install - July 2016 update rollup for Windows 8.1 and Windows Server 2012 R2 - x64"
                         }
                         @{
-                            Name       = "Install - Windows Management Framework 5.0 - x64"
+                            Name       = "Install - Windows Management Framework 5.1 - x64"
                             Type       = "Install Application"
                             GroupName  = "State Restore"
-                            SubGroup   = "Install WMF 5.0"
+                            SubGroup   = "Install WMF 5.1"
                         }
                         @{
                             Name       = "Restart Computer 1"
                             Type       = "Restart Computer"
                             GroupName  = "State Restore"
-                            SubGroup   = "Install WMF 5.0"
-                            AddAfter   = "Install - Windows Management Framework 5.0 - x64"
+                            SubGroup   = "Install WMF 5.1"
+                            AddAfter   = "Install - Windows Management Framework 5.1 - x64"
                         }
                         @{
                             Name       = "Action - CleanupBeforeSysprep"
