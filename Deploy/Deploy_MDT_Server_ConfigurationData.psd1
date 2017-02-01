@@ -296,22 +296,21 @@
                     Path              = "\Packages\Windows 7 x64"
                     PackageSourcePath = "KB3177467-x64"
                 }
-                <#
+<### Not needed for Windows 10 Version 1607 and Windows Server 2016 latest ISO (November 2016)
                 # Servicing stack update for Windows 10 Version 1607 x86
                 @{
                     Ensure            = "Present"
-                    Name              = "Package_for_KB3199986 neutral x86 10.0.1.0"
+                    Name              = "Package_for_KB3211320 neutral x86 10.0.1.1"
                     Path              = "\Packages\Windows 10 x86"
-                    PackageSourcePath = "KB3199986-x86"
+                    PackageSourcePath = "KB3211320-x86"
                 }
                 # Servicing stack update for Windows 10 Version 1607 x64 and Windows Server 2016
                 @{
                     Ensure            = "Present"
-                    Name              = "Package_for_KB3199986 neutral amd64 10.0.1.0"
+                    Name              = "Package_for_KB3211320 neutral amd64 10.0.1.1"
                     Path              = "\Packages\Windows 10 x64"
-                    PackageSourcePath = "KB3199986-x64"
+                    PackageSourcePath = "KB3211320-x64"
                 }
-                #>
                 # Cumulative update for Windows 10 Version 1607 x86
                 @{
                     Ensure            = "Present"
@@ -326,6 +325,7 @@
                     Path              = "\Packages\Windows 10 x64"
                     PackageSourcePath = "KB3213986-x64"
                 }
+#>
             )
 
             #Selection profile creation
