@@ -13,16 +13,16 @@ See version history at [Project Site] (https://github.com/pvs043/cMDTBuildLab/wi
 Prerequisites for infrastructure:
 * Domain Controller: DC01 (Windows 2012 R2 or above)
 * Windows Update Server (WSUS): WU01 (Windows 2012 R2 or above)
-* Deployment server: MDT01 (Windows 2012 R2 + WMF 5.0 or Windows 2016)<br>
+* Deployment server: MDT01 (Windows 2012 R2 + WMF 5.1 or Windows 2016)<br>
     Disk C: - System<br>
     Disk E: - DATA<br>
     (Disk D: is used for Temp in Azure or Virtual DVD for on-premise deploy)
 * Hyper-V Host: HV01 (Windows 2012 R2 or above)
 
-This module is tested on Windows 2016 server, but it will be worked on Windows 10 or Windows 2012 R2/Windows 8.1 with Windows Management Framewework 5.0.
+This module is tested on Windows 2016 server, but it will be worked on Windows 10 or Windows 2012 R2/Windows 8.1 with Windows Management Framewework 5.1.
 
 cMDTBuildLab uses a number of components and open resource kit modules. The following are prerequisites for the module and need to be installed to the inteded deployment server (MDT01):
-* [WMF5] (http://aka.ms/wmf5latest) - Windows Management Framework 5.0 (for windows 2012 R2/Windows 8.1 host only).
+* [WMF5] (http://aka.ms/wmf5latest) - Windows Management Framework 5.1 (for windows 2012 R2/Windows 8.1 host only).
 * [xSmbShare] (http://www.powershellgallery.com/packages/xSmbShare/) - DSC Module available from Powershell Gallery<br>
 * [cNtfsAccessControl] (http://www.powershellgallery.com/packages/cNtfsAccessControl/) - DSC Module available from Powershell Gallery.<br>
 
