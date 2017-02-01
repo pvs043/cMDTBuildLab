@@ -813,8 +813,8 @@
                             Type       = "Install Application"
                             GroupName  = "State Restore"
                             SubGroup   = "Install WMF 5.1 and APP-V 5.1"
-                            AddAfter   = "Restart Computer 1"
                             Disable    = "true"
+                            AddAfter   = "Restart Computer 1"
                         }
                         @{
                             Name       = "Restart Computer 2"
@@ -970,8 +970,8 @@
                             Type       = "Install Application"
                             GroupName  = "State Restore"
                             SubGroup   = "Install WMF 5.1 and APP-V 5.1"
-                            AddAfter   = "Restart Computer 1"
                             Disable    = "true"
+                            AddAfter   = "Restart Computer 1"
                         }
                         @{
                             Name       = "Restart Computer 2"
