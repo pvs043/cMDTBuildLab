@@ -39,7 +39,7 @@ The following prerequisites automatically downloaded with the cMDTBuildPreReqs D
 * [July 2016 update rollup for Windows 7 SP1] (https://support.microsoft.com/en-us/kb/3172605) - this include fixes the Windows Update Client
 * [July 2016 update rollup for Windows 8.1 and Windows Server 2012 R2] (https://support.microsoft.com/en-us/kb/3172614) - this include fixes the Windows Update Client
 
-If your MDT01 host does not have direct connection to Internet, run DSC configuration from Examples\Download_MDT_Prereqs.ps1 at Windows machine connected to Internet. After completion of downloading run E:\Source\Windows Assessment and Deployment Kit\adksetup.exe for download ADK. Then copy E:\Source to production server.
+If your MDT01 host does not have direct connection to Internet, run DSC configuration from Deploy\Download_MDT_Prereqs.ps1 at Windows machine connected to Internet. After completion of downloading run E:\Source\Windows Assessment and Deployment Kit\adksetup.exe for download ADK. Then copy E:\Source to production server.
 
 Note for APP-V 5.1 client:<p>
 This module include *fake* archive Sources\appv_client_setup.zip.<p>
