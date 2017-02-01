@@ -4,7 +4,7 @@ cMDTBuildLab is a Powershell Module to help automize deployment Windows Referenc
 cMDTBuildLab is a fork from cMDT module (https://github.com/servicedudes/cmdt).
 
 ### Version
-0.9.4
+1.0.0
 
 See version history at [Project Site] (https://github.com/pvs043/cMDTBuildLab/wiki/Version-History)
 
@@ -18,13 +18,14 @@ Prerequisites for infrastructure:
     Disk E: - DATA<br>
     (Disk D: is used for Temp in Azure or Virtual DVD for on-premise deploy)
 * Hyper-V Host: HV01 (Windows 2012 R2 or above)
+* Original Microsoft media (ISO) images:<br>
+    Windows 7 with SP1 (April 2011)<br>
+    Windows 8.1 (November 2014)<br>
+    Windows 2012 R2 (November 2014)<br>
+    Windows 10 Version 1607 (November 2016)<br>
+    Windows 2016  (November 2016)
 
 This module is tested on Windows 2016 server, but it will be worked on Windows 10 or Windows 2012 R2/Windows 8.1 with Windows Management Framewework 5.1.
-
-cMDTBuildLab uses a number of components and open resource kit modules. The following are prerequisites for the module and need to be installed to the inteded deployment server (MDT01):
-* [WMF5] (http://aka.ms/wmf5latest) - Windows Management Framework 5.1 (for windows 2012 R2/Windows 8.1 host only).
-* [xSmbShare] (http://www.powershellgallery.com/packages/xSmbShare/) - DSC Module available from Powershell Gallery<br>
-* [cNtfsAccessControl] (http://www.powershellgallery.com/packages/cNtfsAccessControl/) - DSC Module available from Powershell Gallery.<br>
 
 The following prerequisites automatically downloaded with the cMDTBuildPreReqs DSC resource:
 * [MicrosoftDeploymentToolkit_x64] (https://www.microsoft.com/en-us/download/details.aspx?id=54259) - Microsoft Deployment Toolkit (MDT) (Build 6.3.8443.1000)
@@ -37,7 +38,6 @@ The following prerequisites automatically downloaded with the cMDTBuildPreReqs D
 * [Convenience rollup update for Windows 7 SP1] (https://support.microsoft.com/en-us/kb/3125574)
 * [July 2016 update rollup for Windows 7 SP1] (https://support.microsoft.com/en-us/kb/3172605) - this include fixes the Windows Update Client
 * [July 2016 update rollup for Windows 8.1 and Windows Server 2012 R2] (https://support.microsoft.com/en-us/kb/3172614) - this include fixes the Windows Update Client
-* [Cumulative update for Windows 10 Version 1607 and Windows Server 2016: January 10, 2017] (https://support.microsoft.com/en-us/kb/3213986)
 
 If your MDT01 host does not have direct connection to Internet, run DSC configuration from Examples\Download_MDT_Prereqs.ps1 at Windows machine connected to Internet. After completion of downloading run E:\Source\Windows Assessment and Deployment Kit\adksetup.exe for download ADK. Then copy E:\Source to production server.
 
