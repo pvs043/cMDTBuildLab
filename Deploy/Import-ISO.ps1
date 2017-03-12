@@ -19,9 +19,9 @@
 #            Path     = "Windows 7"
 #            OSName   = "Windows 7\Windows 7 ENTERPRISE in Windows 7 x86 install.wim"
 #            [...]
-# 5. Edit configuration data of this script ($destinations)
+# 5. Select needed images for your Build Lab ($destinations)
 # 6. Import Windows sources from ISO:
-#    Import-ISO.ps1 -ISOPath '\\server\ISO' -unpack -Verbose
+#    Import-ISO.ps1 -ISOPath '\\server\ISO' -Unpack -Verbose
 #
 # Author: @sundmoon (https://github.com/sundmoon)
 #
@@ -29,7 +29,7 @@
 
 [CmdletBinding()]
 param(
-    [parameter(Mandatory = $true, HelpMessage="Source path for ISO files directory tree. Enter the local folder or file share name")]
+    [parameter(Mandatory = $true, HelpMessage="Enter Source path for ISO files directory tree (local folder or file share name)")]
     [String]$ISOPath,
 
     [parameter(Mandatory = $false)]
