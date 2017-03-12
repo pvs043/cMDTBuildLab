@@ -834,9 +834,21 @@ class cMDTBuildTaskSequenceCustomize
     [DscProperty()]
     [string]$Disable
 
+    # Description
+    [DscProperty()]
+    [string]$Description
+
     # Add this step after that step
     [DscProperty()]
     [string]$AddAfter
+
+    # TS variable name
+    [DscProperty()]
+    [string]$TSVarName
+
+    # TS variable value
+    [DscProperty()]
+    [string]$TSVarValue
 
     # OS name for OS features
     [DscProperty()]
@@ -921,10 +933,18 @@ class cMDTBuildTaskSequenceCustomize
                 $newStep.SetAttribute("disable", "false")
             }
             $newStep.SetAttribute("continueOnError", "false")
-            $newStep.SetAttribute("description", "")
+            if ($this.Description -ne "") {
+                $newStep.SetAttribute("description", $this.Description)
+            }
+            else {
+                $newStep.SetAttribute("description", "")
+            }
 
             # Create new step
             switch ($this.Type) {
+                "Set Task Sequence Variable" {
+                    $this.SetTaskSequenceVariable($TS, $newStep)
+                }
                 "Install Roles and Features" {
                     $this.InstallRolesAndFeatures($TS, $newStep)
                 }
@@ -1010,6 +1030,31 @@ class cMDTBuildTaskSequenceCustomize
         $tsPath = $this.TSFile
         $xml = [xml](Get-Content $tsPath)
         return $xml
+    }
+
+    [void] SetTaskSequenceVariable($TS, $Step)
+    {
+        $Step.SetAttribute("type", "SMS_TaskSequence_SetVariableAction")
+        $Step.SetAttribute("successCodeList", "0 3010")
+
+        $varList = $TS.CreateElement("defaultVarList")
+        $varName = $TS.CreateElement("variable")
+        $varName.SetAttribute("name", "VariableName")
+        $varName.SetAttribute("property", "VariableName")
+        $varName.AppendChild($TS.CreateTextNode($this.TSVarName)) | Out-Null
+        $varList.AppendChild($varName) | Out-Null
+
+        $varName = $TS.CreateElement("variable")
+        $varName.SetAttribute("name", "VariableValue")
+        $varName.SetAttribute("property", "VariableValue")
+        $varName.AppendChild($TS.CreateTextNode($this.TSVarValue)) | Out-Null
+        $varList.AppendChild($varName) | Out-Null
+
+        $action = $TS.CreateElement("action")
+        $action.AppendChild($TS.CreateTextNode('cscript.exe "%SCRIPTROOT%\ZTISetVariable.wsf"')) | Out-Null
+
+        $Step.AppendChild($varList) | Out-Null
+        $Step.AppendChild($action) | Out-Null
     }
 
     [void] InstallRolesAndFeatures($TS, $Step)

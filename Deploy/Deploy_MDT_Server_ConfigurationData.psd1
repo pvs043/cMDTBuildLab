@@ -379,6 +379,15 @@
                     Template = "Client.xml"
                     ID       = "REFW7X86-001"
                     Customize = @(
+                        # Set Product Key needed for MSDN/Evalution Windows distributives only. Skip this step if your ISO sources is VLCS.
+                        @{
+                            Name        = "Set Product Key"
+                            Type        = "Set Task Sequence Variable"
+                            GroupName   = "Initialization"
+                            Description = "KMS Client Setup Keys: https://technet.microsoft.com/en-us/library/jj612867.aspx"
+                            TSVarName   = "ProductKey"
+                            TSVarValue  = "33PXH-7Y6KF-2VJC9-XBBR8-HVTHH"
+                        }
                         @{
                             Name             = "Apply Patches"
                             Type             = "Install Updates Offline"
@@ -539,6 +548,15 @@
                     Template = "Client.xml"
                     ID       = "REFW7X64-001"
                     Customize = @(
+                        # Set Product Key needed for MSDN/Evalution Windows distributives only. Skip this step if your ISO sources is VLCS.
+                        @{
+                            Name        = "Set Product Key"
+                            Type        = "Set Task Sequence Variable"
+                            GroupName   = "Initialization"
+                            Description = "KMS Client Setup Keys: https://technet.microsoft.com/en-us/library/jj612867.aspx"
+                            TSVarName   = "ProductKey"
+                            TSVarValue  = "33PXH-7Y6KF-2VJC9-XBBR8-HVTHH"
+                        }
                         @{
                             Name             = "Apply Patches"
                             Type             = "Install Updates Offline"
@@ -699,6 +717,15 @@
                     Template = "Client.xml"
                     ID       = "REFW81X86-001"
                     Customize = @(
+                        # Set Product Key needed for MSDN/Evalution Windows distributives only. Skip this step if your ISO sources is VLCS.
+                        @{
+                            Name        = "Set Product Key"
+                            Type        = "Set Task Sequence Variable"
+                            GroupName   = "Initialization"
+                            Description = "KMS Client Setup Keys: https://technet.microsoft.com/en-us/library/jj612867.aspx"
+                            TSVarName   = "ProductKey"
+                            TSVarValue  = "MHF9N-XY6XB-WVXMC-BTDCT-MKKG7"
+                        }
                         @{
                             Name             = "Apply Patches"
                             Type             = "Install Updates Offline"
@@ -856,6 +883,15 @@
                     Template = "Client.xml"
                     ID       = "REFW81X64-001"
                     Customize = @(
+                        # Set Product Key needed for MSDN/Evalution Windows distributives only. Skip this step if your ISO sources is VLCS.
+                        @{
+                            Name        = "Set Product Key"
+                            Type        = "Set Task Sequence Variable"
+                            GroupName   = "Initialization"
+                            Description = "KMS Client Setup Keys: https://technet.microsoft.com/en-us/library/jj612867.aspx"
+                            TSVarName   = "ProductKey"
+                            TSVarValue  = "MHF9N-XY6XB-WVXMC-BTDCT-MKKG7"
+                        }
                         @{
                             Name             = "Apply Patches"
                             Type             = "Install Updates Offline"
@@ -1013,6 +1049,15 @@
                     Template = "Client.xml"
                     ID       = "REFW10X86-001"
                     Customize = @(
+                        # Set Product Key needed for MSDN/Evalution Windows distributives only. Skip this step if your ISO sources is VLCS.
+                        @{
+                            Name        = "Set Product Key"
+                            Type        = "Set Task Sequence Variable"
+                            GroupName   = "Initialization"
+                            Description = "KMS Client Setup Keys: https://technet.microsoft.com/en-us/library/jj612867.aspx"
+                            TSVarName   = "ProductKey"
+                            TSVarValue  = "NPPR9-FWDCX-D2C8J-H872K-2YT43"
+                        }
                         @{
                             Name             = "Apply Patches"
                             Type             = "Install Updates Offline"
@@ -1127,6 +1172,15 @@
                     Template = "Client.xml"
                     ID       = "REFW10X64-001"
                     Customize = @(
+                        # Set Product Key needed for MSDN/Evalution Windows distributives only. Skip this step if your ISO sources is VLCS.
+                        @{
+                            Name        = "Set Product Key"
+                            Type        = "Set Task Sequence Variable"
+                            GroupName   = "Initialization"
+                            Description = "KMS Client Setup Keys: https://technet.microsoft.com/en-us/library/jj612867.aspx"
+                            TSVarName   = "ProductKey"
+                            TSVarValue  = "NPPR9-FWDCX-D2C8J-H872K-2YT43"
+                        }
                         @{
                             Name             = "Apply Patches"
                             Type             = "Install Updates Offline"
@@ -1241,6 +1295,15 @@
                     Template = "Server.xml"
                     ID       = "REFW2012R2-001"
                     Customize = @(
+                        # Set Product Key needed for MSDN/Evalution Windows distributives only. Skip this step if your ISO sources is VLCS.
+                        @{
+                            Name        = "Set Product Key"
+                            Type        = "Set Task Sequence Variable"
+                            GroupName   = "Initialization"
+                            Description = "KMS Client Setup Keys: https://technet.microsoft.com/en-us/library/jj612867.aspx"
+                            TSVarName   = "ProductKey"
+                            TSVarValue  = "D2N9P-3P6X9-2R39C-7RTCD-MDVJX"
+                        }
                         @{
                             Name             = "Apply Patches"
                             Type             = "Install Updates Offline"
@@ -1350,6 +1413,15 @@
                     Template = "Server.xml"
                     ID       = "REFW2016-001"
                     Customize = @(
+                        # Set Product Key needed for MSDN/Evalution Windows distributives only. Skip this step if your ISO sources is VLCS.
+                        @{
+                            Name        = "Set Product Key"
+                            Type        = "Set Task Sequence Variable"
+                            GroupName   = "Initialization"
+                            Description = "KMS Client Setup Keys: https://technet.microsoft.com/en-us/library/jj612867.aspx"
+                            TSVarName   = "ProductKey"
+                            TSVarValue  = "WC2BQ-8NRM3-FDDYY-2BFGV-KHKQY"
+                        }
                         @{
                             Name             = "Apply Patches"
                             Type             = "Install Updates Offline"

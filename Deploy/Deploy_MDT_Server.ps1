@@ -327,6 +327,9 @@ Configuration DeployMDTServerContract
                 [string]$SubGroup         = ""
                 [string]$Disable          = ""
                 [string]$AddAfter         = ""
+                [string]$Description      = ""
+                [string]$TSVarName        = ""    # for MDT variable only
+                [string]$TSVarValue       = ""    # for MDT variable only
                 [string]$OSName           = ""    # for OS features only
                 [string]$OSFeatures       = ""    # for OS features only
                 [string]$Command          = ""    # for Run Command line only
@@ -341,6 +344,9 @@ Configuration DeployMDTServerContract
                     If ($_.key -eq "SubGroup")         { $SubGroup         = $_.value }
                     If ($_.key -eq "Disable")          { $Disable          = $_.value }
                     If ($_.key -eq "AddAfter")         { $AddAfter         = $_.value }
+                    if ($_.key -eq "Description")      { $Description      = $_.value }
+                    if ($_.key -eq "TSVarName")        { $TSVarName        = $_.value }
+                    if ($_.key -eq "TSVarValue")       { $TSVarValue       = $_.value }
                     If ($_.key -eq "OSName")           { $OSName           = $_.value }
                     If ($_.key -eq "OSFeatures")       { $OSFeatures       = $_.value }
                     If ($_.key -eq "Command")          { $Command          = $_.value }
@@ -361,6 +367,9 @@ Configuration DeployMDTServerContract
                     SubGroup         = $SubGroup
                     Disable          = $Disable
                     AddAfter         = $AddAfter
+                    Description      = $Description
+                    TSVarName        = $TSVarName
+                    TSVarValue       = $TSVarValue
                     OSName           = $OSName
                     OSFeatures       = $OSFeatures
                     Command          = $Command
@@ -584,7 +593,7 @@ Start-DscConfiguration -Wait -Force -Verbose -ComputerName "$env:computername" -
 
 #Set data deduplication
 Enable-DedupVolume -Volume "E:"
-Set-DedupVolume -Volume "E:" -MinimumFileAgeDays 3
+Set-DedupVolume -Volume "E:" -MinimumFileAgeDays 1
 
 Write-Output ""
 Write-Output "Deploy MDT Server Builder completed!"
