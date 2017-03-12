@@ -586,6 +586,8 @@ $ConfigurationData = Invoke-Expression (Get-Content -Path "$PSScriptRoot\Deploy_
 DeployMDTServerContract -OutputPath "$PSScriptRoot\MDT-Deploy_MDT_Server" -ConfigurationData $ConfigurationData -Credentials $Cred
 
 #Set DSC LocalConfigurationManager
+$winrmArgs = 'set winrm/config @{MaxEnvelopeSizekb="8192"}'
+start-process "winrm" -ArgumentList $winrmArgs -NoNewWindow
 Set-DscLocalConfigurationManager -Path "$PSScriptRoot\MDT-Deploy_MDT_Server" -Verbose
 
 #Start DSC MOF job
