@@ -189,7 +189,7 @@ function Get-ISO
 
                         if ($Name -eq $image.ImageName -and $Lang -eq $tokens['Lang'] -and $Arch -eq $tokens['Arch'] -and $Build -eq $tokens['Build'])
                         {
-                            Write-Host "Unpack $Name from $($PSItem.FullName) to $Dest" -ForegroundColor Green
+                            Write-Host "Unpack $Name from $($PSItem.FullName) to $dstPath\$Dest" -ForegroundColor Green
                             if (Test-Path $dstPath\$Dest)
                             {
                                 Write-Warning "Remove directory $dstPath\$Dest"
