@@ -1,7 +1,7 @@
 ﻿###
 # Script for prepare Windows distributives
 #
-# 1. Download source Windows ISO from VLSC, MSDN on Evalution portals
+# 1. Download source Windows ISO from VLSC, MSDN on Evaluation portals
 # 2. Save to folders on MDT server or File server:
 #    \\server\ISO
 #      + Windows 7
@@ -31,9 +31,6 @@
 param(
     [parameter(Mandatory = $true, HelpMessage="Source path for ISO files directory tree. Enter the local folder or file share name")]
     [String]$ISOPath,
-
-    [parameter(Mandatory = $false)]
-    [String]$MountFolder = 'E:\Mount',
 
     [parameter(Mandatory = $false)]
     [String]$dstPath = 'E:\Source',
@@ -104,16 +101,6 @@ $destinations = @(
 if (!(Test-Path -Path $ISOPath)) {
     Write-Warning -Message "Could not find ISO store at $ISOPath. Aborting..."
     Break
-}
-
-if (!(Test-Path -Path $MountFolder)) {
-    New-Item $MountFolder -ItemType Directory
-}
-else {
-    if ((Get-ChildItem $MountFolder).count -ne 0) {
-        Write-Warning -Message "Mount folder $MountFolder should be empty. Aborting..."
-        Break
-    }
 }
 
 #best effort to parse conventional iso names for meaningful tokens, may not match all possible iso names
