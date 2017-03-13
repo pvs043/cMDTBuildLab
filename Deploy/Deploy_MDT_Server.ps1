@@ -580,8 +580,8 @@ UserDomain=$($Node.NodeName)
 $Cred = Get-Credential -UserName SVCMDTConnect001 -Message "Enter password for Local MDT Account"
 
 #Get configuration data
-$ConfigurationData = Invoke-Expression (Get-Content -Path "$PSScriptRoot\Deploy_MDT_Server_ConfigurationData.psd1" -Raw)       # Full
 #$ConfigurationData = Invoke-Expression (Get-Content -Path "$PSScriptRoot\Deploy_MDT_Server_ConfigurationData_Lite.psd1" -Raw) # Only Windows 10 x86 Evaluation
+$ConfigurationData = Invoke-Expression (Get-Content -Path "$PSScriptRoot\Deploy_MDT_Server_ConfigurationData.psd1" -Raw)       # Full
 
 #Create DSC MOF job
 DeployMDTServerContract -OutputPath "$PSScriptRoot\MDT-Deploy_MDT_Server" -ConfigurationData $ConfigurationData -Credentials $Cred
