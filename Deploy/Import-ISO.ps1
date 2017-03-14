@@ -4,10 +4,10 @@
 # 1. Download source Windows ISO from VLSC, MSDN on Evaluation portals
 # 2. Save to folders on MDT server or File server:
 #    \\server\ISO
-#      + Windows 7
-#        + SW_DVD5_SA_Win_Ent_7w_SP1_64BIT_Russian_-2_MLF_X17-59024.ISO
 #      + Windows 10
-#        + SW_DVD5_Win_Pro_10_1607_64BIT_English_MLF_X21-06988.ISO
+#        + 14393.0.160715-1616.RS1_RELEASE_CLIENTENTERPRISEEVAL_OEMRET_X86FRE_EN-US.ISO
+#      + Windows 2016
+#        + en_windows_server_2016_x64_dvd_9718492.iso
 #      [...]
 # 3. Run this script as Administrator and get info of the images:
 #    Import-ISO.ps1 -ISOPath '\\server\ISO' -Verbose
