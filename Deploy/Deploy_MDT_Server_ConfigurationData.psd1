@@ -27,11 +27,11 @@
 
             #Operating system MDT directory information
             OSDirectories   = @(
-                @{  
+                @{
                     Ensure = "Present"
                     OperatingSystem = "Windows 7"
                 }
-                @{  
+                @{
                     Ensure = "Present"
                     OperatingSystem = "Windows 8.1"
                 }
@@ -39,11 +39,11 @@
                     Ensure = "Present"
                     OperatingSystem = "Windows 10"
                 }
-                @{  
+                @{
                     Ensure = "Present"
                     OperatingSystem = "Windows 2012 R2"
                 }
-                @{  
+                @{
                     Ensure = "Present"
                     OperatingSystem = "Windows 2016"
                 }

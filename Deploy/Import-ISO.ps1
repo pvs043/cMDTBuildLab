@@ -28,6 +28,8 @@
 ###
 
 [CmdletBinding()]
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseDeclaredVarsMoreThanAssignments')]
+
 param(
     [parameter(Mandatory = $true, HelpMessage="Enter Source path for ISO files directory tree (local folder or file share name)")]
     [String]$ISOPath,
@@ -104,7 +106,7 @@ if (!(Test-Path -Path $ISOPath)) {
 }
 
 #best effort to parse conventional iso names for meaningful tokens, may not match all possible iso names
-function Get-ISOTokens {
+function Get-ISOToken {
     param (
         [string]$FullName
     )
@@ -179,7 +181,7 @@ function Get-ISO
                 if ($Unpack)
                 {
                     foreach ($dst in $destinations) {
-                        $dst.GetEnumerator() | % {
+                        $dst.GetEnumerator() | ForEach-Object {
                             If ($_.key -eq "Name")  { $Name  = $_.value }
                             If ($_.key -eq "Lang")  { $Lang  = $_.value }
                             If ($_.key -eq "Arch")  { $Arch  = $_.value }
@@ -189,7 +191,7 @@ function Get-ISO
 
                         if ($Name -eq $image.ImageName -and $Lang -eq $tokens['Lang'] -and $Arch -eq $tokens['Arch'] -and $Build -eq $tokens['Build'])
                         {
-                            Write-Host "Unpack $Name from $($PSItem.FullName) to $dstPath\$Dest" -ForegroundColor Green
+                            Write-Output "Unpack $Name from $($PSItem.FullName) to $dstPath\$Dest" -ForegroundColor Green
                             if (Test-Path $dstPath\$Dest)
                             {
                                 Write-Warning "Remove directory $dstPath\$Dest"
@@ -197,7 +199,7 @@ function Get-ISO
                             }
                             New-Item $dstPath\$Dest -ItemType Directory
                             Copy-Item -Path "$ISODrive\*" -Destination $dstPath\$Dest -Recurse
-                            Write-Host "Done!" -ForegroundColor Green
+                            Write-Output "Done!" -ForegroundColor Green
                         }
                     }
                 }

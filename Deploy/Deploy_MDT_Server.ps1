@@ -1,16 +1,8 @@
-﻿$Modules    = @(
-    @{
-       Name    = "xSmbShare"
-       Version = "2.0.0.0"
-    },
-    @{
-       Name    = "cNtfsAccessControl"
-       Version = "1.3.0"
-    }
-)
-
-Configuration DeployMDTServerContract
+﻿Configuration DeployMDTServerContract
 {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingCmdletAliases')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseDeclaredVarsMoreThanAssignments')]
+
     Param(
         [Parameter(Mandatory=$true, HelpMessage = "Enter password for MDT Local Account")]
         [PSCredential]$Credentials
@@ -595,8 +587,8 @@ Set-DscLocalConfigurationManager -Path "$PSScriptRoot\MDT-Deploy_MDT_Server" -Ve
 Start-DscConfiguration -Wait -Force -Verbose -ComputerName "$env:computername" -Path "$PSScriptRoot\MDT-Deploy_MDT_Server"
 
 #Set data deduplication
-Enable-DedupVolume -Volume "E:"
-Set-DedupVolume -Volume "E:" -MinimumFileAgeDays 1
+#Enable-DedupVolume -Volume "E:"
+#Set-DedupVolume -Volume "E:" -MinimumFileAgeDays 1
 
 Write-Output ""
 Write-Output "Deploy MDT Server Builder completed!"

@@ -1,4 +1,4 @@
-$winVer = (Get-WmiObject win32_operatingsystem).version
+$winVer = (Get-CimInstance -ClassName win32_operatingsystem).version
 if ($winVer -like '6.3*') {
     # Windows 8.1 / Windows 2012 R2
     Invoke-Item "Z:\Applications\Configure - Set Start Layout\Theme01.deskthemepack"

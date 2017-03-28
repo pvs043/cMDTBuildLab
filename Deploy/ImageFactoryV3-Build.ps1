@@ -134,7 +134,7 @@ Function Test-VIAHypervConnection
         Param(
             $ISOFolder
         )
-        $result = New-Item -Path $ISOFolder -ItemType Directory -Force
+        New-Item -Path $ISOFolder -ItemType Directory -Force
     } -ArgumentList $ISOFolder
 
     #Verify that the VM Folder is created
@@ -142,7 +142,7 @@ Function Test-VIAHypervConnection
         Param(
             $VMFolder
         )
-        $result = New-Item -Path $VMFolder -ItemType Directory -Force
+        New-Item -Path $VMFolder -ItemType Directory -Force
     } -ArgumentList $VMFolder
 
     #Verify that the VMSwitch exists
@@ -157,6 +157,8 @@ Function Test-VIAHypervConnection
 
 Function Update-Log
 {
+    [cmdletbinding(SupportsShouldProcess=$True)]
+
     Param(
     [Parameter(
         Mandatory=$true, 
@@ -191,13 +193,13 @@ Function Update-Log
     switch ($Class)
     {
         'Information'{
-            Write-Host $HostString -ForegroundColor Gray
+            Write-Output $HostString -ForegroundColor Gray
             }
         'Warning'{
-            Write-Host $HostString -ForegroundColor Yellow
+            Write-Output $HostString -ForegroundColor Yellow
             }
         'Error'{
-            Write-Host $HostString -ForegroundColor Red
+            Write-Output $HostString -ForegroundColor Red
             }
         Default {}
     }
@@ -252,7 +254,7 @@ if((Test-Path -Path $MDTImage) -eq $true) {Update-Log -Data "Access to $MDTImage
 
 #Get TaskSequences
 Update-Log -Data "Get TaskSequences"
-$RefTaskSequences = Get-VIARefTaskSequence -RefTaskSequenceFolder "MDTBuild:\Task Sequences\$($Settings.Settings.MDT.RefTaskSequenceFolderName)" | where Enabled -EQ $true
+$RefTaskSequences = Get-VIARefTaskSequence -RefTaskSequenceFolder "MDTBuild:\Task Sequences\$($Settings.Settings.MDT.RefTaskSequenceFolderName)" | where-object Enabled -eq $true
 
 #Get TaskSequencesIDs
 $RefTaskSequenceIDs = $RefTaskSequences.TasksequenceID
@@ -266,7 +268,7 @@ if ($RefTaskSequenceIDs.count -eq 0) {
 
 #Get detailed info
 Update-Log -Data "Get detailed info about the task sequences"
-$Result = Get-VIARefTaskSequence -RefTaskSequenceFolder "MDTBuild:\Task Sequences\$($Settings.Settings.MDT.RefTaskSequenceFolderName)" | where Enabled -EQ $true
+$Result = Get-VIARefTaskSequence -RefTaskSequenceFolder "MDTBuild:\Task Sequences\$($Settings.Settings.MDT.RefTaskSequenceFolderName)" | Where-Object Enabled -eq $true
 foreach($obj in ($Result | Select-Object TaskSequenceID,Name,Version)){
     $data = "$($obj.TaskSequenceID) $($obj.Name) $($obj.Version)"
     Update-Log -Data $data
@@ -364,8 +366,8 @@ Foreach($Ref in $RefTaskSequenceIDs) {
         Param(
             $VMName
         )
-        $VMObject = Get-WmiObject -Namespace root\virtualization\v2 -Class Msvm_ComputerSystem -Filter "ElementName = '$VMName'"
-        $VMObject.GetRelated('Msvm_VirtualSystemSettingData').BIOSSerialNumber
+        $VMObject = Get-CimInstance -Namespace root\virtualization\v2 -ClassName Msvm_ComputerSystem | Where-Object {$_.ElementName -eq $VMName}
+        (Get-CimAssociatedInstance $VMObject | Where-Object {$_.Caption -eq 'BIOS'}).SerialNumber
     } -ArgumentList $Ref
     
     #Update CustomSettings.ini

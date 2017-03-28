@@ -1,7 +1,7 @@
 Configuration DownloadMDTPrereqs
 {
     Import-Module -Name PSDesiredStateConfiguration, cMDTBuildLab
-    Import-DscResource –ModuleName PSDesiredStateConfiguration
+    Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName cMDTBuildLab
 
     node $AllNodes.Where{$_.Role -match "MDT Server"}.NodeName

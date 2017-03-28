@@ -553,6 +553,7 @@ class cMDTBuildPersistentDrive
     }
 }
 
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSAvoidUsingInvokeExpression")]
 [DscResource()]
 class cMDTBuildPreReqs
 {
@@ -803,6 +804,7 @@ class cMDTBuildTaskSequence
     }
 }
 
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingCmdletAliases')]
 [DscResource()]
 class cMDTBuildTaskSequenceCustomize
 {
@@ -1206,6 +1208,7 @@ class cMDTBuildTaskSequenceCustomize
     }
 }
 
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseShouldProcessForStateChangingFunctions")]
 [DscResource()]
 class cMDTBuildUpdateBootImage
 {
@@ -1297,7 +1300,6 @@ class cMDTBuildUpdateBootImage
 
         #The Update-MDTDeploymentShare command crashes WMI when run from inside DSC. This section is a work around.
         workflow Update-DeploymentShare {
-            #[Cmdletbinding()]
             param (
                 [string]$PSDeploymentShare,
                 [string]$PSDrivePath
