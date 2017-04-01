@@ -553,7 +553,6 @@ class cMDTBuildPersistentDrive
     }
 }
 
-[Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSAvoidUsingInvokeExpression")]
 [DscResource()]
 class cMDTBuildPreReqs
 {
@@ -804,7 +803,6 @@ class cMDTBuildTaskSequence
     }
 }
 
-[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingCmdletAliases')]
 [DscResource()]
 class cMDTBuildTaskSequenceCustomize
 {
@@ -1208,7 +1206,6 @@ class cMDTBuildTaskSequenceCustomize
     }
 }
 
-[Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseShouldProcessForStateChangingFunctions")]
 [DscResource()]
 class cMDTBuildUpdateBootImage
 {
