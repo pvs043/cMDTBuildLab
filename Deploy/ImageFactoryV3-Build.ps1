@@ -134,7 +134,7 @@ Function Test-VIAHypervConnection
         Param(
             $ISOFolder
         )
-        New-Item -Path $ISOFolder -ItemType Directory -Force
+        New-Item -Path $ISOFolder -ItemType Directory -Force | Out-Null
     } -ArgumentList $ISOFolder
 
     #Verify that the VM Folder is created
@@ -142,7 +142,7 @@ Function Test-VIAHypervConnection
         Param(
             $VMFolder
         )
-        New-Item -Path $VMFolder -ItemType Directory -Force
+        New-Item -Path $VMFolder -ItemType Directory -Force | Out-Null
     } -ArgumentList $VMFolder
 
     #Verify that the VMSwitch exists
@@ -193,13 +193,13 @@ Function Update-Log
     switch ($Class)
     {
         'Information'{
-            Write-Output $HostString -ForegroundColor Gray
+            Write-Output $HostString
             }
         'Warning'{
-            Write-Output $HostString -ForegroundColor Yellow
+            Write-Warning $HostString
             }
         'Error'{
-            Write-Output $HostString -ForegroundColor Red
+            Write-Error $HostString
             }
         Default {}
     }
@@ -366,8 +366,11 @@ Foreach($Ref in $RefTaskSequenceIDs) {
         Param(
             $VMName
         )
-        $VMObject = Get-CimInstance -Namespace root\virtualization\v2 -ClassName Msvm_ComputerSystem | Where-Object {$_.ElementName -eq $VMName}
-        (Get-CimAssociatedInstance $VMObject | Where-Object {$_.Caption -eq 'BIOS'}).SerialNumber
+        #$VMObject = Get-CimInstance -Namespace root\virtualization\v2 -ClassName Msvm_ComputerSystem | Where-Object {$_.ElementName -eq $VMName}
+        #(Get-CimAssociatedInstance $VMObject | Where-Object {$_.Caption -eq 'BIOS'}).SerialNumber
+        # PSSCriptAnalyzer warning, but work
+        $VMObject = Get-WmiObject -Namespace root\virtualization\v2 -Class Msvm_ComputerSystem -Filter "ElementName = '$VMName'"
+        $VMObject.GetRelated('Msvm_VirtualSystemSettingData').BIOSSerialNumber
     } -ArgumentList $Ref
     
     #Update CustomSettings.ini
