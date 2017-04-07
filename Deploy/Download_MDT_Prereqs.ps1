@@ -26,7 +26,7 @@ Configuration DownloadMDTPrereqs
             Ensure     = "Present"
             Name       = "Windows Assessment and Deployment Kit - Windows 10"
             Path       = "$($Node.SourcePath)\Windows Assessment and Deployment Kit\adksetup.exe"
-            ProductId  = "39ebb79f-797c-418f-b329-97cfdf92b7ab"
+            ProductId  = "cef137de-cdb9-48e2-babe-301cb8448d7b"
             Arguments  = "/quiet /features OptionId.DeploymentTools OptionId.WindowsPreinstallationEnvironment"
             ReturnCode = 0
         }
