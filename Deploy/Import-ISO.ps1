@@ -188,7 +188,7 @@ function Get-ISO
 
                         if ($Name -eq $image.ImageName -and $Lang -eq $tokens['Lang'] -and $Arch -eq $tokens['Arch'] -and $Build -eq $tokens['Build'])
                         {
-                            Write-Output "Unpack $Name from $($PSItem.FullName) to $dstPath\$Dest" -ForegroundColor Green
+                            Write-Output "Unpack $Name from $($PSItem.FullName) to $dstPath\$Dest"
                             if (Test-Path $dstPath\$Dest)
                             {
                                 Write-Warning "Remove directory $dstPath\$Dest"
@@ -196,7 +196,7 @@ function Get-ISO
                             }
                             New-Item $dstPath\$Dest -ItemType Directory
                             Copy-Item -Path "$ISODrive\*" -Destination $dstPath\$Dest -Recurse
-                            Write-Output "Done!" -ForegroundColor Green
+                            Write-Output "Done!"
                         }
                     }
                 }
