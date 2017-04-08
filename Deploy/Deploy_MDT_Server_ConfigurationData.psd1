@@ -300,7 +300,7 @@
                     Template = "Client.xml"
                     ID       = "REFW7X86-001"
                     Customize = @(
-                        # Set Product Key needed for MSDN/Evalution Windows distributives only. Skip this step if your ISO sources is VLCS.
+                        # Set Product Key needed for MSDN/Evalution Windows distributives only. Skip this step if your ISO sources is VLSC.
                         @{
                             Name        = "Set Product Key"
                             Type        = "Set Task Sequence Variable"
@@ -468,7 +468,7 @@
                     Template = "Client.xml"
                     ID       = "REFW7X64-001"
                     Customize = @(
-                        # Set Product Key needed for MSDN/Evalution Windows distributives only. Skip this step if your ISO sources is VLCS.
+                        # Set Product Key needed for MSDN/Evalution Windows distributives only. Skip this step if your ISO sources is VLSC.
                         @{
                             Name        = "Set Product Key"
                             Type        = "Set Task Sequence Variable"
@@ -636,7 +636,7 @@
                     Template = "Client.xml"
                     ID       = "REFW81X86-001"
                     Customize = @(
-                        # Set Product Key needed for MSDN/Evalution Windows distributives only. Skip this step if your ISO sources is VLCS.
+                        # Set Product Key needed for MSDN/Evalution Windows distributives only. Skip this step if your ISO sources is VLSC.
                         @{
                             Name        = "Set Product Key"
                             Type        = "Set Task Sequence Variable"
@@ -801,7 +801,7 @@
                     Template = "Client.xml"
                     ID       = "REFW81X64-001"
                     Customize = @(
-                        # Set Product Key needed for MSDN/Evalution Windows distributives only. Skip this step if your ISO sources is VLCS.
+                        # Set Product Key needed for MSDN/Evalution Windows distributives only. Skip this step if your ISO sources is VLSC.
                         @{
                             Name        = "Set Product Key"
                             Type        = "Set Task Sequence Variable"
@@ -966,7 +966,7 @@
                     Template = "Client.xml"
                     ID       = "REFW10X86-001"
                     Customize = @(
-                        # Set Product Key needed for MSDN/Evalution Windows distributives only. Skip this step if your ISO sources is VLCS.
+                        # Set Product Key needed for MSDN/Evalution Windows distributives only. Skip this step if your ISO sources is VLSC.
                         @{
                             Name        = "Set Product Key"
                             Type        = "Set Task Sequence Variable"
@@ -1088,7 +1088,7 @@
                     Template = "Client.xml"
                     ID       = "REFW10X64-001"
                     Customize = @(
-                        # Set Product Key needed for MSDN/Evalution Windows distributives only. Skip this step if your ISO sources is VLCS.
+                        # Set Product Key needed for MSDN/Evalution Windows distributives only. Skip this step if your ISO sources is VLSC.
                         @{
                             Name        = "Set Product Key"
                             Type        = "Set Task Sequence Variable"
@@ -1210,7 +1210,7 @@
                     Template = "Server.xml"
                     ID       = "REFW2012R2-001"
                     Customize = @(
-                        # Set Product Key needed for MSDN/Evalution Windows distributives only. Skip this step if your ISO sources is VLCS.
+                        # Set Product Key needed for MSDN/Evalution Windows distributives only. Skip this step if your ISO sources is VLSC.
                         @{
                             Name        = "Set Product Key"
                             Type        = "Set Task Sequence Variable"
@@ -1327,7 +1327,7 @@
                     Template = "Server.xml"
                     ID       = "REFW2016-001"
                     Customize = @(
-                        # Set Product Key needed for MSDN/Evalution Windows distributives only. Skip this step if your ISO sources is VLCS.
+                        # Set Product Key needed for MSDN/Evalution Windows distributives only. Skip this step if your ISO sources is VLSC.
                         @{
                             Name        = "Set Product Key"
                             Type        = "Set Task Sequence Variable"
