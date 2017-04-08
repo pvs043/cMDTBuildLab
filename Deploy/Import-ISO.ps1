@@ -28,7 +28,6 @@
 ###
 
 [CmdletBinding()]
-[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseDeclaredVarsMoreThanAssignments')]
 
 param(
     [parameter(Mandatory = $true, HelpMessage="Enter Source path for ISO files directory tree (local folder or file share name)")]
@@ -99,7 +98,6 @@ $destinations = @(
     }
 )
 
-
 if (!(Test-Path -Path $ISOPath)) {
     Write-Warning -Message "Could not find ISO store at $ISOPath. Aborting..."
     Break
@@ -136,7 +134,6 @@ function Get-ISOToken {
     }
 }
 
-
 function Get-ISO
 {
     [cmdletbinding()]
@@ -166,7 +163,7 @@ function Get-ISO
             Write-Verbose -Message "Images count: $($images.count)"
             foreach ($image in $images)
             {
-                $tokens = Get-ISOTokens $PSItem.FullName
+                $tokens = Get-ISOToken $PSItem.FullName
                 [PSCustomObject]@{
                     'FullName'   = $PSItem.FullName
                     'Name'       = $image.ImageName

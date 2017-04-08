@@ -12,7 +12,6 @@ Configuration DownloadMDTPrereqs
         }
 
         cMDTBuildPreReqs MDTPreReqs {
-            Ensure       = "Present"            
             DownloadPath = $Node.SourcePath
         }
 
