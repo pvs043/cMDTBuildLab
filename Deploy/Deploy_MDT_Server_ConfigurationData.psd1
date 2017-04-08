@@ -27,123 +27,109 @@
 
             #Operating system MDT directory information
             OSDirectories   = @(
-                @{
-                    Ensure = "Present"
-                    OperatingSystem = "Windows 7"
-                }
-                @{
-                    Ensure = "Present"
-                    OperatingSystem = "Windows 8.1"
-                }
-                @{  
-                    Ensure = "Present"
-                    OperatingSystem = "Windows 10"
-                }
-                @{
-                    Ensure = "Present"
-                    OperatingSystem = "Windows 2012 R2"
-                }
-                @{
-                    Ensure = "Present"
-                    OperatingSystem = "Windows 2016"
-                }
+                @{OperatingSystem = "Windows 7"}
+                @{OperatingSystem = "Windows 8.1"}
+                @{OperatingSystem = "Windows 10"}
+                @{OperatingSystem = "Windows 2012 R2"}
+                @{OperatingSystem = "Windows 2016"}
+            )
+
+            #Packages Folder Structure
+            PackagesFolderStructure = @(
+                @{Folder = "Windows 7 x86"}
+                @{Folder = "Windows 7 x64"}
+                @{Folder = "Windows 8.1 x86"}
+                @{Folder = "Windows 8.1 x64"}
+                @{Folder = "Windows 10 x86"}
+                @{Folder = "Windows 10 x64"}
             )
 
             #MDT Application Folder Structure
             ApplicationFolderStructure = @(
                 @{  
-                    Ensure     = "Present"
                     Folder     = "Core"
                     SubFolders = @(
-                        @{  
-                            Ensure    = "Present"
-                            SubFolder = "Configure"
-                        }
-                        @{  
-                            Ensure    = "Present"
-                            SubFolder = "Microsoft"
-                        }
+                        @{SubFolder = "Configure"}
+                        @{SubFolder = "Microsoft"}
                     )
                 }
                 @{  
-                    Ensure = "Present"
                     Folder = "Common Applications"
                 }
             )
 
-            PackagesFolderStructure = @(
+            #Selection profile creation
+            SelectionProfiles  = @(
                 @{
-                    Ensure = "Present"
-                    Folder = "Windows 7 x86"
+                    Name        = "Windows 7 x86"
+                    Comments    = "Packages for Windows 7 x86"
+                    IncludePath = "Packages\Windows 7 x86"
                 }
                 @{
-                    Ensure = "Present"
-                    Folder = "Windows 7 x64"
+                    Name        = "Windows 7 x64"
+                    Comments    = "Packages for Windows 7 x64"
+                    IncludePath = "Packages\Windows 7 x64"
                 }
                 @{
-                    Ensure = "Present"
-                    Folder = "Windows 8.1 x86"
+                    Name        = "Windows 8.1 x86"
+                    Comments    = "Packages for Windows 8.1 x86"
+                    IncludePath = "Packages\Windows 8.1 x86"
                 }
                 @{
-                    Ensure = "Present"
-                    Folder = "Windows 8.1 x64"
+                    Name        = "Windows 8.1 x64"
+                    Comments    = "Packages for Windows 8.1 x64"
+                    IncludePath = "Packages\Windows 8.1 x64"
                 }
                 @{
-                    Ensure = "Present"
-                    Folder = "Windows 10 x86"
+                    Name        = "Windows 10 x86"
+                    Comments    = "Packages for Windows 10 x86"
+                    IncludePath = "Packages\Windows 10 x86"
                 }
                 @{
-                    Ensure = "Present"
-                    Folder = "Windows 10 x64"
+                    Name        = "Windows 10 x64"
+                    Comments    = "Packages for Windows 10 x64"
+                    IncludePath = "Packages\Windows 10 x64"
                 }
             )
 
             #Operating systems to import to MDT
             OperatingSystems   = @(
                 @{
-                    Ensure     = "Present"
                     Name       = "Windows 7 x86"
                     Path       = "Windows 7"
                     SourcePath = "$SourcePath\Windows7x86"
                 }
                 @{
-                    Ensure     = "Present"
                     Name       = "Windows 7 x64"
                     Path       = "Windows 7"
                     SourcePath = "$SourcePath\Windows7x64"
                 }
                 @{
-                    Ensure     = "Present"
                     Name       = "Windows 8.1 x86"
                     Path       = "Windows 8.1"
                     SourcePath = "$SourcePath\Windows81x86"
                 }
                 @{
-                    Ensure     = "Present"
                     Name       = "Windows 8.1 x64"
                     Path       = "Windows 8.1"
                     SourcePath = "$SourcePath\Windows81x64"
                 }
                 @{
-                    Ensure     = "Present"
                     Name       = "Windows 10 x86"
                     Path       = "Windows 10"
                     SourcePath = "$SourcePath\Windows10x86"
                 }
                 @{
-                    Ensure     = "Present"
                     Name       = "Windows 10 x64"
                     Path       = "Windows 10"
                     SourcePath = "$SourcePath\Windows10x64"
                 }
                 @{
-                    Ensure     = "Present"
                     Name       = "Windows 2012 R2"
                     Path       = "Windows 2012 R2"
                     SourcePath = "$SourcePath\Windows2012R2"
                 }
                 @{
-                    Ensure     = "Present"
                     Name       = "Windows 2016"
                     Path       = "Windows 2016"
                     SourcePath = "$SourcePath\Windows2016"
@@ -153,126 +139,108 @@
             #Applications to import
             Applications   = @(
                 @{
-                    Ensure                = "Present"
                     Name                  = "Install - Microsoft Visual C++"
                     Path                  = "\Applications\Core\Microsoft"
                     CommandLine           = "cscript.exe Install-MicrosoftVisualCx86x64.wsf"
                     ApplicationSourcePath = "VC++"
                 }
                 @{
-                    Ensure                = "Present"
                     Name                  = "Install - Microsoft Silverlight - x86"
                     Path                  = "\Applications\Core\Microsoft"
                     CommandLine           = "Silverlight.exe /Q"
                     ApplicationSourcePath = "Silverlight_x86"
                 }
                 @{
-                    Ensure                = "Present"
                     Name                  = "Install - Microsoft Silverlight - x64"
                     Path                  = "\Applications\Core\Microsoft"
                     CommandLine           = "Silverlight_x64.exe /Q"
                     ApplicationSourcePath = "Silverlight_x64"
                 }
                 @{
-                    Ensure                = "Present"
                     Name                  = "Install - Convenience rollup update for Windows 7 SP1 - x86"
                     Path                  = "\Applications\Core\Microsoft"
                     CommandLine           = "wusa.exe windows6.1-kb3125574-v4-x86_ba1ff5537312561795cc04db0b02fbb0a74b2cbd.msu /quiet /norestart"
                     ApplicationSourcePath = "KB3125574-x86"
                 }
                 @{
-                    Ensure                = "Present"
                     Name                  = "Install - Convenience rollup update for Windows 7 SP1 - x64"
                     Path                  = "\Applications\Core\Microsoft"
                     CommandLine           = "wusa.exe windows6.1-kb3125574-v4-x64_2dafb1d203c8964239af3048b5dd4b1264cd93b9.msu /quiet /norestart"
                     ApplicationSourcePath = "KB3125574-x64"
                 }
                 @{
-                    Ensure                = "Present"
                     Name                  = "Install - July 2016 update rollup for Windows 7 SP1 - x86"
                     Path                  = "\Applications\Core\Microsoft"
                     CommandLine           = "wusa.exe windows6.1-kb3172605-x86_ae03ccbd299e434ea2239f1ad86f164e5f4deeda.msu /quiet /norestart"
                     ApplicationSourcePath = "KB3172605-x86"
                 }
                 @{
-                    Ensure                = "Present"
                     Name                  = "Install - July 2016 update rollup for Windows 7 SP1 - x64"
                     Path                  = "\Applications\Core\Microsoft"
                     CommandLine           = "wusa.exe windows6.1-kb3172605-x64_2bb9bc55f347eee34b1454b50c436eb6fd9301fc.msu /quiet /norestart"
                     ApplicationSourcePath = "KB3172605-x64"
                 }
                 @{
-                    Ensure                = "Present"
                     Name                  = "Install - July 2016 update rollup for Windows 8.1 - x86"
                     Path                  = "\Applications\Core\Microsoft"
                     CommandLine           = "wusa.exe windows8.1-kb3172614-x86_d11c233c8598b734de72665e0d0a3f2ef007b91f.msu /quiet /norestart"
                     ApplicationSourcePath = "KB3172614-x86"
                  }
                 @{
-                    Ensure                = "Present"
                     Name                  = "Install - July 2016 update rollup for Windows 8.1 and Windows Server 2012 R2 - x64"
                     Path                  = "\Applications\Core\Microsoft"
                     CommandLine           = "wusa.exe windows8.1-kb3172614-x64_e41365e643b98ab745c21dba17d1d3b6bb73cfcc.msu /quiet /norestart"
                     ApplicationSourcePath = "KB3172614-x64"
                 }
                 @{
-                    Ensure                = "Present"
                     Name                  = "Install - Windows Management Framework 3.0 - x86"
                     Path                  = "\Applications\Core\Microsoft"
                     CommandLine           = "wusa.exe Windows6.1-KB2506143-x86.msu /quiet /norestart"
                     ApplicationSourcePath = "WMF30x86"
                 }
                 @{
-                    Ensure                = "Present"
                     Name                  = "Install - Windows Management Framework 3.0 - x64"
                     Path                  = "\Applications\Core\Microsoft"
                     CommandLine           = "wusa.exe Windows6.1-KB2506143-x64.msu /quiet /norestart"
                     ApplicationSourcePath = "WMF30x64"
                 }
                 @{
-                    Ensure                = "Present"
                     Name                  = "Install - Windows Management Framework 5.1 - x86"
                     Path                  = "\Applications\Core\Microsoft"
                     CommandLine           = "wusa.exe Win8.1-KB3191564-x86.msu /quiet /norestart"
                     ApplicationSourcePath = "WMF51w81x86"
                 }
                 @{
-                    Ensure                = "Present"
                     Name                  = "Install - Windows Management Framework 5.1 - x64"
                     Path                  = "\Applications\Core\Microsoft"
                     CommandLine           = "wusa.exe Win8.1AndW2K12R2-KB3191564-x64.msu /quiet /norestart"
                     ApplicationSourcePath = "WMF51w81x64"
                 }
                 @{
-                    Ensure                = "Present"
                     Name                  = "Configure - Set Control+Shift Keyboard Toggle"
                     Path                  = "\Applications\Core\Configure"
                     CommandLine           = "reg import Toggle.reg"
                     ApplicationSourcePath = "KeyboardToggle"
                 }
                 @{
-                    Ensure                = "Present"
                     Name                  = "Action - CleanupBeforeSysprep"
                     Path                  = "\Applications\Core\Configure"
                     CommandLine           = "cscript.exe Action-CleanupBeforeSysprep.wsf"
                     ApplicationSourcePath = "CleanupBeforeSysprep"
                 }
                 @{
-                    Ensure                = "Present"
                     Name                  = "Configure - Firewall rules"
                     Path                  = "\Applications\Core\Configure"
                     CommandLine           = "powershell.exe -ExecutionPolicy Bypass -File .\Config-NetFwRules.ps1"
                     ApplicationSourcePath = "ConfigureFirewall"
                 }
                 @{
-                    Ensure                = "Present"
                     Name                  = "Configure - Set Start Layout"
                     Path                  = "\Applications\Core\Configure"
                     CommandLine           = "powershell.exe -ExecutionPolicy Bypass -File .\Customize-DefaultProfile.ps1"
                     ApplicationSourcePath = "Set-Startlayout"
                 }
                 @{
-                    Ensure                = "Present"
                     Name                  = "Install - APP-V Client 5.1 - x86-x64"
                     Path                  = "\Applications\Common Applications"
                     CommandLine           = "appv_client_setup.exe /ACCEPTEULA /q /ENABLEPACKAGESCRIPTS=1"
@@ -284,14 +252,12 @@
             Packages = @(
                 # Servicing stack update for Windows 7 SP1 x86
                 @{
-                    Ensure            = "Present"
                     Name              = "Package_for_KB3177467 neutral x86 6.1.1.1"
                     Path              = "\Packages\Windows 7 x86"
                     PackageSourcePath = "KB3177467-x86"
                 }
                 # Servicing stack update for Windows 7 SP1 x86
                 @{
-                    Ensure            = "Present"
                     Name              = "Package_for_KB3177467 neutral amd64 6.1.1.1"
                     Path              = "\Packages\Windows 7 x64"
                     PackageSourcePath = "KB3177467-x64"
@@ -299,28 +265,24 @@
 <### Not needed for Windows 10 Version 1607 and Windows Server 2016 latest ISO (November 2016)
                 # Servicing stack update for Windows 10 Version 1607 x86
                 @{
-                    Ensure            = "Present"
                     Name              = "Package_for_KB3211320 neutral x86 10.0.1.1"
                     Path              = "\Packages\Windows 10 x86"
                     PackageSourcePath = "KB3211320-x86"
                 }
                 # Servicing stack update for Windows 10 Version 1607 x64 and Windows Server 2016
                 @{
-                    Ensure            = "Present"
                     Name              = "Package_for_KB3211320 neutral amd64 10.0.1.1"
                     Path              = "\Packages\Windows 10 x64"
                     PackageSourcePath = "KB3211320-x64"
                 }
                 # Cumulative update for Windows 10 Version 1607 x86
                 @{
-                    Ensure            = "Present"
                     Name              = "Package_for_RollupFix neutral x86 14393.693.1.1"
                     Path              = "\Packages\Windows 10 x86"
                     PackageSourcePath = "KB3213986-x86"
                 }
                 # Cumulative update for Windows 10 Version 1607 x64 and Windows Server 2016
                 @{
-                    Ensure            = "Present"
                     Name              = "Package_for_RollupFix neutral amd64 14393.693.1.1"
                     Path              = "\Packages\Windows 10 x64"
                     PackageSourcePath = "KB3213986-x64"
@@ -328,50 +290,9 @@
 #>
             )
 
-            #Selection profile creation
-            SelectionProfiles  = @(
-                @{
-                    Ensure      = "Present"
-                    Name        = "Windows 7 x86"
-                    Comments    = "Packages for Windows 7 x86"
-                    IncludePath = "Packages\Windows 7 x86"
-                }
-                @{
-                    Ensure      = "Present"
-                    Name        = "Windows 7 x64"
-                    Comments    = "Packages for Windows 7 x64"
-                    IncludePath = "Packages\Windows 7 x64"
-                }
-                @{
-                    Ensure      = "Present"
-                    Name        = "Windows 8.1 x86"
-                    Comments    = "Packages for Windows 8.1 x86"
-                    IncludePath = "Packages\Windows 8.1 x86"
-                }
-                @{
-                    Ensure      = "Present"
-                    Name        = "Windows 8.1 x64"
-                    Comments    = "Packages for Windows 8.1 x64"
-                    IncludePath = "Packages\Windows 8.1 x64"
-                }
-                @{
-                    Ensure      = "Present"
-                    Name        = "Windows 10 x86"
-                    Comments    = "Packages for Windows 10 x86"
-                    IncludePath = "Packages\Windows 10 x86"
-                }
-                @{
-                    Ensure      = "Present"
-                    Name        = "Windows 10 x64"
-                    Comments    = "Packages for Windows 10 x64"
-                    IncludePath = "Packages\Windows 10 x64"
-                }
-            )
-
             #Task sqeuences; are dependent on imported Operating system and Applications in MDT
             TaskSequences   = @(
                 @{
-                    Ensure   = "Present"
                     Name     = "Windows 7 x86"
                     Path     = "Windows 7"
                     OSName   = "Windows 7\Windows 7 ENTERPRISE in Windows 7 x86 install.wim"
@@ -540,7 +461,6 @@
                     )
                 }
                 @{  
-                    Ensure   = "Present"
                     Name     = "Windows 7 x64"
                     Path     = "Windows 7"
                     OSName   = "Windows 7\Windows 7 ENTERPRISE in Windows 7 x64 install.wim"
@@ -709,7 +629,6 @@
                     )
                 }
                 @{  
-                    Ensure   = "Present"
                     Name     = "Windows 8.1 x86"
                     Path     = "Windows 8.1"
                     OSName   = "Windows 8.1\Windows 8.1 Enterprise in Windows 8.1 x86 install.wim"
@@ -875,7 +794,6 @@
                     )
                 }
                 @{  
-                    Ensure   = "Present"
                     Name     = "Windows 8.1 x64"
                     Path     = "Windows 8.1"
                     OSName   = "Windows 8.1\Windows 8.1 Enterprise in Windows 8.1 x64 install.wim"
@@ -1041,7 +959,6 @@
                     )
                 }
                 @{
-                    Ensure   = "Present"
                     Name     = "Windows 10 x86"
                     Path     = "Windows 10"
                     OSName   = "Windows 10\Windows 10 Enterprise in Windows 10 x86 install.wim"
@@ -1164,7 +1081,6 @@
                     )
                 }
                 @{
-                    Ensure   = "Present"
                     Name     = "Windows 10 x64"
                     Path     = "Windows 10"
                     OSName   = "Windows 10\Windows 10 Enterprise in Windows 10 x64 install.wim"
@@ -1287,7 +1203,6 @@
                     )
                 }
                 @{  
-                    Ensure   = "Present"
                     Name     = "Windows 2012 R2"
                     Path     = "Windows 2012 R2"
                     OSName   = "Windows 2012 R2\Windows Server 2012 R2 SERVERSTANDARD in Windows 2012 R2 install.wim"
@@ -1405,7 +1320,6 @@
                     )
                 }
                 @{  
-                    Ensure   = "Present"
                     Name     = "Windows 2016"
                     Path     = "Windows 2016"
                     OSName   = "Windows 2016\Windows Server 2016 SERVERSTANDARD in Windows 2016 install.wim"
@@ -1493,7 +1407,6 @@
             #Custom folder/files to add to the MDT
             CustomSettings   = @(
                 @{  
-                    Ensure     = "Present"
                     Name       = "Scripts"
                     SourcePath = "Scripts"
                     TestFiles  = @("RemoveApps.ps1",
@@ -1506,7 +1419,6 @@
             #Custom settings and boot ini file management
             CustomizeIniFiles  = @(
                 @{  
-                    Ensure         = "Present"
                     Name           = "CustomSettingsIni"
                     Path           = "\Control\CustomSettings.ini"
                     Company        = "Build Lab"

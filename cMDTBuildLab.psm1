@@ -7,8 +7,8 @@ enum Ensure
 [DscResource()]
 class cMDTBuildApplication
 {
-    [DscProperty(Mandatory)]
-    [Ensure]$Ensure
+    [DscProperty()]
+    [Ensure]$Ensure = "Present"
 
     [DscProperty(Key)]
     [string]$Name
@@ -74,8 +74,8 @@ class cMDTBuildApplication
 [DscResource()]
 class cMDTBuildBootstrapIni
 {
-    [DscProperty(Mandatory)]
-    [Ensure]$Ensure
+    [DscProperty()]
+    [Ensure]$Ensure = "Present"
 
     [DscProperty(Key)]
     [string]$Path
@@ -142,8 +142,8 @@ Priority=Default
 [DscResource()]
 class cMDTBuildCustomize
 {
-    [DscProperty(Mandatory)]
-    [Ensure]$Ensure
+    [DscProperty()]
+    [Ensure]$Ensure = "Present"
     
     [DscProperty(Key)]
     [string]$Name
@@ -200,8 +200,8 @@ class cMDTBuildCustomize
 [DscResource()]
 class cMDTBuildCustomSettingsIni
 {
-    [DscProperty(Mandatory)]
-    [Ensure]$Ensure
+    [DscProperty()]
+    [Ensure]$Ensure = "Present"
 
     [DscProperty(Key)]
     [string]$Path
@@ -271,8 +271,8 @@ SkipProductKey=YES
 [DscResource()]
 class cMDTBuildDirectory
 {
-    [DscProperty(Mandatory)]
-    [Ensure]$Ensure
+    [DscProperty()]
+    [Ensure]$Ensure = "Present"
 
     [DscProperty(Key)]
     [string]$Path
@@ -340,8 +340,8 @@ class cMDTBuildDirectory
 [DscResource()]
 class cMDTBuildOperatingSystem
 {
-    [DscProperty(Mandatory)]
-    [Ensure]$Ensure
+    [DscProperty()]
+    [Ensure]$Ensure = "Present"
 
     [DscProperty(Key)]
     [string]$Name
@@ -407,8 +407,8 @@ class cMDTBuildOperatingSystem
 [DscResource()]
 class cMDTBuildPackage
 {
-    [DscProperty(Mandatory)]
-    [Ensure]$Ensure
+    [DscProperty()]
+    [Ensure]$Ensure = "Present"
 
     [DscProperty(Key)]
     [string]$Name
@@ -479,8 +479,8 @@ class cMDTBuildPackage
 [DscResource()]
 class cMDTBuildPersistentDrive
 {
-    [DscProperty(Mandatory)]
-    [Ensure] $Ensure
+    [DscProperty()]
+    [Ensure] $Ensure = "Present"
 
     [DscProperty(Key)]
     [string]$Path
@@ -556,8 +556,8 @@ class cMDTBuildPersistentDrive
 [DscResource()]
 class cMDTBuildPreReqs
 {
-    [DscProperty(Mandatory)]
-    [Ensure]$Ensure
+    [DscProperty()]
+    [Ensure]$Ensure = "Present"
     
     [DscProperty(Key)]
     [string]$DownloadPath
@@ -681,8 +681,8 @@ class cMDTBuildPreReqs
 [DscResource()]
 class cMDTBuildSelectionProfile
 {
-    [DscProperty(Mandatory)]
-    [Ensure]$Ensure
+    [DscProperty()]
+    [Ensure]$Ensure = "Present"
 
     [DscProperty(Key)]
     [string]$Name
@@ -737,8 +737,8 @@ class cMDTBuildSelectionProfile
 class cMDTBuildTaskSequence
 {
 
-    [DscProperty(Mandatory)]
-    [Ensure]$Ensure
+    [DscProperty()]
+    [Ensure]$Ensure = "Present"
 
     [DscProperty(Key)]
     [string]$Name

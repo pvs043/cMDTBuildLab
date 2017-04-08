@@ -24,7 +24,6 @@
         }
 
         cMDTBuildPreReqs MDTPreReqs {
-            Ensure       = "Present"            
             DownloadPath = $Node.SourcePath
         }
 
@@ -62,7 +61,6 @@
         }
 
         cMDTBuildDirectory DeploymentFolder {
-            Ensure    = "Present"
             Name      = $Node.PSDrivePath.Replace("$($Node.PSDrivePath.Substring(0,2))\","")
             Path      = $Node.PSDrivePath.Substring(0,2)
             DependsOn = "[Package]MDT"
@@ -79,7 +77,6 @@
         }
 
         cMDTBuildPersistentDrive DeploymentPSDrive {
-            Ensure      = "Present"
             Name        = $Node.PSDriveName
             Path        = $Node.PSDrivePath
             Description = $Node.PSDrivePath.Replace("$($Node.PSDrivePath.Substring(0,2))\","")
@@ -88,7 +85,7 @@
         }
 
         ForEach ($OSDirectory in $Node.OSDirectories) {
-            [string]$Ensure    = ""
+            [string]$Ensure    = "Present" # default value
             [string]$OSVersion = ""
             $OSDirectory.GetEnumerator() | % {
                 If ($_.key -eq "Ensure")          { $Ensure    = $_.value }
@@ -116,7 +113,6 @@
 
         # Task Sequence folder for autobuild
         cMDTBuildDirectory "TSREF" {
-            Ensure      = "Present"
             Name        = "REF"
             Path        = "$($Node.PSDriveName):\Task Sequences"
             PSDriveName = $Node.PSDriveName
@@ -125,7 +121,7 @@
         }
 
         ForEach ($PkgFolder in $Node.PackagesFolderStructure) {
-            [string]$Ensure = ""
+            [string]$Ensure = "Present" # default value
             [string]$Folder = ""
             $PkgFolder.GetEnumerator() | % {
                 If ($_.key -eq "Ensure") { $Ensure = $_.value }
@@ -143,7 +139,7 @@
         }
 
         ForEach ($CurrentApplicationFolder in $Node.ApplicationFolderStructure) {
-            [string]$EnsureApplicationFolder = ""
+            [string]$EnsureApplicationFolder = "Present" # default value
             [string]$ApplicationFolder       = ""
             $CurrentApplicationFolder.GetEnumerator() | % {
                 If ($_.key -eq "Ensure") { $EnsureApplicationFolder = $_.value }
@@ -160,7 +156,7 @@
             }
 
             ForEach ($CurrentApplicationSubFolder in $CurrentApplicationFolder.SubFolders) {
-                [string]$EnsureApplicationSubFolder = ""
+                [string]$EnsureApplicationSubFolder = "Present" # default value
                 [string]$ApplicationSubFolder       = ""
                 $CurrentApplicationSubFolder.GetEnumerator() | % {
                     If ($_.key -eq "Ensure")    { $EnsureApplicationSubFolder = $_.value }
@@ -179,7 +175,7 @@
         }
 
         ForEach ($SelectionProfile in $Node.SelectionProfiles) {
-            [string]$Ensure      = ""
+            [string]$Ensure      = "Present" # default value
             [string]$Name        = ""
             [string]$Comments    = ""
             [string]$IncludePath = ""
@@ -202,7 +198,7 @@
         }
 
         ForEach ($OperatingSystem in $Node.OperatingSystems) {
-            [string]$Ensure     = ""
+            [string]$Ensure     = "Present" # default value
             [string]$Name       = ""
             [string]$Path       = ""
             [string]$SourcePath = ""
@@ -226,7 +222,7 @@
         }
 
         ForEach ($Application in $Node.Applications) {
-            [string]$Ensure                = ""
+            [string]$Ensure                = "Present" # default value
             [string]$Name                  = ""
             [string]$Path                  = ""
             [string]$CommandLine           = ""
@@ -254,7 +250,7 @@
         }
 
         ForEach ($Package in $Node.Packages) {
-            [string]$Ensure            = ""
+            [string]$Ensure            = "Present" # default value
             [string]$Name              = ""
             [string]$Path              = ""
             [string]$PackageSourcePath = ""
@@ -278,7 +274,7 @@
         }
 
         ForEach ($TaskSequence in $Node.TaskSequences) {
-            [string]$Ensure   = ""
+            [string]$Ensure   = "Present" # default value
             [string]$Name     = ""
             [string]$Path     = ""
             [string]$OSName   = ""
@@ -374,7 +370,7 @@
         }
 
         ForEach ($CustomSetting in $Node.CustomSettings) {
-            [string]$Ensure      = ""
+            [string]$Ensure      = "Present" # default value
             [string]$Name        = ""
             [string]$SourcePath  = ""
             [string[]]$TestFiles = ""
@@ -397,7 +393,7 @@
         }
 
         ForEach ($IniFile in $Node.CustomizeIniFiles) {
-            [string]$Ensure         = ""
+            [string]$Ensure         = "Present" # default value
             [string]$Name           = ""
             [string]$Path           = ""
             [string]$Company        = ""
