@@ -885,21 +885,21 @@ class cMDTBuildTaskSequenceCustomize
         # $AddGroup  - Group to add
         # $Step      - Step (or Group) to add
         # $AfterStep - Insert after this step (may be null)
-        $group = $TS.sequence.group | ?{$_.Name -eq $this.GroupName}
+        $group = $TS.sequence.group | Where-Object {$_.Name -eq $this.GroupName}
         if ($this.Type -eq "Group") {
-            $step = $group.group | ?{$_.Name -eq $this.Name}
+            $step = $group.group | Where-Object {$_.Name -eq $this.Name}
         }
         else {
-            $step = $group.step | ?{$_.Name -eq $this.Name}
+            $step = $group.step | Where-Object {$_.Name -eq $this.Name}
         }
 
         if ($this.SubGroup) {
-            $AddGroup = $group.group | ?{$_.name -eq $this.SubGroup}
-            $AfterStep = $addGroup.step | ?{$_.Name -eq $this.AddAfter}
+            $AddGroup = $group.group | Where-Object {$_.name -eq $this.SubGroup}
+            $AfterStep = $addGroup.step | Where-Object {$_.Name -eq $this.AddAfter}
         }
         else {
             $addGroup = $group
-            $AfterStep = $group.step | ?{$_.Name -eq $this.AddAfter}
+            $AfterStep = $group.step | Where-Object {$_.Name -eq $this.AddAfter}
         }
 
         if ($step) {
@@ -976,12 +976,12 @@ class cMDTBuildTaskSequenceCustomize
         $TS = $this.LoadTaskSequence()
         $present = $false
 
-        $group = $TS.sequence.group | ?{$_.Name -eq $this.GroupName}
+        $group = $TS.sequence.group | Where-Object {$_.Name -eq $this.GroupName}
         if ($this.Type -eq "Group") {
-            $step = $group.group | ?{$_.Name -eq $this.Name}
+            $step = $group.group | Where-Object {$_.Name -eq $this.Name}
         }
         else {
-            $step = $group.step | ?{$_.Name -eq $this.Name}
+            $step = $group.step | Where-Object {$_.Name -eq $this.Name}
         }
 
         if (!$this.AddAfter) {
@@ -996,24 +996,24 @@ class cMDTBuildTaskSequenceCustomize
             else {
                 if ($this.NewName -ne "") {
                     # For rename "Custom Tasks" group only
-                    $present = ( ($group.group | ?{$_.Name -eq $this.NewName}) )
+                    $present = ( ($group.group | Where-Object {$_.Name -eq $this.NewName}) )
                 }
                 elseif ($this.SubGroup) {
-                    $addGroup = $group.group | ?{$_.name -eq $this.SubGroup}
-                    $present = ( ($addGroup.step | ?{$_.Name -eq $this.Name}) )
+                    $addGroup = $group.group | Where-Object {$_.name -eq $this.SubGroup}
+                    $present = ( ($addGroup.step | Where-Object {$_.Name -eq $this.Name}) )
                 }
             }
         }
         else {
             if ($this.Type -eq "Group") {
-                $present = ( ($group.group | ?{$_.Name -eq $this.Name}) )
+                $present = ( ($group.group | Where-Object {$_.Name -eq $this.Name}) )
             }
             else {
                 $AddGroup = $group
                 if ($this.SubGroup) {
-                    $AddGroup = $group.group | ?{$_.name -eq $this.SubGroup}
+                    $AddGroup = $group.group | Where-Object {$_.name -eq $this.SubGroup}
                 }
-                $present = ( ($addGroup.step | ?{$_.Name -eq $this.Name}) )
+                $present = ( ($addGroup.step | Where-Object {$_.Name -eq $this.Name}) )
             }
         }
 
@@ -1115,7 +1115,7 @@ class cMDTBuildTaskSequenceCustomize
         # Get Application GUID
         Import-MicrosoftDeploymentToolkitModule
         New-PSDrive -Name $this.PSDriveName -PSProvider "MDTProvider" -Root $this.PSDrivePath -Verbose:$false | Out-Null
-        $App = Get-ChildItem -Path "$($this.PSDriveName):\Applications" -Recurse | ?{ $_.Name -eq  $this.Name }
+        $App = Get-ChildItem -Path "$($this.PSDriveName):\Applications" -Recurse | Where-Object { $_.Name -eq  $this.Name }
 
         $varName.AppendChild($TS.CreateTextNode($($App.guid))) | Out-Null
         $varList.AppendChild($varName) | Out-Null
