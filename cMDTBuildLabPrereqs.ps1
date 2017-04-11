@@ -14,16 +14,16 @@
         File   = "adksetup.exe"
     }
     @{
-        # Silverlight 5 x64 (Build: 5.1.50905.0)
+        # Silverlight 5 x64 (Build: 5.1.50906.0)
         Name   = "Silverlight_x64"
-        URI    = "http://download.microsoft.com/download/8/6/A/86AC5F63-A0C9-4868-8CC5-C653B189E4B6/50905.00/Silverlight_x64.exe"
+        URI    = "https://download.microsoft.com/download/3/F/5/3F5B3DEC-A698-4B6A-8BB9-A1A554EA103C/50906.00/Silverlight_x64.exe"
         Folder = "Silverlight_x64"
         File   = "Silverlight_x64.exe"
     }
     @{
-        # Silverlight 5 x86 (Build: 5.1.50905.0)
+        # Silverlight 5 x86 (Build: 5.1.50906.0)
         Name   = "Silverlight_x86"
-        URI    = "http://download.microsoft.com/download/8/6/A/86AC5F63-A0C9-4868-8CC5-C653B189E4B6/50905.00/Silverlight.exe"
+        URI    = "https://download.microsoft.com/download/3/F/5/3F5B3DEC-A698-4B6A-8BB9-A1A554EA103C/50906.00/Silverlight.exe"
         Folder = "Silverlight_x86"
         File   = "Silverlight.exe"
     }
