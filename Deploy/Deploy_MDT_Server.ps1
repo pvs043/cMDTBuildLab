@@ -85,15 +85,12 @@
         }
 
         ForEach ($OSDirectory in $Node.OSDirectories) {
-            [string]$Ensure    = "Present" # default value
             [string]$OSVersion = ""
             $OSDirectory.GetEnumerator() | % {
-                If ($_.key -eq "Ensure")          { $Ensure    = $_.value }
                 If ($_.key -eq "OperatingSystem") { $OSVersion = $_.value }
             }
 
             cMDTBuildDirectory $OSVersion.Replace(' ','') {
-                Ensure      = $Ensure
                 Name        = $OSVersion
                 Path        = "$($Node.PSDriveName):\Operating Systems"
                 PSDriveName = $Node.PSDriveName
@@ -102,7 +99,6 @@
             }
 
             cMDTBuildDirectory "TS$($OSVersion.Replace(' ',''))" {
-                Ensure      = $Ensure
                 Name        = $OSVersion
                 Path        = "$($Node.PSDriveName):\Task Sequences"
                 PSDriveName = $Node.PSDriveName
@@ -121,15 +117,12 @@
         }
 
         ForEach ($PkgFolder in $Node.PackagesFolderStructure) {
-            [string]$Ensure = "Present" # default value
             [string]$Folder = ""
             $PkgFolder.GetEnumerator() | % {
-                If ($_.key -eq "Ensure") { $Ensure = $_.value }
                 If ($_.key -eq "Folder") { $Folder = $_.value }
             }
 
             cMDTBuildDirectory "PKG$($Folder.Replace(' ',''))" {
-                Ensure      = $Ensure
                 Name        = $Folder
                 Path        = "$($Node.PSDriveName):\Packages"
                 PSDriveName = $Node.PSDriveName
@@ -139,15 +132,12 @@
         }
 
         ForEach ($CurrentApplicationFolder in $Node.ApplicationFolderStructure) {
-            [string]$EnsureApplicationFolder = "Present" # default value
-            [string]$ApplicationFolder       = ""
+            [string]$ApplicationFolder = ""
             $CurrentApplicationFolder.GetEnumerator() | % {
-                If ($_.key -eq "Ensure") { $EnsureApplicationFolder = $_.value }
                 If ($_.key -eq "Folder") { $ApplicationFolder       = $_.value }
             }
 
             cMDTBuildDirectory "AF$($ApplicationFolder.Replace(' ',''))" {
-                Ensure      = $EnsureApplicationFolder
                 Name        = $ApplicationFolder
                 Path        = "$($Node.PSDriveName):\Applications"
                 PSDriveName = $Node.PSDriveName
@@ -156,15 +146,12 @@
             }
 
             ForEach ($CurrentApplicationSubFolder in $CurrentApplicationFolder.SubFolders) {
-                [string]$EnsureApplicationSubFolder = "Present" # default value
-                [string]$ApplicationSubFolder       = ""
+                [string]$ApplicationSubFolder = ""
                 $CurrentApplicationSubFolder.GetEnumerator() | % {
-                    If ($_.key -eq "Ensure")    { $EnsureApplicationSubFolder = $_.value }
                     If ($_.key -eq "SubFolder") { $ApplicationSubFolder       = $_.value }
                 }
 
                 cMDTBuildDirectory "ASF$($ApplicationSubFolder.Replace(' ',''))" {
-                    Ensure      = $EnsureApplicationSubFolder
                     Name        = $ApplicationSubFolder
                     Path        = "$($Node.PSDriveName):\Applications\$ApplicationFolder"
                     PSDriveName = $Node.PSDriveName
@@ -175,19 +162,16 @@
         }
 
         ForEach ($SelectionProfile in $Node.SelectionProfiles) {
-            [string]$Ensure      = "Present" # default value
             [string]$Name        = ""
             [string]$Comments    = ""
             [string]$IncludePath = ""
             $SelectionProfile.GetEnumerator() | % {
-                If ($_.key -eq "Ensure")      { $Ensure      = $_.value }
                 If ($_.key -eq "Name")        { $Name        = $_.value }
                 If ($_.key -eq "Comments")    { $Comments    = $_.value }
                 If ($_.key -eq "IncludePath") { $IncludePath = $_.value }
             }
 
             cMDTBuildSelectionProfile $Name.Replace(' ','') {
-                Ensure      = $Ensure
                 Name        = $Name
                 Comments    = $Comments
                 IncludePath = $IncludePath
@@ -198,20 +182,17 @@
         }
 
         ForEach ($OperatingSystem in $Node.OperatingSystems) {
-            [string]$Ensure     = "Present" # default value
             [string]$Name       = ""
             [string]$Path       = ""
             [string]$SourcePath = ""
 
             $OperatingSystem.GetEnumerator() | % {
-                If ($_.key -eq "Ensure")     { $Ensure     = $_.value }
                 If ($_.key -eq "Name")       { $Name       = $_.value }
                 If ($_.key -eq "Path")       { $Path       = "$($Node.PSDriveName):\Operating Systems\$($_.value)" }
                 If ($_.key -eq "SourcePath") { $SourcePath = "$($Node.SourcePath)$($_.value)" }
             }
 
             cMDTBuildOperatingSystem $Name.Replace(' ','') {
-                Ensure      = $Ensure
                 Name        = $Name
                 Path        = $Path
                 SourcePath  = $SourcePath
@@ -222,14 +203,12 @@
         }
 
         ForEach ($Application in $Node.Applications) {
-            [string]$Ensure                = "Present" # default value
             [string]$Name                  = ""
             [string]$Path                  = ""
             [string]$CommandLine           = ""
             [string]$ApplicationSourcePath = ""
 
             $Application.GetEnumerator() | % {
-                If ($_.key -eq "Ensure")                { $Ensure                = $_.value }
                 If ($_.key -eq "Name")                  { $Name                  = $_.value }
                 If ($_.key -eq "Path")                  { $Path                  = "$($Node.PSDriveName):$($_.value)" }
                 If ($_.key -eq "CommandLine")           { $CommandLine           = $_.value }
@@ -237,7 +216,6 @@
             }
 
             cMDTBuildApplication $Name.Replace(' ','') {
-                Ensure                = $Ensure
                 Name                  = $Name
                 Path                  = $Path
                 CommandLine           = $CommandLine
@@ -250,20 +228,17 @@
         }
 
         ForEach ($Package in $Node.Packages) {
-            [string]$Ensure            = "Present" # default value
             [string]$Name              = ""
             [string]$Path              = ""
             [string]$PackageSourcePath = ""
 
             $Package.GetEnumerator() | % {
-                If ($_.key -eq "Ensure")            { $Ensure            = $_.value }
                 If ($_.key -eq "Name")              { $Name              = $_.value }
                 If ($_.key -eq "Path")              { $Path              = "$($Node.PSDriveName):$($_.value)" }
                 If ($_.key -eq "PackageSourcePath") { $PackageSourcePath = "$($Node.SourcePath)\$($_.value)" }
             }
 
             cMDTBuildPackage $Name.Replace(' ','') {
-                Ensure            = $Ensure
                 Name              = $Name
                 Path              = $Path
                 PackageSourcePath = $PackageSourcePath
@@ -274,7 +249,6 @@
         }
 
         ForEach ($TaskSequence in $Node.TaskSequences) {
-            [string]$Ensure   = "Present" # default value
             [string]$Name     = ""
             [string]$Path     = ""
             [string]$OSName   = ""
@@ -283,7 +257,6 @@
             [string]$OrgName  = ""
 
             $TaskSequence.GetEnumerator() | % {
-                If ($_.key -eq "Ensure")   { $Ensure   = $_.value }
                 If ($_.key -eq "Name")     { $Name     = $_.value }
                 If ($_.key -eq "Path")     { $Path     = "$($Node.PSDriveName):\Task Sequences\$($_.value)" }
                 If ($_.key -eq "OSName")   { $OSName   = "$($Node.PSDriveName):\Operating Systems\$($_.value)" }
@@ -294,7 +267,6 @@
 
             # Create Task Sequence for one OS image
             cMDTBuildTaskSequence $Name.Replace(' ','') {
-                Ensure      = $Ensure
                 Name        = $Name
                 Path        = $Path
                 OSName      = $OSName
@@ -370,20 +342,17 @@
         }
 
         ForEach ($CustomSetting in $Node.CustomSettings) {
-            [string]$Ensure      = "Present" # default value
             [string]$Name        = ""
             [string]$SourcePath  = ""
             [string[]]$TestFiles = ""
 
             $CustomSetting.GetEnumerator() | % {
-                If ($_.key -eq "Ensure")     { $Ensure     = $_.value }
                 If ($_.key -eq "Name")       { $Name       = $_.value }
                 If ($_.key -eq "SourcePath") { $SourcePath = "$($Node.SourcePath)\$($_.value)" }
                 If ($_.key -eq "TestFiles")  { $TestFiles  = $_.value }
             }
 
             cMDTBuildCustomize $Name.Replace(' ','') {
-                Ensure       = $Ensure
                 Name         = $Name
                 SourcePath   = $SourcePath
                 Path         = $Node.PSDrivePath
@@ -393,7 +362,6 @@
         }
 
         ForEach ($IniFile in $Node.CustomizeIniFiles) {
-            [string]$Ensure         = "Present" # default value
             [string]$Name           = ""
             [string]$Path           = ""
             [string]$Company        = ""
@@ -403,7 +371,6 @@
             [string]$KeyboardLocale = ""
 
             $IniFile.GetEnumerator() | % {
-                If ($_.key -eq "Ensure")         { $Ensure         = $_.value }
                 If ($_.key -eq "Name")           { $Name           = $_.value }
                 If ($_.key -eq "Path")           { $Path           = "$($Node.PSDrivePath)$($_.value)" }                                                
                 If ($_.key -eq "Company")        { $Company        = $_.value }
@@ -421,7 +388,6 @@
 
             If ($Name -eq "CustomSettingsIni") {
                 cMDTBuildCustomSettingsIni ini {
-                    Ensure    = $Ensure
                     Path      = $Path
                     DependsOn = "[cMDTBuildDirectory]DeploymentFolder"
                     Content   = @"
@@ -488,7 +454,6 @@ SkipCapture=NO
 
             If ($Name -eq "BootstrapIni") {
                 cMDTBuildBootstrapIni ini {
-                    Ensure    = $Ensure
                     Path      = $Path
                     DependsOn = "[cMDTBuildDirectory]DeploymentFolder"
                     Content   = @"
