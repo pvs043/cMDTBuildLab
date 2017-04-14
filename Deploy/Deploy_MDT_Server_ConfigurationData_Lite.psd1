@@ -27,45 +27,28 @@
 
             #Operating system MDT directory information
             OSDirectories   = @(
-                @{  
-                    Ensure = "Present"
-                    OperatingSystem = "Windows 10"
-                }
+                @{ OperatingSystem = "Windows 10" }
             )
 
             #MDT Application Folder Structure
             ApplicationFolderStructure = @(
                 @{  
-                    Ensure     = "Present"
                     Folder     = "Core"
                     SubFolders = @(
-                        @{
-                            Ensure    = "Present"
-                            SubFolder = "Configure"
-                        }
-                        @{
-                            Ensure    = "Present"
-                            SubFolder = "Microsoft"
-                        }
+                        @{ SubFolder = "Configure" }
+                        @{ SubFolder = "Microsoft" }
                     )
                 }
-                @{  
-                    Ensure = "Present"
-                    Folder = "Common Applications"
-                }
+                @{ Folder = "Common Applications" }
             )
 
             PackagesFolderStructure = @(
-                @{
-                    Ensure = "Present"
-                    Folder = "Windows 10 x86"
-                }
+                @{ Folder = "Windows 10 x86" }
             )
 
             #Operating systems to import to MDT
             OperatingSystems   = @(
                 @{
-                    Ensure     = "Present"
                     Name       = "Windows 10 x86"
                     Path       = "Windows 10"
                     SourcePath = "$SourcePath\Windows10x86"
@@ -75,35 +58,30 @@
             #Applications to import
             Applications   = @(
                 @{
-                    Ensure                = "Present"
                     Name                  = "Install - Microsoft Visual C++"
                     Path                  = "\Applications\Core\Microsoft"
                     CommandLine           = "cscript.exe Install-MicrosoftVisualCx86x64.wsf"
                     ApplicationSourcePath = "VC++"
                 }
                 @{
-                    Ensure                = "Present"
                     Name                  = "Install - Microsoft Silverlight - x86"
                     Path                  = "\Applications\Core\Microsoft"
                     CommandLine           = "Silverlight.exe /Q"
                     ApplicationSourcePath = "Silverlight_x86"
                 }
                 @{
-                    Ensure                = "Present"
                     Name                  = "Configure - Set Control+Shift Keyboard Toggle"
                     Path                  = "\Applications\Core\Configure"
                     CommandLine           = "reg import Toggle.reg"
                     ApplicationSourcePath = "KeyboardToggle"
                 }
                 @{
-                    Ensure                = "Present"
                     Name                  = "Action - CleanupBeforeSysprep"
                     Path                  = "\Applications\Core\Configure"
                     CommandLine           = "cscript.exe Action-CleanupBeforeSysprep.wsf"
                     ApplicationSourcePath = "CleanupBeforeSysprep"
                 }
                 @{
-                    Ensure                = "Present"
                     Name                  = "Configure - Set Start Layout"
                     Path                  = "\Applications\Core\Configure"
                     CommandLine           = "powershell.exe -ExecutionPolicy Bypass -File .\Customize-DefaultProfile.ps1"
@@ -111,30 +89,9 @@
                 }
             )
 
-            #Packages
-            Packages = @(
-<### Not needed for Windows 10 Version 1607 and Windows Server 2016 latest ISO (November 2016)
-                # Servicing stack update for Windows 10 Version 1607 x86
-                @{
-                    Ensure            = "Present"
-                    Name              = "Package_for_KB3211320 neutral x86 10.0.1.1"
-                    Path              = "\Packages\Windows 10 x86"
-                    PackageSourcePath = "KB3211320-x86"
-                }
-                # Cumulative update for Windows 10 Version 1607 x86
-                @{
-                    Ensure            = "Present"
-                    Name              = "Package_for_RollupFix neutral x86 14393.693.1.1"
-                    Path              = "\Packages\Windows 10 x86"
-                    PackageSourcePath = "KB3213986-x86"
-                }
-#>
-            )
-
             #Selection profile creation
             SelectionProfiles  = @(
                 @{
-                    Ensure      = "Present"
                     Name        = "Windows 10 x86"
                     Comments    = "Packages for Windows 10 x86"
                     IncludePath = "Packages\Windows 10 x86"
@@ -144,7 +101,6 @@
             #Task sqeuences; are dependent on imported Operating system and Applications in MDT
             TaskSequences   = @(
                 @{
-                    Ensure   = "Present"
                     Name     = "Windows 10 x86"
                     Path     = "Windows 10"
                     OSName   = "Windows 10\Windows 10 Enterprise Evaluation in Windows 10 x86 install.wim"
@@ -271,7 +227,6 @@
             #Custom folder/files to add to the MDT
             CustomSettings   = @(
                 @{  
-                    Ensure     = "Present"
                     Name       = "Scripts"
                     SourcePath = "Scripts"
                     TestFiles  = @("RemoveApps.ps1",
@@ -284,7 +239,6 @@
             #Custom settings and boot ini file management
             CustomizeIniFiles  = @(
                 @{  
-                    Ensure         = "Present"
                     Name           = "CustomSettingsIni"
                     Path           = "\Control\CustomSettings.ini"
                     Company        = "Build Lab"
@@ -294,7 +248,6 @@
                     KeyboardLocale = "en-US;ru-RU"
                 }
                 @{  
-                    Ensure         = "Present"
                     Name           = "BootstrapIni"
                     Path           = "\Control\Bootstrap.ini"
                 }
