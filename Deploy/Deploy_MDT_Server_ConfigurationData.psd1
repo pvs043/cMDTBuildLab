@@ -97,42 +97,42 @@
                 @{
                     Name       = "Windows 7 x86"
                     Path       = "Windows 7"
-                    SourcePath = "$SourcePath\Windows7x86"
+                    SourcePath = "Windows7x86"
                 }
                 @{
                     Name       = "Windows 7 x64"
                     Path       = "Windows 7"
-                    SourcePath = "$SourcePath\Windows7x64"
+                    SourcePath = "Windows7x64"
                 }
                 @{
                     Name       = "Windows 8.1 x86"
                     Path       = "Windows 8.1"
-                    SourcePath = "$SourcePath\Windows81x86"
+                    SourcePath = "Windows81x86"
                 }
                 @{
                     Name       = "Windows 8.1 x64"
                     Path       = "Windows 8.1"
-                    SourcePath = "$SourcePath\Windows81x64"
+                    SourcePath = "Windows81x64"
                 }
                 @{
                     Name       = "Windows 10 x86"
                     Path       = "Windows 10"
-                    SourcePath = "$SourcePath\Windows10x86"
+                    SourcePath = "Windows10x86"
                 }
                 @{
                     Name       = "Windows 10 x64"
                     Path       = "Windows 10"
-                    SourcePath = "$SourcePath\Windows10x64"
+                    SourcePath = "Windows10x64"
                 }
                 @{
                     Name       = "Windows 2012 R2"
                     Path       = "Windows 2012 R2"
-                    SourcePath = "$SourcePath\Windows2012R2"
+                    SourcePath = "Windows2012R2"
                 }
                 @{
                     Name       = "Windows 2016"
                     Path       = "Windows 2016"
-                    SourcePath = "$SourcePath\Windows2016"
+                    SourcePath = "Windows2016"
                 }
             )
 

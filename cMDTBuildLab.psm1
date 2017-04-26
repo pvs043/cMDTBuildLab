@@ -565,7 +565,7 @@ class cMDTBuildPreReqs
     [void] Set()
     {
         Write-Verbose "Starting Set MDT PreReqs..."
-        $DownloadFiles = Invoke-Expression (Get-Content -Path "$($PSScriptRoot)\cMDTBuildLabPrereqs.ps1" -Raw)
+        [hashtable]$DownloadFiles = Get-ConfigurationData -ConfigurationData "$($PSScriptRoot)\cMDTBuildLabPrereqs.ps1"
 
         if ($this.ensure -eq [Ensure]::Present) {
             $present = $this.TestDownloadPath()
@@ -577,7 +577,7 @@ class cMDTBuildPreReqs
             }
 
             #Set all files:               
-            ForEach ($file in $downloadFiles) {
+            ForEach ($file in $downloadFiles.Prereqs) {
                 if (Test-Path -Path "$($this.DownloadPath)\$($file.Folder)\$($file.File)") {
                     Write-Verbose "   $($file.Name) already present!"
                 }
@@ -616,7 +616,7 @@ class cMDTBuildPreReqs
     {
         Write-Verbose "Testing MDT PreReqs..."
         $present = $this.TestDownloadPath()
-        $DownloadFiles = Invoke-Expression (Get-Content -Path "$($PSScriptRoot)\cMDTBuildLabPrereqs.ps1" -Raw)
+        [hashtable]$DownloadFiles = Get-ConfigurationData -ConfigurationData "$($PSScriptRoot)\cMDTBuildLabPrereqs.ps1"
 
         if ($this.ensure -eq [Ensure]::Present) {            
             Write-Verbose "   Testing for download path.."            
@@ -628,7 +628,7 @@ class cMDTBuildPreReqs
                 return $false
             }
 
-            ForEach ($File in $downloadFiles) {
+            ForEach ($File in $downloadFiles.Prereqs) {
                  Write-Verbose "   Testing for $($File.Name)..."
                  $present = (Test-Path -Path "$($this.DownloadPath)\$($File.Folder)\$($File.File)")
                  Write-Verbose "   $present"
@@ -1397,4 +1397,16 @@ Function Invoke-TestPath
         }
     }
     return $present
+}
+
+Function Get-ConfigurationData
+{
+    [CmdletBinding()]
+    [OutputType([hashtable])]
+    Param (
+        [Parameter(Mandatory)]
+        [Microsoft.PowerShell.DesiredStateConfiguration.ArgumentToConfigurationDataTransformation()]
+        [hashtable] $ConfigurationData    
+    )
+    return $ConfigurationData
 }

@@ -189,7 +189,7 @@
             $OperatingSystem.GetEnumerator() | % {
                 If ($_.key -eq "Name")       { $Name       = $_.value }
                 If ($_.key -eq "Path")       { $Path       = "$($Node.PSDriveName):\Operating Systems\$($_.value)" }
-                If ($_.key -eq "SourcePath") { $SourcePath = "$($Node.SourcePath)$($_.value)" }
+                If ($_.key -eq "SourcePath") { $SourcePath = "$($Node.SourcePath)\$($_.value)" }
             }
 
             cMDTBuildOperatingSystem $Name.Replace(' ','') {
@@ -533,8 +533,8 @@ UserDomain=$($Node.NodeName)
 $Cred = Get-Credential -UserName SVCMDTConnect001 -Message "Enter password for Local MDT Account"
 
 #Get configuration data
-#$ConfigurationData = Invoke-Expression (Get-Content -Path "$PSScriptRoot\Deploy_MDT_Server_ConfigurationData_Lite.psd1" -Raw) # Only Windows 10 x86 Evaluation
-$ConfigurationData = Invoke-Expression (Get-Content -Path "$PSScriptRoot\Deploy_MDT_Server_ConfigurationData.psd1" -Raw)       # Full
+#[hashtable]$ConfigurationData = Get-ConfigurationData -ConfigurationData "$PSScriptRoot\Deploy_MDT_Server_ConfigurationData_Lite.psd1" # Only Windows 10 x86 Evaluation
+[hashtable]$ConfigurationData = Get-ConfigurationData -ConfigurationData "$PSScriptRoot\Deploy_MDT_Server_ConfigurationData.psd1"
 
 #Create DSC MOF job
 DeployMDTServerContract -OutputPath "$PSScriptRoot\MDT-Deploy_MDT_Server" -ConfigurationData $ConfigurationData -Credentials $Cred
