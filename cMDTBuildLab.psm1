@@ -565,7 +565,7 @@ class cMDTBuildPreReqs
     [void] Set()
     {
         Write-Verbose "Starting Set MDT PreReqs..."
-        [hashtable]$DownloadFiles = Get-ConfigurationData -ConfigurationData "$($PSScriptRoot)\cMDTBuildLabPrereqs.ps1"
+        [hashtable]$DownloadFiles = Get-ConfigurationData -ConfigurationData "$($PSScriptRoot)\cMDTBuildLabPrereqs.psd1"
 
         if ($this.ensure -eq [Ensure]::Present) {
             $present = $this.TestDownloadPath()
@@ -616,7 +616,7 @@ class cMDTBuildPreReqs
     {
         Write-Verbose "Testing MDT PreReqs..."
         $present = $this.TestDownloadPath()
-        [hashtable]$DownloadFiles = Get-ConfigurationData -ConfigurationData "$($PSScriptRoot)\cMDTBuildLabPrereqs.ps1"
+        [hashtable]$DownloadFiles = Get-ConfigurationData -ConfigurationData "$($PSScriptRoot)\cMDTBuildLabPrereqs.psd1"
 
         if ($this.ensure -eq [Ensure]::Present) {            
             Write-Verbose "   Testing for download path.."            
