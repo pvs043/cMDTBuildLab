@@ -51,7 +51,7 @@
                 @{
                     Name       = "Windows 10 x86"
                     Path       = "Windows 10"
-                    SourcePath = "$SourcePath\Windows10x86"
+                    SourcePath = "Windows10x86"
                 }
             )
 
