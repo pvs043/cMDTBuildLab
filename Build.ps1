@@ -1,11 +1,11 @@
 $moduleName     = "cMDTBuildLab"
 $moduleGuid     = "df45de26-88b1-4a95-98af-b798fde1424f"
 $year           = (Get-Date).Year
-#$moduleVersion  = $env:APPVEYOR_BUILD_VERSION
 $moduleVersion  = "1.3.0"
+#$moduleVersion  = $env:APPVEYOR_BUILD_VERSION
 $releaseNotes  = "
-* Tested with Windows 10 Creators Update (Build 1703)
-* Fix warnings from PSScriptAnalyzer
+* Change importing for PSD1 files, Invoke-Expression removed.
+* [internal] re-organize source tree at GitHub
 "
 $allResources   = @( Get-ChildItem -Path $PSScriptRoot\src\DSCResources\*.psm1 -ErrorAction SilentlyContinue -Recurse | Sort-Object)
 $allFunctions   = @( Get-ChildItem -Path $PSScriptRoot\src\Public\*.ps1 -ErrorAction SilentlyContinue -Recurse | Sort-Object)
