@@ -64,7 +64,7 @@ RootModule = '$moduleName.psm1'
 
 DscResourcesToExport = @($dscResourcesToExport)
 
-FunctionsToExport  = @('Import-MicrosoftDeploymentToolkitModule','Invoke-ExpandArchive','Invoke-RemovePath','Invoke-TestPath','Get-ConfigurationData')
+FunctionsToExport  = @('Import-MDTModule','Invoke-ExpandArchive','Invoke-RemovePath','Invoke-TestPath','Get-ConfigurationData')
 
 # Version number of this module.
 ModuleVersion = '$moduleVersion'

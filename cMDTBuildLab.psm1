@@ -63,7 +63,7 @@ class cMDTBuildApplication
 
     [void] ImportApplication()
     {
-        Import-MicrosoftDeploymentToolkitModule
+        Import-MDTModule
         New-PSDrive -Name $this.PSDriveName -PSProvider "MDTProvider" -Root $this.PSDrivePath -Verbose:$false
         Import-MDTApplication -Path $this.Path -Enable $this.Enabled -Name $this.Name -ShortName $this.Name `
                               -CommandLine $this.CommandLine -WorkingDirectory ".\Applications\$($this.Name)" `
@@ -327,7 +327,7 @@ class cMDTBuildDirectory
     [void] CreateDirectory()
     {
         if (($this.PSDrivePath) -and ($this.PSDriveName)) {
-            Import-MicrosoftDeploymentToolkitModule
+            Import-MDTModule
             New-PSDrive -Name $this.PSDriveName -PSProvider "MDTProvider" -Root $this.PSDrivePath -Verbose:$false | `
                     New-Item -ItemType Directory -Path "$($this.path)\$($this.Name)" -Verbose
         }
@@ -386,7 +386,7 @@ class cMDTBuildOperatingSystem
 
     [void] ImportOperatingSystem($OperatingSystem)
     {
-        Import-MicrosoftDeploymentToolkitModule
+        Import-MDTModule
         New-PSDrive -Name $this.PSDriveName -PSProvider "MDTProvider" -Root $this.PSDrivePath -Verbose:$false
 
         Try {
@@ -467,7 +467,7 @@ class cMDTBuildPackage
                 [string]$Source
             )
             InlineScript {
-                Import-MicrosoftDeploymentToolkitModule
+                Import-MDTModule
                 New-PSDrive -Name $Using:PSDriveName -PSProvider "MDTProvider" -Root $Using:PSDrivePath -Verbose:$false
                 Import-MDTPackage -Path $Using:Path -SourcePath $Using:Source -Verbose
             }
@@ -523,7 +523,7 @@ class cMDTBuildPersistentDrive
     [bool] TestDirectoryPath()
     {
         $present = $false
-        Import-MicrosoftDeploymentToolkitModule
+        Import-MDTModule
         if (Test-Path -Path $this.Path -PathType Container -ErrorAction Ignore) {
             $mdtShares = (GET-MDTPersistentDrive -ErrorAction SilentlyContinue)
             If ($mdtShares) {
@@ -539,14 +539,14 @@ class cMDTBuildPersistentDrive
 
     [void] CreateDirectory()
     {
-        Import-MicrosoftDeploymentToolkitModule
+        Import-MDTModule
         New-PSDrive -Name $this.Name -PSProvider "MDTProvider" -Root $this.Path -Description $this.Description -NetworkPath $this.NetworkPath -Verbose:$false | `
         Add-MDTPersistentDrive -Verbose
     }
 
     [void] RemoveDirectory()
     {
-        Import-MicrosoftDeploymentToolkitModule
+        Import-MDTModule
         Write-Verbose -Message "Removing MDTPersistentDrive $($this.Name)"
         New-PSDrive -Name $this.Name -PSProvider "MDTProvider" -Root $this.Path -Description $this.Description -NetworkPath $this.NetworkPath -Verbose:$false | `
         Remove-MDTPersistentDrive -Verbose
@@ -727,7 +727,7 @@ class cMDTBuildSelectionProfile
 
     [void] ImportSelectionProfile()
     {
-        Import-MicrosoftDeploymentToolkitModule
+        Import-MDTModule
         New-PSDrive -Name $this.PSDriveName -PSProvider "MDTProvider" -Root $this.PSDrivePath -Verbose:$false
         New-Item -Path "$($this.PSDriveName):\Selection Profiles" -enable "True" -Name $this.Name -Comments $this.Comments -Definition "<SelectionProfile><Include path=`"$($this.IncludePath)`" /></SelectionProfile>" -ReadOnly "False" -Verbose
     }
@@ -792,7 +792,7 @@ class cMDTBuildTaskSequence
 
     [void] ImportTaskSequence()
     {
-        Import-MicrosoftDeploymentToolkitModule
+        Import-MDTModule
         New-PSDrive -Name $this.PSDriveName -PSProvider "MDTProvider" -Root $this.PSDrivePath -Verbose:$false
         Import-MDTTaskSequence -path $this.Path -Name $this.Name -Template $this.Template -Comments "Build Reference Image" -ID $this.ID -Version "1.0" -OperatingSystemPath $this.OSName -FullName "Windows User" -OrgName $this.OrgName -HomePage "about:blank" -Verbose
         # Disable Windows autoupdate
@@ -1113,7 +1113,7 @@ class cMDTBuildTaskSequenceCustomize
         $varName.SetAttribute("property", "ApplicationGUID")
 
         # Get Application GUID
-        Import-MicrosoftDeploymentToolkitModule
+        Import-MDTModule
         New-PSDrive -Name $this.PSDriveName -PSProvider "MDTProvider" -Root $this.PSDrivePath -Verbose:$false | Out-Null
         $App = Get-ChildItem -Path "$($this.PSDriveName):\Applications" -Recurse | Where-Object { $_.Name -eq  $this.Name }
 
@@ -1254,7 +1254,7 @@ class cMDTBuildUpdateBootImage
 
     [void] UpdateBootImage()
     {
-        Import-MicrosoftDeploymentToolkitModule
+        Import-MDTModule
         New-PSDrive -Name $this.PSDeploymentShare -PSProvider "MDTProvider" -Root $this.PSDrivePath -Verbose:$false
 
         If ([string]::IsNullOrEmpty($($this.ExtraDirectory))) {
@@ -1302,7 +1302,7 @@ class cMDTBuildUpdateBootImage
                 [string]$PSDrivePath
             )
             InlineScript {
-                Import-MicrosoftDeploymentToolkitModule
+                Import-MDTModule
                 New-PSDrive -Name $Using:PSDeploymentShare -PSProvider "MDTProvider" -Root $Using:PSDrivePath -Verbose:$false
                 Update-MDTDeploymentShare -Path "$($Using:PSDeploymentShare):" -Force:$true -Compress:$true
             }
@@ -1312,7 +1312,7 @@ class cMDTBuildUpdateBootImage
     }
 }
 
-Function Import-MicrosoftDeploymentToolkitModule
+Function Import-MDTModule
 {
     If ( -Not (Get-Module MicrosoftDeploymentToolkit) ) {
         Import-Module "$env:ProgramFiles\Microsoft Deployment Toolkit\Bin\MicrosoftDeploymentToolkit.psd1" -ErrorAction Stop -Global -Verbose:$False
@@ -1359,7 +1359,7 @@ Function Invoke-RemovePath
     Else { $Verbosity = $False }
 
     if (($PSDrivePath) -and ($PSDriveName)) {
-        Import-MicrosoftDeploymentToolkitModule
+        Import-MDTModule
         New-PSDrive -Name $PSDriveName -PSProvider "MDTProvider" -Root $PSDrivePath -Verbose:$False | `
         Remove-Item -Path "$($Path)" -Force -Verbose:$Verbosity
     }
@@ -1385,7 +1385,7 @@ Function Invoke-TestPath
     [bool]$present = $false
 
     if (($PSDrivePath) -and ($PSDriveName)) {
-        Import-MicrosoftDeploymentToolkitModule
+        Import-MDTModule
         if (New-PSDrive -Name $PSDriveName -PSProvider "MDTProvider" -Root $PSDrivePath -Verbose:$false | `
             Test-Path -Path "$($Path)" -ErrorAction Ignore) {
             $present = $true
