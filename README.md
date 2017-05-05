@@ -1,10 +1,10 @@
 # cMDTBuildLab
 
 cMDTBuildLab is a Powershell Module to help automize deployment Windows Reference Images on MDT Server with Desired State Configuration.<p>
-cMDTBuildLab is a fork from cMDT module (https://github.com/servicedudes/cmdt).
+cMDTBuildLab is a fork from [cMDT module](https://github.com/servicedudes/cmdt).
 
 ### Version
-1.2.0
+1.3.0
 
 See version history at [Project Site](https://github.com/pvs043/cMDTBuildLab/wiki/Version-History)
 
@@ -13,7 +13,7 @@ See version history at [Project Site](https://github.com/pvs043/cMDTBuildLab/wik
 Prerequisites for infrastructure:
 * Domain Controller: DC01 (Windows 2012 R2 or above)
 * Windows Update Server (WSUS): WU01 (Windows 2012 R2 or above)
-* Deployment server: MDT01 (Windows 2012 R2 + WMF 5.1 or Windows 2016)<br>
+* Deployment server: MDT01 (Windows 2016 or Windows 2012 R2 + WMF 5.1)<br>
     Disk C: - System<br>
     Disk E: - DATA<br>
     (Disk D: is used for Temp in Azure or Virtual DVD for on-premise deploy)
@@ -22,8 +22,8 @@ Prerequisites for infrastructure:
     Windows 7 with SP1 (April 2011)<br>
     Windows 8.1 (November 2014)<br>
     Windows 2012 R2 (November 2014)<br>
-    Windows 10 Version 1607 (November 2016)<br>
-    Windows 2016  (November 2016)
+    Windows 10 Version 1703 (March 2017)<br>
+    Windows 2016 (November 2016)
 
 This module is tested on Windows 2016 server, but it will be worked on Windows 10 or Windows 2012 R2/Windows 8.1 with Windows Management Framewework 5.1.
 
