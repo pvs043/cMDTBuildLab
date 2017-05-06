@@ -61,6 +61,7 @@ Foreach ($function in @($allFunctions)) {
 $dscResourcesToExport = $dscResourcesToExport.TrimEnd(",")
 $ManifestDefinition = @"
 @{
+
 # Script module or binary module file associated with this manifest.
 RootModule = '$moduleName.psm1'
 
