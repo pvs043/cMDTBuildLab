@@ -20,6 +20,8 @@ enum Ensure
     Present
     Absent
 }
+
+
 "@
 
 # Init module script
@@ -27,14 +29,13 @@ enum Ensure
 
 # Prepare DSC resources
 Foreach ($resource in @($allResources)) {
-    Write-Output "Resource: $resource"
+    Write-Output "Add Resource: $resource"
     Try {
         $resourceContent = Get-Content $resource -Raw -Encoding UTF8
         $combinedResources += $resourceContent.Substring($resourceContent.IndexOf("[DscResource()]"))
 
         if ($resourceContent -match 'class\s*(?<ClassName>\w*)[\r\t]') {
             foreach ($match in $Matches.ClassName) {
-                Write-Output "Matched DSCResource: $match"
                 [string]$dscResourcesToExport += "'$match',"
             }
         }
@@ -46,6 +47,7 @@ Foreach ($resource in @($allResources)) {
 
 # Prepare Functions
 Foreach ($function in @($allFunctions)) {
+    Write-Output "Add Function: $function"
     Try {
         $functionContent = Get-Content $function -Raw
         $combinedResources += $functionContent.Substring($functionContent.IndexOf("Function"))    
@@ -91,7 +93,7 @@ HelpInfoURI = 'https://github.com/pvs043/cMDTBuildLab/wiki'
 PowerShellVersion = '5.0'
 
 # Modules that must be imported into the global environment prior to importing this module
-RequiredModules = @('xSmbShare', 'cNtfsAccessControl')
+RequiredModules = @('xSmbShare','cNtfsAccessControl')
 
 # Private data to pass to the module specified in RootModule/ModuleToProcess. This may also contain a PSData hashtable with additional module metadata used by PowerShell.
 PrivateData = @{
@@ -99,7 +101,7 @@ PrivateData = @{
     PSData = @{
 
         # Tags applied to this module. These help with module discovery in online galleries.
-        Tags = @('DesiredStateConfiguration', 'DSC', 'DSCResource', 'MDT', 'MicrosoftDeploymentToolkit')
+        Tags = @('DesiredStateConfiguration', 'DSC', 'DSCResource', 'MDT', 'MicrosoftDeploymentToolkit', 'Deploy')
 
         # A URL to the license for this module.
         LicenseUri = 'https://github.com/pvs043/cMDTBuildLab/blob/master/LICENSE'
@@ -111,9 +113,7 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        ReleaseNotes = '
-$releaseNotes
-'
+        ReleaseNotes = '$releaseNotes'
     } # End of PSData hashtable
 
 } # End of PrivateData hashtable

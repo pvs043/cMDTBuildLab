@@ -109,3 +109,4 @@ class cMDTBuildUpdateBootImage
         Set-Content -Path "$($this.PSDrivePath)\Boot\CurrentBootImage.version" -Value "$($this.Version)"
     }
 }
+

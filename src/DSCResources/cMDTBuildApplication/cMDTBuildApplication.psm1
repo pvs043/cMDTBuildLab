@@ -70,3 +70,4 @@ class cMDTBuildApplication
                               -ApplicationSourcePath $this.ApplicationSourcePath -DestinationFolder $this.Name -Verbose
     }
 }
+

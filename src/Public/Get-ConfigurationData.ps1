@@ -1,3 +1,4 @@
+
 Function Get-ConfigurationData
 {
     [CmdletBinding()]
@@ -9,3 +10,4 @@ Function Get-ConfigurationData
     )
     return $ConfigurationData
 }
+

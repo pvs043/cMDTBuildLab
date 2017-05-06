@@ -1,3 +1,4 @@
+
 Function Invoke-RemovePath
 {
     [cmdletbinding(SupportsShouldProcess=$True,ConfirmImpact="Low")]
@@ -25,3 +26,4 @@ Function Invoke-RemovePath
         Remove-Item -Path "$($Path)" -Force -Verbose:$Verbosity
     }
 }
+

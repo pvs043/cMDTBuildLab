@@ -71,3 +71,4 @@ Priority=Default
         Set-Content -Path $this.Path -Value $defaultContent -NoNewline -Force #-Encoding UTF8 
     }
 }
+

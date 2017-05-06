@@ -58,3 +58,4 @@ class cMDTBuildSelectionProfile
         New-Item -Path "$($this.PSDriveName):\Selection Profiles" -enable "True" -Name $this.Name -Comments $this.Comments -Definition "<SelectionProfile><Include path=`"$($this.IncludePath)`" /></SelectionProfile>" -ReadOnly "False" -Verbose
     }
 }
+

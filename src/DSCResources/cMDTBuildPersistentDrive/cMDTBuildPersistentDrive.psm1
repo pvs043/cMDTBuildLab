@@ -80,3 +80,4 @@ class cMDTBuildPersistentDrive
         Remove-MDTPersistentDrive -Verbose
     }
 }
+
