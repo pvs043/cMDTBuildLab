@@ -2,7 +2,6 @@ $moduleName     = "cMDTBuildLab"
 $moduleGuid     = "df45de26-88b1-4a95-98af-b798fde1424f"
 $year           = (Get-Date).Year
 $moduleVersion  = "1.3.0"
-#$moduleVersion  = $env:APPVEYOR_BUILD_VERSION
 $releaseNotes  = "
 * Change importing for PSD1 files, Invoke-Expression removed.
 * [internal] re-organize source tree at GitHub
@@ -137,5 +136,6 @@ Copy-Item   -Path "$PSScriptRoot\src\cMDTBuildLabPrereqs.psd1" -Destination "$Bu
 Copy-Item -Path "$PSScriptRoot\src\Deploy"   -Destination "$BuildDir\$moduleName\$moduleVersion\Deploy" -Recurse -Force
 Copy-Item -Path "$PSScriptRoot\src\Examples" -Destination "$BuildDir\$moduleName\$moduleVersion\Examples" -Recurse -Force
 Copy-Item -Path "$PSScriptRoot\src\Sources"  -Destination "$BuildDir\$moduleName\$moduleVersion\Sources" -Recurse -Force
+Copy-Item -Path "$PSScriptRoot\src\Tests"    -Destination "$BuildDir\$moduleName\$moduleVersion\Tests" -Recurse -Force
 Copy-Item -Path "$PSScriptRoot\README.md"    -Destination "$BuildDir\$moduleName\$moduleVersion\Readme.md" -Force
 Copy-Item -Path "$PSScriptRoot\LICENSE"      -Destination "$BuildDir\$moduleName\$moduleVersion\LICENSE" -Force
