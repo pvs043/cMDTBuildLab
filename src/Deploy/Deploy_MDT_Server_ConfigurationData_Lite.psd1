@@ -164,11 +164,19 @@
                             OSFeatures = "NetFx3,TelnetClient"
                         }
                         @{
+                            Name       = "Configure - Disable SMB 1.0"
+                            Type       = "Run Command Line"
+                            GroupName  = "State Restore"
+                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
+                            Command    = 'powershell.exe -Command "Disable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol"'
+                            AddAfter   = "Install - Microsoft NET Framework 3.5.1"
+                        }
+                        @{
                             Name       = "Install - Microsoft Visual C++"
                             Type       = "Install Application"
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            AddAfter   = "Install - Microsoft NET Framework 3.5.1"
+                            AddAfter   = "Configure - Disable SMB 1.0"
                         }
                         @{
                             Name       = "Install - Microsoft Silverlight - x86"

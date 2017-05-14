@@ -262,32 +262,6 @@
                     Path              = "\Packages\Windows 7 x64"
                     PackageSourcePath = "KB3177467-x64"
                 }
-<### Not needed for Windows 10 Version 1607 and Windows Server 2016 latest ISO (November 2016)
-                # Servicing stack update for Windows 10 Version 1607 x86
-                @{
-                    Name              = "Package_for_KB3211320 neutral x86 10.0.1.1"
-                    Path              = "\Packages\Windows 10 x86"
-                    PackageSourcePath = "KB3211320-x86"
-                }
-                # Servicing stack update for Windows 10 Version 1607 x64 and Windows Server 2016
-                @{
-                    Name              = "Package_for_KB3211320 neutral amd64 10.0.1.1"
-                    Path              = "\Packages\Windows 10 x64"
-                    PackageSourcePath = "KB3211320-x64"
-                }
-                # Cumulative update for Windows 10 Version 1607 x86
-                @{
-                    Name              = "Package_for_RollupFix neutral x86 14393.693.1.1"
-                    Path              = "\Packages\Windows 10 x86"
-                    PackageSourcePath = "KB3213986-x86"
-                }
-                # Cumulative update for Windows 10 Version 1607 x64 and Windows Server 2016
-                @{
-                    Name              = "Package_for_RollupFix neutral amd64 14393.693.1.1"
-                    Path              = "\Packages\Windows 10 x64"
-                    PackageSourcePath = "KB3213986-x64"
-                }
-#>
             )
 
             #Task sqeuences; are dependent on imported Operating system and Applications in MDT
@@ -358,7 +332,7 @@
                             Type       = "Install Application"
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            AddAfter   = "Configure - Remove Windows Default Applications"
+                            AddAfter   = "Install - Microsoft NET Framework 3.5.1"
                         }
                         @{
                             Name       = "Install - Microsoft Silverlight - x86"
@@ -526,7 +500,7 @@
                             Type       = "Install Application"
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            AddAfter   = "Configure - Remove Windows Default Applications"
+                            AddAfter   = "Install - Microsoft NET Framework 3.5.1"
                         }
                         @{
                             Name       = "Install - Microsoft Silverlight - x64"
@@ -692,11 +666,19 @@
                             OSFeatures = "NetFx3,TelnetClient"
                         }
                         @{
+                            Name       = "Configure - Disable SMB 1.0"
+                            Type       = "Run Command Line"
+                            GroupName  = "State Restore"
+                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
+                            Command    = 'powershell.exe -Command "Disable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol"'
+                            AddAfter   = "Install - Microsoft NET Framework 3.5.1"
+                        }
+                        @{
                             Name       = "Install - Microsoft Visual C++"
                             Type       = "Install Application"
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            AddAfter   = "Install - Microsoft NET Framework 3.5.1"
+                            AddAfter   = "Configure - Disable SMB 1.0"
                         }
                         @{
                             Name       = "Install - Microsoft Silverlight - x86"
@@ -857,11 +839,19 @@
                             OSFeatures = "NetFx3,TelnetClient"
                         }
                         @{
+                            Name       = "Configure - Disable SMB 1.0"
+                            Type       = "Run Command Line"
+                            GroupName  = "State Restore"
+                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
+                            Command    = 'powershell.exe -Command "Disable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol"'
+                            AddAfter   = "Install - Microsoft NET Framework 3.5.1"
+                        }
+                        @{
                             Name       = "Install - Microsoft Visual C++"
                             Type       = "Install Application"
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            AddAfter   = "Install - Microsoft NET Framework 3.5.1"
+                            AddAfter   = "Configure - Disable SMB 1.0"
                         }
                         @{
                             Name       = "Install - Microsoft Silverlight - x64"
@@ -1022,11 +1012,19 @@
                             OSFeatures = "NetFx3,TelnetClient"
                         }
                         @{
+                            Name       = "Configure - Disable SMB 1.0"
+                            Type       = "Run Command Line"
+                            GroupName  = "State Restore"
+                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
+                            Command    = 'powershell.exe -Command "Disable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol"'
+                            AddAfter   = "Install - Microsoft NET Framework 3.5.1"
+                        }
+                        @{
                             Name       = "Install - Microsoft Visual C++"
                             Type       = "Install Application"
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            AddAfter   = "Install - Microsoft NET Framework 3.5.1"
+                            AddAfter   = "Configure - Disable SMB 1.0"
                         }
                         @{
                             Name       = "Install - Microsoft Silverlight - x86"
@@ -1144,11 +1142,19 @@
                             OSFeatures = "NetFx3,TelnetClient"
                         }
                         @{
+                            Name       = "Configure - Disable SMB 1.0"
+                            Type       = "Run Command Line"
+                            GroupName  = "State Restore"
+                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
+                            Command    = 'powershell.exe -Command "Disable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol"'
+                            AddAfter   = "Install - Microsoft NET Framework 3.5.1"
+                        }
+                        @{
                             Name       = "Install - Microsoft Visual C++"
                             Type       = "Install Application"
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            AddAfter   = "Install - Microsoft NET Framework 3.5.1"
+                            AddAfter   = "Configure - Disable SMB 1.0"
                         }
                         @{
                             Name       = "Install - Microsoft Silverlight - x64"
@@ -1264,11 +1270,19 @@
                             OSFeatures = "NET-Framework-Features,Telnet-Client"
                         }
                         @{
+                            Name       = "Configure - Disable SMB 1.0"
+                            Type       = "Run Command Line"
+                            GroupName  = "State Restore"
+                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
+                            Command    = 'powershell.exe -Command "Remove-WindowsFeature -Name FS-SMB1"'
+                            AddAfter   = "Install - Microsoft NET Framework 3.5.1"
+                        }
+                        @{
                             Name       = "Configure - Firewall rules"
                             Type       = "Install Application"
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            AddAfter   = "Install - Microsoft NET Framework 3.5.1"
+                            AddAfter   = "Configure - Disable SMB 1.0"
                         }
                         @{
                             Name       = "Configure - Set Control+Shift Keyboard Toggle"
@@ -1374,11 +1388,19 @@
                             Command    = 'powershell.exe -Command "Add-WindowsFeature Telnet-Client"'
                         }
                         @{
+                            Name       = "Configure - Disable SMB 1.0"
+                            Type       = "Run Command Line"
+                            GroupName  = "State Restore"
+                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
+                            Command    = 'powershell.exe -Command "Remove-WindowsFeature -Name FS-SMB1"'
+                            AddAfter   = "Install - Telnet client"
+                        }
+                        @{
                             Name       = "Configure - Firewall rules"
                             Type       = "Install Application"
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            AddAfter   = "Install - Telnet client"
+                            AddAfter   = "Configure - Disable SMB 1.0"
                         }
                         @{
                             Name       = "Configure - Set Control+Shift Keyboard Toggle"
