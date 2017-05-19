@@ -168,7 +168,7 @@
                             Type       = "Run Command Line"
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            Command    = 'powershell.exe -Command "Disable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol"'
+                            Command    = 'powershell.exe -Command "Disable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol -NoRestart"'
                             AddAfter   = "Install - Microsoft NET Framework 3.5.1"
                         }
                         @{

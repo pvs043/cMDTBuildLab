@@ -328,11 +328,19 @@
                             OSFeatures = "InboxGames,NetFx3,TelnetClient"
                         }
                         @{
+                            Name       = "Configure - Disable SMB 1.0"
+                            Type       = "Run Command Line"
+                            GroupName  = "State Restore"
+                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
+                            Command    = 'powershell.exe -Command "Set-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters SMB1 -Type DWORD -Value 0 -Force"'
+                            AddAfter   = "Install - Microsoft NET Framework 3.5.1"
+                        }
+                        @{
                             Name       = "Install - Microsoft Visual C++"
                             Type       = "Install Application"
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            AddAfter   = "Install - Microsoft NET Framework 3.5.1"
+                            AddAfter   = "Configure - Disable SMB 1.0"
                         }
                         @{
                             Name       = "Install - Microsoft Silverlight - x86"
@@ -496,11 +504,19 @@
                             OSFeatures = "InboxGames,NetFx3,TelnetClient"
                         }
                         @{
+                            Name       = "Configure - Disable SMB 1.0"
+                            Type       = "Run Command Line"
+                            GroupName  = "State Restore"
+                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
+                            Command    = 'powershell.exe -Command "Set-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters SMB1 -Type DWORD -Value 0 -Force"'
+                            AddAfter   = "Install - Microsoft NET Framework 3.5.1"
+                        }
+                        @{
                             Name       = "Install - Microsoft Visual C++"
                             Type       = "Install Application"
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            AddAfter   = "Install - Microsoft NET Framework 3.5.1"
+                            AddAfter   = "Configure - Disable SMB 1.0"
                         }
                         @{
                             Name       = "Install - Microsoft Silverlight - x64"
@@ -670,7 +686,7 @@
                             Type       = "Run Command Line"
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            Command    = 'powershell.exe -Command "Disable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol"'
+                            Command    = 'powershell.exe -Command "Disable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol -NoRestart"'
                             AddAfter   = "Install - Microsoft NET Framework 3.5.1"
                         }
                         @{
@@ -843,7 +859,7 @@
                             Type       = "Run Command Line"
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            Command    = 'powershell.exe -Command "Disable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol"'
+                            Command    = 'powershell.exe -Command "Disable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol -NoRestart"'
                             AddAfter   = "Install - Microsoft NET Framework 3.5.1"
                         }
                         @{
@@ -1016,7 +1032,7 @@
                             Type       = "Run Command Line"
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            Command    = 'powershell.exe -Command "Disable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol"'
+                            Command    = 'powershell.exe -Command "Disable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol -NoRestart"'
                             AddAfter   = "Install - Microsoft NET Framework 3.5.1"
                         }
                         @{
@@ -1146,7 +1162,7 @@
                             Type       = "Run Command Line"
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            Command    = 'powershell.exe -Command "Disable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol"'
+                            Command    = 'powershell.exe -Command "Disable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol -NoRestart"'
                             AddAfter   = "Install - Microsoft NET Framework 3.5.1"
                         }
                         @{
@@ -1275,6 +1291,7 @@
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
                             Command    = 'powershell.exe -Command "Remove-WindowsFeature -Name FS-SMB1"'
+                            Disable    = "true"
                             AddAfter   = "Install - Microsoft NET Framework 3.5.1"
                         }
                         @{
@@ -1393,6 +1410,7 @@
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
                             Command    = 'powershell.exe -Command "Remove-WindowsFeature -Name FS-SMB1"'
+                            Disable    = "true"
                             AddAfter   = "Install - Telnet client"
                         }
                         @{
