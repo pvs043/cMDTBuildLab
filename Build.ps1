@@ -4,6 +4,7 @@ $year           = (Get-Date).Year
 $moduleVersion  = "1.3.0"
 $releaseNotes  = "
 * Change importing for PSD1 files, Invoke-Expression removed
+* Fix bug at configuration for import OS images
 * Disable SMB 1.0 protocol for Windows 7 / 8.1 / 10 (Good bye, WannaCrypt)
 * Reorganize source tree at GitHub
 "
