@@ -3,8 +3,9 @@ $moduleGuid     = "df45de26-88b1-4a95-98af-b798fde1424f"
 $year           = (Get-Date).Year
 $moduleVersion  = "1.3.0"
 $releaseNotes  = "
-* Change importing for PSD1 files, Invoke-Expression removed.
-* [internal] re-organize source tree at GitHub
+* Change importing for PSD1 files, Invoke-Expression removed
+* Disable SMB 1.0 protocol for Windows 7 / 8.1 / 10 (Good bye, WannaCrypt)
+* Reorganize source tree at GitHub
 "
 $allResources   = @( Get-ChildItem -Path $PSScriptRoot\src\DSCResources\*.psm1 -ErrorAction SilentlyContinue -Recurse | Sort-Object)
 $allFunctions   = @( Get-ChildItem -Path $PSScriptRoot\src\Public\*.ps1 -ErrorAction SilentlyContinue -Recurse | Sort-Object)
