@@ -6,6 +6,7 @@ $releaseNotes  = "
 * Change importing for PSD1 files, Invoke-Expression removed
 * Fix bug at configuration for import OS images
 * Disable SMB 1.0 protocol for Windows 7 / 8.1 / 10 (Good bye, WannaCrypt)
+* Disable Set_Product_Key TS step for product environment (VLSC images)
 * Reorganize source tree at GitHub
 "
 $allResources   = @( Get-ChildItem -Path $PSScriptRoot\src\DSCResources\*.psm1 -ErrorAction SilentlyContinue -Recurse | Sort-Object)
