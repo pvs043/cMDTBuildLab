@@ -5,7 +5,7 @@ $moduleVersion  = "1.3.0"
 $releaseNotes  = "
 * Change importing for PSD1 files, Invoke-Expression removed
 * Fix bug at configuration for import OS images
-* Disable SMB 1.0 protocol for Windows 7 / 8.1 / 10 (Good bye, WannaCrypt)
+* Disable SMB 1.0 protocol for Windows 7 / 8.1 / 10 (Good bye, WannaCry)
 * Disable Set_Product_Key TS step for product environment (VLSC images)
 * Remove default apps for Windows 10 v1703
 * Reorganize source tree at GitHub
