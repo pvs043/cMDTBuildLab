@@ -683,19 +683,11 @@
                             OSFeatures = "NetFx3,TelnetClient"
                         }
                         @{
-                            Name       = "Configure - Disable SMB 1.0"
-                            Type       = "Run Command Line"
-                            GroupName  = "State Restore"
-                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            Command    = 'powershell.exe -Command "Disable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol -NoRestart"'
-                            AddAfter   = "Install - Microsoft NET Framework 3.5.1"
-                        }
-                        @{
                             Name       = "Install - Microsoft Visual C++"
                             Type       = "Install Application"
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            AddAfter   = "Configure - Disable SMB 1.0"
+                            AddAfter   = "Install - Microsoft NET Framework 3.5.1"
                         }
                         @{
                             Name       = "Install - Microsoft Silverlight - x86"
@@ -733,6 +725,21 @@
                             AddAfter   = "Install - July 2016 update rollup for Windows 8.1 - x86"
                         }
                         @{
+                            Name       = "Configure - Disable SMB 1.0"
+                            Type       = "Run Command Line"
+                            GroupName  = "State Restore"
+                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
+                            Command    = 'powershell.exe -Command "Disable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol -NoRestart"'
+                            AddAfter   = "Restart Computer"
+                        }
+                        @{
+                            Name       = "Restart Computer 1"
+                            Type       = "Restart Computer"
+                            GroupName  = "State Restore"
+                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
+                            AddAfter   = "Configure - Disable SMB 1.0"
+                        }
+                        @{
                             Name       = "Install WMF 5.1 and APP-V 5.1"
                             Type       = "Group"
                             GroupName  = "State Restore"
@@ -746,7 +753,7 @@
                             Disable    = "true"
                         }
                         @{
-                            Name       = "Restart Computer 1"
+                            Name       = "Restart Computer 2"
                             Type       = "Restart Computer"
                             GroupName  = "State Restore"
                             SubGroup   = "Install WMF 5.1 and APP-V 5.1"
@@ -759,10 +766,10 @@
                             GroupName  = "State Restore"
                             SubGroup   = "Install WMF 5.1 and APP-V 5.1"
                             Disable    = "true"
-                            AddAfter   = "Restart Computer 1"
+                            AddAfter   = "Restart Computer 2"
                         }
                         @{
-                            Name       = "Restart Computer 2"
+                            Name       = "Restart Computer 3"
                             Type       = "Restart Computer"
                             GroupName  = "State Restore"
                             SubGroup   = "Install WMF 5.1 and APP-V 5.1"
@@ -784,7 +791,7 @@
                             SubGroup   = "Cleanup before Sysprep"
                         }
                         @{
-                            Name       = "Restart Computer 3"
+                            Name       = "Restart Computer 4"
                             Type       = "Restart Computer"
                             GroupName  = "State Restore"
                             SubGroup   = "Cleanup before Sysprep"
@@ -856,19 +863,11 @@
                             OSFeatures = "NetFx3,TelnetClient"
                         }
                         @{
-                            Name       = "Configure - Disable SMB 1.0"
-                            Type       = "Run Command Line"
-                            GroupName  = "State Restore"
-                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            Command    = 'powershell.exe -Command "Disable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol -NoRestart"'
-                            AddAfter   = "Install - Microsoft NET Framework 3.5.1"
-                        }
-                        @{
                             Name       = "Install - Microsoft Visual C++"
                             Type       = "Install Application"
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            AddAfter   = "Configure - Disable SMB 1.0"
+                            AddAfter   = "Install - Microsoft NET Framework 3.5.1"
                         }
                         @{
                             Name       = "Install - Microsoft Silverlight - x64"
@@ -906,6 +905,21 @@
                             AddAfter   = "Install - July 2016 update rollup for Windows 8.1 and Windows Server 2012 R2 - x64"
                         }
                         @{
+                            Name       = "Configure - Disable SMB 1.0"
+                            Type       = "Run Command Line"
+                            GroupName  = "State Restore"
+                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
+                            Command    = 'powershell.exe -Command "Disable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol -NoRestart"'
+                            AddAfter   = "Restart Computer"
+                        }
+                        @{
+                            Name       = "Restart Computer 1"
+                            Type       = "Restart Computer"
+                            GroupName  = "State Restore"
+                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
+                            AddAfter   = "Configure - Disable SMB 1.0"
+                        }
+                        @{
                             Name       = "Install WMF 5.1 and APP-V 5.1"
                             Type       = "Group"
                             GroupName  = "State Restore"
@@ -919,7 +933,7 @@
                             Disable    = "true"
                         }
                         @{
-                            Name       = "Restart Computer 1"
+                            Name       = "Restart Computer 2"
                             Type       = "Restart Computer"
                             GroupName  = "State Restore"
                             SubGroup   = "Install WMF 5.1 and APP-V 5.1"
@@ -932,10 +946,10 @@
                             GroupName  = "State Restore"
                             SubGroup   = "Install WMF 5.1 and APP-V 5.1"
                             Disable    = "true"
-                            AddAfter   = "Restart Computer 1"
+                            AddAfter   = "Restart Computer 2"
                         }
                         @{
-                            Name       = "Restart Computer 2"
+                            Name       = "Restart Computer 3"
                             Type       = "Restart Computer"
                             GroupName  = "State Restore"
                             SubGroup   = "Install WMF 5.1 and APP-V 5.1"
@@ -957,7 +971,7 @@
                             SubGroup   = "Cleanup before Sysprep"
                         }
                         @{
-                            Name       = "Restart Computer 3"
+                            Name       = "Restart Computer 4"
                             Type       = "Restart Computer"
                             GroupName  = "State Restore"
                             SubGroup   = "Cleanup before Sysprep"
