@@ -1315,20 +1315,11 @@
                             OSFeatures = "NET-Framework-Features,Telnet-Client"
                         }
                         @{
-                            Name       = "Configure - Disable SMB 1.0"
-                            Type       = "Run Command Line"
-                            GroupName  = "State Restore"
-                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            Command    = 'powershell.exe -Command "Remove-WindowsFeature -Name FS-SMB1"'
-                            Disable    = "true"
-                            AddAfter   = "Install - Microsoft NET Framework 3.5.1"
-                        }
-                        @{
                             Name       = "Configure - Firewall rules"
                             Type       = "Install Application"
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            AddAfter   = "Configure - Disable SMB 1.0"
+                            AddAfter   = "Install - Microsoft NET Framework 3.5.1"
                         }
                         @{
                             Name       = "Configure - Set Control+Shift Keyboard Toggle"
@@ -1352,13 +1343,30 @@
                             AddAfter   = "Install - July 2016 update rollup for Windows 8.1 and Windows Server 2012 R2 - x64"
                         }
                         @{
+                            Name       = "Configure - Disable SMB 1.0"
+                            Type       = "Run Command Line"
+                            GroupName  = "State Restore"
+                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
+                            Command    = 'powershell.exe -Command "Remove-WindowsFeature -Name FS-SMB1"'
+                            Disable    = "true"
+                            AddAfter   = "Restart Computer"
+                        }
+                        @{
+                            Name       = "Restart Computer 1"
+                            Type       = "Restart Computer"
+                            GroupName  = "State Restore"
+                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
+                            Disable    = "true"
+                            AddAfter   = "Configure - Disable SMB 1.0"
+                        }
+                        @{
                             Name       = "Install - Windows Management Framework 5.1 - x64"
                             Type       = "Install Application"
                             GroupName  = "State Restore"
                             SubGroup   = "Install WMF 5.1"
                         }
                         @{
-                            Name       = "Restart Computer 1"
+                            Name       = "Restart Computer 2"
                             Type       = "Restart Computer"
                             GroupName  = "State Restore"
                             SubGroup   = "Install WMF 5.1"
@@ -1371,7 +1379,7 @@
                             SubGroup   = "Cleanup before Sysprep"
                         }
                         @{
-                            Name       = "Restart Computer 2"
+                            Name       = "Restart Computer 3"
                             Type       = "Restart Computer"
                             GroupName  = "State Restore"
                             SubGroup   = "Cleanup before Sysprep"
@@ -1434,20 +1442,11 @@
                             Command    = 'powershell.exe -Command "Add-WindowsFeature Telnet-Client"'
                         }
                         @{
-                            Name       = "Configure - Disable SMB 1.0"
-                            Type       = "Run Command Line"
-                            GroupName  = "State Restore"
-                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            Command    = 'powershell.exe -Command "Remove-WindowsFeature -Name FS-SMB1"'
-                            Disable    = "true"
-                            AddAfter   = "Install - Telnet client"
-                        }
-                        @{
                             Name       = "Configure - Firewall rules"
                             Type       = "Install Application"
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            AddAfter   = "Configure - Disable SMB 1.0"
+                            AddAfter   = "Install - Telnet client"
                         }
                         @{
                             Name       = "Configure - Set Control+Shift Keyboard Toggle"
@@ -1457,13 +1456,30 @@
                             AddAfter   = "Configure - Firewall rules"
                         }
                         @{
+                            Name       = "Configure - Disable SMB 1.0"
+                            Type       = "Run Command Line"
+                            GroupName  = "State Restore"
+                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
+                            Command    = 'powershell.exe -Command "Remove-WindowsFeature -Name FS-SMB1"'
+                            Disable    = "true"
+                            AddAfter   = "Configure - Set Control+Shift Keyboard Toggle"
+                        }
+                        @{
+                            Name       = "Restart Computer"
+                            Type       = "Restart Computer"
+                            GroupName  = "State Restore"
+                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
+                            Disable    = "true"
+                            AddAfter   = "Configure - Disable SMB 1.0"
+                        }
+                        @{
                             Name       = "Action - CleanupBeforeSysprep"
                             Type       = "Install Application"
                             GroupName  = "State Restore"
                             SubGroup   = "Cleanup before Sysprep"
                         }
                         @{
-                            Name       = "Restart Computer"
+                            Name       = "Restart Computer 1"
                             Type       = "Restart Computer"
                             GroupName  = "State Restore"
                             SubGroup   = "Cleanup before Sysprep"
