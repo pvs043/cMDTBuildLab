@@ -1043,19 +1043,11 @@
                             OSFeatures = "NetFx3,TelnetClient"
                         }
                         @{
-                            Name       = "Configure - Disable SMB 1.0"
-                            Type       = "Run Command Line"
-                            GroupName  = "State Restore"
-                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            Command    = 'powershell.exe -Command "Disable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol -NoRestart"'
-                            AddAfter   = "Install - Microsoft NET Framework 3.5.1"
-                        }
-                        @{
                             Name       = "Install - Microsoft Visual C++"
                             Type       = "Install Application"
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            AddAfter   = "Configure - Disable SMB 1.0"
+                            AddAfter   = "Install - Microsoft NET Framework 3.5.1"
                         }
                         @{
                             Name       = "Install - Microsoft Silverlight - x86"
@@ -1065,11 +1057,19 @@
                             AddAfter   = "Install - Microsoft Visual C++"
                         }
                         @{
+                            Name       = "Configure - Disable SMB 1.0"
+                            Type       = "Run Command Line"
+                            GroupName  = "State Restore"
+                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
+                            Command    = 'powershell.exe -Command "Disable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol -NoRestart"'
+                            AddAfter   = "Install - Microsoft Silverlight - x86"
+                        }
+                        @{
                             Name       = "Configure - Set Control+Shift Keyboard Toggle"
                             Type       = "Install Application"
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            AddAfter   = "Install - Microsoft Silverlight - x86"
+                            AddAfter   = "Configure - Disable SMB 1.0"
                         }
                         @{
                             Name       = "Configure - Set Start Layout"
@@ -1087,6 +1087,13 @@
                             Command    = 'powershell.exe -ExecutionPolicy ByPass -Command "Enable-Appv; Set-AppvClientConfiguration -EnablePackageScripts 1"'
                         }
                         @{
+                            Name       = "Restart Computer"
+                            Type       = "Restart Computer"
+                            GroupName  = "State Restore"
+                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
+                            AddAfter   = "Configure - Enable App-V Client"
+                        }
+                        @{
                             Name       = "Suspend"
                             Type       = "Run Command Line"
                             GroupName  = "State Restore"
@@ -1101,7 +1108,7 @@
                             SubGroup   = "Cleanup before Sysprep"
                         }
                         @{
-                            Name       = "Restart Computer"
+                            Name       = "Restart Computer 1"
                             Type       = "Restart Computer"
                             GroupName  = "State Restore"
                             SubGroup   = "Cleanup before Sysprep"
@@ -1173,19 +1180,11 @@
                             OSFeatures = "NetFx3,TelnetClient"
                         }
                         @{
-                            Name       = "Configure - Disable SMB 1.0"
-                            Type       = "Run Command Line"
-                            GroupName  = "State Restore"
-                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            Command    = 'powershell.exe -Command "Disable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol -NoRestart"'
-                            AddAfter   = "Install - Microsoft NET Framework 3.5.1"
-                        }
-                        @{
                             Name       = "Install - Microsoft Visual C++"
                             Type       = "Install Application"
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            AddAfter   = "Configure - Disable SMB 1.0"
+                            AddAfter   = "Install - Microsoft NET Framework 3.5.1"
                         }
                         @{
                             Name       = "Install - Microsoft Silverlight - x64"
@@ -1195,11 +1194,19 @@
                             AddAfter   = "Install - Microsoft Visual C++"
                         }
                         @{
+                            Name       = "Configure - Disable SMB 1.0"
+                            Type       = "Run Command Line"
+                            GroupName  = "State Restore"
+                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
+                            Command    = 'powershell.exe -Command "Disable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol -NoRestart"'
+                            AddAfter   = "Install - Microsoft Silverlight - x64"
+                        }
+                        @{
                             Name       = "Configure - Set Control+Shift Keyboard Toggle"
                             Type       = "Install Application"
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            AddAfter   = "Install - Microsoft Silverlight - x64"
+                            AddAfter   = "Configure - Disable SMB 1.0"
                         }
                         @{
                             Name       = "Configure - Set Start Layout"
@@ -1217,6 +1224,13 @@
                             Command    = 'powershell.exe -ExecutionPolicy ByPass -Command "Enable-Appv; Set-AppvClientConfiguration -EnablePackageScripts 1"'
                         }
                         @{
+                            Name       = "Restart Computer"
+                            Type       = "Restart Computer"
+                            GroupName  = "State Restore"
+                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
+                            AddAfter   = "Configure - Enable App-V Client"
+                        }
+                        @{
                             Name       = "Suspend"
                             Type       = "Run Command Line"
                             GroupName  = "State Restore"
@@ -1231,7 +1245,7 @@
                             SubGroup   = "Cleanup before Sysprep"
                         }
                         @{
-                            Name       = "Restart Computer"
+                            Name       = "Restart Computer 1"
                             Type       = "Restart Computer"
                             GroupName  = "State Restore"
                             SubGroup   = "Cleanup before Sysprep"
