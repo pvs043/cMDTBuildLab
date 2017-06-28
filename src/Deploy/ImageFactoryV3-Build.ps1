@@ -28,11 +28,10 @@
 
     Run ImageFactoryV3-Build.ps1 at MDT host
 .NOTES
-    Created:	 2016-11-24
-    Version:	 3.1
-
-    Updated:	 2017-02-23
-    Version:	 3.2
+    Created:    2016-11-24
+    Version:    3.1
+    Updated:    2017-02-23
+    Version:    3.2
 
     Author : Mikael Nystrom
     Twitter: @mikael_nystrom
