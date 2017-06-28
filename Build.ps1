@@ -1,18 +1,13 @@
 $moduleName     = "cMDTBuildLab"
 $moduleGuid     = "df45de26-88b1-4a95-98af-b798fde1424f"
 $year           = (Get-Date).Year
-$moduleVersion  = "1.3.0"
+$moduleVersion  = "1.4.0"
 $releaseNotes  = "
-* Change importing for PSD1 files, Invoke-Expression removed
-* Fix bug at configuration for import OS images
-* Disable SMB 1.0 protocol for Windows 7 / 8.1 / 10 (Good bye, WannaCry)
-* Disable Set_Product_Key TS step for product environment (VLSC images)
-* Remove default apps for Windows 10 v1703
-* Reorganize source tree at GitHub
+* Update Silverlight to 5.1.50907.0
 "
 $allResources   = @( Get-ChildItem -Path $PSScriptRoot\src\DSCResources\*.psm1 -ErrorAction SilentlyContinue -Recurse | Sort-Object)
 $allFunctions   = @( Get-ChildItem -Path $PSScriptRoot\src\Public\*.ps1 -ErrorAction SilentlyContinue -Recurse | Sort-Object)
-$buildDir       = "C:\Build"
+$buildDir       = "C:\Projects"
 $combinedModule = "$BuildDir\$moduleName\$moduleVersion\$ModuleName.psm1"
 $manifestFile   = "$BuildDir\$moduleName\$moduleVersion\$ModuleName.psd1"
 [string]$dscResourcesToExport = $null
