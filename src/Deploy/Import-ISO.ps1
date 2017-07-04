@@ -72,14 +72,14 @@ $destinations = @(
         Name  = "Windows 10 Enterprise"
         Lang  = "Russian"
         Arch  = "x32"
-        Build = "27096"
+        Build = "36515"
         Dest  = "Windows10x86"
     }
     @{
         Name  = "Windows 10 Enterprise"
         Lang  = "Russian"
         Arch  = "x64"
-        Build = "27097"
+        Build = "36516"
         Dest  = "Windows10x64"
     }
     @{
@@ -178,24 +178,17 @@ function Get-ISO
                 if ($Unpack)
                 {
                     foreach ($dst in $destinations) {
-                        $dst.GetEnumerator() | ForEach-Object {
-                            If ($_.key -eq "Name")  { $Name  = $_.value }
-                            If ($_.key -eq "Lang")  { $Lang  = $_.value }
-                            If ($_.key -eq "Arch")  { $Arch  = $_.value }
-                            If ($_.key -eq "Build") { $Build = $_.value }
-                            If ($_.key -eq "Dest")  { $Dest  = $_.value }
-                        }
-
-                        if ($Name -eq $image.ImageName -and $Lang -eq $tokens['Lang'] -and $Arch -eq $tokens['Arch'] -and $Build -eq $tokens['Build'])
+                        if ($dst.Name -eq $image.ImageName -and $dst.Lang -eq $tokens['Lang'] -and $dst.Arch -eq $tokens['Arch'] -and $dst.Build -eq $tokens['Build'])
                         {
-                            Write-Output "Unpack $Name from $($PSItem.FullName) to $dstPath\$Dest"
-                            if (Test-Path $dstPath\$Dest)
+                            $unpackPath = "$dstPath\$($dst.Dest)"
+                            Write-Output "Unpack $Name from $($PSItem.FullName) to $unpackPath"
+                            if (Test-Path $unpackPath)
                             {
-                                Write-Warning "Remove directory $dstPath\$Dest"
-                                Remove-Item $dstPath\$Dest -Recurse -Force
+                                Write-Warning "Remove directory $unpackPath"
+                                Remove-Item $unpackPath -Recurse -Force
                             }
-                            New-Item $dstPath\$Dest -ItemType Directory
-                            Copy-Item -Path "$ISODrive\*" -Destination $dstPath\$Dest -Recurse
+                            New-Item $unpackPath -ItemType Directory
+                            Copy-Item -Path "$ISODrive\*" -Destination $unpackPath -Recurse
                             Write-Output "Done!"
                         }
                     }
