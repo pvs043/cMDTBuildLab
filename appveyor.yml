@@ -35,7 +35,7 @@ build_script:
         Write-Host "Branch        : $env:APPVEYOR_REPO_BRANCH"
         Write-Host "Repo          : $env:APPVEYOR_REPO_NAME"
         Write-Host "Running Build.ps1..." -ForegroundColor Yellow
-        . .\Build.ps1"
+        . .\Build.ps1
         Write-Host "...completed!" -ForegroundColor Green
 
 #---------------------------------#
