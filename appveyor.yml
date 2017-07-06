@@ -9,7 +9,6 @@ image: WMF 5
 #---------------------------------#
 install:
     - git clone https://github.com/PowerShell/DscResource.Tests
-    - mkdir .git
     - ps: |
         Write-Host "Install prerequisites" -ForegroundColor Yellow
         $null = Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force -ErrorAction Stop
