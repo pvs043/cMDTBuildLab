@@ -5,6 +5,7 @@ $moduleVersion  = "1.3.1"
 $releaseNotes  = "
 * Update Silverlight to 5.1.50907.0
 * Fix ScriptAnalyzer warnings at Import-ISO.ps1 script
+* Build with AppVeyor
 "
 $allResources   = @( Get-ChildItem -Path $PSScriptRoot\src\DSCResources\*.psm1 -ErrorAction SilentlyContinue -Recurse | Sort-Object)
 $allFunctions   = @( Get-ChildItem -Path $PSScriptRoot\src\Public\*.ps1 -ErrorAction SilentlyContinue -Recurse | Sort-Object)
