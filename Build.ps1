@@ -137,5 +137,7 @@ Copy-Item -Path "$PSScriptRoot\src\Deploy"   -Destination "$BuildDir\$moduleName
 Copy-Item -Path "$PSScriptRoot\src\Examples" -Destination "$BuildDir\$moduleName\Examples" -Recurse -Force
 Copy-Item -Path "$PSScriptRoot\src\Sources"  -Destination "$BuildDir\$moduleName\Sources" -Recurse -Force
 Copy-Item -Path "$PSScriptRoot\src\Tests"    -Destination "$BuildDir\$moduleName\Tests" -Recurse -Force
-Copy-Item -Path "$PSScriptRoot\README.md"    -Destination "$BuildDir\$moduleName\Readme.md" -Force
-Copy-Item -Path "$PSScriptRoot\LICENSE"      -Destination "$BuildDir\$moduleName\LICENSE" -Force
+if (!$env:APPVEYOR) {
+    Copy-Item -Path "$PSScriptRoot\README.md" -Destination "$BuildDir\$moduleName\Readme.md" -Force
+    Copy-Item -Path "$PSScriptRoot\LICENSE"   -Destination "$BuildDir\$moduleName\LICENSE" -Force
+}
