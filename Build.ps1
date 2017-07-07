@@ -125,8 +125,7 @@ PrivateData = @{
 "@
 
 # Create Build dir
-If (Test-Path -Path "$buildDir\$moduleName") { Remove-Item -Path "$buildDir\$moduleName" -Recurse -Force}
-New-Item -ItemType Directory -Path "$buildDir\$moduleName"
+If (-not (Test-Path -Path "$buildDir\$moduleName")) { New-Item -ItemType Directory -Path "$buildDir\$moduleName" }
 
 # Build module from sources
 Set-Content -Path $combinedModule -Value $combinedResources
