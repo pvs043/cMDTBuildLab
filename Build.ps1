@@ -1,7 +1,7 @@
 $moduleName     = "cMDTBuildLab"
 $moduleGuid     = "df45de26-88b1-4a95-98af-b798fde1424f"
 $year           = (Get-Date).Year
-$moduleVersion  = "1.3.1"
+$moduleVersion  = "1.4.0"
 $releaseNotes  = "
 * Update Silverlight to 5.1.50907.0
 * Fix ScriptAnalyzer warnings at Import-ISO.ps1 script
