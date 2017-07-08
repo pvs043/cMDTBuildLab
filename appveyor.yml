@@ -43,7 +43,7 @@ build_script:
     - copy cMDTBuildLab.psm1 "%ProgramFiles%\WindowsPowerShell\Modules\cMDTBuildLab"
     - copy cMDTBuildLab.psd1 "%ProgramFiles%\WindowsPowerShell\Modules\cMDTBuildLab"
     - ps: |
-#        Import-Module -Name .\DscResource.Tests\TestHelper.psm1 -Force -ErrorAction Stop
+        Import-Module -Name .\DscResource.Tests\TestHelper.psm1 -Force -ErrorAction Stop
         Write-Host "...completed!" -ForegroundColor Green
 
 #---------------------------------#
