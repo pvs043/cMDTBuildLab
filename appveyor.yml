@@ -15,9 +15,8 @@ install:
         Install-Module -Name Pester -Repository PSGallery -Force -ErrorAction Stop
         Install-Module -Name xSmbShare -Repository PSGallery -Force -ErrorAction Stop
         Install-Module -Name cNtfsAccessControl -Repository PSGallery -Force -ErrorAction Stop
-        Install-Module -Name cMDTBuildLab -Repository PSGallery -Force -ErrorAction Stop
         # Validate
-        $RequiredModules = 'PSScriptAnalyzer','Pester','xSmbShare','cNtfsAccessControl','cMDTBuildLab'
+        $RequiredModules = 'PSScriptAnalyzer','Pester','xSmbShare','cNtfsAccessControl'
         $InstalledModules = Get-Module -Name $RequiredModules -ListAvailable
         Write-Host "Installed modules: $InstalledModules" -ForegroundColor Yellow
         if ( ($InstalledModules.count -lt $RequiredModules.Count) -or ($Null -eq $InstalledModules)) {
@@ -40,8 +39,11 @@ build_script:
     - cd ..\Build\cMDTBuildLab
     - mkdir .git
     - git clone https://github.com/PowerShell/DscResource.Tests
+    - mkdir "%ProgramFiles%\WindowsPowerShell\Modules\cMDTBuildLab"
+    - copy cMDTBuildLab.psm1 "%ProgramFiles%\WindowsPowerShell\Modules\cMDTBuildLab"
+    - copy cMDTBuildLab.psd1 "%ProgramFiles%\WindowsPowerShell\Modules\cMDTBuildLab"
     - ps: |
-        Import-Module -Name .\DscResource.Tests\TestHelper.psm1 -Force -ErrorAction Stop
+#        Import-Module -Name .\DscResource.Tests\TestHelper.psm1 -Force -ErrorAction Stop
         Write-Host "...completed!" -ForegroundColor Green
 
 #---------------------------------#
