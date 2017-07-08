@@ -61,7 +61,7 @@ test_script:
             Write-Host "Uploading failed!" -ForegroundColor Red
         }
 
-        if (($res.FailedCount -gt 0) -or ($results.PassedCount -eq 0) -or ($null -eq $results)) {
+        if (($res.FailedCount -gt 0) -or ($res.PassedCount -eq 0) -or ($null -eq $res)) {
             throw "$($res.FailedCount) tests failed."
         } else {
             Write-Host "All tests passed!" -ForegroundColor Green
