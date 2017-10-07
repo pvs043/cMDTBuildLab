@@ -31,21 +31,9 @@
         @{
             # Install script for Visual C++ runtimes
             Name   = "VS++Application"
-            URI    = "Sources\Install-MicrosoftVisualCx86x64.wsf"
+            URI    = "https://raw.githubusercontent.com/DeploymentBunny/Files/master/Tools/Install-X86-X64-C%2B%2B/Install-MicrosoftVisualC%2B%2Bx86x64.wsf"
             Folder = "VC++"
             File   = "Install-MicrosoftVisualCx86x64.wsf"
-        }
-        @{
-            Name   = "VS2005SP1x86"
-            URI    = "http://download.microsoft.com/download/8/B/4/8B42259F-5D70-43F4-AC2E-4B208FD8D66A/vcredist_x86.exe"
-            Folder = "VC++\Source\VS2005"
-            File   = "vcredist_x86.exe"
-        }
-        @{
-            Name   = "VS2005SP1x64"
-            URI    = "http://download.microsoft.com/download/8/B/4/8B42259F-5D70-43F4-AC2E-4B208FD8D66A/vcredist_x64.exe"
-            Folder = "VC++\Source\VS2005"
-            File   = "vcredist_x64.exe"
         }
         @{
             Name   = "VS2008SP1x86"
@@ -96,15 +84,15 @@
             File   = "vcredist_x64.exe"
         }
         @{
-            Name   = "VS2015x86"
-            URI    = "https://download.microsoft.com/download/9/3/F/93FCF1E7-E6A4-478B-96E7-D4B285925B00/vc_redist.x86.exe"
-            Folder = "VC++\Source\VS2015"
+            Name   = "VS2017x86"
+            URI    = "https://go.microsoft.com/fwlink/?LinkId=746571"
+            Folder = "VC++\Source\VS2017"
             File   = "vc_redist.x86.exe"
         }
         @{
-            Name   = "VS2015x64"
-            URI    = "https://download.microsoft.com/download/9/3/F/93FCF1E7-E6A4-478B-96E7-D4B285925B00/vc_redist.x64.exe"
-            Folder = "VC++\Source\VS2015"
+            Name   = "VS2017x64"
+            URI    = "https://go.microsoft.com/fwlink/?LinkId=746572"
+            Folder = "VC++\Source\VS2017"
             File   = "vc_redist.x64.exe"
         }
         @{
