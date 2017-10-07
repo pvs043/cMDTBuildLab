@@ -6,7 +6,7 @@ cMDTBuildLab is a fork from [cMDT module](https://github.com/servicedudes/cmdt).
 [![Build status](https://ci.appveyor.com/api/projects/status/h8qth51otb888a7v?svg=true)](https://ci.appveyor.com/project/pvs043/cmdtbuildlab)
 
 ### Version
-1.4.0
+1.4.1
 
 See version history at [Project Site](https://github.com/pvs043/cMDTBuildLab/wiki/Version-History)
 

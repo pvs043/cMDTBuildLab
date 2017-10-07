@@ -1,11 +1,9 @@
 $moduleName     = "cMDTBuildLab"
 $moduleGuid     = "df45de26-88b1-4a95-98af-b798fde1424f"
 $year           = (Get-Date).Year
-$moduleVersion  = "1.4.0"
+$moduleVersion  = "1.4.1"
 $releaseNotes  = "
-* Update Silverlight to 5.1.50907.0
-* Fix ScriptAnalyzer warnings at Import-ISO.ps1 script
-* Build with AppVeyor
+* Update download script for VC++ libs
 "
 $allResources   = @( Get-ChildItem -Path $PSScriptRoot\src\DSCResources\*.psm1 -ErrorAction SilentlyContinue -Recurse | Sort-Object)
 $allFunctions   = @( Get-ChildItem -Path $PSScriptRoot\src\Public\*.ps1 -ErrorAction SilentlyContinue -Recurse | Sort-Object)
