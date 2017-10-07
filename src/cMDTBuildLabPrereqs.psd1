@@ -191,36 +191,6 @@
             Folder = "KB3172614-x64"
             File   = "windows8.1-kb3172614-x64_e41365e643b98ab745c21dba17d1d3b6bb73cfcc.msu"
         }
-    <### Not needed for Windows 10 Version 1607 and Windows Server 2016 latest ISO (November 2016)
-        @{
-            # Servicing stack update for Windows 10 Version 1607 x86
-            Name   = "KB3211320-x86"
-            URI    = "http://download.windowsupdate.com/c/msdownload/update/software/crup/2017/01/windows10.0-kb3211320-x86_b450a744674c27bf2871f8db28f0e2e13e874582.msu"
-            Folder = "KB3211320-x86"
-            File   = "windows10.0-kb3211320-x86_b450a744674c27bf2871f8db28f0e2e13e874582.msu"
-        }
-        @{
-            # Servicing stack update for Windows 10 Version 1607 x64 and Windows Server 2016
-            Name   = "KB3211320-x64"
-            URI    = "http://download.windowsupdate.com/d/msdownload/update/software/crup/2017/01/windows10.0-kb3211320-x64_2abc94fceb4d1cdd908b3bdba473e28e0c061a3d.msu"
-            Folder = "KB3211320-x64"
-            File   = "windows10.0-kb3211320-x64_2abc94fceb4d1cdd908b3bdba473e28e0c061a3d.msu"
-        }
-        @{
-            # Cumulative update for Windows 10 Version 1607 x86
-            Name   = "KB3213986-x86"
-            URI    = "http://download.windowsupdate.com/c/msdownload/update/software/secu/2016/12/windows10.0-kb3213986-x86_317506223682f535a8d4832c40cea468fe3e639d.msu"
-            Folder = "KB3213986-x86"
-            File   = "windows10.0-kb3213986-x86_317506223682f535a8d4832c40cea468fe3e639d.msu"
-        }
-        @{
-            # Cumulative update for Windows 10 Version 1607 x64 and Windows Server 2016
-            Name   = "KB3213986-x64"
-            URI    = "http://download.windowsupdate.com/d/msdownload/update/software/secu/2016/12/windows10.0-kb3213986-x64_a1f5adacc28b56d7728c92e318d6596d9072aec4.msu"
-            Folder = "KB3213986-x64"
-            File   = "windows10.0-kb3213986-x64_a1f5adacc28b56d7728c92e318d6596d9072aec4.msu"
-        }
-    #>
         @{
             # Action - CleanupBeforeSysprep
             Name   = "CleanupBeforeSysprep"
