@@ -1,9 +1,11 @@
 $moduleName     = "cMDTBuildLab"
 $moduleGuid     = "df45de26-88b1-4a95-98af-b798fde1424f"
 $year           = (Get-Date).Year
-$moduleVersion  = "1.4.1"
+$moduleVersion  = "1.5.0"
 $releaseNotes  = "
-* Update download script for VC++ libs
+* Update download script for VC++ libs: install 2008/2010/2012/2013/2017
+* ADK v.1709 (Build: 10.1.16299.15)
+* Tested with Windows 10 Fall Creators Update
 "
 $allResources   = @( Get-ChildItem -Path $PSScriptRoot\src\DSCResources\*.psm1 -ErrorAction SilentlyContinue -Recurse | Sort-Object)
 $allFunctions   = @( Get-ChildItem -Path $PSScriptRoot\src\Public\*.ps1 -ErrorAction SilentlyContinue -Recurse | Sort-Object)

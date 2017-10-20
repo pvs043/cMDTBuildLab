@@ -10,7 +10,7 @@
         @{
             # Windows Assessment and Deployment Kit 10, v.1709 (Build: 10.1.16299.15)
             Name   = "ADK"
-            URI    = "http://download.microsoft.com/download/3/1/E/31EC1AAF-3501-4BB4-B61C-8BD8A07B4E8A/adk/adksetup.exe"
+            URI    = "https://go.microsoft.com/fwlink/p/?linkid=859206"
             Folder = "Windows Assessment and Deployment Kit"
             File   = "adksetup.exe"
         }
