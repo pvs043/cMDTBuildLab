@@ -47,7 +47,7 @@
             Ensure     = "Present"
             Name       = "Windows Assessment and Deployment Kit - Windows 10"
             Path       = "$($Node.SourcePath)\Windows Assessment and Deployment Kit\adksetup.exe"
-            ProductId  = "cef137de-cdb9-48e2-babe-301cb8448d7b"
+            ProductId  = "75ed7648-6cdf-4e09-b2fe-41e985652c96"
             Arguments  = "/quiet /features OptionId.DeploymentTools OptionId.WindowsPreinstallationEnvironment"
             ReturnCode = 0
         }
