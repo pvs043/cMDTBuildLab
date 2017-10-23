@@ -134,6 +134,11 @@
                     Path       = "Windows 2016"
                     SourcePath = "Windows2016"
                 }
+                @{
+                    Name       = "Windows 1709"
+                    Path       = "Windows 2016"
+                    SourcePath = "Windows1709"
+                }
             )
 
             #Applications to import
@@ -1471,6 +1476,91 @@
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
                             Disable    = "true"
                             AddAfter   = "Configure - Disable SMB 1.0"
+                        }
+                        @{
+                            Name       = "Action - CleanupBeforeSysprep"
+                            Type       = "Install Application"
+                            GroupName  = "State Restore"
+                            SubGroup   = "Cleanup before Sysprep"
+                        }
+                        @{
+                            Name       = "Restart Computer 1"
+                            Type       = "Restart Computer"
+                            GroupName  = "State Restore"
+                            SubGroup   = "Cleanup before Sysprep"
+                            AddAfter   = "Action - CleanupBeforeSysprep"
+                        }
+                    )
+                }
+                @{
+                    Name     = "Windows 1709"
+                    Path     = "Windows 2016"
+                    OSName   = "Windows 2016\Windows Server 2016 SERVERDATACENTERACORE in Windows 1709 install.wim"
+                    OrgName  = "BuildLab"
+                    Template = "Server.xml"
+                    ID       = "REFW201709-001"
+                    Customize = @(
+                        # Set Product Key needed for MSDN/Evalution Windows distributives only. Skip this step if your ISO sources is VLSC.
+                        @{
+                            Name        = "Set Product Key"
+                            Type        = "Set Task Sequence Variable"
+                            GroupName   = "Initialization"
+                            Description = "KMS Client Setup Keys: https://technet.microsoft.com/en-us/library/jj612867.aspx"
+                            TSVarName   = "ProductKey"
+                            TSVarValue  = "WC2BQ-8NRM3-FDDYY-2BFGV-KHKQY"
+                            Disable     = "true"                        }
+                        @{
+                            Name             = "Apply Patches"
+                            Type             = "Install Updates Offline"
+                            GroupName        = "Preinstall"
+                            SelectionProfile = "Windows 10 x64"
+                        }
+                        @{
+                            Name       = "Windows Update (Pre-Application Installation)"
+                            Type       = "Run Command Line"
+                            GroupName  = "State Restore"
+                            Disable    = "false"
+                        }
+                        @{
+                            Name       = "Custom Tasks (Pre-Windows Update)"
+                            Type       = "Group"
+                            GroupName  = "State Restore"
+                            AddAfter   = "Tattoo"
+                        }
+                        @{
+                            Name       = "Custom Tasks"
+                            Type       = "Group"
+                            GroupName  = "State Restore"
+                            NewName    = "Custom Tasks (Post-Windows Update)"
+                        }
+                        @{
+                            Name       = "Cleanup before Sysprep"
+                            Type       = "Group"
+                            GroupName  = "State Restore"
+                            AddAfter   = "Apply Local GPO Package"
+                        }
+                        # Step Telnet client removed. Use Test-NetConnection instead
+                        @{
+                            Name       = "Configure - Firewall rules"
+                            Type       = "Install Application"
+                            GroupName  = "State Restore"
+                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
+                            AddAfter   = "Cleanup before Sysprep"
+                        }
+                        @{
+                            Name       = "Configure - Set Control+Shift Keyboard Toggle"
+                            Type       = "Install Application"
+                            GroupName  = "State Restore"
+                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
+                            AddAfter   = "Configure - Firewall rules"
+                        }
+                        @{
+                            Name       = "Restart Computer"
+                            Type       = "Restart Computer"
+                            GroupName  = "State Restore"
+                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
+                            Disable    = "true"
+                            AddAfter   = "Configure - Set Control+Shift Keyboard Toggle"
                         }
                         @{
                             Name       = "Action - CleanupBeforeSysprep"

@@ -25,7 +25,8 @@ Prerequisites for infrastructure:
     Windows 8.1 (November 2014)<br>
     Windows 2012 R2 (November 2014)<br>
     Windows 10 Version 1709 (September 2017)<br>
-    Windows 2016 (November 2016)
+    Windows 2016 (November 2016)<br>
+	Windows Server 1709 (September 2017)
 
 This module is tested on Windows 2016 server, but it will be worked on Windows 10 or Windows 2012 R2/Windows 8.1 with Windows Management Framewework 5.1.
 
