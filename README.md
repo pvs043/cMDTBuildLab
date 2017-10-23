@@ -6,7 +6,7 @@ cMDTBuildLab is a fork from [cMDT module](https://github.com/servicedudes/cmdt).
 [![Build status](https://ci.appveyor.com/api/projects/status/h8qth51otb888a7v?svg=true)](https://ci.appveyor.com/project/pvs043/cmdtbuildlab)
 
 ### Version
-1.5.0
+2.0.0
 
 See version history at [Project Site](https://github.com/pvs043/cMDTBuildLab/wiki/Version-History)
 
@@ -26,7 +26,7 @@ Prerequisites for infrastructure:
     Windows 2012 R2 (November 2014)<br>
     Windows 10 Version 1709 (September 2017)<br>
     Windows 2016 (November 2016)<br>
-	Windows Server 1709 (September 2017)
+    Windows Server 1709 (September 2017)
 
 This module is tested on Windows 2016 server, but it will be worked on Windows 10 or Windows 2012 R2/Windows 8.1 with Windows Management Framewework 5.1.
 
