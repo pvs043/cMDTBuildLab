@@ -72,14 +72,14 @@ $destinations = @(
         Name  = "Windows 10 Enterprise"
         Lang  = "Russian"
         Arch  = "x32"
-        Build = "36515"
+        Build = "50180"
         Dest  = "Windows10x86"
     }
     @{
         Name  = "Windows 10 Enterprise"
         Lang  = "Russian"
         Arch  = "x64"
-        Build = "36516"
+        Build = "50181"
         Dest  = "Windows10x64"
     }
     @{
@@ -95,6 +95,13 @@ $destinations = @(
         Arch  = "x64"
         Build = "30350"
         Dest  = "Windows2016"
+    }
+    @{
+        Name  = "Windows Server 2016 SERVERDATACENTERACORE"
+        Lang  = "English"
+        Arch  = "x64"
+        Build = "49499"
+        Dest  = "Windows1709"
     }
 )
 
