@@ -284,7 +284,7 @@
                             Name        = "Set Product Key"
                             Type        = "Set Task Sequence Variable"
                             GroupName   = "Initialization"
-                            Description = "KMS Client Setup Keys: https://technet.microsoft.com/en-us/library/jj612867.aspx"
+                            Description = "KMS Client Setup Keys: https://docs.microsoft.com/en-us/windows-server/get-started/kmsclientkeys"
                             TSVarName   = "ProductKey"
                             TSVarValue  = "33PXH-7Y6KF-2VJC9-XBBR8-HVTHH"
                             Disable     = "true"
@@ -461,7 +461,7 @@
                             Name        = "Set Product Key"
                             Type        = "Set Task Sequence Variable"
                             GroupName   = "Initialization"
-                            Description = "KMS Client Setup Keys: https://technet.microsoft.com/en-us/library/jj612867.aspx"
+                            Description = "KMS Client Setup Keys: https://docs.microsoft.com/en-us/windows-server/get-started/kmsclientkeys"
                             TSVarName   = "ProductKey"
                             TSVarValue  = "33PXH-7Y6KF-2VJC9-XBBR8-HVTHH"
                             Disable     = "true"                        }
@@ -637,7 +637,7 @@
                             Name        = "Set Product Key"
                             Type        = "Set Task Sequence Variable"
                             GroupName   = "Initialization"
-                            Description = "KMS Client Setup Keys: https://technet.microsoft.com/en-us/library/jj612867.aspx"
+                            Description = "KMS Client Setup Keys: https://docs.microsoft.com/en-us/windows-server/get-started/kmsclientkeys"
                             TSVarName   = "ProductKey"
                             TSVarValue  = "MHF9N-XY6XB-WVXMC-BTDCT-MKKG7"
                             Disable     = "true"                        }
@@ -817,7 +817,7 @@
                             Name        = "Set Product Key"
                             Type        = "Set Task Sequence Variable"
                             GroupName   = "Initialization"
-                            Description = "KMS Client Setup Keys: https://technet.microsoft.com/en-us/library/jj612867.aspx"
+                            Description = "KMS Client Setup Keys: https://docs.microsoft.com/en-us/windows-server/get-started/kmsclientkeys"
                             TSVarName   = "ProductKey"
                             TSVarValue  = "MHF9N-XY6XB-WVXMC-BTDCT-MKKG7"
                             Disable     = "true"                        }
@@ -997,7 +997,7 @@
                             Name        = "Set Product Key"
                             Type        = "Set Task Sequence Variable"
                             GroupName   = "Initialization"
-                            Description = "KMS Client Setup Keys: https://technet.microsoft.com/en-us/library/jj612867.aspx"
+                            Description = "KMS Client Setup Keys: https://docs.microsoft.com/en-us/windows-server/get-started/kmsclientkeys"
                             TSVarName   = "ProductKey"
                             TSVarValue  = "NPPR9-FWDCX-D2C8J-H872K-2YT43"
                             Disable     = "true"                        }
@@ -1134,7 +1134,7 @@
                             Name        = "Set Product Key"
                             Type        = "Set Task Sequence Variable"
                             GroupName   = "Initialization"
-                            Description = "KMS Client Setup Keys: https://technet.microsoft.com/en-us/library/jj612867.aspx"
+                            Description = "KMS Client Setup Keys: https://docs.microsoft.com/en-us/windows-server/get-started/kmsclientkeys"
                             TSVarName   = "ProductKey"
                             TSVarValue  = "NPPR9-FWDCX-D2C8J-H872K-2YT43"
                             Disable     = "true"                        }
@@ -1271,7 +1271,7 @@
                             Name        = "Set Product Key"
                             Type        = "Set Task Sequence Variable"
                             GroupName   = "Initialization"
-                            Description = "KMS Client Setup Keys: https://technet.microsoft.com/en-us/library/jj612867.aspx"
+                            Description = "KMS Client Setup Keys: https://docs.microsoft.com/en-us/windows-server/get-started/kmsclientkeys"
                             TSVarName   = "ProductKey"
                             TSVarValue  = "D2N9P-3P6X9-2R39C-7RTCD-MDVJX"
                             Disable     = "true"                        }
@@ -1405,7 +1405,7 @@
                             Name        = "Set Product Key"
                             Type        = "Set Task Sequence Variable"
                             GroupName   = "Initialization"
-                            Description = "KMS Client Setup Keys: https://technet.microsoft.com/en-us/library/jj612867.aspx"
+                            Description = "KMS Client Setup Keys: https://docs.microsoft.com/en-us/windows-server/get-started/kmsclientkeys"
                             TSVarName   = "ProductKey"
                             TSVarValue  = "WC2BQ-8NRM3-FDDYY-2BFGV-KHKQY"
                             Disable     = "true"                        }
@@ -1498,16 +1498,16 @@
                     OSName   = "Windows 2016\Windows Server 2016 SERVERDATACENTERACORE in Windows 1709 install.wim"
                     OrgName  = "BuildLab"
                     Template = "Server.xml"
-                    ID       = "REFW201709-001"
+                    ID       = "REFW1709-001"
                     Customize = @(
                         # Set Product Key needed for MSDN/Evalution Windows distributives only. Skip this step if your ISO sources is VLSC.
                         @{
                             Name        = "Set Product Key"
                             Type        = "Set Task Sequence Variable"
                             GroupName   = "Initialization"
-                            Description = "KMS Client Setup Keys: https://technet.microsoft.com/en-us/library/jj612867.aspx"
+                            Description = "KMS Client Setup Keys: https://docs.microsoft.com/en-us/windows-server/get-started/kmsclientkeys"
                             TSVarName   = "ProductKey"
-                            TSVarValue  = "WC2BQ-8NRM3-FDDYY-2BFGV-KHKQY"
+                            TSVarValue  = "6Y6KB-N82V8-D8CQV-23MJW-BWTG6"
                             Disable     = "true"                        }
                         @{
                             Name             = "Apply Patches"
