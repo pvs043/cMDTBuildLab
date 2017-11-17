@@ -150,18 +150,6 @@
                     ApplicationSourcePath = "VC++"
                 }
                 @{
-                    Name                  = "Install - Microsoft Silverlight - x86"
-                    Path                  = "\Applications\Core\Microsoft"
-                    CommandLine           = "Silverlight.exe /Q"
-                    ApplicationSourcePath = "Silverlight_x86"
-                }
-                @{
-                    Name                  = "Install - Microsoft Silverlight - x64"
-                    Path                  = "\Applications\Core\Microsoft"
-                    CommandLine           = "Silverlight_x64.exe /Q"
-                    ApplicationSourcePath = "Silverlight_x64"
-                }
-                @{
                     Name                  = "Install - Convenience rollup update for Windows 7 SP1 - x86"
                     Path                  = "\Applications\Core\Microsoft"
                     CommandLine           = "wusa.exe windows6.1-kb3125574-v4-x86_ba1ff5537312561795cc04db0b02fbb0a74b2cbd.msu /quiet /norestart"
@@ -349,18 +337,11 @@
                             AddAfter   = "Configure - Disable SMB 1.0"
                         }
                         @{
-                            Name       = "Install - Microsoft Silverlight - x86"
-                            Type       = "Install Application"
-                            GroupName  = "State Restore"
-                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            AddAfter   = "Install - Microsoft Visual C++"
-                        }
-                        @{
                             Name       = "Configure - Set Control+Shift Keyboard Toggle"
                             Type       = "Install Application"
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            AddAfter   = "Install - Microsoft Silverlight - x86"
+                            AddAfter   = "Install - Microsoft Visual C++"
                         }
                         @{
                             Name       = "Install - Convenience rollup update for Windows 7 SP1 - x86"
@@ -525,18 +506,11 @@
                             AddAfter   = "Configure - Disable SMB 1.0"
                         }
                         @{
-                            Name       = "Install - Microsoft Silverlight - x64"
-                            Type       = "Install Application"
-                            GroupName  = "State Restore"
-                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            AddAfter   = "Install - Microsoft Visual C++"
-                        }
-                        @{
                             Name       = "Configure - Set Control+Shift Keyboard Toggle"
                             Type       = "Install Application"
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            AddAfter   = "Install - Microsoft Silverlight - x64"
+                            AddAfter   = "Install - Microsoft Visual C++"
                         }
                         @{
                             Name       = "Install - Convenience rollup update for Windows 7 SP1 - x64"
@@ -695,18 +669,11 @@
                             AddAfter   = "Install - Microsoft NET Framework 3.5.1"
                         }
                         @{
-                            Name       = "Install - Microsoft Silverlight - x86"
-                            Type       = "Install Application"
-                            GroupName  = "State Restore"
-                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            AddAfter   = "Install - Microsoft Visual C++"
-                        }
-                        @{
                             Name       = "Configure - Set Control+Shift Keyboard Toggle"
                             Type       = "Install Application"
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            AddAfter   = "Install - Microsoft Silverlight - x64"
+                            AddAfter   = "Install - Microsoft Visual C++"
                         }
                         @{
                             Name       = "Configure - Set Start Layout"
@@ -875,18 +842,11 @@
                             AddAfter   = "Install - Microsoft NET Framework 3.5.1"
                         }
                         @{
-                            Name       = "Install - Microsoft Silverlight - x64"
-                            Type       = "Install Application"
-                            GroupName  = "State Restore"
-                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            AddAfter   = "Install - Microsoft Visual C++"
-                        }
-                        @{
                             Name       = "Configure - Set Control+Shift Keyboard Toggle"
                             Type       = "Install Application"
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            AddAfter   = "Install - Microsoft Silverlight - x64"
+                            AddAfter   = "Install - Microsoft Visual C++"
                         }
                         @{
                             Name       = "Configure - Set Start Layout"
@@ -1055,19 +1015,12 @@
                             AddAfter   = "Install - Microsoft NET Framework 3.5.1"
                         }
                         @{
-                            Name       = "Install - Microsoft Silverlight - x86"
-                            Type       = "Install Application"
-                            GroupName  = "State Restore"
-                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            AddAfter   = "Install - Microsoft Visual C++"
-                        }
-                        @{
                             Name       = "Configure - Disable SMB 1.0"
                             Type       = "Run Command Line"
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
                             Command    = 'powershell.exe -Command "Disable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol -NoRestart"'
-                            AddAfter   = "Install - Microsoft Silverlight - x86"
+                            AddAfter   = "Install - Microsoft Visual C++"
                         }
                         @{
                             Name       = "Configure - Set Control+Shift Keyboard Toggle"
@@ -1192,19 +1145,12 @@
                             AddAfter   = "Install - Microsoft NET Framework 3.5.1"
                         }
                         @{
-                            Name       = "Install - Microsoft Silverlight - x64"
-                            Type       = "Install Application"
-                            GroupName  = "State Restore"
-                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            AddAfter   = "Install - Microsoft Visual C++"
-                        }
-                        @{
                             Name       = "Configure - Disable SMB 1.0"
                             Type       = "Run Command Line"
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
                             Command    = 'powershell.exe -Command "Disable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol -NoRestart"'
-                            AddAfter   = "Install - Microsoft Silverlight - x64"
+                            AddAfter   = "Install - Microsoft Visual C++"
                         }
                         @{
                             Name       = "Configure - Set Control+Shift Keyboard Toggle"

@@ -15,20 +15,6 @@
             File   = "adksetup.exe"
         }
         @{
-            # Silverlight 5 x64 (Build: 5.1.50907.0)
-            Name   = "Silverlight_x64"
-            URI    = "https://download.microsoft.com/download/F/D/0/FD0B0093-DE8A-4C4E-BDC4-F0C56D72018C/50907.00/Silverlight_x64.exe"
-            Folder = "Silverlight_x64"
-            File   = "Silverlight_x64.exe"
-        }
-        @{
-            # Silverlight 5 x86 (Build: 5.1.50907.0)
-            Name   = "Silverlight_x86"
-            URI    = "https://download.microsoft.com/download/F/D/0/FD0B0093-DE8A-4C4E-BDC4-F0C56D72018C/50907.00/Silverlight.exe"
-            Folder = "Silverlight_x86"
-            File   = "Silverlight.exe"
-        }
-        @{
             # Install script for Visual C++ runtimes
             Name   = "VS++Application"
             URI    = "https://raw.githubusercontent.com/DeploymentBunny/Files/master/Tools/Install-X86-X64-C%2B%2B/Install-MicrosoftVisualC%2B%2Bx86x64.wsf"

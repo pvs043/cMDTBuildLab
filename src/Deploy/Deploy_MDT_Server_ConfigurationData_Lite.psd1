@@ -64,12 +64,6 @@
                     ApplicationSourcePath = "VC++"
                 }
                 @{
-                    Name                  = "Install - Microsoft Silverlight - x86"
-                    Path                  = "\Applications\Core\Microsoft"
-                    CommandLine           = "Silverlight.exe /Q"
-                    ApplicationSourcePath = "Silverlight_x86"
-                }
-                @{
                     Name                  = "Configure - Set Control+Shift Keyboard Toggle"
                     Path                  = "\Applications\Core\Configure"
                     CommandLine           = "reg import Toggle.reg"
@@ -113,7 +107,7 @@
                             Name        = "Set Product Key"
                             Type        = "Set Task Sequence Variable"
                             GroupName   = "Initialization"
-                            Description = "KMS Client Setup Keys: https://technet.microsoft.com/en-us/library/jj612867.aspx"
+                            Description = "KMS Client Setup Keys: https://docs.microsoft.com/en-us/windows-server/get-started/kmsclientkeys"
                             TSVarName   = "ProductKey"
                             TSVarValue  = "NPPR9-FWDCX-D2C8J-H872K-2YT43"
                         }
@@ -161,7 +155,7 @@
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
                             OSName     = "Windows 10"
-                            OSFeatures = "NetFx3,TelnetClient"
+                            OSFeatures = "NetFx3"
                         }
                         @{
                             Name       = "Configure - Disable SMB 1.0"
@@ -179,18 +173,11 @@
                             AddAfter   = "Configure - Disable SMB 1.0"
                         }
                         @{
-                            Name       = "Install - Microsoft Silverlight - x86"
-                            Type       = "Install Application"
-                            GroupName  = "State Restore"
-                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            AddAfter   = "Install - Microsoft Visual C++"
-                        }
-                        @{
                             Name       = "Configure - Set Control+Shift Keyboard Toggle"
                             Type       = "Install Application"
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            AddAfter   = "Install - Microsoft Silverlight - x86"
+                            AddAfter   = "Install - Microsoft Visual C++"
                         }
                         @{
                             Name       = "Configure - Set Start Layout"
