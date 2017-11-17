@@ -331,7 +331,7 @@
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
                             OSName     = "Windows 7"
-                            OSFeatures = "InboxGames,NetFx3,TelnetClient"
+                            OSFeatures = "InboxGames,NetFx3"
                         }
                         @{
                             Name       = "Configure - Disable SMB 1.0"
@@ -507,7 +507,7 @@
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
                             OSName     = "Windows 7"
-                            OSFeatures = "InboxGames,NetFx3,TelnetClient"
+                            OSFeatures = "InboxGames,NetFx3"
                         }
                         @{
                             Name       = "Configure - Disable SMB 1.0"
@@ -685,7 +685,7 @@
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
                             OSName     = "Windows 8.1"
-                            OSFeatures = "NetFx3,TelnetClient"
+                            OSFeatures = "NetFx3"
                         }
                         @{
                             Name       = "Install - Microsoft Visual C++"
@@ -865,7 +865,7 @@
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
                             OSName     = "Windows 8.1"
-                            OSFeatures = "NetFx3,TelnetClient"
+                            OSFeatures = "NetFx3"
                         }
                         @{
                             Name       = "Install - Microsoft Visual C++"
@@ -1045,7 +1045,7 @@
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
                             OSName     = "Windows 10"
-                            OSFeatures = "NetFx3,TelnetClient"
+                            OSFeatures = "NetFx3"
                         }
                         @{
                             Name       = "Install - Microsoft Visual C++"
@@ -1182,7 +1182,7 @@
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
                             OSName     = "Windows 10"
-                            OSFeatures = "NetFx3,TelnetClient"
+                            OSFeatures = "NetFx3"
                         }
                         @{
                             Name       = "Install - Microsoft Visual C++"
@@ -1317,7 +1317,7 @@
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
                             OSName     = "Windows 2012 R2"
-                            OSFeatures = "NET-Framework-Features,Telnet-Client"
+                            OSFeatures = "NET-Framework-Features"
                         }
                         @{
                             Name       = "Configure - Firewall rules"
@@ -1440,18 +1440,10 @@
                             AddAfter   = "Apply Local GPO Package"
                         }
                         @{
-                            Name       = "Install - Telnet client"
-                            Type       = "Run Command Line"
-                            GroupName  = "State Restore"
-                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            Command    = 'powershell.exe -Command "Add-WindowsFeature Telnet-Client"'
-                        }
-                        @{
                             Name       = "Configure - Firewall rules"
                             Type       = "Install Application"
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            AddAfter   = "Install - Telnet client"
                         }
                         @{
                             Name       = "Configure - Set Control+Shift Keyboard Toggle"
@@ -1539,7 +1531,6 @@
                             GroupName  = "State Restore"
                             AddAfter   = "Apply Local GPO Package"
                         }
-                        # Step Telnet client removed. Use Test-NetConnection instead
                         @{
                             Name       = "Configure - Firewall rules"
                             Type       = "Install Application"
