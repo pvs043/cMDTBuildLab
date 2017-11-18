@@ -722,14 +722,12 @@
                             Type       = "Install Application"
                             GroupName  = "State Restore"
                             SubGroup   = "Install WMF 5.1 and APP-V 5.1"
-                            Disable    = "true"
                         }
                         @{
                             Name       = "Restart Computer 2"
                             Type       = "Restart Computer"
                             GroupName  = "State Restore"
                             SubGroup   = "Install WMF 5.1 and APP-V 5.1"
-                            Disable    = "true"
                             AddAfter   = "Install - Windows Management Framework 5.1 - x86"
                         }
                         @{
@@ -895,14 +893,12 @@
                             Type       = "Install Application"
                             GroupName  = "State Restore"
                             SubGroup   = "Install WMF 5.1 and APP-V 5.1"
-                            Disable    = "true"
                         }
                         @{
                             Name       = "Restart Computer 2"
                             Type       = "Restart Computer"
                             GroupName  = "State Restore"
                             SubGroup   = "Install WMF 5.1 and APP-V 5.1"
-                            Disable    = "true"
                             AddAfter   = "Install - Windows Management Framework 5.1 - x64"
                         }
                         @{
