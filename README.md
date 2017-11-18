@@ -6,7 +6,7 @@ cMDTBuildLab is a fork from [cMDT module](https://github.com/servicedudes/cmdt).
 [![Build status](https://ci.appveyor.com/api/projects/status/h8qth51otb888a7v?svg=true)](https://ci.appveyor.com/project/pvs043/cmdtbuildlab)
 
 ### Version
-2.0.0
+2.1.0
 
 See version history at [Project Site](https://github.com/pvs043/cMDTBuildLab/wiki/Version-History)
 
@@ -34,7 +34,6 @@ The following prerequisites automatically downloaded with the cMDTBuildPreReqs D
 * [MicrosoftDeploymentToolkit_x64](https://www.microsoft.com/en-us/download/details.aspx?id=54259) - Microsoft Deployment Toolkit (MDT) (Build 6.3.8443.1000)
 * [adksetup](https://developer.microsoft.com/en-us/windows/hardware/windows-assessment-deployment-kit) - Windows Assessment and Deployment Kit 10, v.1709 (Build: 10.1.16299.15)
 * [Visual C++ runtimes](https://support.microsoft.com/en-us/kb/2977003) - 2008,2010,2012,2013,2017
-* [Microsoft Silverlight 5](https://www.microsoft.com/getsilverlight/Get-Started/Install/Default.aspx)
 * [Windows Management Framewework 3.0 for Windows 7 SP1](https://www.microsoft.com/en-us/download/details.aspx?id=34595)
 * [Windows Management Framewework 5.1 for Windows 8.1 and Windows 2012 R2](http://aka.ms/wmf5latest)
 * [Servicing stack update for Windows 7 SP1](https://support.microsoft.com/en-us/kb/3177467)
@@ -77,11 +76,6 @@ Want to contribute? Great!
 E-mail me with any changes, questions or suggestions: pvs043@outlook.com<br>
 Requiest for the new features at [GitHub](https://github.com/pvs043/cMDTBuildLab/issues).
 
-License
-----
-
-**MIT**
-
 ### Respects
 
 [Johan Arwidmark](http://deploymentresearch.com/Research): Deployment Research<br>
@@ -89,3 +83,8 @@ License
 [Jason Helmick](https://twitter.com/theJasonHelmick), [Jeffrey Snover](https://twitter.com/@jsnover):<br>
 [1. Getting Started with PowerShell Desired State Configuration (DSC)](https://mva.microsoft.com/en-US/training-courses/getting-started-with-powershell-desired-state-configuration-dsc--8672?l=ZwHuclG1_2504984382). ([Rus](https://mva.microsoft.com/ru/training-courses/-powershell-dsc--8672?l=dlwgB3wFB_1704984382))<br>
 [2. Advanced PowerShell Desired State Configuration (DSC) and Custom Resources](https://mva.microsoft.com/en-US/training-courses/advanced-powershell-desired-state-configuration-dsc-and-custom-resources-8702?l=3DnsS2H1_1504984382)
+
+License
+----
+
+**MIT**
