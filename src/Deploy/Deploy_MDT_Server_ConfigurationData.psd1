@@ -319,7 +319,7 @@
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
                             OSName     = "Windows 7"
-                            OSFeatures = "InboxGames,NetFx3"
+                            OSFeatures = "InboxGames,NetFx3,TelnetClient"
                         }
                         @{
                             Name       = "Configure - Disable SMB 1.0"
@@ -488,7 +488,7 @@
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
                             OSName     = "Windows 7"
-                            OSFeatures = "InboxGames,NetFx3"
+                            OSFeatures = "InboxGames,NetFx3,TelnetClient"
                         }
                         @{
                             Name       = "Configure - Disable SMB 1.0"
