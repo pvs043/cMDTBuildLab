@@ -1,4 +1,4 @@
-﻿Configuration DeployMDTServerContract
+Configuration DeployMDTServerContract
 {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingCmdletAliases')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseDeclaredVarsMoreThanAssignments')]
@@ -18,7 +18,7 @@
     {
         LocalConfigurationManager {
             RebootNodeIfNeeded             = $AllNodes.RebootNodeIfNeeded
-            ConfigurationMode              = $AllNodes.ConfigurationMode   
+            ConfigurationMode              = $AllNodes.ConfigurationMode
             ConfigurationModeFrequencyMins = $AllNodes.ConfigurationModeFrequencyMins
             RefreshFrequencyMins           = $AllNodes.RefreshFrequencyMins
         }
@@ -372,7 +372,7 @@
 
             $IniFile.GetEnumerator() | % {
                 If ($_.key -eq "Name")           { $Name           = $_.value }
-                If ($_.key -eq "Path")           { $Path           = "$($Node.PSDrivePath)$($_.value)" }                                                
+                If ($_.key -eq "Path")           { $Path           = "$($Node.PSDrivePath)$($_.value)" }
                 If ($_.key -eq "Company")        { $Company        = $_.value }
                 If ($_.key -eq "TimeZoneName")   { $TimeZoneName   = $_.value }
                 If ($_.key -eq "WSUSServer")     { $WSUSServer     = $_.value }
