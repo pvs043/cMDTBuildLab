@@ -1,4 +1,4 @@
-﻿###
+###
 # Script for prepare Windows distributives
 #
 # 1. Download source Windows ISO from VLSC, MSDN on Evaluation portals
