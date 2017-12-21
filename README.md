@@ -6,7 +6,7 @@ cMDTBuildLab is a fork from [cMDT module](https://github.com/servicedudes/cmdt).
 [![Build status](https://ci.appveyor.com/api/projects/status/h8qth51otb888a7v?svg=true)](https://ci.appveyor.com/project/pvs043/cmdtbuildlab)
 
 ### Version
-2.1.0
+2.1.1
 
 See version history at [Project Site](https://github.com/pvs043/cMDTBuildLab/wiki/Version-History)
 
@@ -31,7 +31,7 @@ Prerequisites for infrastructure:
 This module is tested on Windows 2016 server, but it will be worked on Windows 10 or Windows 2012 R2/Windows 8.1 with Windows Management Framewework 5.1.
 
 The following prerequisites automatically downloaded with the cMDTBuildPreReqs DSC resource:
-* [MicrosoftDeploymentToolkit_x64](https://www.microsoft.com/en-us/download/details.aspx?id=54259) - Microsoft Deployment Toolkit (MDT) (Build 6.3.8443.1000)
+* [MicrosoftDeploymentToolkit_x64](https://www.microsoft.com/en-us/download/details.aspx?id=54259) - Microsoft Deployment Toolkit (MDT) (Build 6.3.8450.1000)
 * [adksetup](https://developer.microsoft.com/en-us/windows/hardware/windows-assessment-deployment-kit) - Windows Assessment and Deployment Kit 10, v.1709 (Build: 10.1.16299.15)
 * [Visual C++ runtimes](https://support.microsoft.com/en-us/kb/2977003) - 2008,2010,2012,2013,2017
 * [Windows Management Framewework 3.0 for Windows 7 SP1](https://www.microsoft.com/en-us/download/details.aspx?id=34595)

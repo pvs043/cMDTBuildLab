@@ -32,9 +32,9 @@ Configuration DownloadMDTPrereqs
 
         Package MDT {
             Ensure     = "Present"
-            Name       = "Microsoft Deployment Toolkit (6.3.8443.1000)"
+            Name       = "Microsoft Deployment Toolkit (6.3.8450.1000)"
             Path       = "$($Node.SourcePath)\Microsoft Deployment Toolkit\MicrosoftDeploymentToolkit_x64.msi"
-            ProductId  = "9547DE37-4A70-4194-97EA-ACC3E747254B"
+            ProductId  = "53B2ED09-314F-446A-A26E-DD14970DF50D"
             ReturnCode = 0
         }
 #>

@@ -1,11 +1,9 @@
 $moduleName     = "cMDTBuildLab"
 $moduleGuid     = "df45de26-88b1-4a95-98af-b798fde1424f"
 $year           = (Get-Date).Year
-$moduleVersion  = "2.1.0"
+$moduleVersion  = "2.1.1"
 $releaseNotes  = "
-* Removed TS task for Install Telnet client (except Windows 7). Use Test-NetConnection instead
-* Removed dependency on Silverlight. Use WSUS for install it
-* Install Windows Management Framework 5.1 for Windows 8.1 images
+* Update Microsoft Deployment Toolkit (6.3.8450.1000)
 "
 $allResources   = @( Get-ChildItem -Path $PSScriptRoot\src\DSCResources\*.psm1 -ErrorAction SilentlyContinue -Recurse | Sort-Object)
 $allFunctions   = @( Get-ChildItem -Path $PSScriptRoot\src\Public\*.ps1 -ErrorAction SilentlyContinue -Recurse | Sort-Object)

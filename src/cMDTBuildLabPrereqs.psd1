@@ -1,7 +1,7 @@
 @{
     Prereqs = @(
         @{
-            # Microsoft Deployment Toolkit (Build: 6.3.8443.1000)
+            # Microsoft Deployment Toolkit (Build: 6.3.8450.1000)
             Name   = "MDT"
             URI    = "https://download.microsoft.com/download/3/3/9/339BE62D-B4B8-4956-B58D-73C4685FC492/MicrosoftDeploymentToolkit_x64.msi"
             Folder = "Microsoft Deployment Toolkit"
