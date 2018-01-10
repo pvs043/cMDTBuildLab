@@ -1442,7 +1442,8 @@
                             Description = "KMS Client Setup Keys: https://docs.microsoft.com/en-us/windows-server/get-started/kmsclientkeys"
                             TSVarName   = "ProductKey"
                             TSVarValue  = "6Y6KB-N82V8-D8CQV-23MJW-BWTG6"
-                            Disable     = "true"                        }
+                            Disable     = "true"
+                        }
                         @{
                             Name             = "Apply Patches"
                             Type             = "Install Updates Offline"
