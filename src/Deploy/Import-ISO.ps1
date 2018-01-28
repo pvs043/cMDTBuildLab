@@ -72,14 +72,14 @@ $destinations = @(
         Name  = "Windows 10 Enterprise"
         Lang  = "Russian"
         Arch  = "x32"
-        Build = "50180"
+        Build = "67560"
         Dest  = "Windows10x86"
     }
     @{
         Name  = "Windows 10 Enterprise"
         Lang  = "Russian"
         Arch  = "x64"
-        Build = "50181"
+        Build = "67561"
         Dest  = "Windows10x64"
     }
     @{
