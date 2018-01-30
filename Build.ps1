@@ -1,11 +1,12 @@
 $moduleName     = "cMDTBuildLab"
 $moduleGuid     = "df45de26-88b1-4a95-98af-b798fde1424f"
 $year           = (Get-Date).Year
-$moduleVersion  = "2.1.1"
+$moduleVersion  = "2.2.0"
 $releaseNotes  = "
 * Update Microsoft Deployment Toolkit (6.3.8450.1000)
 * Update List of Removed Default Apps for Windows 10 1709
 * Tested with latest Windows 10 Version 1709 ISO (December 2017)
+* Add parameter LTSBOnly to cMDTBuildPreReqs. Use Yes for download only Windows 10 1607 LTSB prereqs
 "
 $allResources   = @( Get-ChildItem -Path $PSScriptRoot\src\DSCResources\*.psm1 -ErrorAction SilentlyContinue -Recurse | Sort-Object)
 $allFunctions   = @( Get-ChildItem -Path $PSScriptRoot\src\Public\*.ps1 -ErrorAction SilentlyContinue -Recurse | Sort-Object)
