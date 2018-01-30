@@ -101,7 +101,7 @@
                 @{
                     Name     = "Windows 10 LTSB x86"
                     Path     = "Windows 10"
-                    OSName   = "Windows 10\Windows 10 Enterprise 2016 LTSB in Windows 10 1607 x86 install.wim"
+                    OSName   = "Windows 10\Windows 10 Enterprise 2016 LTSB in Windows 10 LTSB x86 install.wim"
                     OrgName  = "BuildLab"
                     Template = "Client.xml"
                     ID       = "REFW1607X86-001"
@@ -225,7 +225,7 @@
                 @{
                     Name     = "Windows 10 LTSB x64"
                     Path     = "Windows 10"
-                    OSName   = "Windows 10\Windows 10 Enterprise 2016 LTSB in Windows 10 1607 x64 install.wim"
+                    OSName   = "Windows 10\Windows 10 Enterprise 2016 LTSB in Windows 10 LTSB x64 install.wim"
                     OrgName  = "BuildLab"
                     Template = "Client.xml"
                     ID       = "REFW1607X64-001"
