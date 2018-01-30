@@ -81,6 +81,7 @@
             Folder = "VC++\Source\VS2017"
             File   = "vc_redist.x64.exe"
         }
+        <#
         @{
             # Servicing stack update for Windows 10 Version 1607 x86: November 14, 2017
             Name   = "KB4049065-x86"
@@ -95,6 +96,7 @@
             Folder = "KB4049065-x64"
             File   = "windows10.0-kb4049065-x64_f92abbe03d011154d52cf13be7fb60e2c6feb35b.msu"
         }
+        #>
         @{
             # Cumulative update for Windows 10 Version 1607 x86: January 3, 2018
             Name   = "KB4056890-x86"
