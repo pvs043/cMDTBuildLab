@@ -133,6 +133,7 @@ $null = New-Item -ItemType Directory -Path "$buildDir\Build\$moduleName"
 Set-Content -Path $combinedModule -Value $combinedResources
 Set-Content -Path $manifestFile -Value $ManifestDefinition
 Copy-Item   -Path "$PSScriptRoot\src\cMDTBuildLabPrereqs.psd1" -Destination "$BuildDir\Build\$moduleName\cMDTBuildLabPrereqs.psd1" -Force
+Copy-Item   -Path "$PSScriptRoot\src\cMDTBuildLabPrereqsLTSB.psd1" -Destination "$BuildDir\Build\$moduleName\cMDTBuildLabPrereqsLTSB.psd1" -Force
 
 # Add artefacts
 Copy-Item -Path "$PSScriptRoot\src\Deploy"   -Destination "$BuildDir\Build\$moduleName\Deploy" -Recurse -Force

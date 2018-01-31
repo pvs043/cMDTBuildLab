@@ -19,6 +19,7 @@
 
             #Sources for download/Prereqs
             SourcePath         = "E:\Source"
+            LTSBOnly           = "Yes"
 
             #MDT deoployment share paths
             PSDriveName        = "MDT001"
