@@ -1,7 +1,7 @@
 $moduleName     = "cMDTBuildLab"
 $moduleGuid     = "df45de26-88b1-4a95-98af-b798fde1424f"
 $year           = (Get-Date).Year
-$moduleVersion  = "2.1.1"
+$moduleVersion  = "2.1.2"
 $releaseNotes  = "
 * Update Microsoft Deployment Toolkit (6.3.8450.1000)
 * Update List of Removed Default Apps for Windows 10 1709
