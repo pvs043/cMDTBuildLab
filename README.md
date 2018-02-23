@@ -6,7 +6,7 @@ cMDTBuildLab is a fork from [cMDT module](https://github.com/servicedudes/cmdt).
 [![Build status](https://ci.appveyor.com/api/projects/status/h8qth51otb888a7v?svg=true)](https://ci.appveyor.com/project/pvs043/cmdtbuildlab)
 
 ### Version
-2.1.1
+2.2.0
 
 See version history at [Project Site](https://github.com/pvs043/cMDTBuildLab/wiki/Version-History)
 
@@ -27,6 +27,7 @@ Prerequisites for infrastructure:
     Windows 10 Version 1709 (December 2017)<br>
     Windows 2016 (November 2016)<br>
     Windows Server 1709 (September 2017)
+    Windows 10 Version 1607 LTSB (July 2016) - optional scenario
 
 This module is tested on Windows 2016 server, but it will be worked on Windows 10 or Windows 2012 R2/Windows 8.1 with Windows Management Framewework 5.1.
 
@@ -40,6 +41,7 @@ The following prerequisites automatically downloaded with the cMDTBuildPreReqs D
 * [Convenience rollup update for Windows 7 SP1](https://support.microsoft.com/en-us/kb/3125574)
 * [July 2016 update rollup for Windows 7 SP1](https://support.microsoft.com/en-us/kb/3172605) - this include fixes the Windows Update Client
 * [July 2016 update rollup for Windows 8.1 and Windows Server 2012 R2](https://support.microsoft.com/en-us/kb/3172614) - this include fixes the Windows Update Client
+* [Cumulative update for Windows 10 Version 1607: January 3, 2018](https://support.microsoft.com/en-us/kb/4056890) - for build only Windows 10 Version 1607 LTSB
 
 If your MDT01 host does not have direct connection to Internet, run DSC configuration from Deploy\Download_MDT_Prereqs.ps1 at Windows machine connected to Internet. After completion of downloading run E:\Source\Windows Assessment and Deployment Kit\adksetup.exe for download ADK. Then copy E:\Source to production server.
 

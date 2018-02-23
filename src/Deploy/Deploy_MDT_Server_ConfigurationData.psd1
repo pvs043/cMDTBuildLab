@@ -445,7 +445,8 @@
                             Description = "KMS Client Setup Keys: https://docs.microsoft.com/en-us/windows-server/get-started/kmsclientkeys"
                             TSVarName   = "ProductKey"
                             TSVarValue  = "33PXH-7Y6KF-2VJC9-XBBR8-HVTHH"
-                            Disable     = "true"                        }
+                            Disable     = "true"
+                        }
                         @{
                             Name             = "Apply Patches"
                             Type             = "Install Updates Offline"
@@ -614,7 +615,8 @@
                             Description = "KMS Client Setup Keys: https://docs.microsoft.com/en-us/windows-server/get-started/kmsclientkeys"
                             TSVarName   = "ProductKey"
                             TSVarValue  = "MHF9N-XY6XB-WVXMC-BTDCT-MKKG7"
-                            Disable     = "true"                        }
+                            Disable     = "true"
+                        }
                         @{
                             Name             = "Apply Patches"
                             Type             = "Install Updates Offline"
@@ -785,7 +787,8 @@
                             Description = "KMS Client Setup Keys: https://docs.microsoft.com/en-us/windows-server/get-started/kmsclientkeys"
                             TSVarName   = "ProductKey"
                             TSVarValue  = "MHF9N-XY6XB-WVXMC-BTDCT-MKKG7"
-                            Disable     = "true"                        }
+                            Disable     = "true"
+                        }
                         @{
                             Name             = "Apply Patches"
                             Type             = "Install Updates Offline"
@@ -956,7 +959,8 @@
                             Description = "KMS Client Setup Keys: https://docs.microsoft.com/en-us/windows-server/get-started/kmsclientkeys"
                             TSVarName   = "ProductKey"
                             TSVarValue  = "NPPR9-FWDCX-D2C8J-H872K-2YT43"
-                            Disable     = "true"                        }
+                            Disable     = "true"
+                        }
                         @{
                             Name             = "Apply Patches"
                             Type             = "Install Updates Offline"
@@ -1086,7 +1090,8 @@
                             Description = "KMS Client Setup Keys: https://docs.microsoft.com/en-us/windows-server/get-started/kmsclientkeys"
                             TSVarName   = "ProductKey"
                             TSVarValue  = "NPPR9-FWDCX-D2C8J-H872K-2YT43"
-                            Disable     = "true"                        }
+                            Disable     = "true"
+                        }
                         @{
                             Name             = "Apply Patches"
                             Type             = "Install Updates Offline"
@@ -1216,7 +1221,8 @@
                             Description = "KMS Client Setup Keys: https://docs.microsoft.com/en-us/windows-server/get-started/kmsclientkeys"
                             TSVarName   = "ProductKey"
                             TSVarValue  = "D2N9P-3P6X9-2R39C-7RTCD-MDVJX"
-                            Disable     = "true"                        }
+                            Disable     = "true"
+                        }
                         @{
                             Name             = "Apply Patches"
                             Type             = "Install Updates Offline"
@@ -1350,7 +1356,8 @@
                             Description = "KMS Client Setup Keys: https://docs.microsoft.com/en-us/windows-server/get-started/kmsclientkeys"
                             TSVarName   = "ProductKey"
                             TSVarValue  = "WC2BQ-8NRM3-FDDYY-2BFGV-KHKQY"
-                            Disable     = "true"                        }
+                            Disable     = "true"
+                        }
                         @{
                             Name             = "Apply Patches"
                             Type             = "Install Updates Offline"
