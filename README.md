@@ -43,7 +43,7 @@ The following prerequisites automatically downloaded with the cMDTBuildPreReqs D
 
 If your MDT01 host does not have direct connection to Internet, run DSC configuration from Deploy\Download_MDT_Prereqs.ps1 at Windows machine connected to Internet. After completion of downloading run E:\Source\Windows Assessment and Deployment Kit\adksetup.exe for download ADK. Then copy E:\Source to production server.
 
-Note for APP-V 5.1 client:<p>
+Note for APP-V 5.1 (Windows 7 / 8.1) client:<p>
 This module include *fake* archive Sources\appv_client_setup.zip.<p>
 If you have Microsoft Software Assurance subscription, take original client of APP-V 5.1 (appv_client_setup.exe) from MDOP 2015 and place into this ZIP file.<p>
 This archive will be unpack to source folder with cMDTBuildPreReqs DSC resource.
