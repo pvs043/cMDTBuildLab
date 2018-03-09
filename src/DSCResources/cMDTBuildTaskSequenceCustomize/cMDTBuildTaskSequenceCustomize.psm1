@@ -187,11 +187,19 @@ class cMDTBuildTaskSequenceCustomize
 
         if (!$this.AddAfter) {
             if ($step) {
-                if ($this.Disable -ne "") {
+                if ($this.Disable -eq "true") {
                     $present = ($step.disable -eq $this.Disable)
                 }
-                if ($this.SelectionProfile -ne "") {
-                    $present = ($step.defaultVarList.variable.'#text' -eq $this.SelectionProfile)
+                if (!$present) {
+                    if ($this.SelectionProfile -ne "") {
+                        $present = ($step.defaultVarList.variable.'#text' -eq $this.SelectionProfile)
+                    }
+                    if ($step.Name -eq "Set Product Key") {
+                        $present = ($step.defaultVarList.variable[1].'#text' -eq $this.TSVarValue)
+                    }
+                    if ($step.Name -eq "Windows Update (Pre-Application Installation)") {
+                        $present = ($step.disable -eq $this.disable)
+                    }
                 }
             }
             else {
