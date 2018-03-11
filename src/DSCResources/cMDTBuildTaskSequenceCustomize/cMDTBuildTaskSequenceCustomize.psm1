@@ -197,7 +197,7 @@ class cMDTBuildTaskSequenceCustomize
                     if ($step.Name -eq "Set Product Key") {
                         $present = ($step.defaultVarList.variable[1].'#text' -eq $this.TSVarValue)
                     }
-                    if ($step.Name -eq "Windows Update (Pre-Application Installation)") {
+                    if ($step.Name -like "Windows Update (*-Application Installation)") {
                         $present = ($step.disable -eq $this.disable)
                     }
                 }
