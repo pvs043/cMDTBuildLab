@@ -6,6 +6,7 @@ $releaseNotes  = "
 * Update Microsoft Deployment Toolkit (6.3.8450.1000)
 * Update List of Removed Default Apps for Windows 10 Version 1709
 * Tested with latest Windows 10 Version 1709 ISO (December 2017)
+* Fix bugs at cMDTBuildTaskSequenceCustomize (thanks to @FLeven)
 "
 $allResources   = @( Get-ChildItem -Path $PSScriptRoot\src\DSCResources\*.psm1 -ErrorAction SilentlyContinue -Recurse | Sort-Object)
 $allFunctions   = @( Get-ChildItem -Path $PSScriptRoot\src\Public\*.ps1 -ErrorAction SilentlyContinue -Recurse | Sort-Object)
