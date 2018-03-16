@@ -415,10 +415,18 @@
                             AddAfter   = "Opt In to CEIP and WER"
                         }
                         @{
+                            Name       = "Action - CleanupBuildWSUS"
+                            Type       = "Run Command Line"
+                            GroupName  = "State Restore"
+                            SubGroup   = "Cleanup before Sysprep"
+                            Command    = "reg delete HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate /f"
+                        }
+                        @{
                             Name       = "Action - CleanupBeforeSysprep"
                             Type       = "Install Application"
                             GroupName  = "State Restore"
                             SubGroup   = "Cleanup before Sysprep"
+                            AddAfter   = "Action - CleanupBuildWSUS"
                         }
                         @{
                             Name       = "Restart Computer 4"
@@ -585,10 +593,25 @@
                             AddAfter   = "Opt In to CEIP and WER"
                         }
                         @{
+                            Name       = "Action - CleanupBuildWSUS"
+                            Type       = "Run Command Line"
+                            GroupName  = "State Restore"
+                            SubGroup   = "Cleanup before Sysprep"
+                            Command    = "reg delete HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate /f"
+                        }
+                        @{
                             Name       = "Action - CleanupBeforeSysprep"
                             Type       = "Install Application"
                             GroupName  = "State Restore"
                             SubGroup   = "Cleanup before Sysprep"
+                            AddAfter   = "Action - CleanupBuildWSUS"
+                        }
+                        @{
+                            Name       = "Action - CleanupBeforeSysprep"
+                            Type       = "Install Application"
+                            GroupName  = "State Restore"
+                            SubGroup   = "Cleanup before Sysprep"
+                            AddAfter   = "Action - CleanupBeforeSysprep"
                         }
                         @{
                             Name       = "Restart Computer 4"
@@ -757,10 +780,25 @@
                             AddAfter   = "Opt In to CEIP and WER"
                         }
                         @{
+                            Name       = "Action - CleanupBuildWSUS"
+                            Type       = "Run Command Line"
+                            GroupName  = "State Restore"
+                            SubGroup   = "Cleanup before Sysprep"
+                            Command    = "reg delete HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate /f"
+                        }
+                        @{
                             Name       = "Action - CleanupBeforeSysprep"
                             Type       = "Install Application"
                             GroupName  = "State Restore"
                             SubGroup   = "Cleanup before Sysprep"
+                            AddAfter   = "Action - CleanupBuildWSUS"
+                        }
+                        @{
+                            Name       = "Action - CleanupBeforeSysprep"
+                            Type       = "Install Application"
+                            GroupName  = "State Restore"
+                            SubGroup   = "Cleanup before Sysprep"
+                            AddAfter   = "Action - CleanupBeforeSysprep"
                         }
                         @{
                             Name       = "Restart Computer 4"
@@ -929,10 +967,25 @@
                             AddAfter   = "Opt In to CEIP and WER"
                         }
                         @{
+                            Name       = "Action - CleanupBuildWSUS"
+                            Type       = "Run Command Line"
+                            GroupName  = "State Restore"
+                            SubGroup   = "Cleanup before Sysprep"
+                            Command    = "reg delete HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate /f"
+                        }
+                        @{
                             Name       = "Action - CleanupBeforeSysprep"
                             Type       = "Install Application"
                             GroupName  = "State Restore"
                             SubGroup   = "Cleanup before Sysprep"
+                            AddAfter   = "Action - CleanupBuildWSUS"
+                        }
+                        @{
+                            Name       = "Action - CleanupBeforeSysprep"
+                            Type       = "Install Application"
+                            GroupName  = "State Restore"
+                            SubGroup   = "Cleanup before Sysprep"
+                            AddAfter   = "Action - CleanupBeforeSysprep"
                         }
                         @{
                             Name       = "Restart Computer 4"
@@ -1060,10 +1113,25 @@
                             AddAfter   = "Opt In to CEIP and WER"
                         }
                         @{
+                            Name       = "Action - CleanupBuildWSUS"
+                            Type       = "Run Command Line"
+                            GroupName  = "State Restore"
+                            SubGroup   = "Cleanup before Sysprep"
+                            Command    = "reg delete HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate /f"
+                        }
+                        @{
                             Name       = "Action - CleanupBeforeSysprep"
                             Type       = "Install Application"
                             GroupName  = "State Restore"
                             SubGroup   = "Cleanup before Sysprep"
+                            AddAfter   = "Action - CleanupBuildWSUS"
+                        }
+                        @{
+                            Name       = "Action - CleanupBeforeSysprep"
+                            Type       = "Install Application"
+                            GroupName  = "State Restore"
+                            SubGroup   = "Cleanup before Sysprep"
+                            AddAfter   = "Action - CleanupBeforeSysprep"
                         }
                         @{
                             Name       = "Restart Computer 1"
@@ -1189,12 +1257,6 @@
                             Disable    = "true"
                             Command    = 'cscript.exe "%SCRIPTROOT%\LTISuspend.wsf"'
                             AddAfter   = "Opt In to CEIP and WER"
-                        }
-                        @{
-                            Name       = "Action - CleanupBeforeSysprep"
-                            Type       = "Install Application"
-                            GroupName  = "State Restore"
-                            SubGroup   = "Cleanup before Sysprep"
                         }
                         @{
                             Name       = "Restart Computer 1"
