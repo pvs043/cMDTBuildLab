@@ -607,13 +607,6 @@
                             AddAfter   = "Action - CleanupBuildWSUS"
                         }
                         @{
-                            Name       = "Action - CleanupBeforeSysprep"
-                            Type       = "Install Application"
-                            GroupName  = "State Restore"
-                            SubGroup   = "Cleanup before Sysprep"
-                            AddAfter   = "Action - CleanupBeforeSysprep"
-                        }
-                        @{
                             Name       = "Restart Computer 4"
                             Type       = "Restart Computer"
                             GroupName  = "State Restore"
@@ -792,13 +785,6 @@
                             GroupName  = "State Restore"
                             SubGroup   = "Cleanup before Sysprep"
                             AddAfter   = "Action - CleanupBuildWSUS"
-                        }
-                        @{
-                            Name       = "Action - CleanupBeforeSysprep"
-                            Type       = "Install Application"
-                            GroupName  = "State Restore"
-                            SubGroup   = "Cleanup before Sysprep"
-                            AddAfter   = "Action - CleanupBeforeSysprep"
                         }
                         @{
                             Name       = "Restart Computer 4"
