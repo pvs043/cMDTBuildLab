@@ -967,13 +967,6 @@
                             AddAfter   = "Action - CleanupBuildWSUS"
                         }
                         @{
-                            Name       = "Action - CleanupBeforeSysprep"
-                            Type       = "Install Application"
-                            GroupName  = "State Restore"
-                            SubGroup   = "Cleanup before Sysprep"
-                            AddAfter   = "Action - CleanupBeforeSysprep"
-                        }
-                        @{
                             Name       = "Restart Computer 4"
                             Type       = "Restart Computer"
                             GroupName  = "State Restore"
@@ -1113,13 +1106,6 @@
                             AddAfter   = "Action - CleanupBuildWSUS"
                         }
                         @{
-                            Name       = "Action - CleanupBeforeSysprep"
-                            Type       = "Install Application"
-                            GroupName  = "State Restore"
-                            SubGroup   = "Cleanup before Sysprep"
-                            AddAfter   = "Action - CleanupBeforeSysprep"
-                        }
-                        @{
                             Name       = "Restart Computer 1"
                             Type       = "Restart Computer"
                             GroupName  = "State Restore"
@@ -1243,6 +1229,20 @@
                             Disable    = "true"
                             Command    = 'cscript.exe "%SCRIPTROOT%\LTISuspend.wsf"'
                             AddAfter   = "Opt In to CEIP and WER"
+                        }
+                        @{
+                            Name       = "Action - CleanupBuildWSUS"
+                            Type       = "Run Command Line"
+                            GroupName  = "State Restore"
+                            SubGroup   = "Cleanup before Sysprep"
+                            Command    = "reg delete HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate /f"
+                        }
+                        @{
+                            Name       = "Action - CleanupBeforeSysprep"
+                            Type       = "Install Application"
+                            GroupName  = "State Restore"
+                            SubGroup   = "Cleanup before Sysprep"
+                            AddAfter   = "Action - CleanupBuildWSUS"
                         }
                         @{
                             Name       = "Restart Computer 1"
@@ -1374,10 +1374,18 @@
                             AddAfter   = "Install - Windows Management Framework 5.1 - x64"
                         }
                         @{
+                            Name       = "Action - CleanupBuildWSUS"
+                            Type       = "Run Command Line"
+                            GroupName  = "State Restore"
+                            SubGroup   = "Cleanup before Sysprep"
+                            Command    = "reg delete HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate /f"
+                        }
+                        @{
                             Name       = "Action - CleanupBeforeSysprep"
                             Type       = "Install Application"
                             GroupName  = "State Restore"
                             SubGroup   = "Cleanup before Sysprep"
+                            AddAfter   = "Action - CleanupBuildWSUS"
                         }
                         @{
                             Name       = "Restart Computer 3"
@@ -1467,10 +1475,18 @@
                             AddAfter   = "Configure - Disable SMB 1.0"
                         }
                         @{
+                            Name       = "Action - CleanupBuildWSUS"
+                            Type       = "Run Command Line"
+                            GroupName  = "State Restore"
+                            SubGroup   = "Cleanup before Sysprep"
+                            Command    = "reg delete HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate /f"
+                        }
+                        @{
                             Name       = "Action - CleanupBeforeSysprep"
                             Type       = "Install Application"
                             GroupName  = "State Restore"
                             SubGroup   = "Cleanup before Sysprep"
+                            AddAfter   = "Action - CleanupBuildWSUS"
                         }
                         @{
                             Name       = "Restart Computer 1"
@@ -1552,10 +1568,18 @@
                             AddAfter   = "Configure - Set Control+Shift Keyboard Toggle"
                         }
                         @{
+                            Name       = "Action - CleanupBuildWSUS"
+                            Type       = "Run Command Line"
+                            GroupName  = "State Restore"
+                            SubGroup   = "Cleanup before Sysprep"
+                            Command    = "reg delete HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate /f"
+                        }
+                        @{
                             Name       = "Action - CleanupBeforeSysprep"
                             Type       = "Install Application"
                             GroupName  = "State Restore"
                             SubGroup   = "Cleanup before Sysprep"
+                            AddAfter   = "Action - CleanupBuildWSUS"
                         }
                         @{
                             Name       = "Restart Computer 1"
