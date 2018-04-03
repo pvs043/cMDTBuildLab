@@ -66,12 +66,15 @@ Configuration DeployMDTServerContract
             DependsOn = "[Package]MDT"
         }
 
+        # Set FullAccess rights for MDT Deployment Share to Everyone
+        $objSID = New-Object System.Security.Principal.SecurityIdentifier("S-1-1-0") 
+        $objUser = $objSID.Translate([System.Security.Principal.NTAccount])
+        $userName = $objUser.Value
         xSmbShare FolderDeploymentShare {
             Ensure                = "Present"
             Name                  = $Node.PSDriveShareName
             Path                  = $Node.PSDrivePath
-            #FullAccess            = "$($Node.NodeName)\$($Credentials.UserName)"
-            FullAccess            = "Everyone"
+            FullAccess            = $userName
             FolderEnumerationMode = "AccessBased"
             DependsOn             = "[cMDTBuildDirectory]DeploymentFolder"
         }
