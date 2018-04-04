@@ -3,14 +3,26 @@
 cMDTBuildLab is a Powershell Module to help automize deployment Windows Reference Images on MDT Server with Desired State Configuration.<p>
 cMDTBuildLab is a fork from [cMDT module](https://github.com/servicedudes/cmdt).
 
-[![Build status](https://ci.appveyor.com/api/projects/status/h8qth51otb888a7v?svg=true)](https://ci.appveyor.com/project/pvs043/cmdtbuildlab)
+## Branches
 
-### Version
+### master
+
+[![Build status](https://ci.appveyor.com/api/projects/status/h8qth51otb888a7v?branch=master&svg=true)](https://ci.appveyor.com/project/pvs043/cmdtbuildlab/branch/master)
+
+This is the branch containing the latest release, published at PowerShell Gallery.
+
+### dev
+
+[![Build status](https://ci.appveyor.com/api/projects/status/h8qth51otb888a7v?branch=dev&svg=true)](https://ci.appveyor.com/project/pvs043/cmdtbuildlab/branch/dev)
+
+This is the development branch with latest changes.
+
+## Version
 2.2.0
 
 See version history at [Project Site](https://github.com/pvs043/cMDTBuildLab/wiki/Version-History)
 
-### Tech
+## Tech
 
 Prerequisites for infrastructure:
 * Domain Controller: DC01 (Windows 2012 R2 or above)
@@ -25,7 +37,7 @@ Prerequisites for infrastructure:
     Windows 8.1 (November 2014)<br>
     Windows 2012 R2 (November 2014)<br>
     Windows 10 Version 1709 (December 2017)<br>
-    Windows 2016 (November 2016)<br>
+    Windows 2016 (February 2018)<br>
     Windows Server 1709 (September 2017)
 
 This module is tested on Windows 2016 server, but it will be worked on Windows 10 or Windows 2012 R2/Windows 8.1 with Windows Management Framewework 5.1.
@@ -48,10 +60,10 @@ This module include *fake* archive Sources\appv_client_setup.zip.<p>
 If you have Microsoft Software Assurance subscription, take original client of APP-V 5.1 (appv_client_setup.exe) from MDOP 2015 and place into this ZIP file.<p>
 This archive will be unpack to source folder with cMDTBuildPreReqs DSC resource.
 
-### Quick start
+## Quick start
 See [Project Documentation](https://github.com/pvs043/cMDTBuildLab/wiki/Quick-Start).
 
-### DscResources
+## DscResources
 
 The cMDTBuildLab Module contain the following DscResources:
 
@@ -69,14 +81,14 @@ The cMDTBuildLab Module contain the following DscResources:
 * [cMDTBuildTaskSequenceCustomize](https://github.com/pvs043/cMDTBuildLab/wiki/cMDTBuildTaskSequenceCustomize)
 * [cMDTBuildUpdateBootImage](https://github.com/pvs043/cMDTBuildLab/wiki/cMDTBuildUpdateBootImage)
 
-### Development
+## Development
 
 Want to contribute? Great!
 
 E-mail me with any changes, questions or suggestions: pvs043@outlook.com<br>
 Requiest for the new features at [GitHub](https://github.com/pvs043/cMDTBuildLab/issues).
 
-### Respects
+## Respects
 
 [Johan Arwidmark](http://deploymentresearch.com/Research): Deployment Research<br>
 [Mikael Nystrom](https://anothermike2.wordpress.com): The Deployment Bunny<br>
@@ -84,7 +96,7 @@ Requiest for the new features at [GitHub](https://github.com/pvs043/cMDTBuildLab
 [1. Getting Started with PowerShell Desired State Configuration (DSC)](https://mva.microsoft.com/en-US/training-courses/getting-started-with-powershell-desired-state-configuration-dsc--8672?l=ZwHuclG1_2504984382). ([Rus](https://mva.microsoft.com/ru/training-courses/-powershell-dsc--8672?l=dlwgB3wFB_1704984382))<br>
 [2. Advanced PowerShell Desired State Configuration (DSC) and Custom Resources](https://mva.microsoft.com/en-US/training-courses/advanced-powershell-desired-state-configuration-dsc-and-custom-resources-8702?l=3DnsS2H1_1504984382)
 
-License
+## License
 ----
 
 **MIT**
