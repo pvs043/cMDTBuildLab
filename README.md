@@ -6,15 +6,11 @@ cMDTBuildLab is a fork from [cMDT module](https://github.com/servicedudes/cmdt).
 ## Branches
 
 ### master
-
 [![Build status](https://ci.appveyor.com/api/projects/status/h8qth51otb888a7v?branch=master&svg=true)](https://ci.appveyor.com/project/pvs043/cmdtbuildlab/branch/master)
-
 This is the branch containing the latest release, published at PowerShell Gallery.
 
 ### dev
-
 [![Build status](https://ci.appveyor.com/api/projects/status/h8qth51otb888a7v?branch=dev&svg=true)](https://ci.appveyor.com/project/pvs043/cmdtbuildlab/branch/dev)
-
 This is the development branch with latest changes.
 
 ## Version
@@ -97,6 +93,5 @@ Requiest for the new features at [GitHub](https://github.com/pvs043/cMDTBuildLab
 [2. Advanced PowerShell Desired State Configuration (DSC) and Custom Resources](https://mva.microsoft.com/en-US/training-courses/advanced-powershell-desired-state-configuration-dsc-and-custom-resources-8702?l=3DnsS2H1_1504984382)
 
 ## License
-----
 
 **MIT**
