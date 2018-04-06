@@ -3,6 +3,6 @@
   "Common Tests - Validate Example Files",
   "Common Tests - Validate Module Files",
   "Common Tests - Validate Script Files",
-  "TestHelper\Get-PesterDescribeOptInStatus",
+  "TestHelper\\Get-PesterDescribeOptInStatus",
   "Opt-In"
 ]
