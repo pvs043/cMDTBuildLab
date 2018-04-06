@@ -96,7 +96,9 @@ HelpInfoURI = 'https://github.com/pvs043/cMDTBuildLab/wiki'
 PowerShellVersion = '5.0'
 
 # Modules that must be imported into the global environment prior to importing this module
-RequiredModules = @({ModuleName="xSmbShare",ModuleVersion="2.0.0.0"},{ModuleName="cNtfsAccessControl",ModuleVersion="1.3.1"})
+RequiredModules = @('cNtfsAccessControl',
+@{ModuleName = 'xSmbShare'; ModuleVersion = '2.0.0.0'; }
+)
 
 # Private data to pass to the module specified in RootModule/ModuleToProcess. This may also contain a PSData hashtable with additional module metadata used by PowerShell.
 PrivateData = @{
