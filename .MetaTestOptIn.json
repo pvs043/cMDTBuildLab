@@ -2,7 +2,5 @@
     "Common Tests - Validate Markdown Files",
     "Common Tests - Validate Example Files",
     "Common Tests - Validate Module Files",
-    "Common Tests - Validate Script Files",
-    "Opt-In",
-    "Opt-Out"
+    "Common Tests - Validate Script Files"
 ]
