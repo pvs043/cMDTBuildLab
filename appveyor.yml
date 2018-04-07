@@ -45,6 +45,13 @@ build_script:
     - copy cMDTBuildLab.psm1 "%ProgramFiles%\WindowsPowerShell\Modules\cMDTBuildLab"
     - copy cMDTBuildLab.psd1 "%ProgramFiles%\WindowsPowerShell\Modules\cMDTBuildLab"
     - ps: |
+        $s = Get-Content -Path ".\DscResource.Tests\Tests\Unit\TestHelper.Tests.ps1"
+        $patch = $s.Replace(`
+            "Get-PSModulePathItem -Prefix $", "(Get-PSModulePathItem -Prefix $"`
+        ).Replace(`
+            "SystemRoot | Should -Be", "SystemRoot).TrimEnd('\') | Should -Be"`
+        )
+        Set-Content -Path ".\DscResource.Tests\Tests\Unit\TestHelper.Tests.ps1" -Value $patch
         Import-Module -Name .\DscResource.Tests\TestHelper.psm1 -Force -ErrorAction Stop
         Write-Host "...completed!" -ForegroundColor Green
 
