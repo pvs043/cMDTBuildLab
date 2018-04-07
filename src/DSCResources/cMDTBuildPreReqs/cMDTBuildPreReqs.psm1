@@ -13,18 +13,10 @@ class cMDTBuildPreReqs
     [DscProperty(Key)]
     [string]$DownloadPath
 
-    [DscProperty()]
-    [string]$LTSBOnly = "No"
-
     [void] Set()
     {
         Write-Verbose "Starting Set MDT PreReqs..."
-        if ($this.LTSBOnly -eq "Yes") {
-            [hashtable]$DownloadFiles = Get-ConfigurationData -ConfigurationData "$($PSScriptRoot)\cMDTBuildLabPrereqsLTSB.psd1"
-        }
-        else {
-            [hashtable]$DownloadFiles = Get-ConfigurationData -ConfigurationData "$($PSScriptRoot)\cMDTBuildLabPrereqs.psd1"
-        }
+        [hashtable]$DownloadFiles = Get-ConfigurationData -ConfigurationData "$($PSScriptRoot)\cMDTBuildLabPrereqs.psd1"
 
         if ($this.ensure -eq [Ensure]::Present) {
             $present = $this.TestDownloadPath()
@@ -75,12 +67,7 @@ class cMDTBuildPreReqs
     {
         Write-Verbose "Testing MDT PreReqs..."
         $present = $this.TestDownloadPath()
-        if ($this.LTSBOnly -eq "Yes") {
-            [hashtable]$DownloadFiles = Get-ConfigurationData -ConfigurationData "$($PSScriptRoot)\cMDTBuildLabPrereqsLTSB.psd1"
-        }
-        else {
-            [hashtable]$DownloadFiles = Get-ConfigurationData -ConfigurationData "$($PSScriptRoot)\cMDTBuildLabPrereqs.psd1"
-        }
+        [hashtable]$DownloadFiles = Get-ConfigurationData -ConfigurationData "$($PSScriptRoot)\cMDTBuildLabPrereqs.psd1"
 
         if ($this.ensure -eq [Ensure]::Present) {            
             Write-Verbose "   Testing for download path.."            
