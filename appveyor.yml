@@ -19,7 +19,7 @@ install:
         $RequiredModules = 'PSScriptAnalyzer','Pester','xSmbShare','cNtfsAccessControl'
         $InstalledModules = Get-Module -Name $RequiredModules -ListAvailable
         Write-Host "Installed modules:" -ForegroundColor Yellow
-        $InstalledModules
+        $InstalledModules | ft Name, Version
         if ( ($InstalledModules.count -lt $RequiredModules.Count) -or ($Null -eq $InstalledModules)) {
             throw "Required modules are missing."
         } else {
