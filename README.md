@@ -14,7 +14,7 @@ This is the branch containing the latest release, published at PowerShell Galler
 This is the development branch with latest changes.
 
 ## Version
-2.2.0
+2.3.0
 
 See version history at [Project Site](https://github.com/pvs043/cMDTBuildLab/wiki/Version-History)
 
