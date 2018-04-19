@@ -203,16 +203,16 @@
         @{
             # Configure - Set Start Layout (Windows 8.1)
             Name   = "StartLayout8.1"
-            URI    = "Sources\Default_Start_Screen_Layout.bin"
+            URI    = "Sources\Default_Start_Screen_Layout_81.bin"
             Folder = "Set-Startlayout"
-            File   = "Default_Start_Screen_Layout.bin"
+            File   = "Default_Start_Screen_Layout_81.bin"
         }
         @{
             # Configure - Set Start Layout (Windows 10)
             Name   = "StartLayout10"
-            URI    = "Sources\Default_Start_Screen_Layout_10.bin"
+            URI    = "Sources\Default_Start_Screen_Layout_10.xml"
             Folder = "Set-Startlayout"
-            File   = "Default_Start_Screen_Layout_10.bin"
+            File   = "Default_Start_Screen_Layout_10.xml"
         }
         @{
             # Configure - Remove Windows Default Applications
