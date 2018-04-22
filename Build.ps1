@@ -3,8 +3,8 @@ $moduleGuid     = "df45de26-88b1-4a95-98af-b798fde1424f"
 $year           = (Get-Date).Year
 $moduleVersion  = "2.2.2"
 $releaseNotes  = "
-* Change scripts for cusomize default layout: Don't forget to delete the folder E:\Source\Set-Startlayout before update module
-* Fix isuue with remove default Appx on Windows 10 (thanks to @FLeven): Don't forget to delete the folder E:\Source\Scripts before update module
+* Change scripts for cusomize default layout: Don't forget to delete the folder E:\Source\Set-Startlayout before update the module
+* Fix issue with remove default Appx on Windows 10 (thanks to @FLeven): Don't forget to delete the folder E:\Source\Scripts before update the module
 "
 $allResources   = @( Get-ChildItem -Path $PSScriptRoot\src\DSCResources\*.psm1 -ErrorAction SilentlyContinue -Recurse | Sort-Object)
 $allFunctions   = @( Get-ChildItem -Path $PSScriptRoot\src\Public\*.ps1 -ErrorAction SilentlyContinue -Recurse | Sort-Object)
