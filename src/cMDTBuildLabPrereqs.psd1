@@ -8,9 +8,9 @@
             File   = "MicrosoftDeploymentToolkit_x64.msi"
         }
         @{
-            # Windows Assessment and Deployment Kit 10, v.1709 (Build: 10.1.16299.15)
+            # Windows Assessment and Deployment Kit 10, v.1803 (Build: 10.1.17134.1)
             Name   = "ADK"
-            URI    = "https://go.microsoft.com/fwlink/p/?linkid=859206"
+            URI    = "http://download.microsoft.com/download/6/8/9/689E62E5-C50F-407B-9C3C-B7F00F8C93C0/adk/adksetup.exe"
             Folder = "Windows Assessment and Deployment Kit"
             File   = "adksetup.exe"
         }

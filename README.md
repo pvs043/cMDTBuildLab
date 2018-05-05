@@ -40,7 +40,7 @@ This module is tested on Windows 2016 server, but it will be worked on Windows 1
 
 The following prerequisites automatically downloaded with the cMDTBuildPreReqs DSC resource:
 * [MicrosoftDeploymentToolkit_x64](https://www.microsoft.com/en-us/download/details.aspx?id=54259) - Microsoft Deployment Toolkit (MDT) (Build 6.3.8450.1000)
-* [adksetup](https://developer.microsoft.com/en-us/windows/hardware/windows-assessment-deployment-kit) - Windows Assessment and Deployment Kit 10, v.1709 (Build: 10.1.16299.15)
+* [adksetup](https://developer.microsoft.com/en-us/windows/hardware/windows-assessment-deployment-kit) - Windows Assessment and Deployment Kit 10, v.1803 (Build: 10.1.17134.1)
 * [Visual C++ runtimes](https://support.microsoft.com/en-us/kb/2977003) - 2008,2010,2012,2013,2017
 * [Windows Management Framewework 3.0 for Windows 7 SP1](https://www.microsoft.com/en-us/download/details.aspx?id=34595)
 * [Windows Management Framewework 5.1 for Windows 8.1 and Windows 2012 R2](http://aka.ms/wmf5latest)
