@@ -10,13 +10,13 @@ cMDTBuildLab is a fork from [cMDT module](https://github.com/servicedudes/cmdt).
 This is the branch containing the latest release, published at PowerShell Gallery.
 
 ### Github dev branch
-[![Build status][appveyor-badge-dev]][appveyor-build-master]
+[![Build status][appveyor-badge-dev]][appveyor-build-dev]
 This is the development branch with latest changes.
 
 ### PowerShell Gallery
-[![PowerShell Gallery][psgallery-badge]][psgallery]
 [![PowerShell Gallery Version][psgallery-version-badge]][psgallery]
-Official repository
+[![PowerShell Gallery Downloads][psgallery-badge]][psgallery]
+Official repository - latest module version and download count.
 
 ## Version
 2.3.0
