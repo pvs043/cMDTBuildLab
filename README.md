@@ -3,15 +3,20 @@
 cMDTBuildLab is a Powershell Module to help automize deployment Windows Reference Images on MDT Server with Desired State Configuration.<p>
 cMDTBuildLab is a fork from [cMDT module](https://github.com/servicedudes/cmdt).
 
-## Branches
+## Releases
 
-### master
-[![Build status](https://ci.appveyor.com/api/projects/status/h8qth51otb888a7v?branch=master&svg=true)](https://ci.appveyor.com/project/pvs043/cmdtbuildlab/branch/master?fullLog=true)
+### GitHub master branch
+[![Build status][appveyor-badge-master]][appveyor-build-master]
 This is the branch containing the latest release, published at PowerShell Gallery.
 
-### dev
-[![Build status](https://ci.appveyor.com/api/projects/status/h8qth51otb888a7v?branch=dev&svg=true)](https://ci.appveyor.com/project/pvs043/cmdtbuildlab/branch/dev?fullLog=true)
+### Github dev branch
+[![Build status][appveyor-badge-dev]][appveyor-build-master]
 This is the development branch with latest changes.
+
+### PowerShell Gallery
+[![PowerShell Gallery][psgallery-badge]][psgallery]
+[![PowerShell Gallery Version][psgallery-version-badge]][psgallery]
+Official repository
 
 ## Version
 2.3.0
@@ -95,3 +100,12 @@ Requiest for the new features at [GitHub](https://github.com/pvs043/cMDTBuildLab
 ## License
 
 **MIT**
+
+[appveyor-badge-master]: https://ci.appveyor.com/api/projects/status/h8qth51otb888a7v?branch=master&svg=true
+[appveyor-build-master]: https://ci.appveyor.com/project/pvs043/cmdtbuildlab/branch/master?fullLog=true
+[appveyor-badge-dev]: https://ci.appveyor.com/api/projects/status/h8qth51otb888a7v?branch=dev&svg=true
+[appveyor-build-dev]: https://ci.appveyor.com/project/pvs043/cmdtbuildlab/branch/dev?fullLog=true
+[psgallery-badge]: https://img.shields.io/powershellgallery/dt/cmdtbuildlab.svg
+[psgallery]: https://www.powershellgallery.com/packages/cmdtbuildlab
+[psgallery-version-badge]: https://img.shields.io/powershellgallery/v/cmdtbuildlab.svg
+[psgallery-version]: https://www.powershellgallery.com/packages/cmdtbuildlab
