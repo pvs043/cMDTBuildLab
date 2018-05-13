@@ -135,9 +135,9 @@
                     SourcePath = "Windows2016"
                 }
                 @{
-                    Name       = "Windows 1709"
+                    Name       = "Windows 1803"
                     Path       = "Windows 2016"
-                    SourcePath = "Windows1709"
+                    SourcePath = "Windows1803"
                 }
             )
 
@@ -1498,12 +1498,12 @@
                     )
                 }
                 @{
-                    Name     = "Windows 1709"
+                    Name     = "Windows 1803"
                     Path     = "Windows 2016"
-                    OSName   = "Windows 2016\Windows Server 2016 SERVERDATACENTERACORE in Windows 1709 install.wim"
+                    OSName   = "Windows 2016\Windows Server 2016 SERVERDATACENTERACORE in Windows 1803 install.wim"
                     OrgName  = "BuildLab"
                     Template = "Server.xml"
-                    ID       = "REFW1709-001"
+                    ID       = "REFW1803-001"
                     Customize = @(
                         # Set Product Key needed for MSDN/Evalution Windows distributives only. Skip this step if your ISO sources is VLSC.
                         @{

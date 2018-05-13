@@ -6,6 +6,7 @@ $releaseNotes  = "
 * Change scripts for cusomize default layout: Do not forget to delete the folder E:\Source\Set-Startlayout before upgrade
 * Fix issue with remove default Appx on Windows 10 (thanks to @FLeven): Do not forget to delete the folder E:\Source\Scripts before upgrade
 * ADK v.1803 (Build: 10.1.17134.1). Do not forget uninstall ADK v.1709 before upgrade
+* Update Windows Server Semi-Annual Channel to 1803
 "
 $allResources   = @( Get-ChildItem -Path $PSScriptRoot\src\DSCResources\*.psm1 -ErrorAction SilentlyContinue -Recurse | Sort-Object)
 $allFunctions   = @( Get-ChildItem -Path $PSScriptRoot\src\Public\*.ps1 -ErrorAction SilentlyContinue -Recurse | Sort-Object)
