@@ -8,7 +8,7 @@ Configuration DownloadMDTPrereqs
     {
         LocalConfigurationManager {
             RebootNodeIfNeeded = $AllNodes.RebootNodeIfNeeded
-            ConfigurationMode  = $AllNodes.ConfigurationMode   
+            ConfigurationMode  = $AllNodes.ConfigurationMode
         }
 
         cMDTBuildPreReqs MDTPreReqs {

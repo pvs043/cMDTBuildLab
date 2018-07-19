@@ -38,7 +38,7 @@
     Blog   : http://deploymentbunny.com
 
     Disclaimer:
-    This script is provided 'AS IS' with no warranties, confers no rights and 
+    This script is provided 'AS IS' with no warranties, confers no rights and
     is not supported by the author.
 
     Modyfy : Pavel Andreev
