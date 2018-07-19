@@ -1,5 +1,5 @@
 @{
-    AllNodes = 
+    AllNodes =
     @(
         @{
 
@@ -7,7 +7,7 @@
             NodeName                       = "*"
             PSDscAllowPlainTextPassword    = $true
             RebootNodeIfNeeded             = $true
-            ConfigurationMode              = "ApplyAndAutoCorrect"      
+            ConfigurationMode              = "ApplyAndAutoCorrect"
             ConfigurationModeFrequencyMins = 120
             RefreshFrequencyMins           = 120
         },
@@ -32,7 +32,7 @@
 
             #MDT Application Folder Structure
             ApplicationFolderStructure = @(
-                @{  
+                @{
                     Folder     = "Core"
                     SubFolders = @(
                         @{ SubFolder = "Configure" }
@@ -246,7 +246,7 @@
 
             #Custom folder/files to add to the MDT
             CustomSettings   = @(
-                @{  
+                @{
                     Name       = "Scripts"
                     SourcePath = "Scripts"
                     TestFiles  = @("RemoveApps.ps1",
@@ -258,7 +258,7 @@
 
             #Custom settings and boot ini file management
             CustomizeIniFiles  = @(
-                @{  
+                @{
                     Name           = "CustomSettingsIni"
                     Path           = "\Control\CustomSettings.ini"
                     Company        = "Build Lab"
@@ -267,7 +267,7 @@
                     UserLocale     = "en-US"
                     KeyboardLocale = "en-US;ru-RU"
                 }
-                @{  
+                @{
                     Name           = "BootstrapIni"
                     Path           = "\Control\Bootstrap.ini"
                 }
@@ -275,7 +275,7 @@
 
             #Boot image creation and management
             BootImage  = @(
-                @{  
+                @{
                     Version    = "1.0"
                     ExtraDirectory = "Extra"
                     BackgroundFile = "%INSTALLDIR%\Samples\Background.bmp"

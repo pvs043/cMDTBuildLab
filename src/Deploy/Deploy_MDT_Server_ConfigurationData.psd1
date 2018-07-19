@@ -7,7 +7,7 @@
             NodeName                       = "*"
             PSDscAllowPlainTextPassword    = $true
             RebootNodeIfNeeded             = $true
-            ConfigurationMode              = "ApplyAndAutoCorrect"      
+            ConfigurationMode              = "ApplyAndAutoCorrect"
             ConfigurationModeFrequencyMins = 120
             RefreshFrequencyMins           = 120
         },
@@ -46,14 +46,14 @@
 
             #MDT Application Folder Structure
             ApplicationFolderStructure = @(
-                @{  
+                @{
                     Folder     = "Core"
                     SubFolders = @(
                         @{SubFolder = "Configure"}
                         @{SubFolder = "Microsoft"}
                     )
                 }
-                @{  
+                @{
                     Folder = "Common Applications"
                 }
             )
@@ -437,7 +437,7 @@
                     }
                     )
                 }
-                @{  
+                @{
                     Name     = "Windows 7 x64"
                     Path     = "Windows 7"
                     OSName   = "Windows 7\Windows 7 ENTERPRISE in Windows 7 x64 install.wim"
@@ -615,7 +615,7 @@
                         }
                     )
                 }
-                @{  
+                @{
                     Name     = "Windows 8.1 x86"
                     Path     = "Windows 8.1"
                     OSName   = "Windows 8.1\Windows 8.1 Enterprise in Windows 8.1 x86 install.wim"
@@ -812,7 +812,7 @@
                         }
                     )
                 }
-                @{  
+                @{
                     Name     = "Windows 8.1 x64"
                     Path     = "Windows 8.1"
                     OSName   = "Windows 8.1\Windows 8.1 Enterprise in Windows 8.1 x64 install.wim"
@@ -1321,7 +1321,7 @@
                         }
                     )
                 }
-                @{  
+                @{
                     Name     = "Windows 2012 R2"
                     Path     = "Windows 2012 R2"
                     OSName   = "Windows 2012 R2\Windows Server 2012 R2 SERVERSTANDARD in Windows 2012 R2 install.wim"
@@ -1464,7 +1464,7 @@
                         }
                     )
                 }
-                @{  
+                @{
                     Name     = "Windows 2016"
                     Path     = "Windows 2016"
                     OSName   = "Windows 2016\Windows Server 2016 SERVERSTANDARD in Windows 2016 install.wim"
@@ -1662,7 +1662,7 @@
 
             #Custom folder/files to add to the MDT
             CustomSettings   = @(
-                @{  
+                @{
                     Name       = "Scripts"
                     SourcePath = "Scripts"
                     TestFiles  = @("RemoveApps.ps1",
@@ -1674,7 +1674,7 @@
 
             #Custom settings and boot ini file management
             CustomizeIniFiles  = @(
-                @{  
+                @{
                     Name           = "CustomSettingsIni"
                     Path           = "\Control\CustomSettings.ini"
                     Company        = "Build Lab"
@@ -1683,7 +1683,7 @@
                     UserLocale     = "en-US"
                     KeyboardLocale = "en-US;ru-RU"
                 }
-                @{  
+                @{
                     Ensure         = "Present"
                     Name           = "BootstrapIni"
                     Path           = "\Control\Bootstrap.ini"
@@ -1692,7 +1692,7 @@
 
             #Boot image creation and management
             BootImage  = @(
-                @{  
+                @{
                     Version    = "1.0"
                     ExtraDirectory = "Extra"
                     BackgroundFile = "%INSTALLDIR%\Samples\Background.bmp"

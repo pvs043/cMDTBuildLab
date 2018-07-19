@@ -18,13 +18,13 @@ class cMDTBuildApplication
 
     [DscProperty(Mandatory)]
     [string]$Enabled
-    
+
     [DscProperty(Mandatory)]
     [string]$CommandLine
-    
+
     [DscProperty(Mandatory)]
     [string]$ApplicationSourcePath
-    
+
     [DscProperty(Mandatory)]
     [string]$PSDriveName
 
@@ -39,14 +39,14 @@ class cMDTBuildApplication
                 $this.ImportApplication()
             }
         }
-        else {   
+        else {
             Invoke-RemovePath -Path "$($this.path)\$($this.name)" -PSDriveName $this.PSDriveName -PSDrivePath $this.PSDrivePath -Verbose
         }
     }
 
     [bool] Test()
     {
-        $present = Invoke-TestPath -Path "$($this.path)\$($this.name)" -PSDriveName $this.PSDriveName -PSDrivePath $this.PSDrivePath 
+        $present = Invoke-TestPath -Path "$($this.path)\$($this.name)" -PSDriveName $this.PSDriveName -PSDrivePath $this.PSDrivePath
 
         if ($this.Ensure -eq [Ensure]::Present) {
             return $present

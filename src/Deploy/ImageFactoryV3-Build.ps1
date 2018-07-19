@@ -67,8 +67,8 @@
 [cmdletbinding(SupportsShouldProcess=$True)]
 
 Param(
-    [parameter(mandatory=$false)] 
-    [ValidateSet($True,$False)] 
+    [parameter(mandatory=$false)]
+    [ValidateSet($True,$False)]
     $UpdateBootImage = $False
 )
 
@@ -160,7 +160,7 @@ Function Update-Log
 
     Param(
     [Parameter(
-        Mandatory=$true, 
+        Mandatory=$true,
         ValueFromPipeline=$true,
         ValueFromPipelineByPropertyName=$true,
         Position=0
@@ -168,7 +168,7 @@ Function Update-Log
     [string]$Data,
 
     [Parameter(
-        Mandatory=$false, 
+        Mandatory=$false,
         ValueFromPipeline=$true,
         ValueFromPipelineByPropertyName=$true,
         Position=0
@@ -176,7 +176,7 @@ Function Update-Log
     [string]$Solution = $Solution,
 
     [Parameter(
-        Mandatory=$false, 
+        Mandatory=$false,
         ValueFromPipeline=$true,
         ValueFromPipelineByPropertyName=$true,
         Position=1
@@ -187,7 +187,7 @@ Function Update-Log
     )
     $LogString = "$Solution, $Data, $Class, $(Get-Date)"
     $HostString = "$Solution, $Data, $(Get-Date)"
-    
+
     Add-Content -Path $Log -Value $LogString
     switch ($Class)
     {
@@ -305,14 +305,14 @@ Foreach ($Ref in $RefTaskSequenceIDs) {
             $VMVlanID,
             $VMVCPU,
             $VMSwitch
-        )        
+        )    
 
         Write-Verbose "Hyper-V host is $env:COMPUTERNAME"
         Write-Verbose "Working on $VMName"
         #Check if VM exist
         if (!((Get-VM | Where-Object -Property Name -EQ -Value $VMName).count -eq 0)) {Write-Warning -Message "VM exist"; Break}
 
-        #Create VM 
+        #Create VM
         $VM = New-VM -Name $VMName -MemoryStartupBytes $VMMemory -Path $VMPath -NoVHD -Generation 1
         Write-Verbose "$($VM.Name) is created"
 
@@ -329,7 +329,7 @@ Foreach ($Ref in $RefTaskSequenceIDs) {
             $Result = Set-VMProcessor -Count $VMVCPU -VM $VM -Passthru
             Write-Verbose "$($VM.Name) has $($Result.count) vCPU"
         }
-    
+
         #Set VLAN
         If ($VMVlanID -ne "0") {
             $Result = Set-VMNetworkAdapterVlan -VlanId $VMVlanID -Access -VM $VM -Passthru
@@ -344,8 +344,8 @@ Foreach ($Ref in $RefTaskSequenceIDs) {
         #Add VHDx
         $result = Add-VMHardDiskDrive -VMName $VMName -Path "$VMPath\$VMName\Virtual Hard Disks\$VHD" -Passthru
         Write-Verbose "$($result.Path) is attached to $VMName"
-    
-        #Connect ISO 
+
+        #Connect ISO
         $result = Set-VMDvdDrive -VMName $VMName -Path $VMBootimage -Passthru
         Write-Verbose "$($result.Path) is attached to $VMName"
 
@@ -371,7 +371,7 @@ Foreach($Ref in $RefTaskSequenceIDs) {
         $VMObject = Get-WmiObject -Namespace root\virtualization\v2 -Class Msvm_ComputerSystem -Filter "ElementName = '$VMName'"
         $VMObject.GetRelated('Msvm_VirtualSystemSettingData').BIOSSerialNumber
     } -ArgumentList $Ref
-    
+
     #Update CustomSettings.ini
     $CustomSettings = Get-Content -Path $IniFile
 

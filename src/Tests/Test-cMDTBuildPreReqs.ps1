@@ -6,7 +6,7 @@ $SourcePath  = "E:\Source"
 Configuration MDTServer
 {
     cMDTBuildPreReqs MDTPreReqs {
-        Ensure = "Present"            
+        Ensure = "Present"
         DownloadPath = "$SourcePath"
     }
 }

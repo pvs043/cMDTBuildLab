@@ -43,13 +43,13 @@ Configuration DownloadMDTPrereqs
 
 #Set configuration data
 $ConfigurationData = @{
-    AllNodes = 
+    AllNodes =
     @(
         @{
             #Global Settings for the configuration of Desired State Local Configuration Manager:
             NodeName                    = "*"
             RebootNodeIfNeeded          = $true
-            ConfigurationMode           = "ApplyOnly"      
+            ConfigurationMode           = "ApplyOnly"
         },
         @{
             #Node Settings for the configuration of an MDT Server:
