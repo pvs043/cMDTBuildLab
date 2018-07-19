@@ -118,14 +118,6 @@
                             SelectionProfile = "Windows 10 x86"
                         }
                         @{
-                            Name       = "Configure - Remove Windows Default Applications"
-                            Type       = "Run Command Line"
-                            GroupName  = "Postinstall"
-                            Command    = 'powershell.exe -ExecutionPolicy Bypass -File "%SCRIPTROOT%\RemoveApps.ps1"'
-                            StartIn    = "%SCRIPTROOT%"
-                            AddAfter   = "Inject Drivers"
-                        }
-                        @{
                             Name       = "Windows Update (Pre-Application Installation)"
                             Type       = "Run Command Line"
                             GroupName  = "State Restore"
@@ -195,12 +187,37 @@
                             Command    = 'powershell.exe -ExecutionPolicy ByPass -Command "Enable-Appv; Set-AppvClientConfiguration -EnablePackageScripts 1"'
                         }
                         @{
+                            Name       = "Set-ExecutionPolicy Bypass"
+                            Type       = "Run Command Line"
+                            GroupName  = "State Restore"
+                            SubGroup   = "Custom Tasks (Post-Windows Update)"
+                            Command    = 'powershell.exe -command "Set-ExecutionPolicy Bypass -Force"'
+                        }
+                        @{
+                            Name       = "Configure - Remove Windows Default Applications"
+                            Type       = "Run Command Line"
+                            GroupName  = "State Restore"
+                            SubGroup   = "Custom Tasks (Post-Windows Update)"
+                            Command    = 'powershell.exe -ExecutionPolicy Bypass -File "%SCRIPTROOT%\RemoveApps.ps1"'
+                            StartIn    = "%SCRIPTROOT%"
+                            AddAfter   = "Set-ExecutionPolicy Bypass"
+                        }
+                        @{
                             Name       = "Suspend"
                             Type       = "Run Command Line"
                             GroupName  = "State Restore"
+                            SubGroup   = "Custom Tasks (Post-Windows Update)"
                             Disable    = "true"
                             Command    = 'cscript.exe "%SCRIPTROOT%\LTISuspend.wsf"'
-                            AddAfter   = "Opt In to CEIP and WER"
+                            AddAfter   = "Configure - Remove Windows Default Applications"
+                        }
+                        @{
+                            Name       = "Set-ExecutionPolicy RemoteSigned"
+                            Type       = "Run Command Line"
+                            GroupName  = "State Restore"
+                            SubGroup   = "Custom Tasks (Post-Windows Update)"
+                            Command    = 'powershell.exe -command "Set-ExecutionPolicy RemoteSigned -Force"'
+                            AddAfter   = "Suspend"
                         }
                         @{
                             Name       = "Action - CleanupBuildWSUS"

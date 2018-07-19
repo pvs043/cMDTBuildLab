@@ -36,8 +36,8 @@ Prerequisites for infrastructure:
 * Original Microsoft media (ISO) images:<br>
     Windows 7 with SP1 (April 2011)<br>
     Windows 8.1 (November 2014)<br>
-    Windows 2012 R2 (November 2014)<br>
     Windows 10 Version 1803 (April 2018)<br>
+    Windows 2012 R2 (November 2014)<br>
     Windows 2016 (February 2018)<br>
     Windows Server 1803 (April 2018)
 
