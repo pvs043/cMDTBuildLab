@@ -305,7 +305,7 @@ Foreach ($Ref in $RefTaskSequenceIDs) {
             $VMVlanID,
             $VMVCPU,
             $VMSwitch
-        )    
+        )
 
         Write-Verbose "Hyper-V host is $env:COMPUTERNAME"
         Write-Verbose "Working on $VMName"
