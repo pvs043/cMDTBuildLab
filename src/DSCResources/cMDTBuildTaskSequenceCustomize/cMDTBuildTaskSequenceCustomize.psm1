@@ -407,11 +407,13 @@ class cMDTBuildTaskSequenceCustomize
         $varName.SetAttribute("name", "ScriptName")
         $varName.SetAttribute("property", "ScriptName")
         $varName.AppendChild($TS.CreateTextNode($this.PSCommand)) | Out-Null     
+        $varList.AppendChild($varName) | Out-Null
 
         $varName = $TS.CreateElement("variable")
         $varName.SetAttribute("name", "Parameters")
         $varName.SetAttribute("property", "Parameters")
-        $varName.AppendChild($TS.CreateTextNode($this.PSParameters)) | Out-Null     
+        $varName.AppendChild($TS.CreateTextNode($this.PSParameters)) | Out-Null
+        $varList.AppendChild($varName) | Out-Null     
 
         $varName = $TS.CreateElement("variable")
         $varName.SetAttribute("name", "PackageID")
