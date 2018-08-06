@@ -296,6 +296,13 @@
                             Disable    = "false"
                         }
                         @{
+                            Name       = "TEST-WindowsUpdate-TEST"
+                            Type       = "Run PowerShell Script"
+                            PSCommand  = 'C:\Path\To\Script.ps1'
+                            GroupName  = "State Restore"
+                            Disable    = "false"
+                        }
+                        @{
                             Name       = "Custom Tasks (Pre-Windows Update)"
                             Type       = "Group"
                             GroupName  = "State Restore"
