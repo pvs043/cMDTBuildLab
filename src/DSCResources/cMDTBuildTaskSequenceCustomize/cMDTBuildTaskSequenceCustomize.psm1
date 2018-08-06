@@ -63,13 +63,17 @@ class cMDTBuildTaskSequenceCustomize
     [DscProperty()]
     [string]$Command
 
+    # Start directory for 'Run Command line' step
+    [DscProperty()]
+    [string]$StartIn
+
     # Command line for 'Run PowerShell Script' step
     [DscProperty()]
     [string]$PSCommand
 
-    # Start directory for 'Run Command line' step
+    # Parameters to Pass to PS Script
     [DscProperty()]
-    [string]$StartIn
+    [string]$PSParameters
 
     # Selection profile for 'Apply Patches' step
     [DscProperty()]
@@ -402,12 +406,12 @@ class cMDTBuildTaskSequenceCustomize
         $varName = $TS.CreateElement("variable")
         $varName.SetAttribute("name", "ScriptName")
         $varName.SetAttribute("property", "ScriptName")
-        $varList.AppendChild($varName) | Out-Null     
+        $varName.AppendChild($TS.CreateTextNode($this.PSCommand)) | Out-Null     
 
         $varName = $TS.CreateElement("variable")
         $varName.SetAttribute("name", "Parameters")
         $varName.SetAttribute("property", "Parameters")
-        $varList.AppendChild($varName) | Out-Null     
+        $varName.AppendChild($TS.CreateTextNode($this.PSParameters)) | Out-Null     
 
         $varName = $TS.CreateElement("variable")
         $varName.SetAttribute("name", "PackageID")

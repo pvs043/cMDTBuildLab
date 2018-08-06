@@ -296,8 +296,9 @@ Configuration DeployMDTServerContract
                 [string]$OSName           = ""    # for OS features only
                 [string]$OSFeatures       = ""    # for OS features only
                 [string]$Command          = ""    # for Run Command line only
-                [string]$PSCommand        = ""    # for Run Command line only
                 [string]$StartIn          = ""    # for Run Command line only
+                [string]$PSCommand        = ""    # for Run PowerShell Script only
+                [string]$PSParameters     = ""    # for Run PowerShell Script only
                 [string]$SelectionProfile = ""    # for Install Updates Offline only
 
                 $TSCustomize.GetEnumerator() | % {
@@ -314,8 +315,9 @@ Configuration DeployMDTServerContract
                     If ($_.key -eq "OSName")           { $OSName           = $_.value }
                     If ($_.key -eq "OSFeatures")       { $OSFeatures       = $_.value }
                     If ($_.key -eq "Command")          { $Command          = $_.value }
-                    If ($_.key -eq "PSCommand")        { $PSCommand        = $_.value }
                     If ($_.key -eq "StartIn")          { $StartIn          = $_.value }
+                    If ($_.key -eq "PSCommand")        { $PSCommand        = $_.value }
+                    If ($_.key -eq "PSParameters")     { $PSParameters     = $_.value }
                     If ($_.key -eq "SelectionProfile") { $SelectionProfile = $_.value }
                 }
 
@@ -338,8 +340,9 @@ Configuration DeployMDTServerContract
                     OSName           = $OSName
                     OSFeatures       = $OSFeatures
                     Command          = $Command
-                    PSCommand        = $PSCommand
                     StartIn          = $StartIn
+                    PSCommand        = $PSCommand
+                    PSParameters        = $PSParameters
                     SelectionProfile = $SelectionProfile
                     PSDriveName      = $Node.PSDriveName
                     PSDrivePath      = $Node.PSDrivePath
