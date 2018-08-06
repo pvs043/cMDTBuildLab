@@ -67,6 +67,14 @@ class cMDTBuildTaskSequenceCustomize
     [DscProperty()]
     [string]$StartIn
 
+    # Command line for 'Run PowerShell Script' step
+    [DscProperty()]
+    [string]$PSCommand
+
+    # Parameters to Pass to PS Script
+    [DscProperty()]
+    [string]$PSParameters
+
     # Selection profile for 'Apply Patches' step
     [DscProperty()]
     [string]$SelectionProfile
@@ -154,6 +162,9 @@ class cMDTBuildTaskSequenceCustomize
                 }
                 "Run Command Line" {
                     $this.RunCommandLine($TS, $newStep)
+                }
+                "Run PowerShell Script" {
+                    $this.RunPowerShellScript($TS, $newStep)
                 }
                 "Restart Computer" {
                     $this.RestartComputer($TS, $newStep)
@@ -383,6 +394,39 @@ class cMDTBuildTaskSequenceCustomize
         $Step.AppendChild($varList) | Out-Null
         $Step.AppendChild($action) | Out-Null
     }
+
+    [void] RunPowerShellScript($TS, $Step)
+    {
+        
+        $Step.SetAttribute("successCodeList", "0 3010")
+        $Step.SetAttribute("type", "BDD_RunPowerShellAction")
+        
+        $varList = $TS.CreateElement("defaultVarList")
+
+        $varName = $TS.CreateElement("variable")
+        $varName.SetAttribute("name", "ScriptName")
+        $varName.SetAttribute("property", "ScriptName")
+        $varName.AppendChild($TS.CreateTextNode($this.PSCommand)) | Out-Null     
+        $varList.AppendChild($varName) | Out-Null
+
+        $varName = $TS.CreateElement("variable")
+        $varName.SetAttribute("name", "Parameters")
+        $varName.SetAttribute("property", "Parameters")
+        $varName.AppendChild($TS.CreateTextNode($this.PSParameters)) | Out-Null
+        $varList.AppendChild($varName) | Out-Null     
+
+        $varName = $TS.CreateElement("variable")
+        $varName.SetAttribute("name", "PackageID")
+        $varName.SetAttribute("property", "PackageID")
+        $varList.AppendChild($varName) | Out-Null
+
+        $action = $TS.CreateElement("action")
+        $action.AppendChild($TS.CreateTextNode('cscript.exe "%SCRIPTROOT%\ZTIPowerShell.wsf"')) | Out-Null
+
+        $Step.AppendChild($varList) | Out-Null
+        $Step.AppendChild($action) | Out-Null
+    }
+
 
     [void] RestartComputer($TS, $Step)
     {
