@@ -20,7 +20,7 @@ Function Invoke-TestPath
         if (New-PSDrive -Name $PSDriveName -PSProvider "MDTProvider" -Root $PSDrivePath -Verbose:$false | `
             Test-Path -Path "$($Path)" -ErrorAction Ignore) {
             $present = $true
-        }        
+        }
     }
     else {
         if (Test-Path -Path "$($Path)" -ErrorAction Ignore) {

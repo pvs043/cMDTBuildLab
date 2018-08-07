@@ -29,7 +29,7 @@ class cMDTBuildBootstrapIni
     [bool] Test()
     {
         $present = $this.TestFileContent()
-        
+
         if ($this.Ensure -eq [Ensure]::Present) {
             return $present
         }
@@ -49,16 +49,16 @@ class cMDTBuildBootstrapIni
         $existingConfiguration = Get-Content -Path $this.Path -Raw #-Encoding UTF8
 
         if ($existingConfiguration -eq $this.Content.Replace("`n","`r`n")) {
-            $present = $true   
+            $present = $true
         }
         return $present
     }
 
     [void] SetContent()
     {
-        Set-Content -Path $this.Path -Value $this.Content.Replace("`n","`r`n") -NoNewline -Force #-Encoding UTF8 
+        Set-Content -Path $this.Path -Value $this.Content.Replace("`n","`r`n") -NoNewline -Force #-Encoding UTF8
     }
-    
+
     [void] SetDefaultContent()
     {
         $defaultContent = @"
@@ -68,7 +68,7 @@ Priority=Default
 [Default]
 
 "@
-        Set-Content -Path $this.Path -Value $defaultContent -NoNewline -Force #-Encoding UTF8 
+        Set-Content -Path $this.Path -Value $defaultContent -NoNewline -Force #-Encoding UTF8
     }
 }
 

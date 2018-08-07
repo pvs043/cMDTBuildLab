@@ -9,13 +9,13 @@ class cMDTBuildCustomize
 {
     [DscProperty()]
     [Ensure]$Ensure = "Present"
-    
+
     [DscProperty(Key)]
     [string]$Name
 
     [DscProperty(Key)]
     [string]$Path
-    
+
     [DscProperty(Mandatory)]
     [string]$SourcePath
 

@@ -80,7 +80,7 @@ class cMDTBuildTaskSequenceCustomize
     [void] Set()
     {
         $TS = $this.LoadTaskSequence()
-                
+
         # Set node:
         # $group     - 1st level
         # $AddGroup  - Group to add
@@ -315,7 +315,7 @@ class cMDTBuildTaskSequenceCustomize
         $Step.SetAttribute("successCodeList", "0 3010")
         $Step.SetAttribute("type", "BDD_InstallApplication")
         $Step.SetAttribute("runIn", "WinPEandFullOS")
-                                        
+
         $varList = $TS.CreateElement("defaultVarList")
         $varName = $TS.CreateElement("variable")
         $varName.SetAttribute("name", "ApplicationGUID")
@@ -328,7 +328,7 @@ class cMDTBuildTaskSequenceCustomize
 
         $varName.AppendChild($TS.CreateTextNode($($App.guid))) | Out-Null
         $varList.AppendChild($varName) | Out-Null
-                                                
+
         $varName = $TS.CreateElement("variable")
         $varName.SetAttribute("name", "ApplicationSuccessCodes")
         $varName.SetAttribute("property", "ApplicationSuccessCodes")
