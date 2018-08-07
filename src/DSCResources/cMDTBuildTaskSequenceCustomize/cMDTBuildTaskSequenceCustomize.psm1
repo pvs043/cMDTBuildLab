@@ -279,7 +279,7 @@ class cMDTBuildTaskSequenceCustomize
         $Step.SetAttribute("successCodeList", "0 3010")
         $Step.SetAttribute("type", "BDD_InstallRoles")
         $Step.SetAttribute("runIn", "WinPEandFullOS")
-                                                
+
         $varList = $TS.CreateElement("defaultVarList")
         $varName = $TS.CreateElement("variable")
         $varName.SetAttribute("name", "OSRoleIndex")
