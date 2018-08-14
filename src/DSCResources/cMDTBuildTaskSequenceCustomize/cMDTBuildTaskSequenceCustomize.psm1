@@ -397,23 +397,21 @@ class cMDTBuildTaskSequenceCustomize
 
     [void] RunPowerShellScript($TS, $Step)
     {
-        
         $Step.SetAttribute("successCodeList", "0 3010")
         $Step.SetAttribute("type", "BDD_RunPowerShellAction")
-        
-        $varList = $TS.CreateElement("defaultVarList")
 
+        $varList = $TS.CreateElement("defaultVarList")
         $varName = $TS.CreateElement("variable")
         $varName.SetAttribute("name", "ScriptName")
         $varName.SetAttribute("property", "ScriptName")
-        $varName.AppendChild($TS.CreateTextNode($this.PSCommand)) | Out-Null     
-        $varList.AppendChild($varName) | Out-Null
+        $varName.AppendChild($TS.CreateTextNode($this.PSCommand)) | Out-Null
 
+        $varList.AppendChild($varName) | Out-Null
         $varName = $TS.CreateElement("variable")
         $varName.SetAttribute("name", "Parameters")
         $varName.SetAttribute("property", "Parameters")
         $varName.AppendChild($TS.CreateTextNode($this.PSParameters)) | Out-Null
-        $varList.AppendChild($varName) | Out-Null     
+        $varList.AppendChild($varName) | Out-Null
 
         $varName = $TS.CreateElement("variable")
         $varName.SetAttribute("name", "PackageID")
@@ -426,7 +424,6 @@ class cMDTBuildTaskSequenceCustomize
         $Step.AppendChild($varList) | Out-Null
         $Step.AppendChild($action) | Out-Null
     }
-
 
     [void] RestartComputer($TS, $Step)
     {
