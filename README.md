@@ -87,7 +87,8 @@ The cMDTBuildLab Module contain the following DscResources:
 Want to contribute? Great!
 
 E-mail me with any changes, questions or suggestions: pvs043@outlook.com<br>
-Requiest for the new features at [GitHub](https://github.com/pvs043/cMDTBuildLab/issues).
+Requiest for the new features at [GitHub](https://github.com/pvs043/cMDTBuildLab/issues).<br>
+Thanks to Community: [Issue](https://github.com/pvs043/cMDTBuildLab/issues) and [Pull Requests](https://github.com/pvs043/cMDTBuildLab/pulls)
 
 ## Respects
 
