@@ -58,6 +58,44 @@
                 }
             )
 
+            # MDT Drivers Folder Structure
+            DriverFolderStructure = @(
+                @{  
+                    Folder     = "Workstation"
+                    SubFolders = @(
+                        @{ SubFolder = "Windows-8.1"}
+                        @{ SubFolder = "Windows-10"}
+                    )
+                }
+                @{  
+                    Folder     = "Server"
+                    SubFolders = @(
+                        @{ SubFolder = "Windows-2012R2"}
+                        @{ SubFolder = "Windows-2016"}
+                    )
+                }
+            )
+
+            # Drivers to import (will automatically search & import infs from subdirectories provided in DriverSourcePath (will attempt to expand cabs as well, but some hang the process so watch out!))
+            Drivers   = @(
+                @{
+                    Path                  = "\Out-of-box Drivers\Workstation\Windows-8.1"
+                    DriverSourcePath = "Drivers\Workstation\Windows-8.1"
+                }
+                @{
+                    Path                  = "\Out-of-box Drivers\Workstation\Windows-10"
+                    DriverSourcePath = "Drivers\Workstation\Windows-10"
+                }
+                @{
+                    Path                  = "\Out-of-box Drivers\Server\Windows-2012R2"
+                    DriverSourcePath = "Drivers\Server\Windows-2012R2"
+                }
+                @{
+                    Path                  = "\Out-of-box Drivers\Server\Windows-2016"
+                    DriverSourcePath = "Drivers\Server\Windows-2016"
+                }
+            )
+
             #Selection profile creation
             SelectionProfiles  = @(
                 @{
