@@ -119,6 +119,37 @@ Configuration DeployMDTServerContract
             DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
         }
 
+        # Driver Folder Structure
+        ForEach ($CurrentDriverFolder in $Node.DriverFolderStructure) {
+            [string]$DriverFolder = ""
+            $CurrentDriverFolder.GetEnumerator() | % {
+                If ($_.key -eq "Folder") { $DriverFolder       = $_.value }
+            }
+
+            cMDTBuildDirectory "DF$($DriverFolder.Replace(' ',''))" {
+                Name        = $DriverFolder
+                Path        = "$($Node.PSDriveName):\Out-of-Box Drivers"
+                PSDriveName = $Node.PSDriveName
+                PSDrivePath = $Node.PSDrivePath
+                DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
+            }
+
+            ForEach ($CurrentDriverSubFolder in $CurrentDriverFolder.SubFolders) {
+                [string]$DriverSubFolder = ""
+                $CurrentDriverSubFolder.GetEnumerator() | % {
+                    If ($_.key -eq "SubFolder") { $DriverSubFolder       = $_.value }
+                }
+
+                cMDTBuildDirectory "DSF$($DriverSubFolder.Replace(' ',''))" {
+                    Name        = $DriverSubFolder
+                    Path        = "$($Node.PSDriveName):\Out-of-Box Drivers\$DriverFolder"
+                    PSDriveName = $Node.PSDriveName
+                    PSDrivePath = $Node.PSDrivePath
+                    DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
+                }
+            }
+        }
+
         ForEach ($PkgFolder in $Node.PackagesFolderStructure) {
             [string]$Folder = ""
             $PkgFolder.GetEnumerator() | % {
@@ -204,6 +235,23 @@ Configuration DeployMDTServerContract
                 DependsOn   = "[cMDTBuildDirectory]DeploymentFolder"
             }
         }
+
+        ForEach ($Driver in $Node.Drivers) {
+            [string]$Path             = ""
+            [string]$DriverSourcePath = ""
+
+            $Driver.GetEnumerator() | % {
+                If ($_.key -eq "Path")                  { $Path                  = "$($Node.PSDriveName):$($_.value)" }
+                If ($_.key -eq "DriverSourcePath")      { $DriverSourcePath = "$($Node.SourcePath)\$($_.value)" }
+            }
+
+            cMDTBuildOutOfBoxDrivers $Path {
+                Path                  = $Path
+                DriverSourcePath      = $DriverSourcePath
+                PSDriveName           = $Node.PSDriveName
+                PSDrivePath           = $Node.PSDrivePath
+                DependsOn             = "[cMDTBuildDirectory]DeploymentFolder"
+           
 
         ForEach ($Application in $Node.Applications) {
             [string]$Name                  = ""
