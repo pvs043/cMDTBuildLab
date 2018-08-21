@@ -6,7 +6,7 @@ Function Get-ConfigurationData
     Param (
         [Parameter(Mandatory)]
         [Microsoft.PowerShell.DesiredStateConfiguration.ArgumentToConfigurationDataTransformation()]
-        [hashtable] $ConfigurationData    
+        [hashtable] $ConfigurationData
     )
     return $ConfigurationData
 }

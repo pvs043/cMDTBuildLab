@@ -44,10 +44,10 @@ class cMDTBuildCustomSettingsIni
 
     [bool] TestFileContent()
     {
-        $present = $false 
+        $present = $false
         $existingConfiguration = Get-Content -Path $this.Path -Raw #-Encoding UTF8
         if ($existingConfiguration -eq $this.Content.Replace("`n","`r`n")) {
-            $present = $true   
+            $present = $true
         }
         return $present
     }
@@ -56,7 +56,7 @@ class cMDTBuildCustomSettingsIni
     {
         Set-Content -Path $this.Path -Value $this.Content.Replace("`n","`r`n") -NoNewline -Force #-Encoding UTF8
     }
-    
+
     [void] SetDefaultContent()
     {
         $defaultContent = @"

@@ -47,7 +47,7 @@ class cMDTBuildTaskSequence
 
     [bool] Test()
     {
-        $present = Invoke-TestPath -Path "$($this.path)\$($this.name)" -PSDriveName $this.PSDriveName -PSDrivePath $this.PSDrivePath 
+        $present = Invoke-TestPath -Path "$($this.path)\$($this.name)" -PSDriveName $this.PSDriveName -PSDrivePath $this.PSDrivePath
         if ($this.Ensure -eq [Ensure]::Present) {
             return $present
         }

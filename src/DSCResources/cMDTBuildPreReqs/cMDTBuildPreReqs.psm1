@@ -9,7 +9,7 @@ class cMDTBuildPreReqs
 {
     [DscProperty()]
     [Ensure]$Ensure = "Present"
-    
+
     [DscProperty(Key)]
     [string]$DownloadPath
 
@@ -27,7 +27,7 @@ class cMDTBuildPreReqs
                 New-Item -Path $this.DownloadPath -ItemType Directory -Force
             }
 
-            #Set all files:               
+            #Set all files:
             ForEach ($file in $downloadFiles.Prereqs) {
                 if (Test-Path -Path "$($this.DownloadPath)\$($file.Folder)\$($file.File)") {
                     Write-Verbose "   $($file.Name) already present!"
@@ -69,11 +69,11 @@ class cMDTBuildPreReqs
         $present = $this.TestDownloadPath()
         [hashtable]$DownloadFiles = Get-ConfigurationData -ConfigurationData "$($PSScriptRoot)\cMDTBuildLabPrereqs.psd1"
 
-        if ($this.ensure -eq [Ensure]::Present) {            
-            Write-Verbose "   Testing for download path.."            
+        if ($this.ensure -eq [Ensure]::Present) {
+            Write-Verbose "   Testing for download path.."
             if($present) {
                 Write-Verbose "   Download path found!"
-            }            
+            }
             Else {
                 Write-Verbose "   Download path not found!"
                 return $false
@@ -105,7 +105,7 @@ class cMDTBuildPreReqs
         $present = $false
         if (Test-Path -Path $this.DownloadPath -ErrorAction Ignore) {
             $present = $true
-        }        
+        }
         return $present
     }
 
@@ -125,7 +125,7 @@ class cMDTBuildPreReqs
 
     [void] RemoveDirectory($referencefile = "")
     {
-        Remove-Item -Path $this.DownloadPath -Force -Verbose     
+        Remove-Item -Path $this.DownloadPath -Force -Verbose
     }
 }
 

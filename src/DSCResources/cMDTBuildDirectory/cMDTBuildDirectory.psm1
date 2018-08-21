@@ -46,7 +46,7 @@ class cMDTBuildDirectory
         else {
             $present = Invoke-TestPath -Path "$($this.path)\$($this.Name)" -Verbose
         }
-        
+
         if ($this.Ensure -eq [Ensure]::Present) {
             return $present
         }

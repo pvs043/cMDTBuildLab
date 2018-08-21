@@ -24,7 +24,7 @@ class cMDTBuildUpdateBootImage
 
     [DscProperty()]
     [string]$LiteTouchWIMDescription
-      
+
     [void] Set()
     {
         $this.UpdateBootImage()
@@ -60,8 +60,8 @@ class cMDTBuildUpdateBootImage
             Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x86.ExtraDirectory -Value ""
         }
         ElseIf (Invoke-TestPath -Path "$($this.PSDrivePath)\$($this.ExtraDirectory)") {
-            Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x64.ExtraDirectory -Value "$($this.PSDrivePath)\$($this.ExtraDirectory)"                        
-            Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x86.ExtraDirectory -Value "$($this.PSDrivePath)\$($this.ExtraDirectory)"                       
+            Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x64.ExtraDirectory -Value "$($this.PSDrivePath)\$($this.ExtraDirectory)"
+            Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x86.ExtraDirectory -Value "$($this.PSDrivePath)\$($this.ExtraDirectory)"
         }
 
         If ([string]::IsNullOrEmpty($($this.BackgroundFile))) {
