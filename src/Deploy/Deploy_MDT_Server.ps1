@@ -251,8 +251,9 @@ Configuration DeployMDTServerContract
                 PSDriveName           = $Node.PSDriveName
                 PSDrivePath           = $Node.PSDrivePath
                 DependsOn             = "[cMDTBuildDirectory]DeploymentFolder"
-           
-
+            }   
+        }
+        
         ForEach ($Application in $Node.Applications) {
             [string]$Name                  = ""
             [string]$Path                  = ""
