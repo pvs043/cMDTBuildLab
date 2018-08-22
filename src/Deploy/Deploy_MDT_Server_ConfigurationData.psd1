@@ -60,14 +60,14 @@
 
             # MDT Drivers Folder Structure
             DriverFolderStructure = @(
-                @{  
+                @{
                     Folder     = "Workstation"
                     SubFolders = @(
                         @{ SubFolder = "Windows-8.1"}
                         @{ SubFolder = "Windows-10"}
                     )
                 }
-                @{  
+                @{
                     Folder     = "Server"
                     SubFolders = @(
                         @{ SubFolder = "Windows-2012R2"}

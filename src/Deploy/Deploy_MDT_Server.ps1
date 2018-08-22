@@ -241,7 +241,7 @@ Configuration DeployMDTServerContract
             [string]$DriverSourcePath = ""
 
             $Driver.GetEnumerator() | % {
-                If ($_.key -eq "Path")                  { $Path                  = "$($Node.PSDriveName):$($_.value)" }
+                If ($_.key -eq "Path")                  { $Path             = "$($Node.PSDriveName):$($_.value)" }
                 If ($_.key -eq "DriverSourcePath")      { $DriverSourcePath = "$($Node.SourcePath)\$($_.value)" }
             }
 
@@ -251,9 +251,9 @@ Configuration DeployMDTServerContract
                 PSDriveName           = $Node.PSDriveName
                 PSDrivePath           = $Node.PSDrivePath
                 DependsOn             = "[cMDTBuildDirectory]DeploymentFolder"
-            }   
+            }
         }
-        
+
         ForEach ($Application in $Node.Applications) {
             [string]$Name                  = ""
             [string]$Path                  = ""

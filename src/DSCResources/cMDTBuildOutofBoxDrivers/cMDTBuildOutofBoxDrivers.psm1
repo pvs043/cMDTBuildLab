@@ -14,7 +14,7 @@ class cMDTBuildOutofBoxDrivers
 
     [DscProperty(Mandatory)]
     [string]$DriverSourcePath
-    
+
     [DscProperty(Mandatory)]
     [string]$PSDriveName
 
