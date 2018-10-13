@@ -19,7 +19,7 @@ This is the development branch with latest changes.
 Official repository - latest module version and download count.
 
 ## Version
-2.3.0
+2.4.0
 
 See version history at [Project Site](https://github.com/pvs043/cMDTBuildLab/wiki/Version-History)
 
