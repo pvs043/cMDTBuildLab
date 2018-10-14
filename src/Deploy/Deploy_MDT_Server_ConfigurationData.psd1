@@ -245,13 +245,13 @@
             Packages = @(
                 # Servicing stack update for Windows 7 SP1 x86
                 @{
-                    Name              = "Package_for_KB3177467 neutral x86 6.1.1.1"
+                    Name              = "Package_for_KB3177467 neutral x86 6.1.2.5"
                     Path              = "\Packages\Windows 7 x86"
                     PackageSourcePath = "KB3177467-x86"
                 }
-                # Servicing stack update for Windows 7 SP1 x86
+                # Servicing stack update for Windows 7 SP1 x64
                 @{
-                    Name              = "Package_for_KB3177467 neutral amd64 6.1.1.1"
+                    Name              = "Package_for_KB3177467 neutral amd64 6.1.2.5"
                     Path              = "\Packages\Windows 7 x64"
                     PackageSourcePath = "KB3177467-x64"
                 }
