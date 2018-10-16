@@ -43,12 +43,12 @@ Configuration DeployMDTServerContract
             Name   = "FS-Data-Deduplication"
         }
 
-        Package ADK {
+        Package WinPE {
             Ensure     = "Present"
-            Name       = "Windows Assessment and Deployment Kit - Windows 10"
-            Path       = "$($Node.SourcePath)\Windows Assessment and Deployment Kit\adksetup.exe"
-            ProductId  = "d794748d-72e9-45d7-9ab7-83d6c4c80f7f"
-            Arguments  = "/quiet /features OptionId.DeploymentTools OptionId.WindowsPreinstallationEnvironment"
+            Name       = "Windows PE x86 x64"
+            Path       = "$($Node.SourcePath)\Windows PE\adkwinpesetup.exe"
+            ProductId  = "351E5003-D07A-441B-02D1-045CEB797F30"
+            Arguments  = "/Features OptionId.WindowsPreinstallationEnvironment /norestart /quiet /ceip off"
             ReturnCode = 0
         }
 
