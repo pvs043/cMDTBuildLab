@@ -4,7 +4,7 @@ $year           = (Get-Date).Year
 $moduleVersion  = "2.4.0"
 $releaseNotes  = "
 * Update Servicing stack update for Windows 7 SP1 (KB3177467) to V2. Do not forget to delete KB3177467-x64 and KB3177467-x86 folders at E:\Source before upgrade
-* Update to WinPE v.1809 (Build: 10.1.17763.1). Do not forget uninstall previous version of ADK before upgrade and delete 'E:\Source\Windows Assessment and Deployment Kit' folder
+* Update to WinPE v.1809 (Build: 10.1.17763.1). Do not forget uninstall previous version of ADK before upgrade and delete E:\Source\Windows Assessment and Deployment Kit folder
 "
 $allResources   = @( Get-ChildItem -Path $PSScriptRoot\src\DSCResources\*.psm1 -ErrorAction SilentlyContinue -Recurse | Sort-Object)
 $allFunctions   = @( Get-ChildItem -Path $PSScriptRoot\src\Public\*.ps1 -ErrorAction SilentlyContinue -Recurse | Sort-Object)
