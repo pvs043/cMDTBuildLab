@@ -4,14 +4,14 @@
             # Microsoft Deployment Toolkit (Build: 6.3.8450.1000)
             Name   = "MDT"
             URI    = "https://download.microsoft.com/download/3/3/9/339BE62D-B4B8-4956-B58D-73C4685FC492/MicrosoftDeploymentToolkit_x64.msi"
-            Folder = "Microsoft Deployment Toolkit"
+            Folder = "MDT"
             File   = "MicrosoftDeploymentToolkit_x64.msi"
         }
         @{
             # Windows PE, v.1809 (Build: 10.1.17763.1)
             Name   = "WinPE"
             URI    = "http://download.microsoft.com/download/D/7/E/D7E22261-D0B3-4ED6-8151-5E002C7F823D/adkwinpeaddons/adkwinpesetup.exe"
-            Folder = "Windows PE"
+            Folder = "WindowsPE"
             File   = "adkwinpesetup.exe"
         }
         @{

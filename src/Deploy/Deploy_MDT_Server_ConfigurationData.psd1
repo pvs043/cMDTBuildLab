@@ -135,9 +135,9 @@
                     SourcePath = "Windows2016"
                 }
                 @{
-                    Name       = "Windows 1803"
+                    Name       = "Windows 2019"
                     Path       = "Windows 2016"
-                    SourcePath = "Windows1803"
+                    SourcePath = "Windows2019"
                 }
             )
 
@@ -1566,12 +1566,12 @@
                     )
                 }
                 @{
-                    Name     = "Windows 1803"
+                    Name     = "Windows 2019"
                     Path     = "Windows 2016"
-                    OSName   = "Windows 2016\Windows Server 2016 SERVERDATACENTERACORE in Windows 1803 install.wim"
+                    OSName   = "Windows 2016\Windows Server 2019 SERVERSTANDARD in Windows 2019 install.wim"
                     OrgName  = "BuildLab"
                     Template = "Server.xml"
-                    ID       = "REFW1803-001"
+                    ID       = "REFW2019-001"
                     Customize = @(
                         # Set Product Key needed for MSDN/Evalution Windows distributives only. Skip this step if your ISO sources is VLSC.
                         @{
@@ -1580,7 +1580,7 @@
                             GroupName   = "Initialization"
                             Description = "KMS Client Setup Keys: https://docs.microsoft.com/en-us/windows-server/get-started/kmsclientkeys"
                             TSVarName   = "ProductKey"
-                            TSVarValue  = "6Y6KB-N82V8-D8CQV-23MJW-BWTG6"
+                            TSVarValue  = "N69G4-B89J2-4G8F4-WWYCC-J464C"
                             Disable     = "true"
                         }
                         @{

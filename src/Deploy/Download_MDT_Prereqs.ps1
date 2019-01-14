@@ -21,19 +21,19 @@ Configuration DownloadMDTPrereqs
         }
 
 <#
-        Package ADK {
+        Package WinPE {
             Ensure     = "Present"
-            Name       = "Windows Assessment and Deployment Kit - Windows 10"
-            Path       = "$($Node.SourcePath)\Windows Assessment and Deployment Kit\adksetup.exe"
-            ProductId  = "d794748d-72e9-45d7-9ab7-83d6c4c80f7f"
-            Arguments  = "/quiet /features OptionId.DeploymentTools OptionId.WindowsPreinstallationEnvironment"
+            Name       = "Windows PE x86 x64"
+            Path       = "$($Node.SourcePath)\WindowsPE\adkwinpesetup.exe"
+            ProductId  = "351E5003-D07A-441B-02D1-045CEB797F30"
+            Arguments  = "/Features OptionId.WindowsPreinstallationEnvironment /norestart /quiet /ceip off"
             ReturnCode = 0
         }
 
         Package MDT {
             Ensure     = "Present"
             Name       = "Microsoft Deployment Toolkit (6.3.8450.1000)"
-            Path       = "$($Node.SourcePath)\Microsoft Deployment Toolkit\MicrosoftDeploymentToolkit_x64.msi"
+            Path       = "$($Node.SourcePath)\MDT\MicrosoftDeploymentToolkit_x64.msi"
             ProductId  = "38D2CBE2-862C-4C39-8D65-A4C1C2220160"
             ReturnCode = 0
         }

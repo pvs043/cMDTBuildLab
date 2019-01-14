@@ -39,13 +39,13 @@ Prerequisites for infrastructure:
     Windows 10 Version 1803 (April 2018)<br>
     Windows 2012 R2 (November 2014)<br>
     Windows 2016 (February 2018)<br>
-    Windows Server 1803 (April 2018)
+    Windows 2019 (November 2018)
 
-This module is tested on Windows 2016 server, but it will be worked on Windows 10 or Windows 2012 R2/Windows 8.1 with Windows Management Framewework 5.1.
+This module is tested on Windows 2016/2019 server, but it will be worked on Windows 10 or Windows 2012 R2/Windows 8.1 with Windows Management Framewework 5.1.
 
 The following prerequisites automatically downloaded with the cMDTBuildPreReqs DSC resource:
 * [MicrosoftDeploymentToolkit_x64](https://www.microsoft.com/en-us/download/details.aspx?id=54259) - Microsoft Deployment Toolkit (MDT) (Build 6.3.8450.1000)
-* [adksetup](https://developer.microsoft.com/en-us/windows/hardware/windows-assessment-deployment-kit) - Windows Assessment and Deployment Kit 10, v.1803 (Build: 10.1.17134.1)
+* [WinPE v.1809](https://docs.microsoft.com/en-us/windows-hardware/get-started/adk-install) - Windows PE, v.1809 (Build: 10.1.17763.1)
 * [Visual C++ runtimes](https://support.microsoft.com/en-us/kb/2977003) - 2008,2010,2012,2013,2017
 * [Windows Management Framewework 3.0 for Windows 7 SP1](https://www.microsoft.com/en-us/download/details.aspx?id=34595)
 * [Windows Management Framewework 5.1 for Windows 8.1 and Windows 2012 R2](http://aka.ms/wmf5latest)
