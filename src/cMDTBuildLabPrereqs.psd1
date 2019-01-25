@@ -222,11 +222,18 @@
             File   = "Default_Start_Screen_Layout_10.xml"
         }
         @{
-            # Configure - Remove Windows Default Applications
+            # Configure - Remove Windows 8.1 Default Applications
             Name   = "Scripts"
             URI    = "Sources\Scripts.zip"
             Folder = "Scripts"
             File   = "Scripts.zip"
+        }
+        @{
+            # Configure - Remove Windows 10 Default Applications
+            Name   = "RemoveDefaultApps"
+            URI    = "https://raw.githubusercontent.com/SCConfigMgr/ConfigMgr/master/Operating%20System%20Deployment/Invoke-RemoveBuiltinApps.ps1"
+            Folder = "RemoveDefaultApps"
+            File   = "Invoke-RemoveBuiltinApps.ps1"
         }
         @{
             # Install - APP-V Client 5.1 - x86-x64

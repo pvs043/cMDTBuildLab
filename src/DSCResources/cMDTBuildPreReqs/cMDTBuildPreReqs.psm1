@@ -43,7 +43,7 @@ class cMDTBuildPreReqs
                     }
 
                     # Workaround for external source script(s) from GitHub - change EOL
-                    if ($file.Name -eq "CleanupBeforeSysprep" -or $file.Name -eq "VS++Application") {
+                    if ($file.Name -eq "CleanupBeforeSysprep" -or $file.Name -eq "VS++Application" -or $file.Name -eq "RemoveDefaultApps") {
                         $script = Get-Content -Path "$($this.DownloadPath)\$($file.Folder)\$($file.File)"
                         if ($script -notlike '*`r`n*') {
                             $script.Replace('`n','`r`n')
