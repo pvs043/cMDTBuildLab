@@ -8,6 +8,13 @@
             File   = "MicrosoftDeploymentToolkit_x64.msi"
         }
         @{
+            # Windows Assessment and Deployment Kit (Build: 10.1.17763.1)
+            Name   = "ADK"
+            URI    = "http://download.microsoft.com/download/0/1/C/01CC78AA-B53B-4884-B7EA-74F2878AA79F/adk/adksetup.exe"
+            Folder = "ADK"
+            File   = "adksetup.exe"
+        }
+        @{
             # Windows PE, v.1809 (Build: 10.1.17763.1)
             Name   = "WinPE"
             URI    = "http://download.microsoft.com/download/D/7/E/D7E22261-D0B3-4ED6-8151-5E002C7F823D/adkwinpeaddons/adkwinpesetup.exe"
