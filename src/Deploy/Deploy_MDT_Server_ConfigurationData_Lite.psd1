@@ -248,11 +248,15 @@
             CustomSettings   = @(
                 @{
                     Name       = "Scripts"
-                    SourcePath = "Scripts"
+                    SourcePath = "Scripts.zip"
                     TestFiles  = @("RemoveApps.ps1",
                                    "RemoveApps81.xml",
                                    "RemoveApps10.xml"
                                  )
+                }
+                @{
+                    Name       = "Scripts"
+                    SourcePath = "Invoke-RemoveBuiltinApps.ps1"
                 }
             )
 

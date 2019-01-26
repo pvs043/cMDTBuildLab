@@ -1661,19 +1661,23 @@
             )
 
             #Custom folder/files to add to the MDT
-            CustomSettings   = @(
+            CustomSettings = @(
                 @{
                     Name       = "Scripts"
-                    SourcePath = "Scripts"
+                    SourcePath = "Scripts.zip"
                     TestFiles  = @("RemoveApps.ps1",
                                    "RemoveApps81.xml",
                                    "RemoveApps10.xml"
                                  )
                 }
+                @{
+                    Name       = "Scripts"
+                    SourcePath = "Invoke-RemoveBuiltinApps.ps1"
+                }
             )
 
             #Custom settings and boot ini file management
-            CustomizeIniFiles  = @(
+            CustomizeIniFiles = @(
                 @{
                     Name           = "CustomSettingsIni"
                     Path           = "\Control\CustomSettings.ini"

@@ -27,11 +27,16 @@ class cMDTBuildCustomize
 
     [void] Set()
     {
-        $filename = "$($this.SourcePath)\$($this.Name).zip"
-        $extractfolder = "$($this.path)\$($this.name)"
+        $filename = "$($this.path)\$($this.name)\$($this.SourcePath)"
+        $extractfolder = "$($this.path)\$($this.Name)"
 
         if ($this.ensure -eq [Ensure]::Present) {
-            Invoke-ExpandArchive -Source $filename -Target $extractfolder -Verbose
+            if ($filename -like '*.zip') {
+                Invoke-ExpandArchive -Source $filename -Target $extractfolder -Verbose
+            }
+            else {
+                Copy-Item -Path $filename $extractfolder -Verbose
+            }
         }
         else {
             Invoke-RemovePath -Path $extractfolder -Verbose
@@ -41,10 +46,17 @@ class cMDTBuildCustomize
     [bool] Test()
     {
         $present = $true
-        foreach ($file in $this.TestFiles) {
-            if ( !(Test-Path -Path "$($this.path)\$($this.name)\$($file)") ) {
+        if ($this.SourcePath -like '*.zip') {
+            foreach ($file in $this.TestFiles) {
+                if ( !(Test-Path -Path "$($this.path)\$($this.name)\$($file)") ) {
+                    $present = $false
+                    break
+                }
+            }
+        }
+        else {
+            if ( !(Test-Path -Path "$($this.path)\$($this.name)\$($this.SourcePath)") ) {
                 $present = $false
-                break
             }
         }
 

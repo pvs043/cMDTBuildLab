@@ -351,7 +351,7 @@ Configuration DeployMDTServerContract
                     Command          = $Command
                     StartIn          = $StartIn
                     PSCommand        = $PSCommand
-                    PSParameters        = $PSParameters
+                    PSParameters     = $PSParameters
                     SelectionProfile = $SelectionProfile
                     PSDriveName      = $Node.PSDriveName
                     PSDrivePath      = $Node.PSDrivePath
