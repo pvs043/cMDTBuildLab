@@ -19,11 +19,8 @@ class cMDTBuildCustomize
     [DscProperty(Mandatory)]
     [string]$SourcePath
 
-    [DscProperty(Mandatory)]
-    [string[]]$TestFiles
-
     [DscProperty(NotConfigurable)]
-    [string]$Directory
+    [string[]]$TestFiles
 
     [void] Set()
     {
