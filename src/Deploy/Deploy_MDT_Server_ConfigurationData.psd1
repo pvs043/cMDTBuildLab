@@ -1103,44 +1103,37 @@
                             Command    = 'powershell.exe -ExecutionPolicy ByPass -Command "Enable-Appv; Set-AppvClientConfiguration -EnablePackageScripts 1"'
                         }
                         @{
-                            Name       = "Restart Computer"
-                            Type       = "Restart Computer"
+                            Name       = "Suspend1"
+                            Type       = "Run Command Line"
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
+                            Disable    = "true"
+                            Command    = 'cscript.exe "%SCRIPTROOT%\LTISuspend.wsf"'
                             AddAfter   = "Configure - Enable App-V Client"
                         }
                         @{
-                            Name       = "Set-ExecutionPolicy Bypass"
-                            Type       = "Run Command Line"
-                            GroupName  = "State Restore"
-                            SubGroup   = "Custom Tasks (Post-Windows Update)"
-                            Command    = 'powershell.exe -command "Set-ExecutionPolicy Bypass -Force"'
-                        }
-                        @{
                             Name       = "Configure - Remove Windows Default Applications"
-                            Type       = "Run Command Line"
+                            Type       = "Run PowerShell Script"
                             GroupName  = "State Restore"
-                            SubGroup   = "Custom Tasks (Post-Windows Update)"
-                            Command    = 'powershell.exe -ExecutionPolicy Bypass -File "%SCRIPTROOT%\RemoveApps.ps1"'
-                            StartIn    = "%SCRIPTROOT%"
-                            AddAfter   = "Set-ExecutionPolicy Bypass"
+                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
+                            PSCommand  = "%SCRIPTROOT%\Invoke-RemoveBuiltinApps.ps1"
+                            AddAfter   = "Suspend1"
                         }
                         @{
-                            Name       = "Suspend"
+                            Name       = "Suspend2"
                             Type       = "Run Command Line"
                             GroupName  = "State Restore"
-                            SubGroup   = "Custom Tasks (Post-Windows Update)"
+                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
                             Disable    = "true"
                             Command    = 'cscript.exe "%SCRIPTROOT%\LTISuspend.wsf"'
                             AddAfter   = "Configure - Remove Windows Default Applications"
                         }
                         @{
-                            Name       = "Set-ExecutionPolicy RemoteSigned"
-                            Type       = "Run Command Line"
+                            Name       = "Restart Computer"
+                            Type       = "Restart Computer"
                             GroupName  = "State Restore"
-                            SubGroup   = "Custom Tasks (Post-Windows Update)"
-                            Command    = 'powershell.exe -command "Set-ExecutionPolicy RemoteSigned -Force"'
-                            AddAfter   = "Suspend"
+                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
+                            AddAfter   = "Suspend2"
                         }
                         @{
                             Name       = "Action - CleanupBuildWSUS"
@@ -1259,44 +1252,37 @@
                             Command    = 'powershell.exe -ExecutionPolicy ByPass -Command "Enable-Appv; Set-AppvClientConfiguration -EnablePackageScripts 1"'
                         }
                         @{
-                            Name       = "Restart Computer"
-                            Type       = "Restart Computer"
+                            Name       = "Suspend1"
+                            Type       = "Run Command Line"
                             GroupName  = "State Restore"
                             SubGroup   = "Custom Tasks (Pre-Windows Update)"
+                            Disable    = "true"
+                            Command    = 'cscript.exe "%SCRIPTROOT%\LTISuspend.wsf"'
                             AddAfter   = "Configure - Enable App-V Client"
                         }
                         @{
-                            Name       = "Set-ExecutionPolicy Bypass"
-                            Type       = "Run Command Line"
-                            GroupName  = "State Restore"
-                            SubGroup   = "Custom Tasks (Post-Windows Update)"
-                            Command    = 'powershell.exe -command "Set-ExecutionPolicy Bypass -Force"'
-                        }
-                        @{
                             Name       = "Configure - Remove Windows Default Applications"
-                            Type       = "Run Command Line"
+                            Type       = "Run PowerShell Script"
                             GroupName  = "State Restore"
-                            SubGroup   = "Custom Tasks (Post-Windows Update)"
-                            Command    = 'powershell.exe -ExecutionPolicy Bypass -File "%SCRIPTROOT%\RemoveApps.ps1"'
-                            StartIn    = "%SCRIPTROOT%"
-                            AddAfter   = "Set-ExecutionPolicy Bypass"
+                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
+                            PSCommand  = "%SCRIPTROOT%\Invoke-RemoveBuiltinApps.ps1"
+                            AddAfter   = "Suspend1"
                         }
                         @{
-                            Name       = "Suspend"
+                            Name       = "Suspend2"
                             Type       = "Run Command Line"
                             GroupName  = "State Restore"
-                            SubGroup   = "Custom Tasks (Post-Windows Update)"
+                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
                             Disable    = "true"
                             Command    = 'cscript.exe "%SCRIPTROOT%\LTISuspend.wsf"'
                             AddAfter   = "Configure - Remove Windows Default Applications"
                         }
                         @{
-                            Name       = "Set-ExecutionPolicy RemoteSigned"
-                            Type       = "Run Command Line"
+                            Name       = "Restart Computer"
+                            Type       = "Restart Computer"
                             GroupName  = "State Restore"
-                            SubGroup   = "Custom Tasks (Post-Windows Update)"
-                            Command    = 'powershell.exe -command "Set-ExecutionPolicy RemoteSigned -Force"'
-                            AddAfter   = "Suspend"
+                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
+                            AddAfter   = "Suspend2"
                         }
                         @{
                             Name       = "Action - CleanupBuildWSUS"
@@ -1663,7 +1649,7 @@
             #Custom folder/files to add to the MDT
             CustomSettings = @(
                 @{
-                    Name       = "Scripts"
+                    Name       = "Scripts81"
                     SourcePath = "Scripts.zip"
                     TestFiles  = @("RemoveApps.ps1",
                                    "RemoveApps81.xml",
@@ -1671,7 +1657,7 @@
                                  )
                 }
                 @{
-                    Name       = "Scripts"
+                    Name       = "Scripts10"
                     SourcePath = "Invoke-RemoveBuiltinApps.ps1"
                 }
             )
