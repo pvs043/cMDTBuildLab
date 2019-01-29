@@ -9,6 +9,7 @@ $releaseNotes  = "
 * Rename E:\Source\Microsoft Deployment Toolkit to E:\Source\MDT
 * Add support for Windows 2019
 * Use script by @NickolajA for remove default Windows 10 apps
+* Add TargetPath parameter to cMDTBuildCustomize class. Do not forget change Deploy_MDT_Server.ps1 script
 "
 $allResources   = @( Get-ChildItem -Path $PSScriptRoot\src\DSCResources\*.psm1 -ErrorAction SilentlyContinue -Recurse | Sort-Object)
 $allFunctions   = @( Get-ChildItem -Path $PSScriptRoot\src\Public\*.ps1 -ErrorAction SilentlyContinue -Recurse | Sort-Object)
