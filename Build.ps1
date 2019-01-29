@@ -5,6 +5,7 @@ $moduleVersion  = "2.4.0"
 $releaseNotes  = "
 * Update Servicing stack update for Windows 7 SP1 (KB3177467) to V2. Do not forget to delete KB3177467-x64 and KB3177467-x86 folders at E:\Source before upgrade
 * Update to WinPE v.1809 (Build: 10.1.17763.1). Do not forget uninstall previous version of ADK before upgrade and delete E:\Source\Windows Assessment and Deployment Kit folder
+* Update Microsoft Deployment Toolkit (6.3.8456.1000)
 * Rename E:\Source\Microsoft Deployment Toolkit to E:\Source\MDT
 * Add support for Windows 2019
 * Use script by @NickolajA for remove default Windows 10 apps
