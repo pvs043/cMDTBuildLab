@@ -8,9 +8,9 @@ Configuration MDTServer
 {
     cMDTBuildCustomize PEExtraFiles {
         Ensure = "Present"
-        Name = "PEExtraFiles"
+        Name = "ExtraFiles"
         Path = $PSDrivePath
-        SourcePath = "$($SourcePath)/PEExtraFiles"
+        SourcePath = "$($SourcePath)\Scripts"
         TestFiles = @("Script1.vbs", "Script2.vbs")
     }
 }

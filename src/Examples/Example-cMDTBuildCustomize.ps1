@@ -6,11 +6,11 @@ $SourcePath  = "E:\Source"
 
 Configuration MDTServer
 {
-        cMDTBuildCustomize PEExtraFiles {
+        cMDTBuildCustomize ExtraFiles {
             Ensure = "Present"
-            Name = "PEExtraFiles"
+            Name = "ExtraFiles.zip"
             Path = $PSDrivePath
-            SourcePath = "$($SourcePath)/PEExtraFiles"
+            SourcePath = "$($SourcePath)\Scripts"
             TestFiles = @("Script1.vbs", "Script2.vbs")
         }
 }

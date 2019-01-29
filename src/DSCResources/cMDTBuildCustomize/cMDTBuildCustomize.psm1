@@ -19,13 +19,16 @@ class cMDTBuildCustomize
     [DscProperty(Mandatory)]
     [string]$SourcePath
 
-    [DscProperty(NotConfigurable)]
+    [DscProperty(Mandatory)]
+    [string]$TargetPath
+
+    [DscProperty()]
     [string[]]$TestFiles
 
     [void] Set()
     {
-        $filename = "$($this.path)\$($this.name)\$($this.SourcePath)"
-        $extractfolder = "$($this.path)\$($this.Name)"
+        $filename = "$($this.SourcePath)\$($this.name)"
+        $extractfolder = "$($this.path)\$($this.TargetPath)"
 
         if ($this.ensure -eq [Ensure]::Present) {
             if ($filename -like '*.zip') {
@@ -35,24 +38,21 @@ class cMDTBuildCustomize
                 Copy-Item -Path $filename $extractfolder -Verbose
             }
         }
-        else {
-            Invoke-RemovePath -Path $extractfolder -Verbose
-        }
     }
 
     [bool] Test()
     {
         $present = $true
-        if ($this.SourcePath -like '*.zip') {
+        if ($this.Name -like '*.zip') {
             foreach ($file in $this.TestFiles) {
-                if ( !(Test-Path -Path "$($this.path)\$($this.name)\$($file)") ) {
+                if ( !(Test-Path -Path "$($this.path)\$($this.TargetPath)\$($file)") ) {
                     $present = $false
                     break
                 }
             }
         }
         else {
-            if ( !(Test-Path -Path "$($this.path)\$($this.name)\$($this.SourcePath)") ) {
+            if ( !(Test-Path -Path "$($this.path)\$($this.TargetPath)\$($this.name)") ) {
                 $present = $false
             }
         }

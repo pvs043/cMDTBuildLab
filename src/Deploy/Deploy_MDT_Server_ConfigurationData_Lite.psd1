@@ -247,16 +247,8 @@
             #Custom folder/files to add to the MDT
             CustomSettings   = @(
                 @{
-                    Name       = "Scripts81"
-                    SourcePath = "Scripts.zip"
-                    TestFiles  = @("RemoveApps.ps1",
-                                   "RemoveApps81.xml",
-                                   "RemoveApps10.xml"
-                                 )
-                }
-                @{
-                    Name       = "Scripts10"
-                    SourcePath = "Invoke-RemoveBuiltinApps.ps1"
+                    Name       = "Invoke-RemoveBuiltinApps.ps1"
+                    SourcePath = "RemoveDefaultApps"
                 }
             )
 

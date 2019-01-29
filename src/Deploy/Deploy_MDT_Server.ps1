@@ -373,6 +373,7 @@ Configuration DeployMDTServerContract
             cMDTBuildCustomize $Name.Replace(' ','') {
                 Name         = $Name
                 SourcePath   = $SourcePath
+                TargetPath   = "Scripts"
                 Path         = $Node.PSDrivePath
                 TestFiles    = $TestFiles
                 DependsOn    = "[cMDTBuildDirectory]DeploymentFolder"
