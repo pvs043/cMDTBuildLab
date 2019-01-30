@@ -41,7 +41,7 @@ Prerequisites for infrastructure:
     Windows 2016 (February 2018)<br>
     Windows 2019 (November 2018)
 
-This module is tested on Windows 2016/2019 server, but it will be worked on Windows 10 or Windows 2012 R2/Windows 8.1 with Windows Management Framewework 5.1.
+This module is tested on Windows 2016/2019 server, but it will be worked on Windows 10 or Windows 2012 R2/Windows 8.1 + WMF 5.1.
 
 The following prerequisites automatically downloaded with the cMDTBuildPreReqs DSC resource:
 * [MicrosoftDeploymentToolkit_x64](https://www.microsoft.com/en-us/download/details.aspx?id=57775) - Microsoft Deployment Toolkit (MDT) (Build 6.3.8456.1000)
@@ -54,7 +54,10 @@ The following prerequisites automatically downloaded with the cMDTBuildPreReqs D
 * [July 2016 update rollup for Windows 7 SP1](https://support.microsoft.com/en-us/kb/3172605) - this include fixes the Windows Update Client
 * [July 2016 update rollup for Windows 8.1 and Windows Server 2012 R2](https://support.microsoft.com/en-us/kb/3172614) - this include fixes the Windows Update Client
 
-If your MDT01 host does not have direct connection to Internet, run DSC configuration from Deploy\Download_MDT_Prereqs.ps1 at Windows machine connected to Internet. After completion of downloading run E:\Source\Windows Assessment and Deployment Kit\adksetup.exe for download ADK. Then copy E:\Source to production server.
+If your MDT01 host does not have direct connection to Internet, run DSC configuration from Deploy\Download_MDT_Prereqs.ps1 at Windows machine connected to Internet.
+After completion of downloading:
+* Run E:\Source\ADK\adksetup.exe. Select E:\Source\ADK for download folder
+* Run E:\Source\WindowsPE\adkwinpesetup.exe. Select E:\Source\WindowsPE for download folder
 
 Note for APP-V 5.1 (Windows 7 / 8.1) client:<p>
 This module include *fake* archive Sources\appv_client_setup.zip.<p>
