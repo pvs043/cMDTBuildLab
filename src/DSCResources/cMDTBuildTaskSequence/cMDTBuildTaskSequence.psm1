@@ -23,8 +23,14 @@ class cMDTBuildTaskSequence
     [DscProperty(Mandatory)]
     [string]$Template
 
+    [DscProperty()]
+    [string]$Comments = "Build Reference Image"
+
     [DscProperty(Mandatory)]
     [string]$ID
+
+    [DscProperty()]
+    [string]$Owner = "Windows User"
 
     [DscProperty(Mandatory)]
     [string]$OrgName
@@ -65,7 +71,7 @@ class cMDTBuildTaskSequence
     {
         Import-MDTModule
         New-PSDrive -Name $this.PSDriveName -PSProvider "MDTProvider" -Root $this.PSDrivePath -Verbose:$false
-        Import-MDTTaskSequence -path $this.Path -Name $this.Name -Template $this.Template -Comments "Build Reference Image" -ID $this.ID -Version "1.0" -OperatingSystemPath $this.OSName -FullName "Windows User" -OrgName $this.OrgName -HomePage "about:blank" -Verbose
+        Import-MDTTaskSequence -path $this.Path -Name $this.Name -Template $this.Template -Comments $this.Comments -ID $this.ID -Version "1.0" -OperatingSystemPath $this.OSName -FullName $this.Owner -OrgName $this.OrgName -HomePage "about:blank" -Verbose
         # Disable Windows autoupdate
         $UnattendXML = "$($this.PSDrivePath)\control\$($this.ID)\Unattend.xml"
         $unattend = Get-Content -Path $UnattendXML
