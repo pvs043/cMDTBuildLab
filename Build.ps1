@@ -1,16 +1,9 @@
 $moduleName     = "cMDTBuildLab"
 $moduleGuid     = "df45de26-88b1-4a95-98af-b798fde1424f"
 $year           = (Get-Date).Year
-$moduleVersion  = "2.4.0"
+$moduleVersion  = "2.5.0"
 $releaseNotes  = "
-* Update Servicing stack update for Windows 7 SP1 (KB3177467) to V2. Do not forget to delete KB3177467-x64 and KB3177467-x86 folders at E:\Source before upgrade
-* Update to WinPE v.1809 (Build: 10.1.17763.1). Do not forget uninstall previous version of ADK before upgrade and delete E:\Source\Windows Assessment and Deployment Kit folder
-* Update Microsoft Deployment Toolkit (6.3.8456.1000)
-* Rename E:\Source\Microsoft Deployment Toolkit to E:\Source\MDT
-* Add support for Windows 2019
-* Use script by @NickolajA for remove default Windows 10 apps
-* Add TargetPath parameter to cMDTBuildCustomize class. Do not forget change Deploy_MDT_Server.ps1 script
-* Support for importing custom images at cMDTBuildOperatingSystem
+* 
 "
 $allResources   = @( Get-ChildItem -Path $PSScriptRoot\src\DSCResources\*.psm1 -ErrorAction SilentlyContinue -Recurse | Sort-Object)
 $allFunctions   = @( Get-ChildItem -Path $PSScriptRoot\src\Public\*.ps1 -ErrorAction SilentlyContinue -Recurse | Sort-Object)

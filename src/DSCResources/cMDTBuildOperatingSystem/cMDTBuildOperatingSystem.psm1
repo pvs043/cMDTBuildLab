@@ -74,7 +74,7 @@ class cMDTBuildOperatingSystem
             else {
                 $image = $this.GetCustomImage()
                 if ($image -like "*.wim") {
-                    Import-MDTOperatingystem -path $this.Path -SourceFile "$($this.SourcePath)\$image" -DestinationFolder $this.Name -Verbose
+                    Import-MDTOperatingSystem -path $this.Path -SourceFile "$($this.SourcePath)\$image" -DestinationFolder $this.Name -Verbose
                 }
             }
             $ErrorActionPreference = "Continue"
