@@ -25,6 +25,9 @@ class cMDTBuildUpdateBootImage
     [DscProperty()]
     [string]$LiteTouchWIMDescription
 
+    [DscProperty()]
+    [bool]$CreateISOx64 = $false
+
     [void] Set()
     {
         $this.UpdateBootImage()
@@ -90,7 +93,7 @@ class cMDTBuildUpdateBootImage
         # for offline remove Windows default apps
         # Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x86.FeaturePacks -Value "winpe-dismcmdlets,winpe-mdac,winpe-netfx,winpe-powershell,winpe-storagewmi"
 
-        Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x64.GenerateLiteTouchISO -Value $false
+        Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x64.GenerateLiteTouchISO -Value $this.CreateISOx64
         Set-ItemProperty "$($this.PSDeploymentShare):" -Name Boot.x86.GenerateLiteTouchISO -Value $true
 
         #The Update-MDTDeploymentShare command crashes WMI when run from inside DSC. This section is a work around.
