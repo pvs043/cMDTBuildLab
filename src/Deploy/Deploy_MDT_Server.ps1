@@ -4,7 +4,7 @@ Configuration DeployMDTServerContract
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseDeclaredVarsMoreThanAssignments')]
 
     Param(
-        [Parameter(Mandatory=$true, HelpMessage = "Enter password for MDT Local Account")]
+        [Parameter(Mandatory=$true, HelpMessage = "Enter password for MDT Account")]
         [PSCredential]$Credentials
     )
 
@@ -27,15 +27,19 @@ Configuration DeployMDTServerContract
             DownloadPath = $Node.SourcePath
         }
 
-        User MDTAccessAccount {
-            Ensure                 = "Present"
-            UserName               = $Credentials.UserName
-            FullName               = $Credentials.UserName
-            Password               = $Credentials
-            PasswordChangeRequired = $false
-            PasswordNeverExpires   = $true
-            Description            = "Managed Client Administrator Account"
-            Disabled               = $false
+        $DomainUser = ($Credentials.UserName).Split('\\')
+        if ($DomainUser.Count -eq 1) {
+
+            User MDTAccessAccount {
+              Ensure                 = "Present"
+                UserName               = $Credentials.UserName
+                FullName               = $Credentials.UserName
+                Password               = $Credentials
+                PasswordChangeRequired = $false
+                PasswordNeverExpires   = $true
+                Description            = "Managed Client Administrator Account"
+                Disabled               = $false
+            }
         }
 
         WindowsFeature  DataDeduplication {
@@ -516,10 +520,18 @@ UserDomain=$($Node.NodeName)
             }
         }
 
+        if ($DomainUser.Count -eq 1) {
+            $MDTUserDomain = $Node.NodeName
+            $MDTUserName = $Credentials.UserName
+        }
+        else {
+            $MDTUserDomain = $DomainUser[0]
+            $MDTUserName = $DomainUser[1]
+        }
         cNtfsPermissionEntry AssignPermissionsMDT {
             Ensure = "Present"
             Path   = $Node.PSDrivePath
-            Principal  = "$($Node.NodeName)\$($Credentials.UserName)"
+            Principal  = "$MDTUserDomain\$MDTUserName"
             AccessControlInformation = @(
                 cNtfsAccessControlInformation {
                     AccessControlType = "Allow"
@@ -534,7 +546,7 @@ UserDomain=$($Node.NodeName)
         cNtfsPermissionEntry AssignPermissionsCaptures {
             Ensure = "Present"
             Path   = "$($Node.PSDrivePath)\Captures"
-            Principal  = "$($Node.NodeName)\$($Credentials.UserName)"
+            Principal  = "$MDTUserDomain\$MDTUserName"
             AccessControlInformation = @(
                 cNtfsAccessControlInformation {
                     AccessControlType = "Allow"
@@ -548,12 +560,13 @@ UserDomain=$($Node.NodeName)
     }
 }
 
-#Get password for MDT Local Account
-$Cred = Get-Credential -UserName SVCMDTConnect001 -Message "Enter password for Local MDT Account"
+#Get password for MDT Account
+$Cred = Get-Credential -UserName "SVCMDTConnect001" -Message "Enter password for MDT Account"
+#$Cred = Get-Credential -UserName "Domain\User" -Message "Enter password for MDT Account"
 
 #Get configuration data
-#[hashtable]$ConfigurationData = Get-ConfigurationData -ConfigurationData "$PSScriptRoot\Deploy_MDT_Server_ConfigurationData_Lite.psd1" # Only Windows 10 x86 Evaluation
 [hashtable]$ConfigurationData = Get-ConfigurationData -ConfigurationData "$PSScriptRoot\Deploy_MDT_Server_ConfigurationData.psd1"
+#[hashtable]$ConfigurationData = Get-ConfigurationData -ConfigurationData "$PSScriptRoot\Deploy_MDT_Server_ConfigurationData_Lite.psd1" # Only Windows 10 x86 Evaluation
 
 #Create DSC MOF job
 DeployMDTServerContract -OutputPath "$PSScriptRoot\MDT-Deploy_MDT_Server" -ConfigurationData $ConfigurationData -Credentials $Cred

@@ -4,6 +4,7 @@ $year           = (Get-Date).Year
 $moduleVersion  = "2.5.0"
 $releaseNotes  = "
 * Add CreateISOx64 parameter for cMDTBuildUpdateBootImage resource. Default is false
+* Add support to Domain\User credentials for access to MDT share
 "
 $allResources   = @( Get-ChildItem -Path $PSScriptRoot\src\DSCResources\*.psm1 -ErrorAction SilentlyContinue -Recurse | Sort-Object)
 $allFunctions   = @( Get-ChildItem -Path $PSScriptRoot\src\Public\*.ps1 -ErrorAction SilentlyContinue -Recurse | Sort-Object)
