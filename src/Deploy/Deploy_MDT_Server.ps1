@@ -29,17 +29,22 @@ Configuration DeployMDTServerContract
 
         $DomainUser = ($Credentials.UserName).Split('\\')
         if ($DomainUser.Count -eq 1) {
-
+            $MDTUserDomain = $Node.NodeName
+            $MDTUserName = $Credentials.UserName
             User MDTAccessAccount {
               Ensure                 = "Present"
-                UserName               = $Credentials.UserName
-                FullName               = $Credentials.UserName
+                UserName               = $MDTUserName
+                FullName               = $MDTUserName
                 Password               = $Credentials
                 PasswordChangeRequired = $false
                 PasswordNeverExpires   = $true
                 Description            = "Managed Client Administrator Account"
                 Disabled               = $false
             }
+        }
+        else {
+            $MDTUserDomain = $DomainUser[0]
+            $MDTUserName = $DomainUser[1]
         }
 
         WindowsFeature  DataDeduplication {
@@ -488,9 +493,9 @@ DeployRoot=\\$($Node.NodeName)\$($Node.PSDriveShareName)
 SkipBDDWelcome=YES
 
 ;MDT Connect Account
-UserID=$($Credentials.UserName)
+UserID=$MDTUserName
 UserPassword=$($Credentials.GetNetworkCredential().password)
-UserDomain=$($Node.NodeName)
+UserDomain=$MDTUserDomain
 "@
                 }
             }
@@ -520,14 +525,6 @@ UserDomain=$($Node.NodeName)
             }
         }
 
-        if ($DomainUser.Count -eq 1) {
-            $MDTUserDomain = $Node.NodeName
-            $MDTUserName = $Credentials.UserName
-        }
-        else {
-            $MDTUserDomain = $DomainUser[0]
-            $MDTUserName = $DomainUser[1]
-        }
         cNtfsPermissionEntry AssignPermissionsMDT {
             Ensure = "Present"
             Path   = $Node.PSDrivePath
