@@ -155,7 +155,7 @@ Configuration DeployMDTServerContract
         ForEach ($CurrentApplicationFolder in $Node.ApplicationFolderStructure) {
             [string]$ApplicationFolder = ""
             $CurrentApplicationFolder.GetEnumerator() | % {
-                If ($_.key -eq "Folder") { $ApplicationFolder       = $_.value }
+                If ($_.key -eq "Folder") { $ApplicationFolder = $_.value }
             }
 
             cMDTBuildDirectory "AF$($ApplicationFolder.Replace(' ',''))" {
@@ -169,7 +169,7 @@ Configuration DeployMDTServerContract
             ForEach ($CurrentApplicationSubFolder in $CurrentApplicationFolder.SubFolders) {
                 [string]$ApplicationSubFolder = ""
                 $CurrentApplicationSubFolder.GetEnumerator() | % {
-                    If ($_.key -eq "SubFolder") { $ApplicationSubFolder       = $_.value }
+                    If ($_.key -eq "SubFolder") { $ApplicationSubFolder = $_.value }
                 }
 
                 cMDTBuildDirectory "ASF$($ApplicationSubFolder.Replace(' ',''))" {
