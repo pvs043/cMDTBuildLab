@@ -49,7 +49,7 @@ The following prerequisites automatically downloaded with the cMDTBuildPreReqs D
 * [Visual C++ runtimes](https://support.microsoft.com/en-us/kb/2977003) - 2008,2010,2012,2013,2017
 * [Windows Management Framewework 3.0 for Windows 7 SP1](https://www.microsoft.com/en-us/download/details.aspx?id=34595)
 * [Windows Management Framewework 5.1 for Windows 8.1 and Windows 2012 R2](http://aka.ms/wmf5latest)
-* [Servicing stack update for Windows 7 SP1](https://support.microsoft.com/en-us/kb/3177467)
+* [Servicing stack update for Windows 7 SP1](https://support.microsoft.com/en-us/kb/4490628)
 * [Convenience rollup update for Windows 7 SP1](https://support.microsoft.com/en-us/kb/3125574)
 * [July 2016 update rollup for Windows 7 SP1](https://support.microsoft.com/en-us/kb/3172605) - this include fixes the Windows Update Client
 * [July 2016 update rollup for Windows 8.1 and Windows Server 2012 R2](https://support.microsoft.com/en-us/kb/3172614) - this include fixes the Windows Update Client

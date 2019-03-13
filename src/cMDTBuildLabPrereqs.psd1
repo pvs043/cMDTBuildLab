@@ -118,17 +118,17 @@
         }
         @{
             # Servicing stack update for Windows 7 SP1 x86
-            Name   = "KB3177467-x86"
-            URI    = "http://download.windowsupdate.com/d/msdownload/update/software/crup/2018/09/windows6.1-kb3177467-v2-x86_abd69a188878d93212486213990c8caab4d6ae57.msu"
-            Folder = "KB3177467-x86"
-            File   = "windows6.1-kb3177467-v2-x86_abd69a188878d93212486213990c8caab4d6ae57.msu"
+            Name   = "KB4490628-x86"
+            URI    = "http://download.windowsupdate.com/c/msdownload/update/software/secu/2019/03/windows6.1-kb4490628-x86_3cdb3df55b9cd7ef7fcb24fc4e237ea287ad0992.msu"
+            Folder = "KB4490628-x86"
+            File   = "windows6.1-kb4490628-x86_3cdb3df55b9cd7ef7fcb24fc4e237ea287ad0992.msu"
         }
         @{
             # Servicing stack update for Windows 7 SP1 x64
-            Name   = "KB3177467-x64"
-            URI    = "http://download.windowsupdate.com/d/msdownload/update/software/crup/2018/09/windows6.1-kb3177467-v2-x64_b9df2405e7e034e3ffda160fff99a36ab96ba187.msu"
-            Folder = "KB3177467-x64"
-            File   = "windows6.1-kb3177467-v2-x64_b9df2405e7e034e3ffda160fff99a36ab96ba187.msu"
+            Name   = "KB4490628-x64"
+            URI    = "http://download.windowsupdate.com/c/msdownload/update/software/secu/2019/03/windows6.1-kb4490628-x64_d3de52d6987f7c8bdc2c015dca69eac96047c76e.msu"
+            Folder = "KB4490628-x64"
+            File   = "windows6.1-kb4490628-x64_d3de52d6987f7c8bdc2c015dca69eac96047c76e.msu"
         }
         @{
             # Convenience rollup update for Windows 7 SP1 x86
