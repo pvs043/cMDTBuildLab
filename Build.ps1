@@ -7,6 +7,7 @@ $releaseNotes  = "
 * Add support to Domain\User credentials for access to MDT share
 * Remove Windows 8.1 and Windows 2012 R2 deploy from main configuration. Old config saved in Deploy_MDT_Server_ConfigurationData_Archived.psd1
 * Update Servicing stack update for Windows 7 SP1: KB4490628
+* Update script for remove default Windows 10 apps
 "
 $allResources   = @( Get-ChildItem -Path $PSScriptRoot\src\DSCResources\*.psm1 -ErrorAction SilentlyContinue -Recurse | Sort-Object)
 $allFunctions   = @( Get-ChildItem -Path $PSScriptRoot\src\Public\*.ps1 -ErrorAction SilentlyContinue -Recurse | Sort-Object)
