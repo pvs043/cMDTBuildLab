@@ -64,7 +64,7 @@ class cMDTBuildPackage
                 [string]$PSDriveName,
                 [string]$PSDrivePath,
                 [string]$Path,
-                [string]$Source
+                [string]$PackageSourcePath
             )
             InlineScript {
                 Import-MDTModule
@@ -72,7 +72,7 @@ class cMDTBuildPackage
                 Import-MDTPackage -Path $Using:Path -SourcePath $Using:Source -Verbose
             }
         }
-        Import-Pkg $this.PSDriveName $this.PSDrivePath $this.Path $this.Source
+        Import-Pkg $this.PSDriveName $this.PSDrivePath $this.Path $this.PackageSourcePath
     }
 }
 
