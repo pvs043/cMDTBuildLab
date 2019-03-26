@@ -72,7 +72,7 @@ class cMDTBuildPackage
                 Import-MDTPackage -Path $Using:Path -SourcePath $Using:Source -Verbose
             }
         }
-        Import-Pkg $this.PSDriveName $this.PSDrivePath $this.Path $this.PackageSourcePath
+        Import-Pkg $this.PSDriveName $this.PSDrivePath $this.Path $this.Source
     }
 }
 
