@@ -19,7 +19,7 @@ This is the development branch with latest changes.
 Official repository - latest module version and download count.
 
 ## Version
-2.5.0
+2.6.0
 
 See version history at [Project Site](https://github.com/pvs043/cMDTBuildLab/wiki/Version-History)
 
@@ -35,9 +35,7 @@ Prerequisites for infrastructure:
 * Hyper-V Host: HV01 (Windows 2012 R2 or above)
 * Original Microsoft media (ISO) images:<br>
     Windows 7 with SP1 (April 2011)<br>
-    Windows 8.1 (November 2014)<br>
     Windows 10 Version 1809 (November 2018)<br>
-    Windows 2012 R2 (November 2014)<br>
     Windows 2016 (February 2018)<br>
     Windows 2019 (November 2018)
 
@@ -48,18 +46,16 @@ The following prerequisites automatically downloaded with the cMDTBuildPreReqs D
 * [WinPE v.1809](https://docs.microsoft.com/en-us/windows-hardware/get-started/adk-install) - Windows PE, v.1809 (Build: 10.1.17763.1)
 * [Visual C++ runtimes](https://support.microsoft.com/en-us/kb/2977003) - 2008,2010,2012,2013,2017
 * [Windows Management Framewework 3.0 for Windows 7 SP1](https://www.microsoft.com/en-us/download/details.aspx?id=34595)
-* [Windows Management Framewework 5.1 for Windows 8.1 and Windows 2012 R2](http://aka.ms/wmf5latest)
 * [Servicing stack update for Windows 7 SP1](https://support.microsoft.com/en-us/kb/4490628)
 * [Convenience rollup update for Windows 7 SP1](https://support.microsoft.com/en-us/kb/3125574)
 * [July 2016 update rollup for Windows 7 SP1](https://support.microsoft.com/en-us/kb/3172605) - this include fixes the Windows Update Client
-* [July 2016 update rollup for Windows 8.1 and Windows Server 2012 R2](https://support.microsoft.com/en-us/kb/3172614) - this include fixes the Windows Update Client
 
 If your MDT01 host does not have direct connection to Internet, run DSC configuration from Deploy\Download_MDT_Prereqs.ps1 at Windows machine connected to Internet.
 After completion of downloading:
 * Run E:\Source\ADK\adksetup.exe. Select E:\Source\ADK for download folder
 * Run E:\Source\WindowsPE\adkwinpesetup.exe. Select E:\Source\WindowsPE for download folder
 
-Note for APP-V 5.1 (Windows 7 / 8.1) client:<p>
+Note for APP-V 5.1 (Windows 7) client:<p>
 This module include *fake* archive Sources\appv_client_setup.zip.<p>
 If you have Microsoft Software Assurance subscription, take original client of APP-V 5.1 (appv_client_setup.exe) from MDOP 2015 and place into this ZIP file.<p>
 This archive will be unpack to source folder with cMDTBuildPreReqs DSC resource.
