@@ -157,18 +157,6 @@
                     ApplicationSourcePath = "WMF30x64"
                 }
                 @{
-                    Name                  = "Install - Windows Management Framework 5.1 - x86"
-                    Path                  = "\Applications\Core\Microsoft"
-                    CommandLine           = "wusa.exe Win8.1-KB3191564-x86.msu /quiet /norestart"
-                    ApplicationSourcePath = "WMF51w81x86"
-                }
-                @{
-                    Name                  = "Install - Windows Management Framework 5.1 - x64"
-                    Path                  = "\Applications\Core\Microsoft"
-                    CommandLine           = "wusa.exe Win8.1AndW2K12R2-KB3191564-x64.msu /quiet /norestart"
-                    ApplicationSourcePath = "WMF51w81x64"
-                }
-                @{
                     Name                  = "Configure - Set Control+Shift Keyboard Toggle"
                     Path                  = "\Applications\Core\Configure"
                     CommandLine           = "reg import Toggle.reg"
@@ -1065,22 +1053,6 @@
                             AddAfter   = "Action - CleanupBeforeSysprep"
                         }
                     )
-                }
-            )
-
-            #Custom folder/files to add to the MDT
-            CustomSettings = @(
-                @{
-                    Name       = "Scripts.zip"
-                    SourcePath = "Scripts"
-                    TestFiles  = @("RemoveApps.ps1",
-                                   "RemoveApps81.xml",
-                                   "RemoveApps10.xml"
-                                 )
-                }
-                @{
-                    Name       = "Invoke-RemoveBuiltinApps.ps1"
-                    SourcePath = "RemoveDefaultApps"
                 }
             )
 

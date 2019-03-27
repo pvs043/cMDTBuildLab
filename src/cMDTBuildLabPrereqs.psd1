@@ -103,20 +103,6 @@
             File   = "Windows6.1-KB2506143-x64.msu"
         }
         @{
-            # Windows Management Framewework 5.1 for Windows 8.1 x86
-            Name   = "WMF51w81x86"
-            URI    = "https://download.microsoft.com/download/6/F/5/6F5FF66C-6775-42B0-86C4-47D41F2DA187/Win8.1-KB3191564-x86.msu"
-            Folder = "WMF51w81x86"
-            File   = "Win8.1-KB3191564-x86.msu"
-        }
-        @{
-            # Windows Management Framewework 5.1 for Windows 8.1 x64 and Windows 2012 R2
-            Name   = "WMF51w81x64"
-            URI    = "https://download.microsoft.com/download/6/F/5/6F5FF66C-6775-42B0-86C4-47D41F2DA187/Win8.1AndW2K12R2-KB3191564-x64.msu"
-            Folder = "WMF51w81x64"
-            File   = "Win8.1AndW2K12R2-KB3191564-x64.msu"
-        }
-        @{
             # Servicing stack update for Windows 7 SP1 x86
             Name   = "KB4490628-x86"
             URI    = "http://download.windowsupdate.com/c/msdownload/update/software/secu/2019/03/windows6.1-kb4490628-x86_3cdb3df55b9cd7ef7fcb24fc4e237ea287ad0992.msu"
@@ -192,13 +178,6 @@
             URI    = "Sources\Default_Start_Screen_Layout_10.xml"
             Folder = "Set-Startlayout"
             File   = "Default_Start_Screen_Layout_10.xml"
-        }
-        @{
-            # Configure - Remove Windows 8.1 Default Applications
-            Name   = "Scripts"
-            URI    = "Sources\Scripts.zip"
-            Folder = "Scripts"
-            File   = "Scripts.zip"
         }
         @{
             # Configure - Remove Windows 10 Default Applications
