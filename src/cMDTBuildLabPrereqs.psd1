@@ -187,20 +187,6 @@
             File   = "Customize-DefaultProfile.ps1"
         }
         @{
-            # Configure - Set Start Layout (Desktop Theme for Windows 8.1)
-            Name   = "DesktopTheme"
-            URI    = "Sources\Theme01.deskthemepack"
-            Folder = "Set-Startlayout"
-            File   = "Theme01.deskthemepack"
-        }
-        @{
-            # Configure - Set Start Layout (Windows 8.1)
-            Name   = "StartLayout8.1"
-            URI    = "Sources\Default_Start_Screen_Layout_81.bin"
-            Folder = "Set-Startlayout"
-            File   = "Default_Start_Screen_Layout_81.bin"
-        }
-        @{
             # Configure - Set Start Layout (Windows 10)
             Name   = "StartLayout10"
             URI    = "Sources\Default_Start_Screen_Layout_10.xml"
