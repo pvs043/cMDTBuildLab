@@ -35,14 +35,14 @@ Prerequisites for infrastructure:
 * Hyper-V Host: HV01 (Windows 2012 R2 or above)
 * Original Microsoft media (ISO) images:<br>
     Windows 7 with SP1 (April 2011)<br>
-    Windows 10 Version 1809 (November 2018)<br>
+    Windows 10 Version 1809 (April 2019)<br>
     Windows 2016 (February 2018)<br>
-    Windows 2019 (November 2018)
+    Windows 2019 (April 2019)
 
 This module is tested on Windows 2016/2019 server, but it will be worked on Windows 10 or Windows 2012 R2/Windows 8.1 + WMF 5.1.
 
 The following prerequisites automatically downloaded with the cMDTBuildPreReqs DSC resource:
-* [MicrosoftDeploymentToolkit_x64](https://www.microsoft.com/en-us/download/details.aspx?id=57775) - Microsoft Deployment Toolkit (MDT) (Build 6.3.8456.1000)
+* [MicrosoftDeploymentToolkit_x64](https://docs.microsoft.com/en-us/sccm/mdt/) - Microsoft Deployment Toolkit (MDT) (Build 6.3.8456.1000)
 * [WinPE v.1809](https://docs.microsoft.com/en-us/windows-hardware/get-started/adk-install) - Windows PE, v.1809 (Build: 10.1.17763.1)
 * [Visual C++ runtimes](https://support.microsoft.com/en-us/kb/2977003) - 2008,2010,2012,2013,2017
 * [Windows Management Framewework 3.0 for Windows 7 SP1](https://www.microsoft.com/en-us/download/details.aspx?id=34595)

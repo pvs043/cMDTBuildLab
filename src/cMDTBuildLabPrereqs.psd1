@@ -3,7 +3,7 @@
         @{
             # Microsoft Deployment Toolkit (Build: 6.3.8456.1000)
             Name   = "MDT"
-            URI    = "https://download.microsoft.com/download/C/E/6/CE63C73A-31D6-4473-9216-19D7B88FD2DF/MicrosoftDeploymentToolkit_x64.msi"
+            URI    = "https://download.microsoft.com/download/3/3/9/339BE62D-B4B8-4956-B58D-73C4685FC492/MicrosoftDeploymentToolkit_x64.msi"
             Folder = "MDT"
             File   = "MicrosoftDeploymentToolkit_x64.msi"
         }

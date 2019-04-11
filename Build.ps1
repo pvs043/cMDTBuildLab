@@ -6,6 +6,8 @@ $releaseNotes  = "
 * Remove Windows 8.1/2012 R2 deployment description from documentation. Windows 7 SP1 Deployment is still available for very old systems
 * Remove Windows 8.1 desktop customization from code and prerequisites
 * Remove WMF 5.1 from prerequisites
+* Update download URLs for MDT
+* Tested with latest Windows 10 Version 1809 and Windows 2019 ISO (April 2019)
 "
 $allResources   = @( Get-ChildItem -Path $PSScriptRoot\src\DSCResources\*.psm1 -ErrorAction SilentlyContinue -Recurse | Sort-Object)
 $allFunctions   = @( Get-ChildItem -Path $PSScriptRoot\src\Public\*.ps1 -ErrorAction SilentlyContinue -Recurse | Sort-Object)
