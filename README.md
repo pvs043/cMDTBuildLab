@@ -94,12 +94,10 @@ Thanks to Community: [Issue](https://github.com/pvs043/cMDTBuildLab/issues) and 
 [Johan Arwidmark](http://deploymentresearch.com/Research): Deployment Research<br>
 [Mikael Nystrom](https://anothermike2.wordpress.com): The Deployment Bunny<br>
 [Jason Helmick](https://twitter.com/theJasonHelmick), [Jeffrey Snover](https://twitter.com/@jsnover):<br>
-[1. Getting Started with PowerShell Desired State Configuration (DSC)](https://mva.microsoft.com/en-US/training-courses/getting-started-with-powershell-desired-state-configuration-dsc--8672?l=ZwHuclG1_2504984382). ([Rus](https://mva.microsoft.com/ru/training-courses/-powershell-dsc--8672?l=dlwgB3wFB_1704984382))<br>
-[2. Advanced PowerShell Desired State Configuration (DSC) and Custom Resources](https://mva.microsoft.com/en-US/training-courses/advanced-powershell-desired-state-configuration-dsc-and-custom-resources-8702?l=3DnsS2H1_1504984382)
 
 ## License
 
-**MIT**
+**Free usage**
 
 [appveyor-badge-master]: https://ci.appveyor.com/api/projects/status/h8qth51otb888a7v?branch=master&svg=true
 [appveyor-build-master]: https://ci.appveyor.com/project/pvs043/cmdtbuildlab/branch/master?fullLog=true
