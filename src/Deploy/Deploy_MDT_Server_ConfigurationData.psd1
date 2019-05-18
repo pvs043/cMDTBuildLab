@@ -1056,6 +1056,14 @@
                 }
             )
 
+            #Custom folder/files to add to the MDT
+            CustomSettings = @(
+                @{
+                    Name       = "Invoke-RemoveBuiltinApps.ps1"
+                    SourcePath = "RemoveDefaultApps"
+                }
+            )
+
             #Custom settings and boot ini file management
             CustomizeIniFiles = @(
                 @{
