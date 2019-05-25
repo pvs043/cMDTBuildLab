@@ -56,7 +56,7 @@ Configuration DeployMDTServerContract
             Ensure     = "Present"
             Name       = "Windows Assessment and Deployment Kit - Windows 10"
             Path       = "$($Node.SourcePath)\ADK\adksetup.exe"
-            ProductId  = "3dec9467-d9ad-42df-8e84-888057bac8f1"
+            ProductId  = "fb450356-9879-4b2e-8dc9-282709286661"
             Arguments  = "/Features OptionId.DeploymentTools /norestart /quiet /ceip off"
             ReturnCode = 0
         }
@@ -65,7 +65,7 @@ Configuration DeployMDTServerContract
             Ensure     = "Present"
             Name       = "Windows Assessment and Deployment Kit Windows Preinstallation Environment Add-ons - Windows 10"
             Path       = "$($Node.SourcePath)\WindowsPE\adkwinpesetup.exe"
-            ProductId  = "d5163028-7863-4874-9e37-2284427b76fb"
+            ProductId  = "d8369a05-1f4a-4735-9558-6e131201b1a2"
             Arguments  = "/Features OptionId.WindowsPreinstallationEnvironment /norestart /quiet /ceip off"
             ReturnCode = 0
         }
