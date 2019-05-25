@@ -182,8 +182,7 @@
         @{
             # Configure - Remove Windows 10 Default Applications
             Name   = "RemoveDefaultApps"
-            #URI    = "https://raw.githubusercontent.com/SCConfigMgr/ConfigMgr/master/Operating%20System%20Deployment/Invoke-RemoveBuiltinApps.ps1" # Old version
-            URI    = "https://raw.githubusercontent.com/SCConfigMgr/ConfigMgr/master/Operating%20System%20Deployment/Invoke-RemoveBuiltinApps_1.0.0.ps1"
+            URI    = "https://raw.githubusercontent.com/SCConfigMgr/ConfigMgr/master/Operating%20System%20Deployment/Invoke-RemoveBuiltinApps.ps1"
             Folder = "RemoveDefaultApps"
             File   = "Invoke-RemoveBuiltinApps.ps1"
         }
