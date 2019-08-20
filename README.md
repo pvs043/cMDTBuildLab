@@ -19,7 +19,7 @@ This is the development branch with latest changes.
 Official repository - latest module version and download count.
 
 ## Version
-2.6.0
+3.0.0
 
 See version history at [Project Site](https://github.com/pvs043/cMDTBuildLab/wiki/Version-History)
 
@@ -93,7 +93,7 @@ Thanks to Community: [Issue](https://github.com/pvs043/cMDTBuildLab/issues) and 
 
 [Johan Arwidmark](http://deploymentresearch.com/Research): Deployment Research<br>
 [Mikael Nystrom](https://anothermike2.wordpress.com): The Deployment Bunny<br>
-[Jason Helmick](https://twitter.com/theJasonHelmick), [Jeffrey Snover](https://twitter.com/@jsnover):<br>
+[Jason Helmick](https://twitter.com/theJasonHelmick), [Jeffrey Snover](https://twitter.com/@jsnover)<br>
 
 ## License
 
