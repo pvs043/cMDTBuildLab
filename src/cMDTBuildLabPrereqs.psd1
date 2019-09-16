@@ -103,20 +103,6 @@
             File   = "Windows6.1-KB2506143-x64.msu"
         }
         @{
-            # Servicing stack update for Windows 7 SP1 x86
-            Name   = "KB4490628-x86"
-            URI    = "http://download.windowsupdate.com/c/msdownload/update/software/secu/2019/03/windows6.1-kb4490628-x86_3cdb3df55b9cd7ef7fcb24fc4e237ea287ad0992.msu"
-            Folder = "KB4490628-x86"
-            File   = "windows6.1-kb4490628-x86_3cdb3df55b9cd7ef7fcb24fc4e237ea287ad0992.msu"
-        }
-        @{
-            # Servicing stack update for Windows 7 SP1 x64
-            Name   = "KB4490628-x64"
-            URI    = "http://download.windowsupdate.com/c/msdownload/update/software/secu/2019/03/windows6.1-kb4490628-x64_d3de52d6987f7c8bdc2c015dca69eac96047c76e.msu"
-            Folder = "KB4490628-x64"
-            File   = "windows6.1-kb4490628-x64_d3de52d6987f7c8bdc2c015dca69eac96047c76e.msu"
-        }
-        @{
             # Convenience rollup update for Windows 7 SP1 x86
             Name   = "KB3125574-x86"
             URI    = "http://download.windowsupdate.com/d/msdownload/update/software/updt/2016/05/windows6.1-kb3125574-v4-x86_ba1ff5537312561795cc04db0b02fbb0a74b2cbd.msu"

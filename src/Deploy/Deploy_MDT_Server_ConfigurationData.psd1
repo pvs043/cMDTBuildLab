@@ -101,13 +101,13 @@
                     SourcePath = "Windows10x64"
                 }
                 @{
-                    Name       = "Windows 2016"
-                    Path       = "Windows 2016"
+                    Name       = "Windows Server"
+                    Path       = "Windows Server"
                     SourcePath = "Windows2016"
                 }
                 @{
-                    Name       = "Windows 2019"
-                    Path       = "Windows 2016"
+                    Name       = "Windows Server"
+                    Path       = "Windows Server"
                     SourcePath = "Windows2019"
                 }
             )
@@ -190,18 +190,6 @@
 
             #Packages
             Packages = @(
-                # Servicing stack update for Windows 7 SP1 x86
-                @{
-                    Name              = "Package_for_KB4490628 neutral x86 6.1.1.2"
-                    Path              = "\Packages\Windows 7 x86"
-                    PackageSourcePath = "KB4490628-x86"
-                }
-                # Servicing stack update for Windows 7 SP1 x64
-                @{
-                    Name              = "Package_for_KB4490628 neutral amd64 6.1.1.2"
-                    Path              = "\Packages\Windows 7 x64"
-                    PackageSourcePath = "KB4490628-x64"
-                }
             )
 
             #Task sqeuences; are dependent on imported Operating system and Applications in MDT
