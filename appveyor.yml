@@ -55,7 +55,7 @@ test_script:
     - ps: |
         Write-Host "Running Test script" -ForegroundColor Yellow
         $testResultsFile = ".\TestsResults.xml"
-        $res = Invoke-Pester -ExcludeTag 'Markdown','Examples' -OutputFormat NUnitXml -OutputFile $testResultsFile -PassThru
+        $res = Invoke-Pester -OutputFormat NUnitXml -OutputFile $testResultsFile #-PassThru
         $URI = "https://ci.appveyor.com/api/testresults/nunit/$($env:APPVEYOR_JOB_ID)"
         $WC  = New-Object 'System.Net.WebClient'
         Write-Host "About to upload file: $(Resolve-Path $testResultsFile)"
