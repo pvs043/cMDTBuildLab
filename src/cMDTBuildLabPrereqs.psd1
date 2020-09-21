@@ -8,16 +8,16 @@
             File   = "MicrosoftDeploymentToolkit_x64.msi"
         }
         @{
-            # Windows Assessment and Deployment Kit (Build: 10.1.18362.1)
+            # Windows Assessment and Deployment Kit v.2004 (Build: 10.1.19041.1)
             Name   = "ADK"
-            URI    = "https://download.microsoft.com/download/B/E/6/BE63E3A5-5D1C-43E7-9875-DFA2B301EC70/adk/adksetup.exe"
+            URI    = "https://download.microsoft.com/download/8/6/c/86c218f3-4349-4aa5-beba-d05e48bbc286/adk/adksetup.exe"
             Folder = "ADK"
             File   = "adksetup.exe"
         }
         @{
-            # Windows PE, v.1903 (Build: 10.1.18362.1)
+            # Windows PE v.2004 (Build: 10.1.19041.1)
             Name   = "WinPE"
-            URI    = "https://download.microsoft.com/download/E/F/A/EFA17CF0-7140-4E92-AC0A-D89366EBD79E/adkwinpeaddons/adkwinpesetup.exe"
+            URI    = "https://download.microsoft.com/download/3/c/2/3c2b23b2-96a0-452c-b9fd-6df72266e335/adkwinpeaddons/adkwinpesetup.exe"
             Folder = "WindowsPE"
             File   = "adkwinpesetup.exe"
         }

@@ -8,8 +8,8 @@ $releaseNotes  = "
 * Remove WMF 5.1 from prerequisites
 * Remove Servicing stack update for Windows 7 SP1 from prerequisites
 * Update download URLs for MDT
-* Update ADK (v.1903)
-* Tested with latest Windows 10 Version 1903 (May 2019) and Windows Server 2019
+* Update ADK (v.2004)
+* Tested with latest Windows 10 Version 2004 (May 2020) and Windows Server 2019
 "
 $allResources   = @( Get-ChildItem -Path $PSScriptRoot\src\DSCResources\*.psm1 -ErrorAction SilentlyContinue -Recurse | Sort-Object)
 $allFunctions   = @( Get-ChildItem -Path $PSScriptRoot\src\Public\*.ps1 -ErrorAction SilentlyContinue -Recurse | Sort-Object)

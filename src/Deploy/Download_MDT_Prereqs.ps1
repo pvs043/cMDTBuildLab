@@ -25,7 +25,7 @@ Configuration DownloadMDTPrereqs
             Ensure     = "Present"
             Name       = "Windows Assessment and Deployment Kit - Windows 10"
             Path       = "$($Node.SourcePath)\ADK\adksetup.exe"
-            ProductId  = "3dec9467-d9ad-42df-8e84-888057bac8f1"
+            ProductId  = "9346016b-6620-4841-8ea4-ad91d3ea02b5"
             Arguments  = "/Features OptionId.DeploymentTools /norestart /quiet /ceip off"
             ReturnCode = 0
         }
@@ -34,7 +34,7 @@ Configuration DownloadMDTPrereqs
             Ensure     = "Present"
             Name       = "Windows Assessment and Deployment Kit Windows Preinstallation Environment Add-ons - Windows 10"
             Path       = "$($Node.SourcePath)\WindowsPE\adkwinpesetup.exe"
-            ProductId  = "d5163028-7863-4874-9e37-2284427b76fb"
+            ProductId  = "353df250-4ecc-4656-a950-4df93078a5fd"
             Arguments  = "/Features OptionId.WindowsPreinstallationEnvironment /norestart /quiet /ceip off"
             ReturnCode = 0
         }
