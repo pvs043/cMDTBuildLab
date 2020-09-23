@@ -11,13 +11,17 @@ install:
     - ps: |
         Write-Host "Install prerequisites" -ForegroundColor Yellow
         $null = Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force -ErrorAction Stop
-        Install-Module -Name PSScriptAnalyzer -Repository PSGallery -Force -ErrorAction Stop
-        Install-Module -Name Pester -Repository PSGallery -Force -ErrorAction Stop
-        Install-Module -Name DscResource.AnalyzerRules -Repository PSGallery -Force -ErrorAction Stop
+        #Install-Module -Name PSScriptAnalyzer -Repository PSGallery -Force -ErrorAction Stop
+        #Install-Module -Name Pester -Repository PSGallery -Force -ErrorAction Stop
+        #Install-Module -Name PSPKI -Repository PSGallery -Force -ErrorAction Stop
+        #Install-Module -Name DscResource.AnalyzerRules -Repository PSGallery -Force -ErrorAction Stop
+        #Install-Module -Name xDscResourceDesigner -Repository PSGallery -Force -ErrorAction Stop
+        #Install-Module -Name DscResource.Test -Repository PSGallery -Force -ErrorAction Stop
         Install-Module -Name xSmbShare -Repository PSGallery -Force -ErrorAction Stop
         Install-Module -Name cNtfsAccessControl -Repository PSGallery -Force -ErrorAction Stop
         # Validate
-        $RequiredModules = 'PSScriptAnalyzer','Pester','xSmbShare','cNtfsAccessControl'
+        #$RequiredModules = 'PSScriptAnalyzer','Pester','xSmbShare','cNtfsAccessControl'
+        $RequiredModules = 'xSmbShare','cNtfsAccessControl'
         $InstalledModules = Get-Module -Name $RequiredModules -ListAvailable
         Write-Host "Installed modules:" -ForegroundColor Yellow
         $InstalledModules | ft Name, Version
@@ -31,6 +35,7 @@ install:
 #      build configuration        #
 #---------------------------------#
 build_script:
+    - git clone https://github.com/dsccommunity/DscResource.Test
     - ps: |
         Write-Host "Build project" -ForegroundColor Yellow
         Write-Host "Build version : $env:APPVEYOR_BUILD_VERSION"
@@ -38,16 +43,16 @@ build_script:
         Write-Host "Repo          : $env:APPVEYOR_REPO_NAME"
         Write-Host "Running Build.ps1..." -ForegroundColor Yellow
         . .\Build.ps1
-    - copy .MetaTestOptIn.json ..\Build\cMDTBuildLab
-    - cd ..\Build\cMDTBuildLab
-    - mkdir .git
-    - git clone https://github.com/PowerShell/DscResource.Tests
-    - mkdir "%ProgramFiles%\WindowsPowerShell\Modules\cMDTBuildLab"
-    - copy cMDTBuildLab.psm1 "%ProgramFiles%\WindowsPowerShell\Modules\cMDTBuildLab"
-    - copy cMDTBuildLab.psd1 "%ProgramFiles%\WindowsPowerShell\Modules\cMDTBuildLab"
-    - ps: |
-        Import-Module -Name .\DscResource.Tests\TestHelper.psm1 -Force -ErrorAction Stop
+        .\build.ps1 -ResolveDependency
         Write-Host "...completed!" -ForegroundColor Green
+    - #copy .MetaTestOptIn.json ..\Build\cMDTBuildLab
+    - #cd ..\Build\cMDTBuildLab
+    - #mkdir .git
+    - #git clone https://github.com/PowerShell/DscResource.Tests
+    - #mkdir "%ProgramFiles%\WindowsPowerShell\Modules\cMDTBuildLab"
+    - #copy cMDTBuildLab.psm1 "%ProgramFiles%\WindowsPowerShell\Modules\cMDTBuildLab"
+    - #copy cMDTBuildLab.psd1 "%ProgramFiles%\WindowsPowerShell\Modules\cMDTBuildLab"
+      #Import-Module -Name .\DscResource.Tests\TestHelper.psm1 -Force -ErrorAction Stop
 
 #---------------------------------#
 #      test configuration         #
@@ -55,8 +60,8 @@ build_script:
 test_script:
     - ps: |
         Write-Host "Running Test script" -ForegroundColor Yellow
-        $testResultsFile = ".\TestsResults.xml"
-        $res = Invoke-Pester -ExcludeTag 'Markdown','Examples' -OutputFormat NUnitXml -OutputFile $testResultsFile -PassThru
+        $testResultsFile = ".\output\TestsResults.xml"
+        $res = Invoke-DscResourceTest -Module cMDTBuildLab -Path ..\Build\cMDTBuildLab -OutputFile $testResultsFile
         $URI = "https://ci.appveyor.com/api/testresults/nunit/$($env:APPVEYOR_JOB_ID)"
         $WC  = New-Object 'System.Net.WebClient'
         Write-Host "About to upload file: $(Resolve-Path $testResultsFile)"
