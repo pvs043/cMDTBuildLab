@@ -35,6 +35,7 @@ install:
 #      build configuration        #
 #---------------------------------#
 build_script:
+    - cd ..
     - git clone https://github.com/dsccommunity/DscResource.Test
     - cd .\DscResource.Test
     - ps: |
@@ -45,7 +46,7 @@ build_script:
         Write-Host "Build DscResource.Test..." -ForegroundColor Yellow
         .\build.ps1 -ResolveDependency
         Write-Host "Build cMDTBuildLab..." -ForegroundColor Yellow
-        . .\cMDTBuildLab\Build.ps1
+        . .\..\cMDTBuildLab\Build.ps1
         #Import-Module .\output\DscResource.Test\0.0.1\DscResource.Test.psm1 -Force -ErrorAction Stop
         Write-Host "...completed!" -ForegroundColor Green
     - #copy .MetaTestOptIn.json ..\Build\cMDTBuildLab
