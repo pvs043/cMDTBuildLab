@@ -36,6 +36,7 @@ install:
 #---------------------------------#
 build_script:
     - git clone https://github.com/dsccommunity/DscResource.Test
+    - dir
     - ps: |
         Write-Host "Build project" -ForegroundColor Yellow
         Write-Host "Build version : $env:APPVEYOR_BUILD_VERSION"
@@ -43,8 +44,8 @@ build_script:
         Write-Host "Repo          : $env:APPVEYOR_REPO_NAME"
         Write-Host "Running Build.ps1..." -ForegroundColor Yellow
         . .\Build.ps1
-        .\build.ps1 -ResolveDependency
-        Import-Module .\output\DscResource.Test\0.0.1\DscResource.Test.psm1 -Force -ErrorAction Stop
+        #.\build.ps1 -ResolveDependency
+        #Import-Module .\output\DscResource.Test\0.0.1\DscResource.Test.psm1 -Force -ErrorAction Stop
         Write-Host "...completed!" -ForegroundColor Green
     - #copy .MetaTestOptIn.json ..\Build\cMDTBuildLab
     - #cd ..\Build\cMDTBuildLab
