@@ -46,7 +46,7 @@ build_script:
         Write-Host "Build DscResource.Test..." -ForegroundColor Yellow
         .\build.ps1 -ResolveDependency
         Write-Host "Build cMDTBuildLab..." -ForegroundColor Yellow
-        . .\..\cMDTBuildLab\Build.ps1
+        . .\.\cMDTBuildLab\Build.ps1
         #Import-Module .\output\DscResource.Test\0.0.1\DscResource.Test.psm1 -Force -ErrorAction Stop
         Write-Host "...completed!" -ForegroundColor Green
     - #copy .MetaTestOptIn.json ..\Build\cMDTBuildLab
@@ -65,7 +65,7 @@ test_script:
     - ps: |
         Write-Host "Running Test script" -ForegroundColor Yellow
         $testResultsFile = ".\output\TestsResults.xml"
-        $res = Invoke-DscResourceTest -Module cMDTBuildLab -Path ..\Build\cMDTBuildLab -OutputFile $testResultsFile
+        $res = Invoke-DscResourceTest -Module cMDTBuildLab -Path ..\Build\cMDTBuildLab -OutputFile $testResultsFile -PassThru
         $URI = "https://ci.appveyor.com/api/testresults/nunit/$($env:APPVEYOR_JOB_ID)"
         $WC  = New-Object 'System.Net.WebClient'
         Write-Host "About to upload file: $(Resolve-Path $testResultsFile)"
