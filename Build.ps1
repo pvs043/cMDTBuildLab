@@ -131,7 +131,7 @@ PrivateData = @{
 "@
 
 # Create Build dir
-If (Test-Path -Path "$buildDir\$moduleName") { Remove-Item -Path "$buildDir\Build" -Recurse -Force}
+If (Test-Path -Path "$buildDir\$moduleName") { Remove-Item -Path "$buildDir\$moduleName" -Recurse -Force}
 $null = New-Item -ItemType Directory -Path "$buildDir\$moduleName"
 
 # Build module from sources
@@ -140,9 +140,9 @@ Set-Content -Path $manifestFile -Value $ManifestDefinition
 Copy-Item   -Path "$PSScriptRoot\src\cMDTBuildLabPrereqs.psd1" -Destination "$BuildDir\$moduleName\cMDTBuildLabPrereqs.psd1" -Force
 
 # Add artefacts
-Copy-Item -Path "$PSScriptRoot\src\Deploy"   -Destination "$BuildDir\Build\$moduleName\Deploy" -Recurse -Force
-Copy-Item -Path "$PSScriptRoot\src\Examples" -Destination "$BuildDir\Build\$moduleName\Examples" -Recurse -Force
-Copy-Item -Path "$PSScriptRoot\src\Sources"  -Destination "$BuildDir\Build\$moduleName\Sources" -Recurse -Force
-Copy-Item -Path "$PSScriptRoot\src\Tests"    -Destination "$BuildDir\Build\$moduleName\Tests" -Recurse -Force
-Copy-Item -Path "$PSScriptRoot\README.md"    -Destination "$BuildDir\Build\$moduleName\Readme.md" -Force
-Copy-Item -Path "$PSScriptRoot\LICENSE"      -Destination "$BuildDir\Build\$moduleName\LICENSE" -Force
+Copy-Item -Path "$PSScriptRoot\src\Deploy"   -Destination "$BuildDir\$moduleName\Deploy" -Recurse -Force
+Copy-Item -Path "$PSScriptRoot\src\Examples" -Destination "$BuildDir\$moduleName\Examples" -Recurse -Force
+Copy-Item -Path "$PSScriptRoot\src\Sources"  -Destination "$BuildDir\$moduleName\Sources" -Recurse -Force
+Copy-Item -Path "$PSScriptRoot\src\Tests"    -Destination "$BuildDir\$moduleName\Tests" -Recurse -Force
+Copy-Item -Path "$PSScriptRoot\README.md"    -Destination "$BuildDir\$moduleName\Readme.md" -Force
+Copy-Item -Path "$PSScriptRoot\LICENSE"      -Destination "$BuildDir\$moduleName\LICENSE" -Force
