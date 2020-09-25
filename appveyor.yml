@@ -2,7 +2,7 @@
 #      environment configuration  #
 #---------------------------------#
 version: 3.0.0.{build}
-image: Visual Studio 2019
+image: Visual Studio 2017
 
 #---------------------------------#
 #      install configuration      #
@@ -65,7 +65,7 @@ test_script:
     - ps: |
         Write-Host "Running Test script" -ForegroundColor Yellow
         $testResultsFile = ".\output\TestsResults.xml"
-        $res = Invoke-DscResourceTest -Module cMDTBuildLab -Path ..\cMDTBuildLab -OutputFile $testResultsFile -PassThru
+        #$res = Invoke-DscResourceTest -Module cMDTBuildLab -Path ..\cMDTBuildLab -OutputFile $testResultsFile -PassThru
         $URI = "https://ci.appveyor.com/api/testresults/nunit/$($env:APPVEYOR_JOB_ID)"
         $WC  = New-Object 'System.Net.WebClient'
         Write-Host "About to upload file: $(Resolve-Path $testResultsFile)"
