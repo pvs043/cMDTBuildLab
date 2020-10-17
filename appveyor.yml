@@ -44,6 +44,7 @@ build_script:
         Write-Host "Branch        : $env:APPVEYOR_REPO_BRANCH"
         Write-Host "Repo          : $env:APPVEYOR_REPO_NAME"
         Write-Host "Build DscResource.Test..." -ForegroundColor Yellow
+        Get-Module
         .\build.ps1 -ResolveDependency
         Write-Host "Build cMDTBuildLab..." -ForegroundColor Yellow
         . ..\cMDTBuildLab\Build.ps1
