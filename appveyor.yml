@@ -2,7 +2,7 @@
 #      environment configuration  #
 #---------------------------------#
 version: 3.0.0.{build}
-image: Visual Studio 2017
+image: Visual Studio 2019
 
 #---------------------------------#
 #      install configuration      #
