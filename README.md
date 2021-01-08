@@ -28,14 +28,13 @@ See version history at [Project Site](https://github.com/pvs043/cMDTBuildLab/wik
 Prerequisites for infrastructure:
 * Domain Controller: DC01 (Windows 2012 R2 or above)
 * Windows Update Server (WSUS): WU01 (Windows 2012 R2 or above)
-* Deployment server: MDT01 (Windows 2016/2019 or Windows 2012 R2 + WMF 5.1)<br>
+* Deployment server: MDT01 (Windows 2016/2019)<br>
     Disk C: - System<br>
     Disk E: - DATA<br>
     (Disk D: is used for Temp in Azure or Virtual DVD for on-premise deploy)
 * Hyper-V Host: HV01 (Windows 2012 R2 or above)
 * Original Microsoft media (ISO) images:<br>
-    Windows 7 with SP1 (April 2011)<br>
-    Windows 10 Version 2004 (May 2020)<br>
+    Windows 10 Version 20H2 (October 2020)<br>
     Windows 2016 (February 2018)<br>
     Windows 2019 (April 2019)
 
