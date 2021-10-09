@@ -44,9 +44,6 @@ The following prerequisites automatically downloaded with the cMDTBuildPreReqs D
 * [MicrosoftDeploymentToolkit_x64](https://docs.microsoft.com/en-us/sccm/mdt/) - Microsoft Deployment Toolkit (MDT) (Build 6.3.8456.1000)
 * [ADK & WinPE v.2004](https://docs.microsoft.com/en-us/windows-hardware/get-started/adk-install) - Windows PE, v.2004 (Build: 10.1.19041.1)
 * [Visual C++ runtimes](https://support.microsoft.com/en-us/kb/2977003) - 2008,2010,2012,2013,2017
-* [Windows Management Framewework 3.0 for Windows 7 SP1](https://www.microsoft.com/en-us/download/details.aspx?id=34595)
-* [Convenience rollup update for Windows 7 SP1](https://support.microsoft.com/en-us/kb/3125574)
-* [July 2016 update rollup for Windows 7 SP1](https://support.microsoft.com/en-us/kb/3172605) - this include fixes the Windows Update Client
 
 If your MDT01 host does not have direct connection to Internet, run DSC configuration from Deploy\Download_MDT_Prereqs.ps1 at Windows machine connected to Internet.
 After completion of downloading:
