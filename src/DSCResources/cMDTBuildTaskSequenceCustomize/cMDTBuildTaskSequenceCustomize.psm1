@@ -395,18 +395,18 @@ class cMDTBuildTaskSequenceCustomize
         $Step.AppendChild($action) | Out-Null
     }
 
-    [void] RunPowerShellScript($TS, $Step)
-    {
+[void] RunPowerShellScript($TS, $Step) {
         $Step.SetAttribute("successCodeList", "0 3010")
         $Step.SetAttribute("type", "BDD_RunPowerShellAction")
 
         $varList = $TS.CreateElement("defaultVarList")
+
         $varName = $TS.CreateElement("variable")
         $varName.SetAttribute("name", "ScriptName")
         $varName.SetAttribute("property", "ScriptName")
         $varName.AppendChild($TS.CreateTextNode($this.PSCommand)) | Out-Null
-
         $varList.AppendChild($varName) | Out-Null
+
         $varName = $TS.CreateElement("variable")
         $varName.SetAttribute("name", "Parameters")
         $varName.SetAttribute("property", "Parameters")
@@ -423,7 +423,31 @@ class cMDTBuildTaskSequenceCustomize
 
         $Step.AppendChild($varList) | Out-Null
         $Step.AppendChild($action) | Out-Null
+
+        $condition = $TS.CreateElement("condition")        
+
+        $varList2 = $TS.CreateElement("expression")
+        $varList2.SetAttribute("type", "SMS_TaskSequence_VariableConditionExpression")
+
+        $varName = $TS.CreateElement("variable")
+        $varName.SetAttribute("name", "Variable")
+        $varName.AppendChild($TS.CreateTextNode($this.TSVarName)) | Out-Null
+        $varList2.AppendChild($varName) | Out-Null
+        
+        $varName = $TS.CreateElement("variable")
+        $varName.SetAttribute("name", "Operator")
+        $varName.AppendChild($TS.CreateTextNode("equals")) | Out-Null
+        $varList2.AppendChild($varName) | Out-Null
+        
+        $varName = $TS.CreateElement("variable")
+        $varName.SetAttribute("name", "Value")
+        $varName.AppendChild($TS.CreateTextNode($this.TSVarValue)) | Out-Null
+        $varList2.AppendChild($varName) | Out-Null
+        $condition.AppendChild($varList2) | Out-Null
+        
+        $Step.AppendChild($condition) | Out-Null
     }
+
 
     [void] RestartComputer($TS, $Step)
     {
