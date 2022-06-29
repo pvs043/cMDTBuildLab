@@ -16,7 +16,7 @@ install:
         #Install-Module -Name PSPKI -Repository PSGallery -Force -ErrorAction Stop
         #Install-Module -Name DscResource.AnalyzerRules -Repository PSGallery -Force -ErrorAction Stop
         #Install-Module -Name xDscResourceDesigner -Repository PSGallery -Force -ErrorAction Stop
-        #Install-Module -Name DscResource.Test -Repository PSGallery -Force -ErrorAction Stop
+        Install-Module -Name DscResource.Test -Repository PSGallery -Force -ErrorAction Stop
         Install-Module -Name xSmbShare -Repository PSGallery -Force -ErrorAction Stop
         Install-Module -Name cNtfsAccessControl -Repository PSGallery -Force -ErrorAction Stop
         # Validate
@@ -35,20 +35,21 @@ install:
 #      build configuration        #
 #---------------------------------#
 build_script:
-    - cd ..
-    - git clone https://github.com/dsccommunity/DscResource.Test
-    - cd .\DscResource.Test
+    - #cd ..
+    - #git clone https://github.com/dsccommunity/DscResource.Test
+    - #cd .\DscResource.Test
     - ps: |
         Write-Host "Build project" -ForegroundColor Yellow
         Write-Host "Build version : $env:APPVEYOR_BUILD_VERSION"
         Write-Host "Branch        : $env:APPVEYOR_REPO_BRANCH"
         Write-Host "Repo          : $env:APPVEYOR_REPO_NAME"
-        Write-Host "Build DscResource.Test..." -ForegroundColor Yellow
-        Get-Module | ft -a
-        .\build.ps1 -ResolveDependency
-        Get-Module | ft -a
+        #Write-Host "Build DscResource.Test..." -ForegroundColor Yellow
+        #Get-Module | ft -a
+        #.\build.ps1 -ResolveDependency
+        #Get-Module | ft -a
         Write-Host "Build cMDTBuildLab..." -ForegroundColor Yellow
-        . ..\cMDTBuildLab\Build.ps1
+        Get-Location
+        .\cMDTBuildLab\Build.ps1
         #Import-Module .\output\DscResource.Test\0.0.1\DscResource.Test.psm1 -Force -ErrorAction Stop
         Write-Host "...completed!" -ForegroundColor Green
     - #cd ..\Build\cMDTBuildLab
@@ -66,7 +67,7 @@ test_script:
     - ps: |
         Write-Host "Running Test script" -ForegroundColor Yellow
         $testResultsFile = ".\output\TestsResults.xml"
-        #$res = Invoke-DscResourceTest -Module cMDTBuildLab -Path ..\cMDTBuildLab -OutputFile $testResultsFile -PassThru
+        $res = Invoke-DscResourceTest -Module cMDTBuildLab -Path ..\cMDTBuildLab -OutputFile $testResultsFile -PassThru
         $URI = "https://ci.appveyor.com/api/testresults/nunit/$($env:APPVEYOR_JOB_ID)"
         $WC  = New-Object 'System.Net.WebClient'
         Write-Host "About to upload file: $(Resolve-Path $testResultsFile)"
