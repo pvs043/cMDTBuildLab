@@ -57,7 +57,7 @@ build_script:
         .\Build.ps1
         #Import-Module .\output\DscResource.Test\0.0.1\DscResource.Test.psm1 -Force -ErrorAction Stop
         Write-Host "...completed!" -ForegroundColor Green
-    - #cd ..\Build\cMDTBuildLab
+    - cd ..\Build\cMDTBuildLab
     - #mkdir .git
     - #git clone https://github.com/PowerShell/DscResource.Tests
     - #mkdir "%ProgramFiles%\WindowsPowerShell\Modules\cMDTBuildLab"
@@ -71,7 +71,6 @@ build_script:
 test_script:
     - ps: |
         Write-Host "Running Test script" -ForegroundColor Yellow
-        Get-Location
         $testResultsFile = ".\output\TestsResults.xml"
         $res = Invoke-DscResourceTest -Module cMDTBuildLab -Path ..\cMDTBuildLab -OutputFile $testResultsFile -PassThru
         $URI = "https://ci.appveyor.com/api/testresults/nunit/$($env:APPVEYOR_JOB_ID)"
