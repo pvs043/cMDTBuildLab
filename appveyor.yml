@@ -11,8 +11,13 @@ install:
     - ps: |
         Write-Host "Install prerequisites" -ForegroundColor Yellow
         $null = Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force -ErrorAction Stop
-        Install-Module -Name PSScriptAnalyzer -Repository PSGallery -Force -ErrorAction Stop
+        $module = "C:\Program Files\WindowsPowerShell\Modules\Pester"
+        takeown /F $module /A /R
+        icacls $module /reset
+        icacls $module /grant "*S-1-5-32-544:F" /inheritance:d /T
+        Remove-Item -Path $module -Recurse -Force -Confirm:$false
         Install-Module -Name Pester -Repository PSGallery -Force -ErrorAction Stop
+        Install-Module -Name PSScriptAnalyzer -Repository PSGallery -Force -ErrorAction Stop
         Install-Module -Name PSPKI -Repository PSGallery -Force -ErrorAction Stop
         Install-Module -Name DscResource.AnalyzerRules -Repository PSGallery -Force -ErrorAction Stop
         Install-Module -Name xDscResourceDesigner -Repository PSGallery -Force -ErrorAction Stop
