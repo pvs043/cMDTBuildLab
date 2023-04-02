@@ -44,10 +44,10 @@ build_script:
         Write-Host "Build cMDTBuildLab..." -ForegroundColor Yellow
         . .\Build.ps1
         Write-Host "...completed!" -ForegroundColor Green
-        cd ..\Build\cMDTBuildLab
-        mkdir "%ProgramFiles%\WindowsPowerShell\Modules\cMDTBuildLab"
-        copy cMDTBuildLab.psm1 "%ProgramFiles%\WindowsPowerShell\Modules\cMDTBuildLab"
-        copy cMDTBuildLab.psd1 "%ProgramFiles%\WindowsPowerShell\Modules\cMDTBuildLab"
+     - cd ..\Build\cMDTBuildLab
+     - mkdir "%ProgramFiles%\WindowsPowerShell\Modules\cMDTBuildLab"
+     - copy cMDTBuildLab.psm1 "%ProgramFiles%\WindowsPowerShell\Modules\cMDTBuildLab"
+     - copy cMDTBuildLab.psd1 "%ProgramFiles%\WindowsPowerShell\Modules\cMDTBuildLab"
 
 #---------------------------------#
 #      test configuration         #
