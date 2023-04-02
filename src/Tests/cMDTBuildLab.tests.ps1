@@ -1,7 +1,4 @@
-#region Variables
 $Rules = Get-ScriptAnalyzerRule | Where-Object RuleName -NotIn @('PSUseShouldProcessForStateChangingFunctions','PSAvoidUsingWMICmdlet','PSReviewUnusedParameter')
-#endregion
-
 $modules = Get-ChildItem -Path $PSScriptRoot\..\* -Include @('cMDTBuildLab.psm1','cMDTBuildLabPrereqs.psd1')
 $modules += Get-ChildItem -Path $PSScriptRoot\..\Deploy -Recurse -Include @('*.ps1','*.psd1')
 $modules += Get-ChildItem -Path $PSScriptRoot\..\Examples -Recurse -Include @('*.ps1','*.psd1')
