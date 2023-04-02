@@ -16,10 +16,10 @@ install:
         $null = icacls $module /reset
         $null = icacls $module /grant "*S-1-5-32-544:F" /inheritance:d /T
         $null = Remove-Item -Path $module -Recurse -Force -Confirm:$false
-        Install-Module -Name PSScriptAnalyzer -Repository PSGallery -Force -ErrorAction Stop -Verbose
-        Install-Module -Name Pester -Repository PSGallery -Force -ErrorAction Stop -Verbose
-        Install-Module -Name xSmbShare -Repository PSGallery -Force -ErrorAction Stop -Verbose
-        Install-Module -Name cNtfsAccessControl -Repository PSGallery -Force -ErrorAction Stop -Verbose
+        Install-Module -Name PSScriptAnalyzer -Repository PSGallery -Force -ErrorAction Stop
+        Install-Module -Name Pester -Repository PSGallery -Force -ErrorAction Stop
+        Install-Module -Name xSmbShare -Repository PSGallery -Force -ErrorAction Stop
+        Install-Module -Name cNtfsAccessControl -Repository PSGallery -Force -ErrorAction Stop
         # Validate
         $RequiredModules = 'PSScriptAnalyzer','Pester','xSmbShare','cNtfsAccessControl'
         $InstalledModules = Get-Module -Name $RequiredModules -ListAvailable
@@ -44,6 +44,10 @@ build_script:
         Write-Host "Build cMDTBuildLab..." -ForegroundColor Yellow
         . .\Build.ps1
         Write-Host "...completed!" -ForegroundColor Green
+        cd ..\Build\cMDTBuildLab
+        mkdir "%ProgramFiles%\WindowsPowerShell\Modules\cMDTBuildLab"
+        copy cMDTBuildLab.psm1 "%ProgramFiles%\WindowsPowerShell\Modules\cMDTBuildLab"
+        copy cMDTBuildLab.psd1 "%ProgramFiles%\WindowsPowerShell\Modules\cMDTBuildLab"
 
 #---------------------------------#
 #      test configuration         #
