@@ -2,7 +2,7 @@
 #      environment configuration  #
 #---------------------------------#
 version: 3.0.0.{build}
-image: Visual Studio 2019
+image: Visual Studio 2022
 
 #---------------------------------#
 #      install configuration      #
@@ -43,10 +43,10 @@ build_script:
         Write-Host "Build version : $env:APPVEYOR_BUILD_VERSION"
         Write-Host "Branch        : $env:APPVEYOR_REPO_BRANCH"
         Write-Host "Repo          : $env:APPVEYOR_REPO_NAME"
-        Write-Host "Build DscResource.Test..." -ForegroundColor Yellow
-        Get-Module | ft -a
-        .\build.ps1 -ResolveDependency
-        Get-Module | ft -a
+        #Write-Host "Build DscResource.Test..." -ForegroundColor Yellow
+        #Get-Module | ft -a
+        #.\build.ps1 -ResolveDependency
+        #Get-Module | ft -a
         Write-Host "Build cMDTBuildLab..." -ForegroundColor Yellow
         . ..\cMDTBuildLab\Build.ps1
         #Import-Module .\output\DscResource.Test\0.0.1\DscResource.Test.psm1 -Force -ErrorAction Stop
