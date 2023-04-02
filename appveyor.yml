@@ -13,10 +13,10 @@ install:
         $null = Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force -ErrorAction Stop
         $module = "C:\Program Files\WindowsPowerShell\Modules\Pester"
         Write-Host "Remove Pester 3.4.0..."
-        takeown /F $module /A /R > NULL
-        icacls $module /reset > NULL
-        icacls $module /grant "*S-1-5-32-544:F" /inheritance:d /T > NULL
-        Remove-Item -Path $module -Recurse -Force -Confirm:$false > NULL
+        $null = takeown /F $module /A /R
+        $null = icacls $module /reset
+        $null = icacls $module /grant "*S-1-5-32-544:F" /inheritance:d /T
+        $null = Remove-Item -Path $module -Recurse -Force -Confirm:$false
         Write-Host "Done."
         Install-Module -Name PSScriptAnalyzer -Repository PSGallery -Force -ErrorAction Stop
         Install-Module -Name Pester -Repository PSGallery -Force -ErrorAction Stop
@@ -55,7 +55,14 @@ test_script:
         $BuildDir = 'C:\Projects\Build\cMDTBuildLab'
         Write-Host "Running Test script" -ForegroundColor Yellow
         $testResultsFile = "$BuildDir\TestsResults.xml"
-        $res = Invoke-Pester $BuildDir\Tests\cMDTBuildLab.tests.ps1 -Output Detailed -OutputFile $testResultsFile -PassThru
+        $config = [PesterConfiguration]::Default
+        $config.TestResult.Enabled = $true
+        $config.TestResult.OutputPath = $testResultsFile
+        $config.Output.Verbosity = 'Detailed'
+        $config.Run.PassThru = $true
+        $config.Run.Path = "$BuildDir\Tests\cMDTBuildLab.tests.ps1"
+
+        $res = Invoke-Pester -Configuration $config
         $URI = "https://ci.appveyor.com/api/testresults/nunit/$($env:APPVEYOR_JOB_ID)"
         $WC  = New-Object 'System.Net.WebClient'
         Write-Host "About to upload file: $(Resolve-Path $testResultsFile)"

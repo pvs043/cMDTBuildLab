@@ -5,7 +5,6 @@ $Rules = Get-ScriptAnalyzerRule | Where-Object RuleName -NotIn @('PSUseShouldPro
 $modules = Get-ChildItem -Path $PSScriptRoot\..\* -Include @('cMDTBuildLab.psm1','cMDTBuildLabPrereqs.psd1')
 $modules += Get-ChildItem -Path $PSScriptRoot\..\Deploy -Recurse -Include @('*.ps1','*.psd1')
 $modules += Get-ChildItem -Path $PSScriptRoot\..\Examples -Recurse -Include @('*.ps1','*.psd1')
-$modules += Get-ChildItem -Path $PSScriptRoot\..\Public -Recurse -Include @('*.ps1','*.psd1')
 $modules += Get-ChildItem -Path $PSScriptRoot\..\Sources -Recurse -Include @('*.ps1','*.psd1')
 
 foreach ($module in $modules) {
