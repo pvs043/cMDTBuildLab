@@ -12,16 +12,14 @@ install:
         Write-Host "Install prerequisites" -ForegroundColor Yellow
         $null = Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force -ErrorAction Stop
         $module = "C:\Program Files\WindowsPowerShell\Modules\Pester"
-        Write-Host "Remove Pester 3.4.0..."
         $null = takeown /F $module /A /R
         $null = icacls $module /reset
         $null = icacls $module /grant "*S-1-5-32-544:F" /inheritance:d /T
         $null = Remove-Item -Path $module -Recurse -Force -Confirm:$false
-        Write-Host "Done."
-        Install-Module -Name PSScriptAnalyzer -Repository PSGallery -Force -ErrorAction Stop
-        Install-Module -Name Pester -Repository PSGallery -Force -ErrorAction Stop
-        Install-Module -Name xSmbShare -Repository PSGallery -Force -ErrorAction Stop
-        Install-Module -Name cNtfsAccessControl -Repository PSGallery -Force -ErrorAction Stop
+        Install-Module -Name PSScriptAnalyzer -Repository PSGallery -Force -ErrorAction Stop -Verbose
+        Install-Module -Name Pester -Repository PSGallery -Force -ErrorAction Stop -Verbose
+        Install-Module -Name xSmbShare -Repository PSGallery -Force -ErrorAction Stop -Verbose
+        Install-Module -Name cNtfsAccessControl -Repository PSGallery -Force -ErrorAction Stop -Verbose
         # Validate
         $RequiredModules = 'PSScriptAnalyzer','Pester','xSmbShare','cNtfsAccessControl'
         $InstalledModules = Get-Module -Name $RequiredModules -ListAvailable
@@ -52,8 +50,9 @@ build_script:
 #---------------------------------#
 test_script:
     - ps: |
-        $BuildDir = 'C:\Projects\Build\cMDTBuildLab'
         Write-Host "Running Test script" -ForegroundColor Yellow
+        Import-Module Pester
+        $BuildDir = 'C:\Projects\Build\cMDTBuildLab'
         $testResultsFile = "$BuildDir\TestsResults.xml"
         $config = [PesterConfiguration]::Default
         $config.TestResult.Enabled = $true
