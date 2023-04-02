@@ -12,10 +12,10 @@ install:
         Write-Host "Install prerequisites" -ForegroundColor Yellow
         $null = Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force -ErrorAction Stop
         $module = "C:\Program Files\WindowsPowerShell\Modules\Pester"
-        takeown /F $module /A /R
-        icacls $module /reset
-        icacls $module /grant "*S-1-5-32-544:F" /inheritance:d /T
-        Remove-Item -Path $module -Recurse -Force -Confirm:$false
+        takeown /F $module /A /R > NULL
+        icacls $module /reset > NULL
+        icacls $module /grant "*S-1-5-32-544:F" /inheritance:d /T > NULL
+        Remove-Item -Path $module -Recurse -Force -Confirm:$false > NULL
         Install-Module -Name PSScriptAnalyzer -Repository PSGallery -Force -ErrorAction Stop
         Install-Module -Name Pester -Repository PSGallery -Force -ErrorAction Stop
         Install-Module -Name xSmbShare -Repository PSGallery -Force -ErrorAction Stop
@@ -35,15 +35,14 @@ install:
 #      build configuration        #
 #---------------------------------#
 build_script:
-    - cd ..
     - ps: |
         Write-Host "Build project" -ForegroundColor Yellow
         Write-Host "Build version : $env:APPVEYOR_BUILD_VERSION"
         Write-Host "Branch        : $env:APPVEYOR_REPO_BRANCH"
         Write-Host "Repo          : $env:APPVEYOR_REPO_NAME"
-        Write-Host "Current dir: $pwd"
+        Write-Host "Current dir   : $pwd"
         Write-Host "Build cMDTBuildLab..." -ForegroundColor Yellow
-        . ..\cMDTBuildLab\Build.ps1
+        . .\Build.ps1
         Write-Host "...completed!" -ForegroundColor Green
 
 #---------------------------------#
