@@ -34,7 +34,7 @@ Prerequisites for infrastructure:
     (Disk D: is used for Temp in Azure or Virtual DVD for on-premise deploy)
 * Hyper-V Host: HV01 (Windows 2012 R2 or above)
 * Original Microsoft media (ISO) images:<br>
-    Windows 10 Version 20H2 (October 2020)<br>
+    Windows 10 Version 22H2 (November 2022)<br>
     Windows 2016 (February 2018)<br>
     Windows 2019 (April 2019)
 
