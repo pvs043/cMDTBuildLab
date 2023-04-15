@@ -63,6 +63,8 @@
     http://www.deploymentbunny.com
     https://github.com/pvs043/cMDTBuildLab/wiki
 #>
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseUsingScopeModifierInNewRunspaces')]
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingWMICmdlet')]
 
 [cmdletbinding(SupportsShouldProcess=$True)]
 
@@ -131,7 +133,7 @@ Function Test-VIAHypervConnection
     #Verify that the ISO Folder is created
     Invoke-Command -ComputerName $Computername -ScriptBlock {
         Param(
-            $using:ISOFolder
+            $ISOFolder
         )
         New-Item -Path $ISOFolder -ItemType Directory -Force | Out-Null
     } -ArgumentList $ISOFolder
@@ -139,7 +141,7 @@ Function Test-VIAHypervConnection
     #Verify that the VM Folder is created
     Invoke-Command -ComputerName $Computername -ScriptBlock {
         Param(
-            $using:VMFolder
+            $VMFolder
         )
         New-Item -Path $VMFolder -ItemType Directory -Force | Out-Null
     } -ArgumentList $VMFolder
@@ -147,7 +149,7 @@ Function Test-VIAHypervConnection
     #Verify that the VMSwitch exists
     Invoke-Command -ComputerName $Computername -ScriptBlock {
         Param(
-            $using:VMSwitchName
+            $VMSwitchName
         )
         if (((Get-VMSwitch | Where-Object -Property Name -EQ -Value $VMSwitchName).count) -eq "1") {Write-Verbose "Found $VMSwitchName"} else {Write-Warning "No swtch with the name $VMSwitchName found"; Return $False}
     } -ArgumentList $VMSwitchName
@@ -300,20 +302,20 @@ Foreach ($Ref in $RefTaskSequenceIDs) {
 
     Invoke-Command -ComputerName $($Settings.Settings.HyperV.Computername) -ScriptBlock {
         Param(
-            $using:VMName,
-            $using:VMMemory,
-            $using:VMPath,
-            $using:VMBootimage,
-            $using:VMVHDSize,
-            $using:VMVlanID,
-            $using:VMVCPU,
-            $using:VMSwitch
+            $VMName,
+            $VMMemory,
+            $VMPath,
+            $VMBootimage,
+            $VMVHDSize,
+            $VMVlanID,
+            $VMVCPU,
+            $VMSwitch
         )
 
-        Write-Verbose "Hyper-V host is $using:env:COMPUTERNAME"
+        Write-Verbose "Hyper-V host is $env:COMPUTERNAME"
         Write-Verbose "Working on $VMName"
         #Check if VM exist
-        if (!((Get-VM | Where-Object -Property Name -EQ -Value $using:VMName).count -eq 0)) {Write-Warning -Message "VM exist"; Break}
+        if (!((Get-VM | Where-Object -Property Name -EQ -Value $VMName).count -eq 0)) {Write-Warning -Message "VM exist"; Break}
 
         #Create VM
         $VM = New-VM -Name $VMName -MemoryStartupBytes $VMMemory -Path $VMPath -NoVHD -Generation 1
@@ -403,11 +405,11 @@ Foreach ($Ref in $RefTaskSequences) {
 
     Invoke-Command -ComputerName $($Settings.Settings.HyperV.Computername) -ScriptBlock {
         param(
-            $using:VMName,
-            $using:ImageName,
-            $using:ReportFrom,
-            $using:ReportTo,
-            $using:ReportSmtp
+            $VMName,
+            $ImageName,
+            $ReportFrom,
+            $ReportTo,
+            $ReportSmtp
         )
 
         Write-Output "Starting VM: $($VmName)"
