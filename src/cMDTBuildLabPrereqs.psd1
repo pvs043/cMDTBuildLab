@@ -24,33 +24,10 @@
         @{
             # Install script for Visual C++ runtimes
             Name   = "VS++Application"
-            URI    = "https://raw.githubusercontent.com/DeploymentBunny/Files/master/Tools/Install-X86-X64-C%2B%2B/Install-MicrosoftVisualC%2B%2Bx86x64.wsf"
+            #URI    = "https://raw.githubusercontent.com/DeploymentBunny/Files/master/Tools/Install-X86-X64-C%2B%2B/Install-MicrosoftVisualC%2B%2Bx86x64.wsf"
+            URI    = "https://github.com/pvs043/Files/blob/master/Tools/Install-X86-X64-C%2B%2B/Install-MicrosoftVisualC%2B%2Bx86x64.wsf"
             Folder = "VC++"
             File   = "Install-MicrosoftVisualCx86x64.wsf"
-        }
-        @{
-            Name   = "VS2008SP1x86"
-            URI    = "http://download.microsoft.com/download/5/D/8/5D8C65CB-C849-4025-8E95-C3966CAFD8AE/vcredist_x86.exe"
-            Folder = "VC++\Source\VS2008"
-            File   = "vcredist_x86.exe"
-        }
-        @{
-            Name   = "VS2008SP1x64"
-            URI    = "http://download.microsoft.com/download/5/D/8/5D8C65CB-C849-4025-8E95-C3966CAFD8AE/vcredist_x64.exe"
-            Folder = "VC++\Source\VS2008"
-            File   = "vcredist_x64.exe"
-         }
-        @{
-            Name   = "VS2010SP1x86"
-            URI    = "http://download.microsoft.com/download/1/6/5/165255E7-1014-4D0A-B094-B6A430A6BFFC/vcredist_x86.exe"
-            Folder = "VC++\Source\VS2010"
-            File   = "vcredist_x86.exe"
-        }
-        @{
-            Name   = "VS2010SP1x64"
-            URI    = "http://download.microsoft.com/download/1/6/5/165255E7-1014-4D0A-B094-B6A430A6BFFC/vcredist_x64.exe"
-            Folder = "VC++\Source\VS2010"
-            File   = "vcredist_x64.exe"
         }
         @{
             Name   = "VS2012UPD4x86"
@@ -66,26 +43,26 @@
         }
         @{
             Name   = "VS2013x86"
-            URI    = "http://download.microsoft.com/download/2/E/6/2E61CFA4-993B-4DD4-91DA-3737CD5CD6E3/vcredist_x86.exe"
+            URI    = "https://aka.ms/highdpimfc2013x86enu"
             Folder = "VC++\Source\VS2013"
             File   = "vcredist_x86.exe"
         }
         @{
             Name   = "VS2013x64"
-            URI    = "http://download.microsoft.com/download/2/E/6/2E61CFA4-993B-4DD4-91DA-3737CD5CD6E3/vcredist_x64.exe"
+            URI    = "https://aka.ms/highdpimfc2013x64enu"
             Folder = "VC++\Source\VS2013"
             File   = "vcredist_x64.exe"
         }
         @{
-            Name   = "VS2017x86"
-            URI    = "https://go.microsoft.com/fwlink/?LinkId=746571"
-            Folder = "VC++\Source\VS2017"
+            Name   = "VS2022x86"
+            URI    = "https://aka.ms/vs/17/release/vc_redist.x86.exe"
+            Folder = "VC++\Source\VS2022"
             File   = "vc_redist.x86.exe"
         }
         @{
-            Name   = "VS2017x64"
-            URI    = "https://go.microsoft.com/fwlink/?LinkId=746572"
-            Folder = "VC++\Source\VS2017"
+            Name   = "VS2022x64"
+            URI    = "https://aka.ms/vs/17/release/vc_redist.x64.exe"
+            Folder = "VC++\Source\VS2022"
             File   = "vc_redist.x64.exe"
         }
         @{

@@ -6,6 +6,7 @@ $releaseNotes  = "
 * Remove Windows 7/8.1/2012R2 deployments and prerequisites
 * Update download URLs for MDT
 * Update ADK (v.2004)
+* Update VC++ prerequries (VC++ 2022)
 "
 $allResources   = @( Get-ChildItem -Path $PSScriptRoot\src\DSCResources\*.psm1 -ErrorAction SilentlyContinue -Recurse | Sort-Object)
 $allFunctions   = @( Get-ChildItem -Path $PSScriptRoot\src\Public\*.ps1 -ErrorAction SilentlyContinue -Recurse | Sort-Object)
