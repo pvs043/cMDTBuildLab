@@ -63,6 +63,7 @@
     http://www.deploymentbunny.com
     https://github.com/pvs043/cMDTBuildLab/wiki
 #>
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseUsingScopeModifierInNewRunspaces')]
 
 [cmdletbinding(SupportsShouldProcess=$True)]
 
@@ -185,22 +186,25 @@ Function Update-Log
     [string]$Class = "Information"
 
     )
-    $LogString = "$Solution, $Data, $Class, $(Get-Date)"
-    $HostString = "$Solution, $Data, $(Get-Date)"
 
-    Add-Content -Path $Log -Value $LogString
-    switch ($Class)
-    {
-        'Information'{
-            Write-Output $HostString
+    process {
+        $LogString = "$Solution, $Data, $Class, $(Get-Date)"
+        $HostString = "$Solution, $Data, $(Get-Date)"
+
+        Add-Content -Path $Log -Value $LogString
+        switch ($Class)
+        {
+            'Information'{
+                Write-Output $HostString
             }
-        'Warning'{
-            Write-Warning $HostString
+            'Warning'{
+                Write-Warning $HostString
             }
-        'Error'{
-            Write-Error $HostString
+            'Error'{
+                Write-Error $HostString
             }
-        Default {}
+            Default {}
+        }
     }
 }
 

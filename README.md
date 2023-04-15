@@ -34,7 +34,7 @@ Prerequisites for infrastructure:
     (Disk D: is used for Temp in Azure or Virtual DVD for on-premise deploy)
 * Hyper-V Host: HV01 (Windows 2012 R2 or above)
 * Original Microsoft media (ISO) images:<br>
-    Windows 10 Version 20H2 (October 2020)<br>
+    Windows 10 Version 22H2 (November 2022)<br>
     Windows 2016 (February 2018)<br>
     Windows 2019 (April 2019)
 
@@ -50,12 +50,8 @@ After completion of downloading:
 * Run E:\Source\ADK\adksetup.exe. Select E:\Source\ADK for download folder
 * Run E:\Source\WindowsPE\adkwinpesetup.exe. Select E:\Source\WindowsPE for download folder
 
-Note for APP-V 5.1 (Windows 7) client:<p>
-This module include *fake* archive Sources\appv_client_setup.zip.<p>
-If you have Microsoft Software Assurance subscription, take original client of APP-V 5.1 (appv_client_setup.exe) from MDOP 2015 and place into this ZIP file.<p>
-This archive will be unpack to source folder with cMDTBuildPreReqs DSC resource.
-
 ## Quick start
+
 See [Project Documentation](https://github.com/pvs043/cMDTBuildLab/wiki/Quick-Start).
 
 ## DscResources

@@ -89,48 +89,6 @@
             File   = "vc_redist.x64.exe"
         }
         @{
-            # Windows Management Framewework 3.0 for Windows 7 SP1 x86
-            Name   = "WMF30x86"
-            URI    = "https://download.microsoft.com/download/E/7/6/E76850B8-DA6E-4FF5-8CCE-A24FC513FD16/Windows6.1-KB2506143-x86.msu"
-            Folder = "WMF30x86"
-            File   = "Windows6.1-KB2506143-x86.msu"
-        }
-        @{
-            # Windows Management Framewework 3.0 for Windows 7 SP1 x64
-            Name   = "WMF30x64"
-            URI    = "https://download.microsoft.com/download/E/7/6/E76850B8-DA6E-4FF5-8CCE-A24FC513FD16/Windows6.1-KB2506143-x64.msu"
-            Folder = "WMF30x64"
-            File   = "Windows6.1-KB2506143-x64.msu"
-        }
-        @{
-            # Convenience rollup update for Windows 7 SP1 x86
-            Name   = "KB3125574-x86"
-            URI    = "http://download.windowsupdate.com/d/msdownload/update/software/updt/2016/05/windows6.1-kb3125574-v4-x86_ba1ff5537312561795cc04db0b02fbb0a74b2cbd.msu"
-            Folder = "KB3125574-x86"
-            File   = "windows6.1-kb3125574-v4-x86_ba1ff5537312561795cc04db0b02fbb0a74b2cbd.msu"
-        }
-        @{
-            # Convenience rollup update for Windows 7 SP1 x64
-            Name   = "KB3125574-x64"
-            URI    = "http://download.windowsupdate.com/d/msdownload/update/software/updt/2016/05/windows6.1-kb3125574-v4-x64_2dafb1d203c8964239af3048b5dd4b1264cd93b9.msu"
-            Folder = "KB3125574-x64"
-            File   = "windows6.1-kb3125574-v4-x64_2dafb1d203c8964239af3048b5dd4b1264cd93b9.msu"
-        }
-        @{
-            # July 2016 update rollup for Windows 7 SP1 x86
-            Name   = "KB3172605-x86"
-            URI    = "http://download.windowsupdate.com/d/msdownload/update/software/updt/2016/09/windows6.1-kb3172605-x86_ae03ccbd299e434ea2239f1ad86f164e5f4deeda.msu"
-            Folder = "KB3172605-x86"
-            File   = "windows6.1-kb3172605-x86_ae03ccbd299e434ea2239f1ad86f164e5f4deeda.msu"
-        }
-        @{
-            # July 2016 update rollup for Windows 7 SP1 x64
-            Name   = "KB3172605-x64"
-            URI    = "http://download.windowsupdate.com/d/msdownload/update/software/updt/2016/09/windows6.1-kb3172605-x64_2bb9bc55f347eee34b1454b50c436eb6fd9301fc.msu"
-            Folder = "KB3172605-x64"
-            File   = "windows6.1-kb3172605-x64_2bb9bc55f347eee34b1454b50c436eb6fd9301fc.msu"
-        }
-        @{
             # Action - CleanupBeforeSysprep
             Name   = "CleanupBeforeSysprep"
             URI    = "https://raw.githubusercontent.com/DeploymentBunny/Files/master/Tools/Action-CleanupBeforeSysprep/Action-CleanupBeforeSysprep.wsf"
@@ -171,13 +129,6 @@
             URI    = "https://raw.githubusercontent.com/SCConfigMgr/ConfigMgr/master/Operating%20System%20Deployment/Invoke-RemoveBuiltinApps.ps1"
             Folder = "RemoveDefaultApps"
             File   = "Invoke-RemoveBuiltinApps.ps1"
-        }
-        @{
-            # Install - APP-V Client 5.1 - x86-x64
-            Name   = "APPV51"
-            URI    = "Sources\appv_client_setup.zip"
-            Folder = "APPV51x86x64"
-            File   = "appv_client_setup.zip"
         }
     )
 }
