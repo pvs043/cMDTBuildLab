@@ -131,7 +131,7 @@ Function Test-VIAHypervConnection
     #Verify that the ISO Folder is created
     Invoke-Command -ComputerName $Computername -ScriptBlock {
         Param(
-            $ISOFolder
+            $using:ISOFolder
         )
         New-Item -Path $ISOFolder -ItemType Directory -Force | Out-Null
     } -ArgumentList $ISOFolder
@@ -139,7 +139,7 @@ Function Test-VIAHypervConnection
     #Verify that the VM Folder is created
     Invoke-Command -ComputerName $Computername -ScriptBlock {
         Param(
-            $VMFolder
+            $using:VMFolder
         )
         New-Item -Path $VMFolder -ItemType Directory -Force | Out-Null
     } -ArgumentList $VMFolder
@@ -147,7 +147,7 @@ Function Test-VIAHypervConnection
     #Verify that the VMSwitch exists
     Invoke-Command -ComputerName $Computername -ScriptBlock {
         Param(
-            $VMSwitchName
+            $using:VMSwitchName
         )
         if (((Get-VMSwitch | Where-Object -Property Name -EQ -Value $VMSwitchName).count) -eq "1") {Write-Verbose "Found $VMSwitchName"} else {Write-Warning "No swtch with the name $VMSwitchName found"; Return $False}
     } -ArgumentList $VMSwitchName
@@ -185,22 +185,25 @@ Function Update-Log
     [string]$Class = "Information"
 
     )
-    $LogString = "$Solution, $Data, $Class, $(Get-Date)"
-    $HostString = "$Solution, $Data, $(Get-Date)"
 
-    Add-Content -Path $Log -Value $LogString
-    switch ($Class)
-    {
-        'Information'{
-            Write-Output $HostString
+    process {
+        $LogString = "$Solution, $Data, $Class, $(Get-Date)"
+        $HostString = "$Solution, $Data, $(Get-Date)"
+
+        Add-Content -Path $Log -Value $LogString
+        switch ($Class)
+        {
+            'Information'{
+                Write-Output $HostString
             }
-        'Warning'{
-            Write-Warning $HostString
+            'Warning'{
+                Write-Warning $HostString
             }
-        'Error'{
-            Write-Error $HostString
+            'Error'{
+                Write-Error $HostString
             }
-        Default {}
+            Default {}
+        }
     }
 }
 
@@ -297,20 +300,20 @@ Foreach ($Ref in $RefTaskSequenceIDs) {
 
     Invoke-Command -ComputerName $($Settings.Settings.HyperV.Computername) -ScriptBlock {
         Param(
-            $VMName,
-            $VMMemory,
-            $VMPath,
-            $VMBootimage,
-            $VMVHDSize,
-            $VMVlanID,
-            $VMVCPU,
-            $VMSwitch
+            $using:VMName,
+            $using:VMMemory,
+            $using:VMPath,
+            $using:VMBootimage,
+            $using:VMVHDSize,
+            $using:VMVlanID,
+            $using:VMVCPU,
+            $using:VMSwitch
         )
 
-        Write-Verbose "Hyper-V host is $env:COMPUTERNAME"
+        Write-Verbose "Hyper-V host is $using:env:COMPUTERNAME"
         Write-Verbose "Working on $VMName"
         #Check if VM exist
-        if (!((Get-VM | Where-Object -Property Name -EQ -Value $VMName).count -eq 0)) {Write-Warning -Message "VM exist"; Break}
+        if (!((Get-VM | Where-Object -Property Name -EQ -Value $using:VMName).count -eq 0)) {Write-Warning -Message "VM exist"; Break}
 
         #Create VM
         $VM = New-VM -Name $VMName -MemoryStartupBytes $VMMemory -Path $VMPath -NoVHD -Generation 1
@@ -400,11 +403,11 @@ Foreach ($Ref in $RefTaskSequences) {
 
     Invoke-Command -ComputerName $($Settings.Settings.HyperV.Computername) -ScriptBlock {
         param(
-            $VMName,
-            $ImageName,
-            $ReportFrom,
-            $ReportTo,
-            $ReportSmtp
+            $using:VMName,
+            $using:ImageName,
+            $using:ReportFrom,
+            $using:ReportTo,
+            $using:ReportSmtp
         )
 
         Write-Output "Starting VM: $($VmName)"
