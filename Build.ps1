@@ -3,13 +3,9 @@ $moduleGuid     = "df45de26-88b1-4a95-98af-b798fde1424f"
 $year           = (Get-Date).Year
 $moduleVersion  = "3.0.0"
 $releaseNotes  = "
-* Remove Windows 8.1/2012 R2 deployment description from documentation. Windows 7 SP1 Deployment is still available for very old systems
-* Remove Windows 8.1 desktop customization from code and prerequisites
-* Remove WMF 5.1 from prerequisites
-* Remove Servicing stack update for Windows 7 SP1 from prerequisites
+* Remove Windows 7/8.1/2012R2 deployments and prerequisites
 * Update download URLs for MDT
 * Update ADK (v.2004)
-* Tested with latest Windows 10 Version 2004 (May 2020) and Windows Server 2019
 "
 $allResources   = @( Get-ChildItem -Path $PSScriptRoot\src\DSCResources\*.psm1 -ErrorAction SilentlyContinue -Recurse | Sort-Object)
 $allFunctions   = @( Get-ChildItem -Path $PSScriptRoot\src\Public\*.ps1 -ErrorAction SilentlyContinue -Recurse | Sort-Object)

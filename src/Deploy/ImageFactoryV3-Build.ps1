@@ -64,7 +64,6 @@
     https://github.com/pvs043/cMDTBuildLab/wiki
 #>
 [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseUsingScopeModifierInNewRunspaces')]
-[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingWMICmdlet')]
 
 [cmdletbinding(SupportsShouldProcess=$True)]
 
