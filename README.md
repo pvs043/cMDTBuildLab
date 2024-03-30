@@ -43,7 +43,7 @@ This module is tested on Windows 2016/2019 server, but it will be worked on Wind
 The following prerequisites automatically downloaded with the cMDTBuildPreReqs DSC resource:
 * [MicrosoftDeploymentToolkit_x64](https://docs.microsoft.com/en-us/sccm/mdt/) - Microsoft Deployment Toolkit (MDT) (Build 6.3.8456.1000)
 * [ADK & WinPE v.2004](https://docs.microsoft.com/en-us/windows-hardware/get-started/adk-install) - Windows PE, v.2004 (Build: 10.1.19041.1)
-* [Visual C++ runtimes](https://support.microsoft.com/en-us/kb/2977003) - 2008,2010,2012,2013,2017
+* [Visual C++ runtimes](https://support.microsoft.com/en-us/kb/2977003) - 2013,2015-2022
 
 If your MDT01 host does not have direct connection to Internet, run DSC configuration from Deploy\Download_MDT_Prereqs.ps1 at Windows machine connected to Internet.
 After completion of downloading:

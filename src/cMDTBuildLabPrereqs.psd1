@@ -30,18 +30,6 @@
             File   = "Install-MicrosoftVisualCx86x64.wsf"
         }
         @{
-            Name   = "VS2012UPD4x86"
-            URI    = "http://download.microsoft.com/download/1/6/B/16B06F60-3B20-4FF2-B699-5E9B7962F9AE/VSU_4/vcredist_x86.exe"
-            Folder = "VC++\Source\VS2012"
-            File   = "vcredist_x86.exe"
-        }
-        @{
-            Name   = "VS2012UPD4x64"
-            URI    = "http://download.microsoft.com/download/1/6/B/16B06F60-3B20-4FF2-B699-5E9B7962F9AE/VSU_4/vcredist_x64.exe"
-            Folder = "VC++\Source\VS2012"
-            File   = "vcredist_x64.exe"
-        }
-        @{
             Name   = "VS2013x86"
             URI    = "https://aka.ms/highdpimfc2013x86enu"
             Folder = "VC++\Source\VS2013"
