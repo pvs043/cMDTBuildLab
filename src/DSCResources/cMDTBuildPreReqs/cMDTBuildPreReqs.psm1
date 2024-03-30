@@ -27,7 +27,7 @@ class cMDTBuildPreReqs
                 New-Item -Path $this.DownloadPath -ItemType Directory -Force
             }
 
-            #Set all files:
+            # Set all files:
             ForEach ($file in $downloadFiles.Prereqs) {
                 if (Test-Path -Path "$($this.DownloadPath)\$($file.Folder)\$($file.File)") {
                     Write-Verbose "   $($file.Name) already present!"
@@ -42,17 +42,13 @@ class cMDTBuildPreReqs
                         $this.CopyFromSource("$($PSScriptRoot)\$($file.URI)", "$($this.DownloadPath)\$($file.Folder)\$($file.File)")
                     }
 
-                    # Workaround for external source script(s) from GitHub - change EOL
+                    # Workaround for external source script(s) from GitHub: change EOL
                     if ($file.Name -eq "CleanupBeforeSysprep" -or $file.Name -eq "VS++Application" -or $file.Name -eq "RemoveDefaultApps") {
                         $script = Get-Content -Path "$($this.DownloadPath)\$($file.Folder)\$($file.File)"
                         if ($script -notlike '*`r`n*') {
                             $script.Replace('`n','`r`n')
                             Set-Content -Path "$($this.DownloadPath)\$($file.Folder)\$($file.File)" -Value $script
                         }
-                    }
-                    # Unpack ZIP sources
-                    if ($file.Name -eq "APPV51") {
-                        Invoke-ExpandArchive -Source "$($this.DownloadPath)\$($file.Folder)\$($file.File)" -Target "$($this.DownloadPath)\$($file.Folder)"
                     }
                 }
             }
