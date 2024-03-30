@@ -27,15 +27,12 @@
 
             #Operating system MDT directory information
             OSDirectories   = @(
-                @{OperatingSystem = "Windows 7"}
                 @{OperatingSystem = "Windows 10"}
                 @{OperatingSystem = "Windows 2016"}
             )
 
             #Packages Folder Structure
             PackagesFolderStructure = @(
-                @{Folder = "Windows 7 x86"}
-                @{Folder = "Windows 7 x64"}
                 @{Folder = "Windows 10 x86"}
                 @{Folder = "Windows 10 x64"}
             )
@@ -57,16 +54,6 @@
             #Selection profile creation
             SelectionProfiles  = @(
                 @{
-                    Name        = "Windows 7 x86"
-                    Comments    = "Packages for Windows 7 x86"
-                    IncludePath = "Packages\Windows 7 x86"
-                }
-                @{
-                    Name        = "Windows 7 x64"
-                    Comments    = "Packages for Windows 7 x64"
-                    IncludePath = "Packages\Windows 7 x64"
-                }
-                @{
                     Name        = "Windows 10 x86"
                     Comments    = "Packages for Windows 10 x86"
                     IncludePath = "Packages\Windows 10 x86"
@@ -80,16 +67,6 @@
 
             #Operating systems to import to MDT
             OperatingSystems   = @(
-                @{
-                    Name       = "Windows 7 x86"
-                    Path       = "Windows 7"
-                    SourcePath = "Windows7x86"
-                }
-                @{
-                    Name       = "Windows 7 x64"
-                    Path       = "Windows 7"
-                    SourcePath = "Windows7x64"
-                }
                 @{
                     Name       = "Windows 10 x86"
                     Path       = "Windows 10"
@@ -121,42 +98,6 @@
                     ApplicationSourcePath = "VC++"
                 }
                 @{
-                    Name                  = "Install - Convenience rollup update for Windows 7 SP1 - x86"
-                    Path                  = "\Applications\Core\Microsoft"
-                    CommandLine           = "wusa.exe windows6.1-kb3125574-v4-x86_ba1ff5537312561795cc04db0b02fbb0a74b2cbd.msu /quiet /norestart"
-                    ApplicationSourcePath = "KB3125574-x86"
-                }
-                @{
-                    Name                  = "Install - Convenience rollup update for Windows 7 SP1 - x64"
-                    Path                  = "\Applications\Core\Microsoft"
-                    CommandLine           = "wusa.exe windows6.1-kb3125574-v4-x64_2dafb1d203c8964239af3048b5dd4b1264cd93b9.msu /quiet /norestart"
-                    ApplicationSourcePath = "KB3125574-x64"
-                }
-                @{
-                    Name                  = "Install - July 2016 update rollup for Windows 7 SP1 - x86"
-                    Path                  = "\Applications\Core\Microsoft"
-                    CommandLine           = "wusa.exe windows6.1-kb3172605-x86_ae03ccbd299e434ea2239f1ad86f164e5f4deeda.msu /quiet /norestart"
-                    ApplicationSourcePath = "KB3172605-x86"
-                }
-                @{
-                    Name                  = "Install - July 2016 update rollup for Windows 7 SP1 - x64"
-                    Path                  = "\Applications\Core\Microsoft"
-                    CommandLine           = "wusa.exe windows6.1-kb3172605-x64_2bb9bc55f347eee34b1454b50c436eb6fd9301fc.msu /quiet /norestart"
-                    ApplicationSourcePath = "KB3172605-x64"
-                }
-                @{
-                    Name                  = "Install - Windows Management Framework 3.0 - x86"
-                    Path                  = "\Applications\Core\Microsoft"
-                    CommandLine           = "wusa.exe Windows6.1-KB2506143-x86.msu /quiet /norestart"
-                    ApplicationSourcePath = "WMF30x86"
-                }
-                @{
-                    Name                  = "Install - Windows Management Framework 3.0 - x64"
-                    Path                  = "\Applications\Core\Microsoft"
-                    CommandLine           = "wusa.exe Windows6.1-KB2506143-x64.msu /quiet /norestart"
-                    ApplicationSourcePath = "WMF30x64"
-                }
-                @{
                     Name                  = "Configure - Set Control+Shift Keyboard Toggle"
                     Path                  = "\Applications\Core\Configure"
                     CommandLine           = "reg import Toggle.reg"
@@ -180,12 +121,6 @@
                     CommandLine           = "powershell.exe -ExecutionPolicy Bypass -File .\Customize-DefaultProfile.ps1"
                     ApplicationSourcePath = "Set-Startlayout"
                 }
-                @{
-                    Name                  = "Install - APP-V Client 5.1 - x86-x64"
-                    Path                  = "\Applications\Common Applications"
-                    CommandLine           = "appv_client_setup.exe /ACCEPTEULA /q /ENABLEPACKAGESCRIPTS=1"
-                    ApplicationSourcePath = "APPV51x86x64"
-                }
             )
 
             #Packages
@@ -194,362 +129,6 @@
 
             #Task sqeuences; are dependent on imported Operating system and Applications in MDT
             TaskSequences   = @(
-                @{
-                    Name     = "Windows 7 x86"
-                    Path     = "Windows 7"
-                    OSName   = "Windows 7\Windows 7 ENTERPRISE in Windows 7 x86 install.wim"
-                    OrgName  = "BuildLab"
-                    Template = "Client.xml"
-                    ID       = "REFW7X86-001"
-                    Customize = @(
-                        # Set Product Key needed for MSDN/Evalution Windows distributives only. Skip this step if your ISO sources is VLSC.
-                        @{
-                            Name        = "Set Product Key"
-                            Type        = "Set Task Sequence Variable"
-                            GroupName   = "Initialization"
-                            Description = "KMS Client Setup Keys: https://docs.microsoft.com/en-us/windows-server/get-started/kmsclientkeys"
-                            TSVarName   = "ProductKey"
-                            TSVarValue  = "33PXH-7Y6KF-2VJC9-XBBR8-HVTHH"
-                            Disable     = "true"
-                        }
-                        @{
-                            Name             = "Apply Patches"
-                            Type             = "Install Updates Offline"
-                            GroupName        = "Preinstall"
-                            SelectionProfile = "Windows 7 x86"
-                        }
-                        @{
-                            Name       = "Windows Update (Pre-Application Installation)"
-                            Type       = "Run Command Line"
-                            GroupName  = "State Restore"
-                            Disable    = "false"
-                        }
-                        @{
-                            Name       = "Windows Update (Post-Application Installation)"
-                            Type       = "Run Command Line"
-                            GroupName  = "State Restore"
-                            Disable    = "false"
-                        }
-                        @{
-                            Name       = "Custom Tasks (Pre-Windows Update)"
-                            Type       = "Group"
-                            GroupName  = "State Restore"
-                            AddAfter   = "Tattoo"
-                        }
-                        @{
-                            Name       = "Custom Tasks"
-                            Type       = "Group"
-                            GroupName  = "State Restore"
-                            NewName    = "Custom Tasks (Post-Windows Update)"
-                        }
-                        @{
-                            Name       = "Cleanup before Sysprep"
-                            Type       = "Group"
-                            GroupName  = "State Restore"
-                            AddAfter   = "Apply Local GPO Package"
-                        }
-                        @{
-                            Name       = "Install - Microsoft NET Framework 3.5.1"
-                            Type       = "Install Roles and Features"
-                            GroupName  = "State Restore"
-                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            OSName     = "Windows 7"
-                            OSFeatures = "InboxGames,NetFx3,TelnetClient"
-                        }
-                        @{
-                            Name       = "Configure - Disable SMB 1.0"
-                            Type       = "Run Command Line"
-                            GroupName  = "State Restore"
-                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            Command    = 'powershell.exe -Command "Set-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters SMB1 -Type DWORD -Value 0 -Force"'
-                            AddAfter   = "Install - Microsoft NET Framework 3.5.1"
-                        }
-                        @{
-                            Name       = "Install - Microsoft Visual C++"
-                            Type       = "Install Application"
-                            GroupName  = "State Restore"
-                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            AddAfter   = "Configure - Disable SMB 1.0"
-                        }
-                        @{
-                            Name       = "Configure - Set Control+Shift Keyboard Toggle"
-                            Type       = "Install Application"
-                            GroupName  = "State Restore"
-                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            AddAfter   = "Install - Microsoft Visual C++"
-                        }
-                        @{
-                            Name       = "Install - Convenience rollup update for Windows 7 SP1 - x86"
-                            Type       = "Install Application"
-                            GroupName  = "State Restore"
-                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            AddAfter   = "Configure - Set Control+Shift Keyboard Toggle"
-                        }
-                        @{
-                            Name       = "Restart Computer"
-                            Type       = "Restart Computer"
-                            GroupName  = "State Restore"
-                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            AddAfter   = "Install - Convenience rollup update for Windows 7 SP1 - x86"
-                        }
-                        @{
-                            Name       = "Install - July 2016 update rollup for Windows 7 SP1 - x86"
-                            Type       = "Install Application"
-                            GroupName  = "State Restore"
-                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            AddAfter   = "Restart Computer"
-                        }
-                        @{
-                            Name       = "Restart Computer 1"
-                            Type       = "Restart Computer"
-                            GroupName  = "State Restore"
-                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            AddAfter   = "Install - July 2016 update rollup for Windows 7 SP1 - x86"
-                        }
-                        @{
-                            Name       = "Install APP-V 5.1"
-                            Type       = "Group"
-                            GroupName  = "State Restore"
-                            AddAfter   = "Install Applications"
-                        }
-                        @{
-                            Name       = "Install - Windows Management Framework 3.0 - x86"
-                            Type       = "Install Application"
-                            GroupName  = "State Restore"
-                            SubGroup   = "Install APP-V 5.1"
-                        }
-                        @{
-                            Name       = "Restart Computer 2"
-                            Type       = "Restart Computer"
-                            GroupName  = "State Restore"
-                            SubGroup   = "Install APP-V 5.1"
-                            AddAfter   = "Install - Windows Management Framework 3.0 - x86"
-                        }
-                        @{
-                            Name       = "Install - APP-V Client 5.1 - x86-x64"
-                            Type       = "Install Application"
-                            GroupName  = "State Restore"
-                            SubGroup   = "Install APP-V 5.1"
-                            Disable    = "true"
-                            AddAfter   = "Restart Computer 2"
-                        }
-                        @{
-                            Name       = "Restart Computer 3"
-                            Type       = "Restart Computer"
-                            GroupName  = "State Restore"
-                            SubGroup   = "Install APP-V 5.1"
-                            Disable    = "true"
-                            AddAfter   = "Install - APP-V Client 5.1 - x86-x64"
-                        }
-                        @{
-                            Name       = "Suspend"
-                            Type       = "Run Command Line"
-                            GroupName  = "State Restore"
-                            Disable    = "true"
-                            Command    = 'cscript.exe "%SCRIPTROOT%\LTISuspend.wsf"'
-                            AddAfter   = "Opt In to CEIP and WER"
-                        }
-                        @{
-                            Name       = "Action - CleanupBuildWSUS"
-                            Type       = "Run Command Line"
-                            GroupName  = "State Restore"
-                            SubGroup   = "Cleanup before Sysprep"
-                            Command    = "reg delete HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate /f"
-                        }
-                        @{
-                            Name       = "Action - CleanupBeforeSysprep"
-                            Type       = "Install Application"
-                            GroupName  = "State Restore"
-                            SubGroup   = "Cleanup before Sysprep"
-                            AddAfter   = "Action - CleanupBuildWSUS"
-                        }
-                        @{
-                            Name       = "Restart Computer 4"
-                            Type       = "Restart Computer"
-                            GroupName  = "State Restore"
-                            SubGroup   = "Cleanup before Sysprep"
-                            AddAfter   = "Action - CleanupBeforeSysprep"
-                    }
-                    )
-                }
-                @{
-                    Name     = "Windows 7 x64"
-                    Path     = "Windows 7"
-                    OSName   = "Windows 7\Windows 7 ENTERPRISE in Windows 7 x64 install.wim"
-                    OrgName  = "BuildLab"
-                    Template = "Client.xml"
-                    ID       = "REFW7X64-001"
-                    Customize = @(
-                        # Set Product Key needed for MSDN/Evalution Windows distributives only. Skip this step if your ISO sources is VLSC.
-                        @{
-                            Name        = "Set Product Key"
-                            Type        = "Set Task Sequence Variable"
-                            GroupName   = "Initialization"
-                            Description = "KMS Client Setup Keys: https://docs.microsoft.com/en-us/windows-server/get-started/kmsclientkeys"
-                            TSVarName   = "ProductKey"
-                            TSVarValue  = "33PXH-7Y6KF-2VJC9-XBBR8-HVTHH"
-                            Disable     = "true"
-                        }
-                        @{
-                            Name             = "Apply Patches"
-                            Type             = "Install Updates Offline"
-                            GroupName        = "Preinstall"
-                            SelectionProfile = "Windows 7 x64"
-                        }
-                        @{
-                            Name       = "Windows Update (Pre-Application Installation)"
-                            Type       = "Run Command Line"
-                            GroupName  = "State Restore"
-                            Disable    = "false"
-                        }
-                        @{
-                            Name       = "Windows Update (Post-Application Installation)"
-                            Type       = "Run Command Line"
-                            GroupName  = "State Restore"
-                            Disable    = "false"
-                        }
-                        @{
-                            Name       = "Custom Tasks (Pre-Windows Update)"
-                            Type       = "Group"
-                            GroupName  = "State Restore"
-                            AddAfter   = "Tattoo"
-                        }
-                        @{
-                            Name       = "Custom Tasks"
-                            Type       = "Group"
-                            GroupName  = "State Restore"
-                            NewName    = "Custom Tasks (Post-Windows Update)"
-                        }
-                        @{
-                            Name       = "Cleanup before Sysprep"
-                            Type       = "Group"
-                            GroupName  = "State Restore"
-                            AddAfter   = "Apply Local GPO Package"
-                        }
-                        @{
-                            Name       = "Install - Microsoft NET Framework 3.5.1"
-                            Type       = "Install Roles and Features"
-                            GroupName  = "State Restore"
-                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            OSName     = "Windows 7"
-                            OSFeatures = "InboxGames,NetFx3,TelnetClient"
-                        }
-                        @{
-                            Name       = "Configure - Disable SMB 1.0"
-                            Type       = "Run Command Line"
-                            GroupName  = "State Restore"
-                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            Command    = 'powershell.exe -Command "Set-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters SMB1 -Type DWORD -Value 0 -Force"'
-                            AddAfter   = "Install - Microsoft NET Framework 3.5.1"
-                        }
-                        @{
-                            Name       = "Install - Microsoft Visual C++"
-                            Type       = "Install Application"
-                            GroupName  = "State Restore"
-                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            AddAfter   = "Configure - Disable SMB 1.0"
-                        }
-                        @{
-                            Name       = "Configure - Set Control+Shift Keyboard Toggle"
-                            Type       = "Install Application"
-                            GroupName  = "State Restore"
-                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            AddAfter   = "Install - Microsoft Visual C++"
-                        }
-                        @{
-                            Name       = "Install - Convenience rollup update for Windows 7 SP1 - x64"
-                            Type       = "Install Application"
-                            GroupName  = "State Restore"
-                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            AddAfter   = "Configure - Set Control+Shift Keyboard Toggle"
-                        }
-                        @{
-                            Name       = "Restart Computer"
-                            Type       = "Restart Computer"
-                            GroupName  = "State Restore"
-                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            AddAfter   = "Install - Convenience rollup update for Windows 7 SP1 - x64"
-                        }
-                        @{
-                            Name       = "Install - July 2016 update rollup for Windows 7 SP1 - x64"
-                            Type       = "Install Application"
-                            GroupName  = "State Restore"
-                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            AddAfter   = "Restart Computer"
-                        }
-                        @{
-                            Name       = "Restart Computer 1"
-                            Type       = "Restart Computer"
-                            GroupName  = "State Restore"
-                            SubGroup   = "Custom Tasks (Pre-Windows Update)"
-                            AddAfter   = "Install - July 2016 update rollup for Windows 7 SP1 - x64"
-                        }
-                        @{
-                            Name       = "Install APP-V 5.1"
-                            Type       = "Group"
-                            GroupName  = "State Restore"
-                            AddAfter   = "Install Applications"
-                        }
-                        @{
-                            Name       = "Install - Windows Management Framework 3.0 - x64"
-                            Type       = "Install Application"
-                            GroupName  = "State Restore"
-                            SubGroup   = "Install APP-V 5.1"
-                        }
-                        @{
-                            Name       = "Restart Computer 2"
-                            Type       = "Restart Computer"
-                            GroupName  = "State Restore"
-                            SubGroup   = "Install APP-V 5.1"
-                            AddAfter   = "Install - Windows Management Framework 3.0 - x64"
-                        }
-                        @{
-                            Name       = "Install - APP-V Client 5.1 - x86-x64"
-                            Type       = "Install Application"
-                            GroupName  = "State Restore"
-                            SubGroup   = "Install APP-V 5.1"
-                            Disable    = "true"
-                            AddAfter   = "Restart Computer 2"
-                        }
-                        @{
-                            Name       = "Restart Computer 3"
-                            Type       = "Restart Computer"
-                            GroupName  = "State Restore"
-                            SubGroup   = "Install APP-V 5.1"
-                            Disable    = "true"
-                            AddAfter   = "Install - APP-V Client 5.1 - x86-x64"
-                        }
-                        @{
-                            Name       = "Suspend"
-                            Type       = "Run Command Line"
-                            GroupName  = "State Restore"
-                            Disable    = "true"
-                            Command    = 'cscript.exe "%SCRIPTROOT%\LTISuspend.wsf"'
-                            AddAfter   = "Opt In to CEIP and WER"
-                        }
-                        @{
-                            Name       = "Action - CleanupBuildWSUS"
-                            Type       = "Run Command Line"
-                            GroupName  = "State Restore"
-                            SubGroup   = "Cleanup before Sysprep"
-                            Command    = "reg delete HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate /f"
-                        }
-                        @{
-                            Name       = "Action - CleanupBeforeSysprep"
-                            Type       = "Install Application"
-                            GroupName  = "State Restore"
-                            SubGroup   = "Cleanup before Sysprep"
-                            AddAfter   = "Action - CleanupBuildWSUS"
-                        }
-                        @{
-                            Name       = "Restart Computer 4"
-                            Type       = "Restart Computer"
-                            GroupName  = "State Restore"
-                            SubGroup   = "Cleanup before Sysprep"
-                            AddAfter   = "Action - CleanupBeforeSysprep"
-                        }
-                    )
-                }
                 @{
                     Name     = "Windows 10 x86"
                     Path     = "Windows 10"
@@ -1058,7 +637,7 @@
                     Name           = "CustomSettingsIni"
                     Path           = "\Control\CustomSettings.ini"
                     Company        = "Build Lab"
-                    TimeZoneName   = "Ekaterinburg Standard Time"
+                    TimeZoneName   = "Russian Standard Time"
                     WSUSServer     = "http://fqdn:port"
                     UserLocale     = "en-US"
                     KeyboardLocale = "en-US;ru-RU"

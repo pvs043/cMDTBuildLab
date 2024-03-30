@@ -258,7 +258,7 @@
                     Name           = "CustomSettingsIni"
                     Path           = "\Control\CustomSettings.ini"
                     Company        = "Build Lab"
-                    TimeZoneName   = "Ekaterinburg Standard Time"
+                    TimeZoneName   = "Russian Standard Time"
                     WSUSServer     = "http://fqdn:port"
                     UserLocale     = "en-US"
                     KeyboardLocale = "en-US;ru-RU"

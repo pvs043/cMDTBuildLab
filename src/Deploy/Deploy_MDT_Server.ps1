@@ -439,20 +439,6 @@ FinishAction=SHUTDOWN
 $($UserLocale)
 $($KeyboardLocale)
 
-;Exclude updates that are already included in W7 Convenience update, but flagged incorrectly on Microsoft Update
-WUMU_ExcludeKB1=2965788
-WUMU_ExcludeKB2=2984976
-WUMU_ExcludeKB3=3126446
-WUMU_ExcludeKB4=3075222
-WUMU_ExcludeKB5=3069762
-WUMU_ExcludeKB6=3036493
-WUMU_ExcludeKB7=3067904
-WUMU_ExcludeKB8=3035017
-WUMU_ExcludeKB9=3003743
-WUMU_ExcludeKB10=3039976
-WUMU_ExcludeKB11=2862330
-WUMU_ExcludeKB12=2529073
-
 ComputerBackupLocation=NETWORK
 BackupShare=\\$($Node.NodeName)\$($Node.PSDriveShareName)
 BackupDir=Captures
