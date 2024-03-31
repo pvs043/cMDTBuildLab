@@ -35,7 +35,6 @@ Prerequisites for infrastructure:
 * Hyper-V Host: HV01 (Windows 2012 R2 or above)
 * Original Microsoft media (ISO) images:<br>
     Windows 10 Version 22H2 (November 2022)<br>
-    Windows 2016 (February 2018)<br>
     Windows 2019 (April 2019)
 
 This module is tested on Windows 2016/2019 server, but it will be worked on Windows 10 or Windows 2012 R2/Windows 8.1 + WMF 5.1.
