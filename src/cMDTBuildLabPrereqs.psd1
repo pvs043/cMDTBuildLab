@@ -25,7 +25,8 @@
             # Install script for Visual C++ runtimes
             Name   = "VS++Application"
             #URI    = "https://raw.githubusercontent.com/DeploymentBunny/Files/master/Tools/Install-X86-X64-C%2B%2B/Install-MicrosoftVisualC%2B%2Bx86x64.wsf"
-            URI    = "https://github.com/pvs043/Files/blob/master/Tools/Install-X86-X64-C%2B%2B/Install-MicrosoftVisualC%2B%2Bx86x64.wsf"
+            #URI    = "https://github.com/pvs043/Files/blob/master/Tools/Install-X86-X64-C%2B%2B/Install-MicrosoftVisualC%2B%2Bx86x64.wsf"
+            URI    = "Sources\Install-MicrosoftVisualCx86x64.wsf"
             Folder = "VC++"
             File   = "Install-MicrosoftVisualCx86x64.wsf"
         }
