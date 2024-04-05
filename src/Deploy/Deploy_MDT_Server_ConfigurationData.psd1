@@ -142,6 +142,16 @@
                             TSVarValue  = "NPPR9-FWDCX-D2C8J-H872K-2YT43"
                             Disable     = "true"
                         }
+                        # Workaround for disable UEFI disk format
+                        @{
+                            Name        = "Disable UEFI"
+                            Type        = "Set Task Sequence Variable"
+                            GroupName   = "Preinstall"
+                            Description = "Disable UEFI disk format"
+                            TSVarName   = "IsUEFI"
+                            TSVarValue  = "False"
+                            AddAfter    = "Gather local only"
+                        }
                         @{
                             Name             = "Apply Patches"
                             Type             = "Install Updates Offline"
@@ -291,6 +301,16 @@
                             TSVarValue  = "NPPR9-FWDCX-D2C8J-H872K-2YT43"
                             Disable     = "true"
                         }
+                        # Workaround for disable UEFI disk format
+                        @{
+                            Name        = "Disable UEFI"
+                            Type        = "Set Task Sequence Variable"
+                            GroupName   = "Preinstall"
+                            Description = "Disable UEFI disk format"
+                            TSVarName   = "IsUEFI"
+                            TSVarValue  = "False"
+                            AddAfter    = "Gather local only"
+                        }
                         @{
                             Name             = "Apply Patches"
                             Type             = "Install Updates Offline"
@@ -439,6 +459,16 @@
                             TSVarName   = "ProductKey"
                             TSVarValue  = "N69G4-B89J2-4G8F4-WWYCC-J464C"
                             Disable     = "true"
+                        }
+                        # Workaround for disable UEFI disk format
+                        @{
+                            Name        = "Disable UEFI"
+                            Type        = "Set Task Sequence Variable"
+                            GroupName   = "Preinstall"
+                            Description = "Disable UEFI disk format"
+                            TSVarName   = "IsUEFI"
+                            TSVarValue  = "False"
+                            AddAfter    = "Gather local only"
                         }
                         @{
                             Name             = "Apply Patches"

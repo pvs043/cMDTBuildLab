@@ -7,6 +7,7 @@ $releaseNotes  = "
 * Update download URLs for MDT
 * Update ADK (v.2004)
 * Update VC++ prerequisites (VC++ 2022)
+* Disable UEFI disk format at reference VM
 "
 $allResources   = @( Get-ChildItem -Path $PSScriptRoot\src\DSCResources\*.psm1 -ErrorAction SilentlyContinue -Recurse | Sort-Object)
 $allFunctions   = @( Get-ChildItem -Path $PSScriptRoot\src\Public\*.ps1 -ErrorAction SilentlyContinue -Recurse | Sort-Object)
