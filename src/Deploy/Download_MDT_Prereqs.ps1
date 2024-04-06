@@ -47,7 +47,7 @@ Configuration DownloadMDTPrereqs
             Path       = "$($Node.SourcePath)\MDT\MicrosoftDeploymentToolkit_x64.msi"
             ProductId  = "2E6CD7B9-9D00-4B04-882F-E6971BC9A763"
             ReturnCode = 0
-            DependsOn  = "[cMDTBuildPreReqs]MDTPreReqs"
+            DependsOn  = '[Package]ADK','[Package]WinPE'
         }
 
         File MDT_KB4564442_x86
