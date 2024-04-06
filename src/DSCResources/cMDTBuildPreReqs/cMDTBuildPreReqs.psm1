@@ -29,26 +29,36 @@ class cMDTBuildPreReqs
 
             # Set all files:
             ForEach ($file in $downloadFiles.Prereqs) {
-                if (Test-Path -Path "$($this.DownloadPath)\$($file.Folder)\$($file.File)") {
+                $folder = "$($this.DownloadPath)\$($file.Folder)"
+                if (Test-Path -Path "$folder\$($file.File)") {
                     Write-Verbose "   $($file.Name) already present!"
                 }
                 else {
                     Write-Verbose "   Creating $($file.Name) folder..."
-                    New-Item -Path "$($this.DownloadPath)\$($file.Folder)" -ItemType Directory -Force
+                    New-Item -Path $folder -ItemType Directory -Force
                     if ($file.URI -like "*/*") {
-                        $this.WebClientDownload($file.URI, "$($this.DownloadPath)\$($file.Folder)\$($file.File)")
+                        $this.WebClientDownload($file.URI, "$folder\$($file.File)")
                     }
                     else {
-                        $this.CopyFromSource("$($PSScriptRoot)\$($file.URI)", "$($this.DownloadPath)\$($file.Folder)\$($file.File)")
+                        $this.CopyFromSource("$($PSScriptRoot)\$($file.URI)", "$folder\$($file.File)")
                     }
 
-                    # Workaround for external source script(s) from GitHub: change EOL
+                    # Workaround for external source scripts from GitHub: change EOL
                     if ($file.Name -eq "CleanupBeforeSysprep" -or $file.Name -eq "RemoveDefaultApps") {
-                        $script = Get-Content -Path "$($this.DownloadPath)\$($file.Folder)\$($file.File)"
+                        $script = Get-Content -Path "$folder\$($file.File)"
                         if ($script -notlike '*`r`n*') {
                             $script.Replace('`n','`r`n')
-                            Set-Content -Path "$($this.DownloadPath)\$($file.Folder)\$($file.File)" -Value $script
+                            Set-Content -Path "$folder\$($file.File)" -Value $script
                         }
+                    }
+                    # Download ADK Installers
+                    if ($file.Name -eq "ADK" -or $file.Name -eq "WinPE") {
+                        Write-Verbose "   Download $($file.Name) installers..."
+                        Start-Process -FilePath "$folder\$($file.File)" -ArgumentList "/layout $Folder /norestart /quiet /ceip off" -Wait
+                    }
+                    # Unpack MDT hotfix
+                    if ($file.Name -eq "MDT_KB4564442") {
+                        Expand-Archive -Path "$folder\$($file.File)" -DestinationPath $folder
                     }
                 }
             }

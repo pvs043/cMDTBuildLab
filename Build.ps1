@@ -5,9 +5,10 @@ $moduleVersion  = "3.0.0"
 $releaseNotes  = "
 * Remove Windows 7/8.1/2012R2 deployments and prerequisites
 * Update download URLs for MDT
+* Add MDT Hotfix KB4564442 (Build: 6.3.8456.1001)
 * Update ADK (v.2004)
+* Download ADK installers (cMDTBuildLabPrereqs)
 * Update VC++ prerequisites (VC++ 2022)
-* Disable UEFI disk format at reference VM
 "
 $allResources   = @( Get-ChildItem -Path $PSScriptRoot\src\DSCResources\*.psm1 -ErrorAction SilentlyContinue -Recurse | Sort-Object)
 $allFunctions   = @( Get-ChildItem -Path $PSScriptRoot\src\Public\*.ps1 -ErrorAction SilentlyContinue -Recurse | Sort-Object)

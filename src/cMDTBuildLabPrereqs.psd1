@@ -8,6 +8,15 @@
             File   = "MicrosoftDeploymentToolkit_x64.msi"
         }
         @{
+            # MDT Hotfix KB4564442 (Build: 6.3.8456.1001)
+            Name   = MDT_KB4564442
+            # External URI
+            #URI    = "https://download.microsoft.com/download/3/0/6/306AC1B2-59BE-43B8-8C65-E141EF287A5E/KB4564442/MDT_KB4564442.exe"
+            URI    = "Sources\MDT_KB4564442.zip"
+            Folder = "MDT_KB4564442"
+            File   = "MDT_KB4564442.zip"
+        }
+        @{
             # Windows Assessment and Deployment Kit v.2004 (Build: 10.1.19041.1)
             Name   = "ADK"
             URI    = "https://download.microsoft.com/download/8/6/c/86c218f3-4349-4aa5-beba-d05e48bbc286/adk/adksetup.exe"
@@ -24,6 +33,7 @@
         @{
             # Install script for Visual C++ runtimes
             Name   = "VS++Application"
+            # External URIs
             #URI    = "https://raw.githubusercontent.com/DeploymentBunny/Files/master/Tools/Install-X86-X64-C%2B%2B/Install-MicrosoftVisualC%2B%2Bx86x64.wsf"
             #URI    = "https://github.com/pvs043/Files/blob/master/Tools/Install-X86-X64-C%2B%2B/Install-MicrosoftVisualC%2B%2Bx86x64.wsf"
             URI    = "Sources\Install-MicrosoftVisualCx86x64.wsf"
