@@ -10,7 +10,7 @@
         @{
             # MDT Hotfix KB4564442 (https://support.microsoft.com/help/4564442)
             # URI  = "https://download.microsoft.com/download/3/0/6/306AC1B2-59BE-43B8-8C65-E141EF287A5E/KB4564442/MDT_KB4564442.exe"
-            Name   = KB4564442
+            Name   = "KB4564442"
             URI    = "Sources\KB4564442.zip"
             Folder = "KB4564442"
             File   = "KB4564442.zip"
