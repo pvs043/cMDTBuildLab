@@ -57,7 +57,7 @@ class cMDTBuildPreReqs
                         Start-Process -FilePath "$folder\$($file.File)" -ArgumentList "/layout $Folder /norestart /quiet /ceip off" -Wait
                     }
                     # Unpack MDT hotfix
-                    if ($file.Name -eq "MDT_KB4564442") {
+                    if ($file.Name -eq "KB4564442") {
                         Expand-Archive -Path "$folder\$($file.File)" -DestinationPath $folder
                     }
                 }

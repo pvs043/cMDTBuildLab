@@ -45,9 +45,6 @@ The following prerequisites automatically downloaded with the cMDTBuildPreReqs D
 * [Visual C++ runtimes](https://support.microsoft.com/en-us/kb/2977003) - 2013,2015-2022
 
 If your MDT01 host does not have direct connection to Internet, run DSC configuration from Deploy\Download_MDT_Prereqs.ps1 at Windows machine connected to Internet.
-After completion of downloading:
-* Run E:\Source\ADK\adksetup.exe. Select E:\Source\ADK for download folder
-* Run E:\Source\WindowsPE\adkwinpesetup.exe. Select E:\Source\WindowsPE for download folder
 
 ## Quick start
 

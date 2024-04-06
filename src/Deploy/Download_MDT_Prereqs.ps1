@@ -50,20 +50,20 @@ Configuration DownloadMDTPrereqs
             DependsOn  = '[Package]ADK','[Package]WinPE'
         }
 
-        File MDT_KB4564442_x86
+        File KB4564442x86
         {
             Ensure          = "Present"
-            SourcePath      = "$($Node.SourcePath)\MDT_KB4564442\x86\microsoft.bdd.utility.dll"
+            SourcePath      = "$($Node.SourcePath)\KB4564442\x86\microsoft.bdd.utility.dll"
             DestinationPath = "%ProgramFiles%\Microsoft Deployment Toolkit\Templates\Distribution\Tools\x86\microsoft.bdd.utility.dll"
             Checksum        = "B2D4EF7C4AECB40932058A84DBDBF1BE94F8CC73FA08D4340EF57621A02C9594"
             Force           = $true
             DependsOn       = "[Package]MDT"
         }
 
-        File MDT_KB4564442_x64
+        File KB4564442x64
         {
             Ensure          = "Present"
-            SourcePath      = "$($Node.SourcePath)\MDT_KB4564442\x64\microsoft.bdd.utility.dll"
+            SourcePath      = "$($Node.SourcePath)\KB4564442\x64\microsoft.bdd.utility.dll"
             DestinationPath = "%ProgramFiles%\Microsoft Deployment Toolkit\Templates\Distribution\Tools\x64\microsoft.bdd.utility.dll"
             Checksum        = "06490CE4E094FC6A7D5B5170CECDE176CB87DD06FA615ED7481A4081FC3E1DC0"
             Force           = $true
