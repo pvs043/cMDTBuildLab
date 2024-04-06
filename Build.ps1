@@ -9,6 +9,7 @@ $releaseNotes  = "
 * Update ADK (v.2004)
 * Download ADK installers (cMDTBuildLabPrereqs)
 * Update VC++ prerequisites (VC++ 2022)
+* New design for AppVeyor tests
 "
 $allResources   = @( Get-ChildItem -Path $PSScriptRoot\src\DSCResources\*.psm1 -ErrorAction SilentlyContinue -Recurse | Sort-Object)
 $allFunctions   = @( Get-ChildItem -Path $PSScriptRoot\src\Public\*.ps1 -ErrorAction SilentlyContinue -Recurse | Sort-Object)
