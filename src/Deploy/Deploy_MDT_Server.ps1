@@ -59,6 +59,7 @@ Configuration DeployMDTServerContract
             ProductId  = "9346016b-6620-4841-8ea4-ad91d3ea02b5"
             Arguments  = "/Features OptionId.DeploymentTools /norestart /quiet /ceip off"
             ReturnCode = 0
+            DependsOn  = "[cMDTBuildPreReqs]MDTPreReqs"
         }
 
         Package WinPE {
@@ -68,6 +69,7 @@ Configuration DeployMDTServerContract
             ProductId  = "353df250-4ecc-4656-a950-4df93078a5fd"
             Arguments  = "/Features OptionId.WindowsPreinstallationEnvironment /norestart /quiet /ceip off"
             ReturnCode = 0
+            DependsOn  = "[cMDTBuildPreReqs]MDTPreReqs"
         }
 
         Package MDT {
@@ -76,6 +78,27 @@ Configuration DeployMDTServerContract
             Path       = "$($Node.SourcePath)\MDT\MicrosoftDeploymentToolkit_x64.msi"
             ProductId  = "2E6CD7B9-9D00-4B04-882F-E6971BC9A763"
             ReturnCode = 0
+            DependsOn  = "[cMDTBuildPreReqs]MDTPreReqs"
+        }
+
+        File MDT_KB4564442_x86
+        {
+            Ensure          = "Present"
+            SourcePath      = "$($Node.SourcePath)\MDT_KB4564442\x86\microsoft.bdd.utility.dll"
+            DestinationPath = "%ProgramFiles%\Microsoft Deployment Toolkit\Templates\Distribution\Tools\x86\microsoft.bdd.utility.dll"
+            Checksum        = "B2D4EF7C4AECB40932058A84DBDBF1BE94F8CC73FA08D4340EF57621A02C9594"
+            Force           = $true
+            DependsOn       = "[Package]MDT"
+        }
+
+        File MDT_KB4564442_x64
+        {
+            Ensure          = "Present"
+            SourcePath      = "$($Node.SourcePath)\MDT_KB4564442\x64\microsoft.bdd.utility.dll"
+            DestinationPath = "%ProgramFiles%\Microsoft Deployment Toolkit\Templates\Distribution\Tools\x64\microsoft.bdd.utility.dll"
+            Checksum        = "06490CE4E094FC6A7D5B5170CECDE176CB87DD06FA615ED7481A4081FC3E1DC0"
+            Force           = $true
+            DependsOn       = "[Package]MDT"
         }
 
         cMDTBuildDirectory DeploymentFolder {
@@ -549,7 +572,7 @@ $Cred = Get-Credential -UserName "SVCMDTConnect001" -Message "Enter password for
 
 #Get configuration data
 [hashtable]$ConfigurationData = Get-ConfigurationData -ConfigurationData "$PSScriptRoot\Deploy_MDT_Server_ConfigurationData.psd1"
-#[hashtable]$ConfigurationData = Get-ConfigurationData -ConfigurationData "$PSScriptRoot\Deploy_MDT_Server_ConfigurationData_Lite.psd1" # Only Windows 10 x86 Evaluation
+#[hashtable]$ConfigurationData = Get-ConfigurationData -ConfigurationData "$PSScriptRoot\Deploy_MDT_Server_ConfigurationData_Lite.psd1" # Only Windows 10 x64 Evaluation
 
 #Create DSC MOF job
 DeployMDTServerContract -OutputPath "$PSScriptRoot\MDT-Deploy_MDT_Server" -ConfigurationData $ConfigurationData -Credentials $Cred
