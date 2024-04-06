@@ -55,7 +55,7 @@ Configuration DownloadMDTPrereqs
             Ensure          = "Present"
             SourcePath      = "$($Node.SourcePath)\KB4564442\x86\microsoft.bdd.utility.dll"
             DestinationPath = "%ProgramFiles%\Microsoft Deployment Toolkit\Templates\Distribution\Tools\x86\microsoft.bdd.utility.dll"
-            Checksum        = "B2D4EF7C4AECB40932058A84DBDBF1BE94F8CC73FA08D4340EF57621A02C9594"
+            Checksum        = "SHA-256"
             Force           = $true
             DependsOn       = "[Package]MDT"
         }
@@ -65,7 +65,7 @@ Configuration DownloadMDTPrereqs
             Ensure          = "Present"
             SourcePath      = "$($Node.SourcePath)\KB4564442\x64\microsoft.bdd.utility.dll"
             DestinationPath = "%ProgramFiles%\Microsoft Deployment Toolkit\Templates\Distribution\Tools\x64\microsoft.bdd.utility.dll"
-            Checksum        = "06490CE4E094FC6A7D5B5170CECDE176CB87DD06FA615ED7481A4081FC3E1DC0"
+            Checksum        = "SHA-256"
             Force           = $true
             DependsOn       = "[Package]MDT"
         }
