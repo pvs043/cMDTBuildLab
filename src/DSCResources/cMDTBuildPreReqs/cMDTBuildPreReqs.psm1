@@ -53,7 +53,7 @@ class cMDTBuildPreReqs
                     }
                     # Download ADK Installers
                     if ($file.Name -eq "ADK" -or $file.Name -eq "WinPE") {
-                        Write-Verbose "   Download $($file.Name) installers..."
+                        Write-Verbose "      Download $($file.Name) installers..."
                         Start-Process -FilePath "$folder\$($file.File)" -ArgumentList "/layout $Folder /norestart /quiet /ceip off" -Wait
                     }
                     # Unpack MDT hotfix
