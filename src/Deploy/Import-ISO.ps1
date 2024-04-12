@@ -55,53 +55,32 @@ $destinations = @(
         Dest  = "Windows7x64"
     }
     @{
-        Name  = "Windows 8.1 Enterprise"
-        Lang  = "Russian"
-        Arch  = "x32"
-        Build = "84253"
-        Dest  = "Windows81x86"
-    }
-    @{
-        Name  = "Windows 8.1 Enterprise"
-        Lang  = "Russian"
-        Arch  = "x64"
-        Build = "84254"
-        Dest  = "Windows81x64"
-    }
-    @{
         Name  = "Windows 10 Enterprise"
         Lang  = "Russian"
         Arch  = "x32"
-        Build = "67560"
+        Build = "03151"
         Dest  = "Windows10x86"
     }
     @{
         Name  = "Windows 10 Enterprise"
         Lang  = "Russian"
         Arch  = "x64"
-        Build = "67561"
+        Build = "03152"
         Dest  = "Windows10x64"
-    }
-    @{
-        Name  = "Windows Server 2012 R2 SERVERSTANDARD"
-        Lang  = "English"
-        Arch  = "x64"
-        Build = "82891"
-        Dest  = "Windows2012R2"
     }
     @{
         Name  = "Windows Server 2016 SERVERSTANDARD"
         Lang  = "English"
         Arch  = "x64"
-        Build = "30350"
+        Build = "70526"
         Dest  = "Windows2016"
     }
     @{
-        Name  = "Windows Server 2016 SERVERDATACENTERACORE"
+        Name  = "Windows Server 2019 SERVERSTANDARD"
         Lang  = "English"
         Arch  = "x64"
-        Build = "49499"
-        Dest  = "Windows1709"
+        Build = "02970"
+        Dest  = "Windows2019"
     }
 )
 

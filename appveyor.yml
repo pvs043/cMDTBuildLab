@@ -1,8 +1,8 @@
 #---------------------------------#
 #      environment configuration  #
 #---------------------------------#
-version: 2.5.0.{build}
-image: WMF 5
+version: 3.0.0.{build}
+image: Visual Studio 2022
 
 #---------------------------------#
 #      install configuration      #
@@ -11,6 +11,11 @@ install:
     - ps: |
         Write-Host "Install prerequisites" -ForegroundColor Yellow
         $null = Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force -ErrorAction Stop
+        $module = "C:\Program Files\WindowsPowerShell\Modules\Pester"
+        $null = takeown /F $module /A /R
+        $null = icacls $module /reset
+        $null = icacls $module /grant "*S-1-5-32-544:F" /inheritance:d /T
+        $null = Remove-Item -Path $module -Recurse -Force -Confirm:$false
         Install-Module -Name PSScriptAnalyzer -Repository PSGallery -Force -ErrorAction Stop
         Install-Module -Name Pester -Repository PSGallery -Force -ErrorAction Stop
         Install-Module -Name xSmbShare -Repository PSGallery -Force -ErrorAction Stop
@@ -35,18 +40,14 @@ build_script:
         Write-Host "Build version : $env:APPVEYOR_BUILD_VERSION"
         Write-Host "Branch        : $env:APPVEYOR_REPO_BRANCH"
         Write-Host "Repo          : $env:APPVEYOR_REPO_NAME"
-        Write-Host "Running Build.ps1..." -ForegroundColor Yellow
+        Write-Host "Current dir   : $pwd"
+        Write-Host "Build cMDTBuildLab..." -ForegroundColor Yellow
         . .\Build.ps1
-    - copy .MetaTestOptIn.json ..\Build\cMDTBuildLab
+        Write-Host "...completed!" -ForegroundColor Green
     - cd ..\Build\cMDTBuildLab
-    - mkdir .git
-    - git clone https://github.com/PowerShell/DscResource.Tests
     - mkdir "%ProgramFiles%\WindowsPowerShell\Modules\cMDTBuildLab"
     - copy cMDTBuildLab.psm1 "%ProgramFiles%\WindowsPowerShell\Modules\cMDTBuildLab"
     - copy cMDTBuildLab.psd1 "%ProgramFiles%\WindowsPowerShell\Modules\cMDTBuildLab"
-    - ps: |
-        Import-Module -Name .\DscResource.Tests\TestHelper.psm1 -Force -ErrorAction Stop
-        Write-Host "...completed!" -ForegroundColor Green
 
 #---------------------------------#
 #      test configuration         #
@@ -54,8 +55,17 @@ build_script:
 test_script:
     - ps: |
         Write-Host "Running Test script" -ForegroundColor Yellow
-        $testResultsFile = ".\TestsResults.xml"
-        $res = Invoke-Pester -ExcludeTag 'Markdown','Examples' -OutputFormat NUnitXml -OutputFile $testResultsFile -PassThru
+        Import-Module Pester
+        $BuildDir = 'C:\Projects\Build\cMDTBuildLab'
+        $testResultsFile = "$BuildDir\TestsResults.xml"
+        $config = [PesterConfiguration]::Default
+        $config.TestResult.Enabled = $true
+        $config.TestResult.OutputPath = $testResultsFile
+        $config.Output.Verbosity = 'Detailed'
+        $config.Run.PassThru = $true
+        $config.Run.Path = "$BuildDir\Tests\cMDTBuildLab.tests.ps1"
+
+        $res = Invoke-Pester -Configuration $config
         $URI = "https://ci.appveyor.com/api/testresults/nunit/$($env:APPVEYOR_JOB_ID)"
         $WC  = New-Object 'System.Net.WebClient'
         Write-Host "About to upload file: $(Resolve-Path $testResultsFile)"

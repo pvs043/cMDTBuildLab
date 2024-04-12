@@ -43,15 +43,15 @@
             )
 
             PackagesFolderStructure = @(
-                @{ Folder = "Windows 10 x86" }
+                @{ Folder = "Windows 10 x64" }
             )
 
             #Operating systems to import to MDT
             OperatingSystems   = @(
                 @{
-                    Name       = "Windows 10 x86"
+                    Name       = "Windows 10 x64"
                     Path       = "Windows 10"
-                    SourcePath = "Windows10x86"
+                    SourcePath = "Windows10x64"
                 }
             )
 
@@ -86,21 +86,21 @@
             #Selection profile creation
             SelectionProfiles  = @(
                 @{
-                    Name        = "Windows 10 x86"
-                    Comments    = "Packages for Windows 10 x86"
-                    IncludePath = "Packages\Windows 10 x86"
+                    Name        = "Windows 10 x64"
+                    Comments    = "Packages for Windows 10 x64"
+                    IncludePath = "Packages\Windows 10 x64"
                 }
             )
 
             #Task sqeuences; are dependent on imported Operating system and Applications in MDT
             TaskSequences   = @(
                 @{
-                    Name     = "Windows 10 x86"
+                    Name     = "Windows 10 x64"
                     Path     = "Windows 10"
-                    OSName   = "Windows 10\Windows 10 Enterprise Evaluation in Windows 10 x86 install.wim"
+                    OSName   = "Windows 10\Windows 10 Enterprise Evaluation in Windows 10 x64 install.wim"
                     OrgName  = "BuildLab"
                     Template = "Client.xml"
-                    ID       = "REFW10X86-001"
+                    ID       = "REFW10X64-001"
                     Customize = @(
                         # Set Product Key needed for MSDN/Evalution Windows distributives only. Skip this step if your ISO sources is VLCS.
                         @{
@@ -111,11 +111,21 @@
                             TSVarName   = "ProductKey"
                             TSVarValue  = "NPPR9-FWDCX-D2C8J-H872K-2YT43"
                         }
+                        # Workaround for disable UEFI disk format
+                        @{
+                            Name        = "Disable UEFI"
+                            Type        = "Set Task Sequence Variable"
+                            GroupName   = "Preinstall"
+                            Description = "Disable UEFI disk format"
+                            TSVarName   = "IsUEFI"
+                            TSVarValue  = "False"
+                            AddAfter    = "Gather local only"
+                        }
                         @{
                             Name             = "Apply Patches"
                             Type             = "Install Updates Offline"
                             GroupName        = "Preinstall"
-                            SelectionProfile = "Windows 10 x86"
+                            SelectionProfile = "Windows 10 x64"
                         }
                         @{
                             Name       = "Windows Update (Pre-Application Installation)"
@@ -258,7 +268,7 @@
                     Name           = "CustomSettingsIni"
                     Path           = "\Control\CustomSettings.ini"
                     Company        = "Build Lab"
-                    TimeZoneName   = "Ekaterinburg Standard Time"
+                    TimeZoneName   = "Russian Standard Time"
                     WSUSServer     = "http://fqdn:port"
                     UserLocale     = "en-US"
                     KeyboardLocale = "en-US;ru-RU"

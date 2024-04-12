@@ -64,15 +64,15 @@ class cMDTBuildPackage
                 [string]$PSDriveName,
                 [string]$PSDrivePath,
                 [string]$Path,
-                [string]$Source
+                [string]$PackageSource
             )
             InlineScript {
                 Import-MDTModule
                 New-PSDrive -Name $Using:PSDriveName -PSProvider "MDTProvider" -Root $Using:PSDrivePath -Verbose:$false
-                Import-MDTPackage -Path $Using:Path -SourcePath $Using:Source -Verbose
+                Import-MDTPackage -Path $Using:Path -SourcePath $Using:PackageSource -Verbose
             }
         }
-        Import-Pkg $this.PSDriveName $this.PSDrivePath $this.Path $this.PackageSourcePath
+        Import-Pkg -PSDriveName $this.PSDriveName -PSDrivePath $this.PSDrivePath -Path $this.Path -PackageSource $this.PackageSourcePath
     }
 }
 

@@ -25,18 +25,20 @@ Configuration DownloadMDTPrereqs
             Ensure     = "Present"
             Name       = "Windows Assessment and Deployment Kit - Windows 10"
             Path       = "$($Node.SourcePath)\ADK\adksetup.exe"
-            ProductId  = "3dec9467-d9ad-42df-8e84-888057bac8f1"
+            ProductId  = "9346016b-6620-4841-8ea4-ad91d3ea02b5"
             Arguments  = "/Features OptionId.DeploymentTools /norestart /quiet /ceip off"
             ReturnCode = 0
+            DependsOn  = "[cMDTBuildPreReqs]MDTPreReqs"
         }
 
         Package WinPE {
             Ensure     = "Present"
             Name       = "Windows Assessment and Deployment Kit Windows Preinstallation Environment Add-ons - Windows 10"
             Path       = "$($Node.SourcePath)\WindowsPE\adkwinpesetup.exe"
-            ProductId  = "d5163028-7863-4874-9e37-2284427b76fb"
+            ProductId  = "353df250-4ecc-4656-a950-4df93078a5fd"
             Arguments  = "/Features OptionId.WindowsPreinstallationEnvironment /norestart /quiet /ceip off"
             ReturnCode = 0
+            DependsOn  = "[cMDTBuildPreReqs]MDTPreReqs"
         }
 
         Package MDT {
@@ -45,6 +47,27 @@ Configuration DownloadMDTPrereqs
             Path       = "$($Node.SourcePath)\MDT\MicrosoftDeploymentToolkit_x64.msi"
             ProductId  = "2E6CD7B9-9D00-4B04-882F-E6971BC9A763"
             ReturnCode = 0
+            DependsOn  = '[Package]ADK','[Package]WinPE'
+        }
+
+        File KB4564442x86
+        {
+            Ensure          = "Present"
+            SourcePath      = "$($Node.SourcePath)\KB4564442\x86\microsoft.bdd.utility.dll"
+            DestinationPath = "%ProgramFiles%\Microsoft Deployment Toolkit\Templates\Distribution\Tools\x86\microsoft.bdd.utility.dll"
+            Checksum        = "SHA-256"
+            Force           = $true
+            DependsOn       = "[Package]MDT"
+        }
+
+        File KB4564442x64
+        {
+            Ensure          = "Present"
+            SourcePath      = "$($Node.SourcePath)\KB4564442\x64\microsoft.bdd.utility.dll"
+            DestinationPath = "%ProgramFiles%\Microsoft Deployment Toolkit\Templates\Distribution\Tools\x64\microsoft.bdd.utility.dll"
+            Checksum        = "SHA-256"
+            Force           = $true
+            DependsOn       = "[Package]MDT"
         }
 #>
     }

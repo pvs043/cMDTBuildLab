@@ -1,13 +1,15 @@
 $moduleName     = "cMDTBuildLab"
 $moduleGuid     = "df45de26-88b1-4a95-98af-b798fde1424f"
 $year           = (Get-Date).Year
-$moduleVersion  = "2.5.0"
+$moduleVersion  = "3.0.0"
 $releaseNotes  = "
-* Add CreateISOx64 parameter for cMDTBuildUpdateBootImage resource. Default is false
-* Add support to Domain\User credentials for access to MDT share
-* Remove Windows 8.1 and Windows 2012 R2 deploy from main configuration. Old config saved in Deploy_MDT_Server_ConfigurationData_Archived.psd1
-* Update Servicing stack update for Windows 7 SP1 (KB4490628). Make changes at your configuration file (Deploy_MDT_Server_ConfigurationData.psd1) and delete KB3177467 folders at E:\Source
-* Update script for remove default Windows 10 apps. Remove E:\Source\RemoveDefaultApps before upgrade
+* Remove Windows 7/8.1/2012R2 deployments and prerequisites
+* Update download URLs for MDT
+* Add MDT Hotfix KB4564442 (Build: 6.3.8456.1001)
+* Update ADK (v.2004)
+* Download ADK installers (cMDTBuildLabPrereqs)
+* Update VC++ prerequisites (VC++ 2022)
+* New design for AppVeyor tests
 "
 $allResources   = @( Get-ChildItem -Path $PSScriptRoot\src\DSCResources\*.psm1 -ErrorAction SilentlyContinue -Recurse | Sort-Object)
 $allFunctions   = @( Get-ChildItem -Path $PSScriptRoot\src\Public\*.ps1 -ErrorAction SilentlyContinue -Recurse | Sort-Object)
@@ -93,7 +95,7 @@ Description = 'A DSC Module to help automize deployment Windows Reference Images
 HelpInfoURI = 'https://github.com/pvs043/cMDTBuildLab/wiki'
 
 # Minimum version of the Windows PowerShell engine required by this module
-PowerShellVersion = '5.0'
+PowerShellVersion = '5.1'
 
 # Modules that must be imported into the global environment prior to importing this module
 RequiredModules = @('cNtfsAccessControl',
